@@ -6,7 +6,7 @@ let userAnswers = [];
 
 let timerInterval;
 
-let remainingTime = 10 * 60; // 10 minutes
+let remainingTime = 20 * 60; // 10 minutes
 
 let fullName = "";
 
