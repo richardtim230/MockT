@@ -1,4 +1,4 @@
-const validUserIDs = ["USER123", "TEST456"]; // Valid user IDs
+const validUserIDs = ["59UD2L", "2WN6FP", "CEIJ7E", "3IV4RI", "BSIZTQ", "K3RBVK", "XR0QEV", "J2DTAN", "ZKWN3U", "9UR3N6", "KNNP24", "3XHF8Z", "R7F0YO", "GIY77W", "FB32H6", "X64SH5"]; // Valid user IDs
 
 let currentQuestionIndex = 0;
 
