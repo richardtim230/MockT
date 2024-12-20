@@ -577,10 +577,10 @@ async function generatePDF() {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(24);
     doc.setTextColor(headingTextColor);
-    doc.text("Modern Exam Academy", pageWidth / 2, 40, { align: "center" });
+    doc.text("OAU STUDENTS SUPPORT SYSTEM", pageWidth / 2, 40, { align: "center" });
 
     doc.setFontSize(18);
-    doc.text("Mathematics Final Exam", pageWidth / 2, 70, { align: "center" });
+    doc.text("CHM101 MOCK EXAMINATION", pageWidth / 2, 70, { align: "center" });
 
     // Candidate Details Section
     doc.setFontSize(16);
