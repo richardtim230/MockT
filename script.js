@@ -245,7 +245,6 @@ const questions = [
         answers: ["Ca", "K", "Be", "Na"],
         correct: "Na"
     }, 
-[
     {
         question: "When 20 g of Li reacts with 30 g of oxygen to form Li₂O, which of the reagents is in excess and by how much?",
         answers: ["Oxygen, by 13.00 g", "Oxygen, by 7.00 g", "Lithium, by 13.00 g", "Lithium, by 7.00 g"],
