@@ -1,398 +1,192 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Untitled</title>
-  
-
+  <title>Exam Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Global Styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        color: #333;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .hidden {
+        display: none !important;
+    }
+    .container {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 700px;
+    }
+    h1, h2 {
+        color: #333;
+        margin-bottom: 25px;
+    }
+    .input-field {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+    .styled-btn {
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        color: white;
+        padding: 12px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 10px 0;
+        transition: transform 0.2s ease-in-out;
+    }
+    .styled-btn:hover {
+        transform: scale(1.05);
+    }
+    /* Header Styles */
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .header h1 {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+    .header p {
+        font-size: 16px;
+        color: #555;
+    }
+    /* Content Styles */
+    .content {
+        margin-bottom: 30px;
+        text-align: left;
+    }
+    .content h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    .answer-btn {
+        background: linear-gradient(135deg, #2193b0, #6dd5ed);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        margin: 10px 0;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 100%;
+        text-align: left;
+        transition: all 0.3s ease;
+    }
+    .answer-btn:hover {
+        background: linear-gradient(135deg, #6dd5ed, #2193b0);
+    }
+    .answer-btn.selected {
+        background: #28a745;
+        color: white;
+        font-weight: bold;
+        border: 2px solid #1e7e34;
+    }
+    /* Footer Styles */
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .button-group {
+        display: flex;
+        gap: 10px;
+    }
+    .progress-bar-container {
+        background-color: #eee;
+        border-radius: 8px;
+        height: 10px;
+        width: 100%;
+        margin: 10px 0;
+        overflow: hidden;
+    }
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        width: 0;
+        transition: width 0.3s ease-in-out;
+    }
+    #timer {
+        font-size: 16px;
+        color: #333;
+        font-weight: bold;
+    }
+    #results-section p {
+        margin: 10px 0;
+        line-height: 1.5;
+    }
+    /* Button Styles */
+    .pdf-btn {
+        background: linear-gradient(135deg, #6dd5ed, #2193b0);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    .pdf-btn:hover {
+        background: linear-gradient(135deg, #2193b0, #6dd5ed);
+    }
+  </style>
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Exam Platform</title>
-
-    <style>
-
-        /* Global Styles */
-
-        * {
-
-            box-sizing: border-box;
-
-            margin: 0;
-
-            padding: 0;
-
-        }
-
-        body {
-
-            font-family: 'Poppins', sans-serif;
-
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-
-            color: #333;
-
-            padding: 20px;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            min-height: 100vh;
-
-        }
-
-        .hidden {
-
-            display: none !important;
-
-        }
-
-        .container {
-
-            background: white;
-
-            padding: 40px 30px;
-
-            border-radius: 12px;
-
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-
-            width: 100%;
-
-            max-width: 700px;
-
-        }
-
-        h1, h2 {
-
-            color: #333;
-
-            margin-bottom: 25px;
-
-        }
-
-        .input-field {
-
-            width: 100%;
-
-            padding: 12px;
-
-            margin-bottom: 20px;
-
-            border: 1px solid #ccc;
-
-            border-radius: 8px;
-
-            font-size: 16px;
-
-        }
-
-        .styled-btn {
-
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-
-            color: white;
-
-            padding: 12px 25px;
-
-            font-size: 16px;
-
-            border: none;
-
-            border-radius: 8px;
-
-            cursor: pointer;
-
-            margin: 10px 0;
-
-            transition: transform 0.2s ease-in-out;
-
-        }
-
-        .styled-btn:hover {
-
-            transform: scale(1.05);
-
-        }
-
-        /* Header Styles */
-
-        .header {
-
-            text-align: center;
-
-            margin-bottom: 20px;
-
-        }
-
-        .header h1 {
-
-            font-size: 24px;
-
-            margin-bottom: 5px;
-
-        }
-
-        .header p {
-
-            font-size: 16px;
-
-            color: #555;
-
-        }
-
-        /* Content Styles */
-
-        .content {
-
-            margin-bottom: 30px;
-
-            text-align: left;
-
-        }
-
-        .content h2 {
-
-            font-size: 18px;
-
-            margin-bottom: 15px;
-
-        }
-
-        .answer-btn {
-
-            background: linear-gradient(135deg, #2193b0, #6dd5ed);
-
-            color: white;
-
-            border: none;
-
-            padding: 10px 15px;
-
-            font-size: 16px;
-
-            margin: 10px 0;
-
-            cursor: pointer;
-
-            border-radius: 8px;
-
-            width: 100%;
-
-            text-align: left;
-
-            transition: all 0.3s ease;
-
-        }
-
-        .answer-btn:hover {
-
-            background: linear-gradient(135deg, #6dd5ed, #2193b0);
-
-        }
-
-        .answer-btn.selected {
-
-            background: #28a745;
-
-            color: white;
-
-            font-weight: bold;
-
-            border: 2px solid #1e7e34;
-
-        }
-
-        /* Footer Styles */
-
-        .footer {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            flex-wrap: wrap;
-
-        }
-
-        .button-group {
-
-            display: flex;
-
-            gap: 10px;
-
-        }
-
-        .progress-bar-container {
-
-            background-color: #eee;
-
-            border-radius: 8px;
-
-            height: 10px;
-
-            width: 100%;
-
-            margin: 10px 0;
-
-            overflow: hidden;
-
-        }
-
-        .progress-bar {
-
-            height: 100%;
-
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-
-            width: 0;
-
-            transition: width 0.3s ease-in-out;
-
-        }
-
-        #timer {
-
-            font-size: 16px;
-
-            color: #333;
-
-            font-weight: bold;
-
-        }
-
-        #results-section p {
-
-            margin: 10px 0;
-
-            line-height: 1.5;
-
-        }
-
-        /* Button Styles */
-
-        .pdf-btn {
-
-            background: linear-gradient(135deg, #6dd5ed, #2193b0);
-
-            color: white;
-
-            padding: 10px 20px;
-
-            border: none;
-
-            border-radius: 8px;
-
-            cursor: pointer;
-
-        }
-
-        .pdf-btn:hover {
-
-            background: linear-gradient(135deg, #2193b0, #6dd5ed);
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-    <!-- Authentication Section -->
-
-    <div id="auth-section" class="container">
-
-        <h2>Login</h2>
-
-        <input type="text" id="fullName" placeholder="Enter Full Name" class="input-field">
-
-        <input type="text" id="userID" placeholder="Enter User ID" class="input-field">
-
-        <button id="loginBtn" class="styled-btn">Login</button>
-
-    </div>
-
-    <!-- Exam Section -->
-
-    <div id="exam-section" class="container hidden">
-
-        <div class="header">
-
-            <h1 id="exam-title">Mathematics Final Exam</h1>
-
-            <p id="user-details">Candidate: Full Name</p>
-
-        </div>
-
-        <div class="content">
-
-            <h2 id="question-title">Question will appear here</h2>
-
-            <div id="answer-options"></div>
-
-        </div>
-
-        <div class="footer">
-
-            <div class="button-group">
-
-                <button id="prevBtn" class="styled-btn hidden">Previous</button>
-
-                <button id="nextBtn" class="styled-btn">Next</button>
-
-                <button id="submitBtn" class="styled-btn hidden">Submit</button>
-
-            </div>
-
-            <div class="progress-bar-container">
-
-                <div class="progress-bar"></div>
-
-            </div>
-
-            <div id="timer">Time Remaining: 10:00</div>
-
-        </div>
-
-    </div>
-
-    <!-- Results Section -->
-
-    <div id="results-section" class="container hidden">
-
-        <h2>Exam Results</h2>
-
-        <div id="results-content"></div>
-
-        <button id="downloadPDF" class="pdf-btn">Download Results as PDF</button>
-
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <script src="script.js"></script>
-
-</body>
-
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
-
+  <!-- Authentication Section -->
+  <div id="auth-section" class="container">
+      <h2>Login</h2>
+      <input type="text" id="fullName" placeholder="Enter Full Name" class="input-field">
+      <input type="text" id="userID" placeholder="Enter User ID" class="input-field">
+      <button id="loginBtn" class="styled-btn">Login</button>
+  </div>
+  <!-- Exam Section -->
+  <div id="exam-section" class="container hidden">
+      <div class="header">
+          <h1 id="exam-title">CHM101 MOCK EXAMINATION</h1>
+          <p id="user-details">Candidate: Full Name</p>
+      </div>
+      <div class="content">
+          <h2 id="question-title">Question will appear here</h2>
+          <div id="answer-options"></div>
+      </div>
+      <div class="footer">
+          <div class="button-group">
+              <button id="prevBtn" class="styled-btn hidden">Previous</button>
+              <button id="nextBtn" class="styled-btn">Next</button>
+              <button id="submitBtn" class="styled-btn hidden">Submit</button>
+          </div>
+          <div class="progress-bar-container">
+              <div class="progress-bar"></div>
+          </div>
+          <div id="timer">Time Remaining: 10:00</div>
+      </div>
+  </div>
+  <!-- Results Section -->
+  <div id="results-section" class="container hidden">
+      <h2>Exam Results</h2>
+      <div id="results-content"></div>
+      <button id="downloadPDF" class="pdf-btn">Download Results as PDF</button>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
