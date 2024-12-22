@@ -615,9 +615,12 @@ async function generatePDF() {
         doc.setFontSize(16);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(textColor);
-        doc.text(`${i + 1}. ${q.question}`, leftMargin, yOffset);
 
-        yOffset += 20;
+        // Wrap the question text to fit within the page width
+        const questionText = doc.splitTextToSize(`${i + 1}. ${q.question}`, pageWidth - leftMargin * 2);
+        doc.text(questionText, leftMargin, yOffset);
+
+        yOffset += questionText.length * 10; // Adjust yOffset based on text length
 
         // User Answer
         doc.setFontSize(14);
