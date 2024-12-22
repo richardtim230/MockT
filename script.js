@@ -562,89 +562,100 @@ async function generatePDF() {
 
     // Colors
     const headerBackground = "#4A90E2";
-    const bodyBackground = "#ffffff";
-    const questionBackground = "#f4f4f9";
+    const bodyBackground = "#f9f9f9";
+    const questionBackground = "#ffffff";
     const correctAnswerColor = "#28a745";
     const userAnswerColor = "#6c757d";
     const incorrectAnswerColor = "#dc3545";
     const textColor = "#333";
     const headingTextColor = "#ffffff";
 
+    // Margins and padding
+    const leftMargin = 40;
+    const rightMargin = 40;
+    const topMargin = 50;
+    const lineHeight = 20;
+    const sectionSpacing = 30;
+
+    let yOffset = topMargin;
+
     // Header Section
     doc.setFillColor(headerBackground);
-    doc.rect(0, 0, pageWidth, 100, "F");
+    doc.rect(0, 0, pageWidth, 80, "F");
 
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(24);
+    doc.setFontSize(22);
     doc.setTextColor(headingTextColor);
     doc.text("OAU STUDENTS SUPPORT SYSTEM", pageWidth / 2, 40, { align: "center" });
 
     doc.setFontSize(18);
-    doc.text("CHM101 MOCK EXAMINATION", pageWidth / 2, 70, { align: "center" });
+    doc.text("CHM101 MOCK EXAMINATION", pageWidth / 2, 65, { align: "center" });
+
+    yOffset += 80;
 
     // Candidate Details Section
     doc.setFontSize(16);
+    doc.setFont("helvetica", "normal");
     doc.setTextColor(textColor);
-    doc.text(`Candidate: ${fullName}`, 20, 120);
-    doc.text(`Exam Date: ${new Date().toLocaleDateString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    })}`, 20, 140);
+    doc.text(`Candidate: ${fullName}`, leftMargin, yOffset);
+    yOffset += lineHeight;
+    doc.text(
+        `Exam Date: ${new Date().toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        })}`,
+        leftMargin,
+        yOffset
+    );
 
-    // Body Background
+    yOffset += sectionSpacing;
+
+    // Body Section Background
     doc.setFillColor(bodyBackground);
-    doc.rect(0, 150, pageWidth, pageHeight - 200, "F");
+    doc.rect(0, yOffset - 20, pageWidth, pageHeight - yOffset, "F");
 
     // Questions and Answers Section
-    let yOffset = 190;
-    const questionPadding = 40;
-    const leftMargin = 30;
-    const questionGap = 40;
-
     questions.forEach((q, i) => {
-        const userAnswer = userAnswers[i] || "Not Answered";
-        const isCorrect = userAnswer === q.correct;
-
-        // Question Background
-        doc.setFillColor(questionBackground);
-        doc.roundedRect(leftMargin - 10, yOffset - 10, pageWidth - leftMargin * 2 + 20, 60, 5, 5, "F");
-
-        // Question
-        doc.setFontSize(16);
-        doc.setFont("helvetica", "bold");
-        doc.setTextColor(textColor);
-
-        // Wrap the question text to fit within the page width
-        const questionText = doc.splitTextToSize(`${i + 1}. ${q.question}`, pageWidth - leftMargin * 2);
-        doc.text(questionText, leftMargin, yOffset);
-
-        yOffset += questionText.length * 10; // Adjust yOffset based on text length
-
-        // User Answer
-        doc.setFontSize(14);
-        doc.setFont("helvetica", "normal");
-        doc.setTextColor(userAnswerColor);
-        doc.text(`Your Answer:`, leftMargin, yOffset);
-        doc.setTextColor(isCorrect ? correctAnswerColor : incorrectAnswerColor);
-        doc.text(userAnswer, leftMargin + 90, yOffset);
-
-        yOffset += 20;
-
-        // Correct Answer
-        doc.setTextColor(userAnswerColor);
-        doc.text(`Correct Answer:`, leftMargin, yOffset);
-        doc.setTextColor(correctAnswerColor);
-        doc.text(q.correct, leftMargin + 110, yOffset);
-
-        yOffset += questionGap;
-
-        // Add new page if necessary
         if (yOffset > pageHeight - 100) {
             doc.addPage();
-            yOffset = 40;
+            yOffset = topMargin;
         }
+
+        // Question Section
+        doc.setFillColor(questionBackground);
+        doc.roundedRect(leftMargin - 10, yOffset - 10, pageWidth - leftMargin - rightMargin + 20, 80, 5, 5, "F");
+
+        // Question Text
+        doc.setFontSize(14);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(textColor);
+        const questionText = doc.splitTextToSize(`${i + 1}. ${q.question}`, pageWidth - leftMargin - rightMargin);
+        doc.text(questionText, leftMargin, yOffset);
+        yOffset += questionText.length * lineHeight;
+
+        // User Answer Section
+        yOffset += 10; // Add padding between question and answers
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+        doc.setTextColor(userAnswerColor);
+        doc.text(`Your Answer:`, leftMargin, yOffset);
+
+        doc.setTextColor(q.correct === userAnswers[i] ? correctAnswerColor : incorrectAnswerColor);
+        const userAnswer = doc.splitTextToSize(userAnswers[i] || "Not Answered", pageWidth - leftMargin - rightMargin);
+        doc.text(userAnswer, leftMargin + 100, yOffset);
+        yOffset += userAnswer.length * lineHeight;
+
+        // Correct Answer Section
+        yOffset += 5; // Slight padding between user and correct answers
+        doc.setTextColor(userAnswerColor);
+        doc.text(`Correct Answer:`, leftMargin, yOffset);
+
+        doc.setTextColor(correctAnswerColor);
+        const correctAnswer = doc.splitTextToSize(q.correct, pageWidth - leftMargin - rightMargin);
+        doc.text(correctAnswer, leftMargin + 120, yOffset);
+        yOffset += correctAnswer.length * lineHeight + sectionSpacing; // Add spacing between questions
     });
 
     // Results Section
@@ -653,22 +664,20 @@ async function generatePDF() {
 
     if (yOffset > pageHeight - 100) {
         doc.addPage();
-        yOffset = 40;
+        yOffset = topMargin;
     }
 
-    doc.setFontSize(20);
+    doc.setFontSize(18);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(textColor);
-    doc.text(`Final Results:`, pageWidth / 2, yOffset, { align: "center" });
+    doc.text(`Final Results`, pageWidth / 2, yOffset, { align: "center" });
+    yOffset += lineHeight;
 
-    yOffset += 30;
-
-    doc.setFontSize(18);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "normal");
     doc.text(`Total Correct: ${correctCount}`, pageWidth / 2, yOffset, { align: "center" });
+    yOffset += lineHeight;
 
-    yOffset += 20;
-
-    doc.setFontSize(18);
     doc.text(`Overall Percentage: ${scorePercentage}%`, pageWidth / 2, yOffset, { align: "center" });
 
     // Footer Section
