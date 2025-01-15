@@ -7,7 +7,7 @@ const validUserIDs = [
 let currentQuestionIndex = 0;
 let userAnswers = [];
 let timerInterval;
-let remainingTime = 20 * 60; // 20 minutes
+let remainingTime = 30 * 60; // 20 minutes
 let fullName = "";
 let userID = "";
 let selectedCourseCode = "";
