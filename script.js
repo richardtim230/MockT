@@ -589,7 +589,7 @@ async function generatePDF() {
     doc.text("OAU STUDENTS SUPPORT SYSTEM", pageWidth / 2, 40, { align: "center" });
 
     doc.setFontSize(18);
-    doc.text("CHM101 MOCK EXAMINATION", pageWidth / 2, 65, { align: "center" });
+    doc.text("ZOO101 MOCK EXAMINATION", pageWidth / 5, 100, { align: "center" });
 
     yOffset += 80;
 
@@ -625,10 +625,10 @@ async function generatePDF() {
 
         // Question Section
         doc.setFillColor(questionBackground);
-        doc.roundedRect(leftMargin - 10, yOffset - 10, pageWidth - leftMargin - rightMargin + 20, 80, 5, 5, "F");
+        doc.roundedRect(leftMargin - 10, yOffset - 10, pageWidth - leftMargin - rightMargin + 20, 100, 5, 5, "F");
 
         // Question Text
-        doc.setFontSize(14);
+        doc.setFontSize(10);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(textColor);
         const questionText = doc.splitTextToSize(`${i + 1}. ${q.question}`, pageWidth - leftMargin - rightMargin);
@@ -638,7 +638,7 @@ async function generatePDF() {
         // User Answer Section
         yOffset += 10; // Add padding between question and answers
         doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
+        doc.setFontSize(9);
         doc.setTextColor(userAnswerColor);
         doc.text(`Your Answer:`, leftMargin, yOffset);
 
