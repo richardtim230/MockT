@@ -186,12 +186,14 @@
           <div id="timer">Time Remaining: 10:00</div>
       </div>
   </div>
-  <!-- Results Section -->
-  <div id="results-section" class="container hidden">
-      <h2>Exam Results</h2>
-      <div id="results-content"></div>
-      <button id="downloadPDF" class="pdf-btn">Download Results as PDF</button>
-  </div>
+<!-- Results Section -->
+<div id="results-section" class="container hidden">
+    <h2>Exam Results</h2>
+    <div id="results-summary"></div> <!-- Added for performance report -->
+    <div id="results-content"></div>
+    <button id="downloadPDF" class="pdf-btn">Download Results as PDF</button>
+</div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js"></script>
 </body>
