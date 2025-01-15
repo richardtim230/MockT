@@ -102,6 +102,59 @@
         font-weight: bold;
         border: 2px solid #1e7e34;
     }
+    /* Blog Section Styling */
+.blog-section {
+  margin-top: 20px;
+  padding: 20px;
+  border-top: 2px solid #ddd;
+}
+
+.blog-section h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.instructions ul {
+  list-style: disc inside;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.instructions ul li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.examiner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.examiner-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.examiner-img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.examiner-info p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
     /* Footer Styles */
     .footer {
         display: flex;
@@ -164,6 +217,38 @@
       <input type="text" id="courseCode" placeholder="Enter Course Code (e.g., BIO101)" class="input-field">
       <button id="selectCourseBtn" class="styled-btn">Start Exam</button>
   </div>
+
+  <!-- Blog Section -->
+<div class="blog-section">
+  <div class="instructions">
+    <h3>Exam Instructions</h3>
+    <ul>
+      <li>You have a maximum of 20 minutes to complete the exam.</li>
+      <li>Ensure you select the correct answers for each question before proceeding.</li>
+      <li>Each session displays 50 randomized questions from the question bank.</li>
+      <li>Review your answers before submitting, as changes cannot be made afterward.</li>
+      <li>Good luck with your exam!</li>
+    </ul>
+  </div>
+  <div class="examiner-info">
+    <h3>About the Examiner</h3>
+    <div class="examiner-content">
+      <img
+        src="https://via.placeholder.com/150" 
+        alt="Examiner Image" 
+        class="examiner-img"
+      />
+      <p>
+        <strong>Dr. Jane Doe</strong> is an experienced educator and subject matter 
+        expert in <em>Biology</em> and <em>Chemistry</em>. With over 15 years of 
+        teaching and research experience, she has prepared this exam to assess 
+        your understanding of core concepts in the subject. If you have any 
+        questions, reach out to the administration desk before starting the exam.
+      </p>
+    </div>
+  </div>
+</div>
+
   <!-- Exam Section -->
   <div id="exam-section" class="container hidden">
       <div class="header">
