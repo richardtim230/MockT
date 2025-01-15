@@ -627,6 +627,7 @@ const progressBar = document.querySelector(".progress-bar");
 const timerElement = document.getElementById("timer");
 const userDetails = document.getElementById("user-details");
 const resultsContent = document.getElementById("results-content");
+const resultsSummary = document.getElementById("results-summary");
 const downloadPDF = document.getElementById("downloadPDF");
 
 // Authentication
@@ -661,15 +662,21 @@ selectCourseBtn.addEventListener("click", () => {
   }
 
   selectedCourseCode = courseCodeInput;
-  questions = questionBanks[selectedCourseCode]; // Load questions for selected course
+  questions = shuffleArray(questionBanks[selectedCourseCode]).slice(0, 50); // Randomize and limit to 50 questions
 
   courseCodeSection.classList.add("hidden");
   initializeExam();
 });
 
+// Shuffle questions randomly
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
 // Initialize Exam
 function initializeExam() {
   userDetails.textContent = `Candidate: ${fullName} | Course: ${selectedCourseCode}`;
+  startTime = Date.now();
   loadQuestion();
   startTimer();
   examSection.classList.remove("hidden");
@@ -763,10 +770,25 @@ submitBtn.addEventListener("click", submitExam);
 
 function submitExam() {
   clearInterval(timerInterval); // Stop the timer
-  examSection.classList.add("hidden");
-  resultsSection.classList.remove("hidden");
+  const endTime = Date.now();
+  const timeSpent = (endTime - startTime) / 1000; // Total time spent in seconds
+  const avgTimePerQuestion = (timeSpent / questions.length).toFixed(2);
 
-  // Display Results
+  // Performance Report
+  const totalAnswered = userAnswers.filter(answer => answer !== undefined).length;
+  const totalNotAnswered = questions.length - totalAnswered;
+  const totalCorrect = questions.filter((q, i) => userAnswers[i] === q.correct).length;
+  const scorePercent = ((totalCorrect / questions.length) * 100).toFixed(2);
+
+  resultsSummary.innerHTML = `
+    <p><strong>Performance Report:</strong></p>
+    <p>Total Questions Answered: ${totalAnswered}</p>
+    <p>Total Questions Not Answered: ${totalNotAnswered}</p>
+    <p>Score: ${totalCorrect} / ${questions.length} (${scorePercent}%)</p>
+    <p>Average Time Spent per Question: ${avgTimePerQuestion} seconds</p>
+  `;
+
+  // Results Content
   resultsContent.innerHTML = questions.map((q, i) => {
     const userAnswerIdx = userAnswers[i];
     const userAnswer = userAnswerIdx !== undefined ? q.options[userAnswerIdx] : "Not Answered";
@@ -775,6 +797,9 @@ function submitExam() {
 
     return `<p>${i + 1}. ${q.text}<br>Your Answer: <b>${userAnswer}</b> - ${result}<br><i>Explanation: ${q.explanation}</i></p>`;
   }).join("");
+
+  examSection.classList.add("hidden");
+  resultsSection.classList.remove("hidden");
 
   downloadPDF.addEventListener("click", generatePDF);
 }
