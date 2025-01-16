@@ -145,30 +145,42 @@
   line-height: 1.5;
 }
 
+/* Examiner Section Styling */
 .examiner-info {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    text-align: center; /* Center-align everything */
+    margin-top: 20px;
+}
+
+.examiner-info h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .examiner-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
+    display: flex;
+    flex-direction: column; /* Arrange photo and text vertically */
+    align-items: center;    /* Center-align content */
+    gap: 15px;
 }
 
 .examiner-img {
-  border-radius: 25%;
-  width: 70%;
-  height: 200px;
-  object-fit: 100%, 100%;
+    border-radius: 50%; /* Make the image circular */
+    width: 120px;       /* Adjust size */
+    height: 120px;      /* Maintain aspect ratio */
+    object-fit: cover;
+    border: 2px solid #ddd; /* Optional: Add a border */
 }
 
 .examiner-info p {
-  font-size: 16px;
-  color: #555;
-  line-height: 1.6;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    text-align: justify; /* Align text for a professional look */
 }
+
     .results-actions {
     margin-top: 20px;
     display: flex;
@@ -244,13 +256,15 @@
     margin-bottom: 20px;
 }
 
-.welcome-header h2 {
+.welcome-header h3 {
     font-size: 24px;
     color: #333;
     margin-bottom: 10px;
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 1px;
+text-align: center;
+
 }
 
 .welcome-header p {
@@ -281,7 +295,7 @@
         <h2>Welcome to De-Brainstormers Exam Page</h2>
         <p>Kindly log in to proceed with your exam.</p>
     </div>
-    <h2>Login</h2>
+    <h3>Login</h3>
     <input type="text" id="fullName" placeholder="Enter Full Name" class="input-field">
     <input type="text" id="userID" placeholder="Enter User ID" class="input-field">
     <button id="loginBtn" class="styled-btn">Login</button>
@@ -307,15 +321,17 @@
         <li>Good luck with your exam!</li>
       </ul>
     </div>
-    <div class="examiner-info">
-      <h3>About the Examiner</h3>
-      <div class="examiner-content">
-      <p>  <img
-          src="FB_IMG_17341196385175781.jpg" 
-          alt="Examiner Image" 
-          class="examiner-img" 
-    />
-          <strong>HON. RICHARD D'PROF</strong> is an experienced educator and a student of Obafemi Awolowo University. He is dedicated to helping students have upper edge in their academic pursuits and loves putting forward the interest of the students of Obafemi Awolowo University. 
+  <!-- About the Examiner Section -->
+<div class="examiner-info">
+    <h3>About the Examiner</h3>
+    <div class="examiner-content">
+        <img
+            src="FB_IMG_17341196385175781.jpg"
+            alt="Examiner Image"
+            class="examiner-img"
+        />
+        <p>
+            <strong>HON. RICHARD D'PROF</strong> is an experienced educator and a student of Obafemi Awolowo University. He is dedicated to helping students have upper edge in their academic pursuits and loves putting forward the interest of the students of Obafemi Awolowo University. 
           <em>Educator</em> and <em>Zoologist</em> with over 6 years of 
           teaching and research experience, He has prepared this exam to assess 
           your understanding of core concepts in the subject. If you have any 
