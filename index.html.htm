@@ -214,6 +214,36 @@
         margin: 10px 0;
         line-height: 1.5;
     }
+
+    /* Logo Styling */
+.logo {
+    display: block;
+    margin: 0 auto 15px; /* Center the logo and add spacing below */
+    width: 100px;       /* Adjust the logo size */
+    height: auto;       /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: rounded edges for a softer look */
+}
+/* Welcome Header Styling */
+.welcome-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.welcome-header h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.welcome-header p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
     /* Button Styles */
     .pdf-btn {
         background: linear-gradient(135deg, #6dd5ed, #2193b0);
@@ -229,13 +259,20 @@
   </style>
 </head>
 <body>
-  <!-- Authentication Section -->
-  <div id="auth-section" class="container">
-      <h2>Login</h2>
-      <input type="text" id="fullName" placeholder="Enter Full Name" class="input-field">
-      <input type="text" id="userID" placeholder="Enter User ID" class="input-field">
-      <button id="loginBtn" class="styled-btn">Login</button>
-  </div>
+<!-- Authentication Section -->
+<div id="auth-section" class="container">
+    <div class="welcome-header">
+        <img src="logo.png" alt="De-Brainstormers Logo" class="logo">
+        <h2>Welcome to De-Brainstormers Exam Page</h2>
+        <p>Kindly log in to proceed with your exam.</p>
+    </div>
+    <h2>Login</h2>
+    <input type="text" id="fullName" placeholder="Enter Full Name" class="input-field">
+    <input type="text" id="userID" placeholder="Enter User ID" class="input-field">
+    <button id="loginBtn" class="styled-btn">Login</button>
+</div>
+
+
   
 <!-- Course Code Section -->
 <div id="course-code-section" class="container hidden">
