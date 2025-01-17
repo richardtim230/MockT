@@ -1477,6 +1477,49 @@ function generateAdminPDF(doc) {
     yOffset += sectionSpacing;
   });
 
+  // Answer Sheet Page
+  doc.addPage(); // Start a new page for the answer sheet
+  yOffset = margin;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.setTextColor(sectionHeadingColor);
+  doc.text("Answer Sheet", margin, yOffset);
+  yOffset += lineHeight * 2;
+
+  // Draw columns for A, B, C, D
+  doc.setFontSize(12);
+  doc.setTextColor(questionColor);
+  const answerColumns = ["A", "B", "C", "D"];
+  const boxWidth = (contentWidth - 50) / 4; // Four columns
+  const boxHeight = lineHeight;
+
+  answerColumns.forEach((col, idx) => {
+    doc.text(col, margin + boxWidth * idx + 25, yOffset);
+  });
+  yOffset += lineHeight;
+
+  // Draw the answer boxes for each question
+  for (let i = 1; i <= 50; i++) {
+    // Draw the question number
+    doc.text(`${i}.`, margin, yOffset + boxHeight / 2);
+
+    // Draw the answer boxes
+    for (let j = 0; j < 4; j++) {
+      doc.rect(margin + boxWidth * j + 20, yOffset, boxWidth, boxHeight);
+    }
+
+    yOffset += lineHeight;
+
+    if (i % 25 === 0 && i !== 50) {
+      doc.addPage(); // Add a new page if content exceeds the current page
+      yOffset = margin + lineHeight * 2;
+      answerColumns.forEach((col, idx) => {
+        doc.text(col, margin + boxWidth * idx + 25, yOffset);
+      });
+      yOffset += lineHeight;
+    }
+  }
+
   // Answer Key Section
   doc.addPage(); // Start a new page for answer keys
   yOffset = margin;
