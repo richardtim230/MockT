@@ -1286,8 +1286,9 @@ resultsContent.innerHTML = questions.map((q, i) => {
   downloadPDF.addEventListener("click", generatePDF);
 }
 
-async function generatePDF() {
+  async function generatePDF() {
   const { jsPDF } = window.jspdf; // Import jsPDF
+  const logo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...'; // Base64 encoded logo image
   const doc = new jsPDF({
     orientation: "portrait",
     unit: "px",
@@ -1304,15 +1305,18 @@ async function generatePDF() {
       return;
     }
 
+    const courseTitle = prompt("Please enter the course title:");
+    const duration = prompt("Please enter the exam duration:");
+
     // Generate PDF for Admins
-    generateAdminPDF(doc);
+    generateAdminPDF(doc, logo, courseTitle, duration);
   } else {
     // Generate PDF for Users
-    generateUserPDF(doc);
+    generateUserPDF(doc, logo);
   }
 }
 
-function generateUserPDF(doc) {
+function generateUserPDF(doc, logo) {
   // Constants
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
@@ -1321,6 +1325,10 @@ function generateUserPDF(doc) {
   const lineHeight = 20;
   const sectionSpacing = 10;
   let yOffset = margin;
+
+  // Add Logo
+  doc.addImage(logo, 'PNG', margin, yOffset, 50, 50);
+  yOffset += 60;
 
   // Colors
   const headerBackground = "#4A90E2";
@@ -1421,7 +1429,7 @@ function generateUserPDF(doc) {
   doc.save(`${fullName}_Exam_Results.pdf`);
 }
 
-function generateAdminPDF(doc) {
+function generateAdminPDF(doc, logo, courseTitle, duration) {
   // Constants
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
@@ -1430,6 +1438,10 @@ function generateAdminPDF(doc) {
   const lineHeight = 20;
   const sectionSpacing = 10;
   let yOffset = margin;
+
+  // Add Logo
+  doc.addImage(logo, 'PNG', margin, yOffset, 50, 50);
+  yOffset += 60;
 
   // Colors
   const headerBackground = "#4A90E2";
@@ -1449,6 +1461,15 @@ function generateAdminPDF(doc) {
   doc.setFontSize(16);
   doc.text(`Zoology Exam Questions`, pageWidth / 2, 60, { align: "center" });
   yOffset += 80;
+
+  // Add Course Title and Duration
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(14);
+  doc.setTextColor(questionColor);
+  doc.text(`Course Title: ${courseTitle}`, margin, yOffset);
+  yOffset += lineHeight;
+  doc.text(`Duration: ${duration}`, margin, yOffset);
+  yOffset += lineHeight * 2;
 
   // Questions Section
   questions.forEach((q, i) => {
@@ -1555,13 +1576,12 @@ function generateAdminPDF(doc) {
   doc.save(`${selectedCourseCode}_Exam_Questions.pdf`);
 }
 
-
 // Handle Retake Exam Button
 document.getElementById("retakeExamBtn").addEventListener("click", () => {
   // Reset user answers and navigation
   currentQuestionIndex = 0;
   userAnswers = [];
-  remainingTime = 20 * 60; // Reset timer
+  remainingTime = 30 * 60; // Reset timer
   questions = []; // Clear current questions
 
   // Hide results and show course code selection
