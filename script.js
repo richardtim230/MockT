@@ -1288,7 +1288,7 @@ resultsContent.innerHTML = questions.map((q, i) => {
 
   async function generatePDF() {
   const { jsPDF } = window.jspdf; // Import jsPDF
-  const logo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...'; // Base64 encoded logo image
+  const logo = 'logo.png'; // Base64 encoded logo image
   const doc = new jsPDF({
     orientation: "portrait",
     unit: "px",
