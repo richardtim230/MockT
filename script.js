@@ -1818,7 +1818,7 @@ function generateUserPDF(doc, logo) {
 
   // Add Logo in the center
   doc.addImage(logo, 'PNG', pageWidth / 2 - 25, yOffset, 50, 50);
-  yOffset += 50;
+  yOffset += 70;
 
   // Colors
   const headerBackground = "#4A90E2";
@@ -1830,7 +1830,8 @@ function generateUserPDF(doc, logo) {
   // Header Section
   doc.setFillColor(headerBackground);
   doc.rect(0, 0, pageWidth, 70, "F"); // Draw header background
-
+  yOffset += 70;
+  
   doc.setFont("helvetica", "bold");
   doc.setFontSize(22);
   doc.setTextColor("#FFFFFF");
@@ -1838,7 +1839,7 @@ function generateUserPDF(doc, logo) {
 
   doc.setFontSize(16);
   doc.text(`Zoology Exam Results`, pageWidth / 2, 60, { align: "center" });
-  yOffset += 40;
+  yOffset += 30;
 
   // Performance Summary Section
   const totalAnswered = userAnswers.filter(answer => answer !== undefined).length;
