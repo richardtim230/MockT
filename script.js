@@ -1931,7 +1931,7 @@ function generateAdminPDF(doc, logo, courseTitle, duration) {
 
   // Add Logo in the center
   doc.addImage(logo, 'PNG', pageWidth / 2 - 25, yOffset, 50, 50);
-  yOffset += 60;
+  yOffset += 30;
 
   // Colors
   const headerBackground = "#4A90E2";
@@ -1950,7 +1950,7 @@ function generateAdminPDF(doc, logo, courseTitle, duration) {
 
   doc.setFontSize(16);
   doc.text(`Zoology Exam Questions`, pageWidth / 2, 60, { align: "center" });
-  yOffset += 80;
+  yOffset += 100;
 
   // Add Course Title and Duration
   doc.setFont("helvetica", "normal");
