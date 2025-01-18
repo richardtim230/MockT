@@ -2066,7 +2066,7 @@ function generateAdminPDF(doc, logo, courseTitle, duration) {
 
   // Save the PDF
   doc.save(`${selectedCourseCode}_Exam_Questions.pdf`);
-  
+    }
 // Handle Retake Exam Button
 document.getElementById("retakeExamBtn").addEventListener("click", () => {
   // Reset user answers and navigation
