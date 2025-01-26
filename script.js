@@ -824,16 +824,7 @@ const questionBanks = {
         correct: 4,
         explanation: "Since the crate is stationary, the static friction is equal in magnitude and opposite in direction to the component of gravity that pulls it down the ramp. Hence, the frictional force is equal to the component of gravitational force acting down the ramp."
     },
-    {
-        text: "In the photo on page 89, a locomotive has broken through the wall of a train station. During the collision, what can be said about the force exerted by the locomotive on the wall?",
-        options: [
-           "The force exerted by the locomotive on the wall was larger than the force the wall could exert on the locomotive.",
-            "The force exerted by the locomotive on the wall was the same in magnitude as the force exerted by the wall on the locomotive.",              "The force exerted by the locomotive on the wall was less than the force exerted by the wall on the locomotive.",
-            "The wall cannot be said to “exert” a force; after all, it broke."
-        ],
-        correct: 1,
-        explanation: "Newton's third law states that forces come in pairs. The force that the locomotive exerts on the wall is equal in magnitude and opposite in direction to the force that the wall exerts on the locomotive."
-    },
+    
     {
         text: "If an object of mass m moves with constant velocity v, the net force on the object is",
          options: [
@@ -906,18 +897,7 @@ const questionBanks = {
         correct: 2,
         explanation: "The crate accelerates forward because of static friction which acts on the crate from the floor of the truck. There is no normal force or force of gravity that pushes the crate forward. The 'ma force' is not a real force; it is just a product of mass and acceleration."
     },
-    {
-        text: "Two objects are connected by a string that passes over a frictionless pulley. Where m₁ < m₂ and a₁ and a₂ are the respective magnitudes of the accelerations. Which mathematical statement is true concerning the magnitude of the acceleration a₂ of mass m₂?",
-        options: [
-            "a₂ < g",
-            "a₂ > g",
-            "a₂ = g",
-            "a₂ < a₁",
-            "a₂ > a₁"
-        ],
-         correct: 0,
-        explanation: "Since the masses are connected, the magnitude of their accelerations is the same but the direction is opposite. Because m2 > m1 then gravity acts against the tension and so its acceleration is less than that of free fall."
-    },
+    
   {
         text: "Which of the following statements are true?",
         options: [
@@ -983,17 +963,17 @@ const questionBanks = {
             "16.3 m/s",
             "12.9 m/s",
             "8.55 m/s",
-                  "17.4 m/s"
+            "17.4 m/s"
         ],
         correct: 0,
         explanation: "At maximum height, the vertical component of velocity is zero. The initial kinetic energy is (1/2)mv². At the max height, only horizontal velocity component exists, therefore the vertical component is lost which is now converted to potential energy: 1/2mvy² = mgh, so vy= √(2gh). So vy = √(2×9.8×4.5)= √88.2 = 9.39. Then using Pythag theorem to calculate horizontal component. Since total velocity = 15m/s then the horizontal component becomes √(15² - 9.39²)=11.7 m/s"
     },
   {
-        text: "The work required to accelerate an object on a frictionless surface from a speed ( v ) to a speed ( 2v ) is",
+    text: "The work required to accelerate an object on a frictionless surface from a speed ( v ) to a speed ( 2v ) is",
         options: [
             "equal to the work required to accelerate the object from ( v = 0 ) to ( 2v )",
             "twice the work required to accelerate the object from ( v = 0 ) to ( v )",
-            "three times the work required to accelerate the object from ( v = 0 ) to ( v )",
+            "three times the work required to accelerate the object from (v = 0) to (v)",
             "the work required to accelerate the object from ( 2v ) to ( 3v )",
             "not known without knowledge of the acceleration."
        ],
@@ -1037,7 +1017,7 @@ const questionBanks = {
         explanation: "Kinetic energy (KE) is given by 1/2mv², where v is speed.  If the speed doubles (2v), then the new KE is 1/2m(2v)² = 1/2m(4v²) = 4(1/2mv²). Therefore the kinetic energy becomes four times larger."
     },
     {
-        text: "A certain truck has twice the mass of a car. Both are moving at the same speed. If the kinetic energy of the truck is K, what is the kinetic energy of the car?",
+     text: "A certain truck has twice the mass of a car. Both are moving at the same speed. If the kinetic energy of the truck is K, what is the kinetic energy of the car?",
         options: [
             "K/4",
             "K/2",
@@ -1049,7 +1029,7 @@ const questionBanks = {
         explanation: "Kinetic energy (KE) is 1/2mv². Let the mass of the car be m and mass of the truck be 2m. Since the speed is the same, the truck KE is 1/2(2m)v² =K. Then the car KE is 1/2(m)v² = 1/2K. Therefore the kinetic energy of the car is half of the truck."
     },
    {
-        text: "An athlete jumping vertically on a trampoline leaves the surface with a velocity of 8.5 m/s upward. What maximum height does she reach?",
+      text: "An athlete jumping vertically on a trampoline leaves the surface with a velocity of 8.5 m/s upward. What maximum height does she reach?",
         options: [
             "13 m",
             "2.3 m",
@@ -1120,11 +1100,7 @@ const questionBanks = {
           correct: 0,
           explanation: "Average speed is total distance/total time, and average velocity is displacement/total time. Since the distance is larger than the displacement, the average speed will be larger. "
         },
-        {          text: "A projectile is launched from Earth's surface at a certain initial velocity at an angle above the horizontal, reaching maximum height after time tₘₐₓ. Another projectile is launched with the same initial velocity and angle from the surface of the Moon, where the acceleration of gravity is one-sixth that of Earth. Neglecting air resistance (on Earth) and variations in the acceleration of gravity with height, how long does it take the projectile on the Moon to reach its maximum height?",
-           options: ["tₘₐₓ", "tₘₐₓ/6", "√6 tₘₐₓ", "36 tₘₐₓ", "6 tₘₐₓ"],
-          correct: 4,
-          explanation: "The time to reach maximum height is proportional to the inverse of the acceleration of gravity. Since the Moon's gravity is 1/6 of Earth's, the time will be 6 times greater on the Moon."
-        },
+        
        {
           text: "A sailor drops a wrench from the top of a sailboat’s vertical mast while the boat is moving rapidly and steadily straight forward. Where will the wrench hit the deck?",
           options: ["ahead of the base of the mast", "at the base of the mast", "behind the base of the mast", "on the windward side of the base of the mast", "None of choices (a) through (d) is correct."],
