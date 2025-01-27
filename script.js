@@ -3771,7 +3771,7 @@ function generateUserPDF(doc, logo) {
   doc.setTextColor("#FFFFFF");
   doc.text("STUDENTS SUPPORT SYSTEM", pageWidth / 2, yOffset - 40, { align: "center" });
 
-  doc.setFontSize(15);
+  doc.setFontSize(13);
   doc.text(`OBAFEMI AWOLOWO UNIVERSITY`, pageWidth / 2, yOffset - 20, { align: "center" });
   yOffset += 30;
 
@@ -3790,7 +3790,7 @@ function generateUserPDF(doc, logo) {
   doc.setFontSize(14);
   doc.text(`Candidate Name: ${fullName}`, margin, yOffset); // Candidate's full name
   yOffset += lineHeight;
-  doc.text(`Course: Zoology`, margin, yOffset);
+  doc.text(`Course: INTRODUCTORY BOTANY 1`, margin, yOffset);
   yOffset += lineHeight;
   doc.text(`Course Code: ${selectedCourseCode}`, margin, yOffset);
   yOffset += lineHeight;
