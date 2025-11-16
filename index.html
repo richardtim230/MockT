@@ -363,5 +363,15 @@
 
     <!-- Flowbite JS -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.js"></script>
+    <script>
+          document.addEventListener('DOMContentLoaded', function() {
+  renderAuthButtons();
+});
+  // Navbar mobile toggle
+  document.getElementById('hamburger-btn').addEventListener('click', function() {
+    const menu = document.getElementById('mobile-menu');
+    menu.hidden = !menu.hidden;
+  });
+    </script>
 </body>
 </html>
