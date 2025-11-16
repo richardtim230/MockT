@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-RICH TUTORIAL COLLEGE - Online Tutorial Excellence</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Flowbite CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.css" rel="stylesheet">
+    <!-- Google Fonts for professional typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            
+        }
+        h1, h3 {
+            font-size: 5px;
+        }
+            .glass {
+      background: rgba(255,255,255,0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass shadow-sm border-b border-blue-900/30">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
+      <div class="flex items-center gap-2 font-bold text-xl text-yellow-600">
+        <img src="image%3A130416" class="h-8" alt="logo">
+        <span class="text-blue-900">D-RICH TUTORIALS</span> <span class="text-yellow-600"></span>
+      </div>
+      <div class="hidden md:flex space-x-8 font-medium items-center" id="navbar-menu">
+        <a href="#features" class="hover:text-yellow-600 transition">Features</a>
+        <a href="gen-marketplace.html" class="hover:text-yellow-600 transition">Marketplace</a>
+        <a href="candidate-cgpa-calculator" class="hover:text-yellow-600 transition">CGPA Calculator</a>
+        <a href="#mocks" class="hover:text-yellow-600 transition">Mock Tests</a>
+        <a href="blog-notes-category" class="hover:text-yellow-600 transition">Blog & Earn</a>
+        <a href="about-us-faq" class="hover:text-yellow-600 transition">FAQ</a>
+        <a href="#contact" class="hover:text-yellow-600 transition">Contact</a>
+        <!-- Auth buttons will be rendered here by JS -->
+        <span id="navbar-auth"></span>
+      </div>
+      <button id="hamburger-btn" type="button" class="md:hidden p-2 text-yellow-700" aria-label="Open menu">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="md:hidden" id="mobile-menu" hidden>
+      <div class="px-4 pb-3 space-y-1" id="mobile-menu-list">
+        <a href="#features" class="block py-2 hover:text-yellow-600">Features</a>
+        <a href="gen-marketplace.html" class="block py-2 hover:text-yellow-600">Marketplace</a>
+        <a href="candidate-cgpa-calculator" class="hover:text-yellow-600 transition">CGPA Calculator</a>
+        <a href="#mocks" class="block py-2 hover:text-yellow-600">Mock Tests</a>
+        <a href="blog-notes-category" class="block py-2 hover:text-yellow-600">Blog & Earn</a>
+        <a href="about-us-faq" class="block py-2 hover:text-yellow-600">FAQ</a>
+        <a href="#contact" class="block py-2 hover:text-yellow-600">Contact</a>
+        <span id="mobile-auth"></span>
+      </div>
+    </div>
+  </nav>
+ 
+    
+    <!-- Hero Section with Carousel -->
+    <section id="home" class="pt-20">
+        <div id="default-carousel" class="relative w-full" data-carousel="slide">
+            <!-- Carousel wrapper -->
+            <div class="relative h-64 overflow-hidden md:h-96">
+                <!-- Item 1 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="WAEC-and-Neco-595x340.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="Online Learning">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent bg-opacity-60 flex items-center justify-start px-12 md:px-24">
+                        <div class="text-left text-white max-w-xl">
+                            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">Through Online Education</h1>
+                            <p class="text-lg md:text-xl mt-4">SS3/WAEC/NECO, JAMB, and POST UTME.</p>
+                            <a href="#enroll" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="background.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="Students Learning">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent bg-opacity-60 flex items-center justify-start px-12 md:px-24">
+                        <div class="text-left text-white max-w-xl">
+                            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">Achieve Excellence in SS3/WAEC/NECO</h1>
+                            <p class="text-lg md:text-xl mt-4">Comprehensive preparation for senior secondary success.</p>
+                            <a href="#courses" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="oaugate-1140x570.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="Exam Preparation">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent bg-opacity-60 flex items-center justify-start px-12 md:px-24">
+                        <div class="text-left text-white max-w-xl">
+                            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">Conquer JAMB & POST UTME</h1>
+                            <p class="text-lg md:text-xl mt-4">Strategic guidance for university admissions.</p>
+                            <a href="#courses" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">Enroll Today</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slider indicators -->
+            <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3">
+                <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+            </div>
+            <!-- Slider controls -->
+            <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    <span class="sr-only">Previous</span>
+                </span>
+            </button>
+            <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <span class="sr-only">Next</span>
+                </span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Courses Section with Interactive Previews -->
+    <section id="courses" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Courses</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Course 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="WAEC-and-Neco-595x340.png" alt="SS3/WAEC/NECO" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-2xl font-semibold mb-2">SS3/WAEC/NECO</h3>
+                    <p class="mb-4 text-gray-600">In-depth preparation for senior secondary exams with experienced tutors.</p>
+                    <div class="flex justify-between">
+                        <button data-modal-toggle="preview-modal-1" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
+                        <a href="#enroll" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
+                    </div>
+                </div>
+                <!-- Course 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="image%3A130419" alt="JAMB" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-2xl font-semibold mb-2">JAMB</h3>
+                    <p class="mb-4 text-gray-600">Strategic coaching to achieve high scores in JAMB examinations.</p>
+                    <div class="flex justify-between">
+                        <button data-modal-toggle="preview-modal-2" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
+                        <a href="#enroll" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
+                    </div>
+                </div>
+                <!-- Course 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img src="oaugate-1140x570.jpg" alt="POST UTME" class="w-full h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-2xl font-semibold mb-2">POST UTME</h3>
+                    <p class="mb-4 text-gray-600">Tailored guidance for post-UTME screenings and admissions.</p>
+                    <div class="flex justify-between">
+                        <button data-modal-toggle="preview-modal-3" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
+                        <a href="#enroll" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals for Course Previews -->
+    <!-- Preview Modal 1 -->
+    <div id="preview-modal-1" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+                <!-- Modal header -->
+                <div class="flex justify-between items-start p-4 rounded-t border-b">
+                    <h3 class="text-xl font-semibold text-gray-900">SS3/WAEC/NECO Course Preview</h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="preview-modal-1">
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-6 space-y-6">
+                    <p class="text-base leading-relaxed text-gray-500">Explore sample lessons on key subjects like Mathematics, English, and Sciences. Our interactive modules include quizzes and video explanations.</p>
+                    <!-- Embed a sample video or content -->
+                    <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
+                    <a href="#enroll" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Enroll Now</a>
+                    <button data-modal-toggle="preview-modal-1" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal 2 -->
+    <div id="preview-modal-2" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+            <div class="relative bg-white rounded-lg shadow">
+                <div class="flex justify-between items-start p-4 rounded-t border-b">
+                    <h3 class="text-xl font-semibold text-gray-900">JAMB Course Preview</h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="preview-modal-2">
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <div class="p-6 space-y-6">
+                    <p class="text-base leading-relaxed text-gray-500">Get a taste of our JAMB strategies with practice questions and timed tests.</p>
+                    <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
+                    <a href="#enroll" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Enroll Now</a>
+                    <button data-modal-toggle="preview-modal-2" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal 3 -->
+    <div id="preview-modal-3" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+            <div class="relative bg-white rounded-lg shadow">
+                <div class="flex justify-between items-start p-4 rounded-t border-b">
+                    <h3 class="text-xl font-semibold text-gray-900">POST UTME Course Preview</h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="preview-modal-3">
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <div class="p-6 space-y-6">
+                    <p class="text-base leading-relaxed text-gray-500">Preview university-specific POST UTME tips and mock exams.</p>
+                    <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
+                    <a href="#enroll" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Enroll Now</a>
+                    <button data-modal-toggle="preview-modal-3" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vision and Mission Section -->
+    <section id="vision-mission" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-700">Our Vision</h3>
+                    <p class="text-gray-600">To be the leading online tutorial college in Nigeria, empowering students to achieve academic excellence and secure their future through innovative and accessible education.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-700">Our Mission</h3>
+                    <p class="text-gray-600">To provide high-quality, affordable online tutoring in key examination categories, fostering a learning environment that promotes critical thinking, confidence, and success in SS3/WAEC/NECO, JAMB, and POST UTME.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Why Choose D-RICH TUTORIAL COLLEGE?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <img src="https://source.unsplash.com/random/100x100/?expert,icon" alt="Expert Tutors" class="mx-auto mb-4 rounded-full w-20 h-20">
+                    <h3 class="text-xl font-semibold mb-2">Expert Tutors</h3>
+                    <p class="text-gray-600">Qualified educators with years of experience in exam preparation.</p>
+                </div>
+                <div class="text-center p-6">
+                    <img src="https://source.unsplash.com/random/100x100/?flexible,icon" alt="Flexible Learning" class="mx-auto mb-4 rounded-full w-20 h-20">
+                    <h3 class="text-xl font-semibold mb-2">Flexible Learning</h3>
+                    <p class="text-gray-600">Learn at your own pace with 24/7 access to resources.</p>
+                </div>
+                <div class="text-center p-6">
+                    <img src="https://source.unsplash.com/random/100x100/?success,icon" alt="Proven Success" class="mx-auto mb-4 rounded-full w-20 h-20">
+                    <h3 class="text-xl font-semibold mb-2">Proven Success</h3>
+                    <p class="text-gray-600">High pass rates and student testimonials speak for our quality.</p>
+                </div>
+            </div>
+            <!-- Testimonials Carousel -->
+            <div class="mt-16">
+                <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">What Our Students Say</h3>
+                <div id="testimonial-carousel" class="relative w-full" data-carousel="slide">
+                    <div class="relative h-56 overflow-hidden rounded-lg md:h-64">
+                        <!-- Testimonial 1 -->
+                        <div class="hidden duration-700 ease-in-out p-8 bg-gray-100 rounded-lg text-center" data-carousel-item>
+                            <p class="text-lg text-gray-600">"D-RICH helped me score 280 in JAMB! Highly recommended."</p>
+                            <p class="font-semibold mt-4 text-blue-700">- Student A</p>
+                        </div>
+                        <!-- Testimonial 2 -->
+                        <div class="hidden duration-700 ease-in-out p-8 bg-gray-100 rounded-lg text-center" data-carousel-item>
+                            <p class="text-lg text-gray-600">"Excellent tutors for WAEC prep. I passed with distinctions."</p>
+                            <p class="font-semibold mt-4 text-blue-700">- Student B</p>
+                        </div>
+                        <!-- Testimonial 3 -->
+                        <div class="hidden duration-700 ease-in-out p-8 bg-gray-100 rounded-lg text-center" data-carousel-item>
+                            <p class="text-lg text-gray-600">"Post UTME course was spot on. Got admitted to my dream uni."</p>
+                            <p class="font-semibold mt-4 text-blue-700">- Student C</p>
+                        </div>
+                    </div>
+                    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3">
+                        <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                        <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                        <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                    </div>
+                    <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
+                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            <span class="sr-only">Previous</span>
+                        </span>
+                    </button>
+                    <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
+                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <span class="sr-only">Next</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="enroll" class="py-20 bg-blue-700 text-white text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
+            <p class="text-xl mb-8">Join thousands of successful students today!</p>
+            <a href="mailto:drictutors@gmail.com" class="bg-white text-blue-700 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">Contact Us to Enroll</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">D-RICH TUTORIAL COLLEGE</h3>
+                    <p class="text-gray-400">Empowering students through online education.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-blue-400 transition duration-300">Home</a></li>
+                        <li><a href="#courses" class="hover:text-blue-400 transition duration-300">Courses</a></li>
+                        <li><a href="#vision-mission" class="hover:text-blue-400 transition duration-300">Vision & Mission</a></li>
+                        <li><a href="#about" class="hover:text-blue-400 transition duration-300">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <p class="text-gray-400">Phone: +2349155127634</p>
+                    <p class="text-gray-400">Email: drichtutors@gmail.com</p>
+                    <p class="text-gray-400">Location: Obafemi Awolowo University, Ile Ife</p>
+                </div>
+            </div>
+            <div class="text-center mt-8 text-gray-400">
+                <p>&copy; 2025 D-RICH TUTORIAL COLLEGE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Flowbite JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.js"></script>
+</body>
+</html>
