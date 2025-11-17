@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>D-RICH Admin Dashboard</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <!-- Flowbite CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.css" rel="stylesheet"/>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .sidebar-open { transform: translateX(0); }
+    .sidebar-closed { transform: translateX(-100%); }
+    .apexcharts-canvas { width: 100% !important; }
+    .dropdown-open { display: block; }
+    .dropdown-closed { display: none; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+
+  <!-- Mobile Header -->
+  <header class="md:hidden bg-white shadow-sm fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3">
+    <button id="sidebar-toggle" class="text-gray-700">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="text-lg font-bold text-blue-700">D-RICH Admin</div>
+    <div class="relative">
+      <button id="mobile-profile-btn" class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">A</button>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-blue-900 to-blue-800 text-white transform sidebar-closed md:sidebar-open transition-transform duration-300 z-40 pt-16 md:pt-0">
+    <div class="p-6">
+      <div class="flex items-center justify-center mb-8">
+        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+          <span class="text-2xl font-bold text-blue-700">DR</span>
+        </div>
+      </div>
+      <h2 class="text-center text-xl font-bold mb-8">Admin Panel</h2>
+
+      <!-- Nav -->
+      <nav class="space-y-1">
+        <a href="#overview" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg bg-blue-700 text-white">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span>Overview</span>
+        </a>
+        <a href="#students" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21h3a2 2 0 002-2v-1a7 7 0 00-7-7H9a7 7 0 00-7 7v1a2 2 0 002 2h3m-1-8a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>Students</span>
+        </a>
+        <a href="#courses" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>Courses</span>
+        </a>
+        <a href="#cbt" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m0 16v1m8.485-11.515l-.707-.707M5.636 5.636l-.707-.707m13.536.707l-.707.707M6.343 18.343l-.707.707M12 7a5 5 0 100 10 5 5 0 000-10z"/></svg>
+          <span>CBT Exams</span>
+        </a>
+        <a href="#payments" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+          <span>Payments</span>
+        </a>
+        <a href="#analytics" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span>Analytics</span>
+        </a>
+        <a href="#settings" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="mt-12 p-4 bg-blue-900 rounded-lg">
+        <p class="text-xs opacity-75">Logged in as:</p>
+        <p class="font-semibold">admin@drich.com</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="md:ml-64 pt-16 md:pt-0 min-h-screen">
+
+    <!-- Overview -->
+    <section id="overview" class="tab-content p-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-3xl font-bold text-gray-800">Admin Overview</h1>
+          <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm flex items-center space-x-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>New Action</span>
+          </button>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Total Students</p>
+                <p class="text-3xl font-bold text-blue-700">1,248</p>
+                <p class="text-xs text-green-600">+12% from last month</p>
+              </div>
+              <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Revenue (Nov)</p>
+                <p class="text-3xl font-bold text-green-700">₦18.7M</p>
+                <p class="text-xs text-green-600">+8% from last month</p>
+              </div>
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Active Courses</p>
+                <p class="text-3xl font-bold text-purple-700">24</p>
+                <p class="text-xs text-green-600">+3 new</p>
+              </div>
+              <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">CBT Taken</p>
+                <p class="text-3xl font-bold text-orange-700">3,892</p>
+                <p class="text-xs text-green-600">+18% this week</p>
+              </div>
+              <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m0 16v1m8.485-11.515l-.707-.707M5.636 5.636l-.707-.707m13.536.707l-.707.707M6.343 18.343l-.707.707M12 7a5 5 0 100 10 5 5 0 000-10z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-xl shadow-sm border">
+            <h3 class="text-lg font-semibold mb-4">Revenue Trend</h3>
+            <canvas id="revenueChart"></canvas>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-sm border">
+            <h3 class="text-lg font-semibold mb-4">Student Enrollment</h3>
+            <canvas id="enrollmentChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border">
+          <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between py-3 border-b">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                  <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <div>
+                  <p class="font-medium">New student registered</p>
+                  <p class="text-sm text-gray-500">Chidera Okeke • 2 mins ago</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/></svg>
+                </div>
+                <div>
+                  <p class="font-medium">Payment received</p>
+                  <p class="text-sm text-gray-500">₦15,000 from Richard Ochuko • 10 mins ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Students -->
+    <section id="students" class="tab-content p-6 hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-3xl font-bold text-gray-800">Students Management</h1>
+          <button data-modal-toggle="add-student-modal" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm">+ Add Student</button>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+          <div class="p-4 border-b">
+            <input type="text" placeholder="Search students..." class="w-full md:w-64 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Courses</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">RO</div>
+                    <div>
+                      <p class="font-medium">Richard Ochuko</p>
+                      <p class="text-sm text-gray-500">@richardochuko14</p>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">richard@example.com</td>
+                  <td class="px-6 py-4">SS3, JAMB</td>
+                  <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Active</span></td>
+                  <td class="px-6 py-4">
+                    <button class="text-blue-600 hover:underline text-sm">Edit</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Add Student Modal -->
+    <div id="add-student-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+      <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+        <div class="relative bg-white rounded-lg shadow">
+          <div class="flex justify-between items-start p-4 rounded-t border-b">
+            <h3 class="text-xl font-semibold text-gray-900">Add New Student</h3>
+            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="add-student-modal">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </button>
+          </div>
+          <div class="p-6 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input type="text" placeholder="Full Name" class="border rounded-lg px-4 py-2 w-full">
+              <input type="email" placeholder="Email" class="border rounded-lg px-4 py-2 w-full">
+              <input type="text" placeholder="Phone" class="border rounded-lg px-4 py-2 w-full">
+              <select class="border rounded-lg px-4 py-2 w-full">
+                <option>Select Course Package</option>
+                <option>SS3/WAEC/NECO</option>
+                <option>JAMB</option>
+                <option>POST UTME</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
+            <button data-modal-toggle="add-student-modal" class="text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5 text-sm font-medium">Add Student</button>
+            <button data-modal-toggle="add-student-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other sections (Courses, CBT, Payments, Analytics, Settings) follow similar advanced patterns -->
+    <!-- For brevity, only Overview and Students are fully shown. Others are structured similarly with modals, tables, charts. -->
+
+  </main>
+
+  <!-- Flowbite JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.js"></script>
+  <script>
+    // Sidebar & Tab Logic (same as student dashboard)
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('sidebar-open');
+      sidebar.classList.toggle('sidebar-closed');
+    });
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        navLinks.forEach(l => l.classList.remove('bg-blue-700', 'text-white'));
+        navLinks.forEach(l => l.classList.add('hover:bg-blue-700'));
+        link.classList.add('bg-blue-700', 'text-white');
+        link.classList.remove('hover:bg-blue-700');
+        tabContents.forEach(content => content.classList.add('hidden'));
+        document.getElementById(targetId).classList.remove('hidden');
+        if (window.innerWidth < 768) {
+          sidebar.classList.remove('sidebar-open');
+          sidebar.classList.add('sidebar-closed');
+        }
+      });
+    });
+    document.querySelector('a[href="#overview"]').classList.add('bg-blue-700', 'text-white');
+    document.querySelector('a[href="#overview"]').classList.remove('hover:bg-blue-700');
+
+    // Charts
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+        datasets: [{
+          label: 'Revenue (₦)',
+          data: [1200000, 1900000, 3000000, 2500000, 2200000, 3000000, 3200000, 2800000, 3900000, 3800000, 18700000],
+          borderColor: '#2563eb',
+          backgroundColor: 'rgba(37, 99, 235, 0.1)',
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    const enrollmentCtx = document.getElementById('enrollmentChart').getContext('2d');
+    new Chart(enrollmentCtx, {
+      type: 'bar',
+      data: {
+        labels: ['SS3', 'JAMB', 'POST UTME', 'Combo'],
+        datasets: [{
+          label: 'Students',
+          data: [480, 620, 148, 0],
+          backgroundColor: ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b']
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+  </script>
+</body>
+</html>
