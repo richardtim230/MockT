@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subject Lessons | D-RICH Tutorial</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .lesson-card { transition: box-shadow 0.2s; }
+    .lesson-card:hover { box-shadow: 0 8px 24px 0 rgba(37, 99, 235, 0.1); }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+
+  <!-- Header -->
+  <header class="fixed w-full z-30 top-0 bg-blue-700 text-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="dashboard.html#eclassroom" class="flex items-center space-x-2 text-white font-semibold hover:text-yellow-400 transition">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        <span>E-Classroom</span>
+      </a>
+      <span class="font-bold text-lg tracking-wide">D-RICH Tutorial</span>
+      <div></div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-24 pb-16">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="mb-8 text-center">
+        <h1 id="subject-title" class="text-3xl font-bold text-gray-800 mb-2">Subject Lessons</h1>
+        <p id="subject-desc" class="text-gray-600 mb-3"></p>
+      </div>
+
+      <!-- Lessons List -->
+      <div id="lessons-list" class="space-y-4">
+        <!-- JS will generate lesson cards here -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Template for lesson cards (hidden, used by JS) -->
+  <template id="lesson-card-template">
+    <div class="bg-white lesson-card shadow rounded-lg p-5 flex items-center justify-between cursor-pointer hover:bg-blue-50 transition">
+      <div class="flex items-center space-x-4">
+        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-lg lesson-number">1</div>
+        <div>
+          <div class="font-semibold text-lg lesson-title">Lesson Title</div>
+          <div class="text-sm text-gray-500 lesson-desc">Short description of lesson.</div>
+        </div>
+      </div>
+      <div>
+        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // ====== DEMO DATA FOR LESSONS PER SUBJECT ======
+    // In practice, fetch this data from backend according to subject param in URL
+    const subjectsData = {
+      "Use of English": {
+        desc: "JAMB Topic Drills • 20 Lessons",
+        lessons: [
+          { title: "Comprehension Skills", desc: "Understanding passages and answering questions." },
+          { title: "Lexis and Structure", desc: "Vocabulary, synonyms, antonyms, and grammatical structures." },
+          { title: "Summary Writing", desc: "Skills for condensing information effectively." },
+          { title: "Essay Types", desc: "Argumentative, expository, narrative, and descriptive writing." },
+          { title: "Oral Forms", desc: "Phonology, stress, intonation, and sound patterns." }
+        ]
+      },
+      "Mathematics": {
+        desc: "JAMB Mathematics • 18 Lessons",
+        lessons: [
+          { title: "Numbers & Sets", desc: "Natural numbers, integers, sets and notations." },
+          { title: "Algebraic Expressions", desc: "Expanding, factorization, and simplification." },
+          { title: "Quadratic Equations", desc: "Solution by factorization, completing square, formula." },
+          { title: "Geometry", desc: "Plane and solid shapes, trigonometry." },
+          { title: "Statistics", desc: "Mean, Median, Mode, and Probability basics." }
+        ]
+      },
+      "Government": {
+        desc: "JAMB Social Science • 12 Lessons",
+        lessons: [
+          { title: "Constitution & Constitutionalism", desc: "Definition, features, types, merits, and demerits." },
+          { title: "Citizenship", desc: "Acquisition, rights, obligations, and dual citizenship." },
+          { title: "Systems of Government", desc: "Unitary, federal, confederate and their applications." },
+          { title: "Pressure Groups and Political Parties", desc: "Role and influence in government." }
+        ]
+      },
+      "POST UTME English": {
+        desc: "OAU & UNILAG Patterns • 12 Lessons",
+        lessons: [
+          { title: "Comprehension Mastery", desc: "Tackling university passage-based questions." },
+          { title: "Advanced Grammar", desc: "Critical tenses and error spotting." },
+          { title: "Essay Writing", desc: "Planning and answering likely essay prompts." }
+        ]
+      },
+      "POST UTME Physics": {
+        desc: "Uni-specific Physics • 12 Lessons",
+        lessons: [
+          { title: "Measurement & Units", desc: "SI units and precision in calculations." },
+          { title: "Kinematics", desc: "Motion in one and two dimensions." },
+          { title: "Electricity", desc: "Current, potential difference, resistors, and laws." }
+        ]
+      },
+      "POST UTME Maths": {
+        desc: "OAU/UNN/SU Examples • 8 Lessons",
+        lessons: [
+          { title: "Polynomial Equations", desc: "Solving and analyzing polynomial roots." },
+          { title: "Permutation & Combination", desc: "Counting techniques and probability links." }
+        ]
+      },
+      "Physics": {
+        desc: "WAEC/NECO Prep • 15 Lessons",
+        lessons: [
+          { title: "Simple Machines", desc: "Levers, pulleys, gears, and their calculations." },
+          { title: "Electricity Basics", desc: "Ohm's Law, Series and Parallel Circuits." },
+          { title: "Light and Optics", desc: "Reflection, refraction, and lens calculations." }
+        ]
+      },
+      "English Language": {
+        desc: "WAEC/NECO Prep • 22 Lessons",
+        lessons: [
+          { title: "Essay Writing", desc: "Essay forms and features for WAEC/NECO." },
+          { title: "Comprehension and Summary", desc: "Answer technique for comprehension and summary." },
+          { title: "Grammar and Lexis", desc: "Common pitfalls, WAEC/NECO focus." }
+        ]
+      },
+      "Mathematics (WAEC/NECO)": {
+        desc: "WAEC/NECO Prep • 24 Lessons",
+        lessons: [
+          { title: "Algebraic Manipulations", desc: "Skill-building for all algebra topics." },
+          { title: "Geometry Theorems", desc: "Key theorems with proofs and examples." },
+          { title: "Probability and Statistics", desc: "Counting, probability, mean, and variance." }
+        ]
+      }
+    };
+
+    // Helper: Get subject name from URL ?subject=Mathematics
+    function getSubjectFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('subject');
+    }
+
+    // Render page according to the chosen subject
+    function renderLessonsPage() {
+      const subjectName = getSubjectFromUrl() || "Use of English";
+      const subject = subjectsData[subjectName];
+
+      document.getElementById('subject-title').innerText = subjectName;
+      document.getElementById('subject-desc').innerText = subject ? subject.desc : "";
+
+      const lessonsDiv = document.getElementById('lessons-list');
+      lessonsDiv.innerHTML = "";
+
+      if (!subject || !subject.lessons) {
+        lessonsDiv.innerHTML = `<div class="text-center p-8 text-gray-500">Sorry, no lessons found for this subject.</div>`;
+        return;
+      }
+
+      subject.lessons.forEach((lesson, idx) => {
+        // Clone the lesson card template
+        const tpl = document.getElementById('lesson-card-template').content.cloneNode(true);
+        tpl.querySelector('.lesson-number').innerText = idx + 1;
+        tpl.querySelector('.lesson-title').innerText = lesson.title;
+        tpl.querySelector('.lesson-desc').innerText = lesson.desc;
+        // Optional: Click handler for opening lesson (uncomment line below for full lesson view page navigation)
+        // tpl.querySelector('.lesson-card').onclick = () => { window.location.href = `lesson-detail.html?subject=${encodeURIComponent(subjectName)}&lesson=${encodeURIComponent(lesson.title)}`; }
+        lessonsDiv.appendChild(tpl);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', renderLessonsPage);
+  </script>
+</body>
+</html>
