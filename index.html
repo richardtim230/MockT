@@ -13,15 +13,15 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            
         }
-        h1, h3 {
-            font-size: 5px;
+        .glass {
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
-            .glass {
-      background: rgba(255,255,255,0.3);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+        /* for smooth scrolling */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
@@ -29,44 +29,44 @@
 
     <!-- Navbar -->
     <nav class="fixed w-full z-50 glass shadow-sm border-b border-blue-900/30">
-    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
-      <div class="flex items-center gap-2 font-bold text-xl text-yellow-600">
-        <img src="image%3A130416" class="h-8" alt="logo">
-        <span class="text-blue-900">D-RICH TUTORIALS</span> <span class="text-yellow-600"></span>
+      <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
+        <div class="flex items-center gap-2 font-bold text-xl text-yellow-600">
+          <img src="image%3A130416" class="h-8" alt="logo">
+          <span class="text-blue-900">D-RICH TUTORIALS</span>
+        </div>
+        <div class="hidden md:flex space-x-8 font-medium items-center" id="navbar-menu">
+          <a href="#features" class="hover:text-yellow-600 transition">Features</a>
+          <a href="#courses" class="hover:text-yellow-600 transition">Courses</a>
+          <a href="gen-marketplace.html" class="hover:text-yellow-600 transition">Marketplace</a>
+          <a href="candidate-cgpa-calculator" class="hover:text-yellow-600 transition">CGPA Calculator</a>
+          <a href="#mocks" class="hover:text-yellow-600 transition">Mock Tests</a>
+          <a href="blog-notes-category" class="hover:text-yellow-600 transition">Blog & Earn</a>
+          <a href="about-us-faq" class="hover:text-yellow-600 transition">FAQ</a>
+          <a href="#contact" class="hover:text-yellow-600 transition">Contact</a>
+          <span id="navbar-auth"></span>
+        </div>
+        <button id="hamburger-btn" type="button" class="md:hidden p-2 text-yellow-700" aria-label="Open menu">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
       </div>
-      <div class="hidden md:flex space-x-8 font-medium items-center" id="navbar-menu">
-        <a href="#features" class="hover:text-yellow-600 transition">Features</a>
-        <a href="gen-marketplace.html" class="hover:text-yellow-600 transition">Marketplace</a>
-        <a href="candidate-cgpa-calculator" class="hover:text-yellow-600 transition">CGPA Calculator</a>
-        <a href="#mocks" class="hover:text-yellow-600 transition">Mock Tests</a>
-        <a href="blog-notes-category" class="hover:text-yellow-600 transition">Blog & Earn</a>
-        <a href="about-us-faq" class="hover:text-yellow-600 transition">FAQ</a>
-        <a href="#contact" class="hover:text-yellow-600 transition">Contact</a>
-        <!-- Auth buttons will be rendered here by JS -->
-        <span id="navbar-auth"></span>
+      <div class="md:hidden" id="mobile-menu" hidden>
+        <div class="px-4 pb-3 space-y-1" id="mobile-menu-list">
+          <a href="#features" class="block py-2 hover:text-yellow-600">Features</a>
+          <a href="#courses" class="block py-2 hover:text-yellow-600">Courses</a>
+          <a href="gen-marketplace.html" class="block py-2 hover:text-yellow-600">Marketplace</a>
+          <a href="candidate-cgpa-calculator" class="hover:text-yellow-600 transition">CGPA Calculator</a>
+          <a href="#mocks" class="block py-2 hover:text-yellow-600">Mock Tests</a>
+          <a href="blog-notes-category" class="block py-2 hover:text-yellow-600">Blog & Earn</a>
+          <a href="about-us-faq" class="block py-2 hover:text-yellow-600">FAQ</a>
+          <a href="#contact" class="block py-2 hover:text-yellow-600">Contact</a>
+          <span id="mobile-auth"></span>
+        </div>
       </div>
-      <button id="hamburger-btn" type="button" class="md:hidden p-2 text-yellow-700" aria-label="Open menu">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-    </div>
-    <div class="md:hidden" id="mobile-menu" hidden>
-      <div class="px-4 pb-3 space-y-1" id="mobile-menu-list">
-        <a href="#features" class="block py-2 hover:text-yellow-600">Features</a>
-        <a href="gen-marketplace.html" class="block py-2 hover:text-yellow-600">Marketplace</a>
-        <a href="candidate-cgpa-calculator" class="hover:text-yellow-600 transition">CGPA Calculator</a>
-        <a href="#mocks" class="block py-2 hover:text-yellow-600">Mock Tests</a>
-        <a href="blog-notes-category" class="block py-2 hover:text-yellow-600">Blog & Earn</a>
-        <a href="about-us-faq" class="block py-2 hover:text-yellow-600">FAQ</a>
-        <a href="#contact" class="block py-2 hover:text-yellow-600">Contact</a>
-        <span id="mobile-auth"></span>
-      </div>
-    </div>
-  </nav>
+    </nav>
  
-    
     <!-- Hero Section with Carousel -->
     <section id="home" class="pt-20">
         <div id="default-carousel" class="relative w-full" data-carousel="slide">
@@ -115,132 +115,282 @@
             <!-- Slider controls -->
             <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
                 <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 19l-7-7 7-7"></path></svg>
                     <span class="sr-only">Previous</span>
                 </span>
             </button>
             <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
                 <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5l7 7-7 7"></path></svg>
                     <span class="sr-only">Next</span>
                 </span>
             </button>
         </div>
     </section>
 
-    <!-- Courses Section with Interactive Previews -->
-    <section id="courses" class="py-20 bg-white">
+    <!-- Features Section -->
+    <section id="features" class="bg-gradient-to-t from-blue-100 to-white py-16">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Courses</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Course 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <img src="WAEC-and-Neco-595x340.png" alt="SS3/WAEC/NECO" class="w-full h-48 object-cover rounded-md mb-4">
-                    <h3 class="text-2xl font-semibold mb-2">SS3/WAEC/NECO</h3>
-                    <p class="mb-4 text-gray-600">In-depth preparation for senior secondary exams with experienced tutors.</p>
-                    <div class="flex justify-between">
-                        <button data-modal-toggle="preview-modal-1" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
-                        <a href="#enroll" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
-                    </div>
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Platform Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="bg-white rounded-lg p-6 shadow flex flex-col items-center">
+                    <img src="https://img.icons8.com/ios-filled/100/academic.png" alt="" class="w-16 h-16 mb-4">
+                    <h4 class="text-lg font-semibold mb-2 text-blue-700">Interactive Live Classes</h4>
+                    <p class="text-gray-600 text-sm text-center">Real-time sessions with chat, polls, and screen sharing.</p>
                 </div>
-                <!-- Course 2 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <img src="image%3A130419" alt="JAMB" class="w-full h-48 object-cover rounded-md mb-4">
-                    <h3 class="text-2xl font-semibold mb-2">JAMB</h3>
-                    <p class="mb-4 text-gray-600">Strategic coaching to achieve high scores in JAMB examinations.</p>
-                    <div class="flex justify-between">
-                        <button data-modal-toggle="preview-modal-2" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
-                        <a href="#enroll" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
-                    </div>
+                <div class="bg-white rounded-lg p-6 shadow flex flex-col items-center">
+                    <img src="https://img.icons8.com/ios-filled/100/laptop.png" alt="" class="w-16 h-16 mb-4">
+                    <h4 class="text-lg font-semibold mb-2 text-blue-700">Video Library</h4>
+                    <p class="text-gray-600 text-sm text-center">Access recorded lessons and tutorial playlists 24/7.</p>
                 </div>
-                <!-- Course 3 -->
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <img src="oaugate-1140x570.jpg" alt="POST UTME" class="w-full h-48 object-cover rounded-md mb-4">
-                    <h3 class="text-2xl font-semibold mb-2">POST UTME</h3>
-                    <p class="mb-4 text-gray-600">Tailored guidance for post-UTME screenings and admissions.</p>
-                    <div class="flex justify-between">
-                        <button data-modal-toggle="preview-modal-3" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
-                        <a href="#enroll" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
-                    </div>
+                <div class="bg-white rounded-lg p-6 shadow flex flex-col items-center">
+                    <img src="https://img.icons8.com/ios-filled/100/test-passed.png" alt="" class="w-16 h-16 mb-4">
+                    <h4 class="text-lg font-semibold mb-2 text-blue-700">Practice Tests & Analytics</h4>
+                    <p class="text-gray-600 text-sm text-center">Mock tests with instant scoring and personalized feedback reports.</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow flex flex-col items-center">
+                    <img src="https://img.icons8.com/ios-filled/100/conference-call.png" alt="" class="w-16 h-16 mb-4">
+                    <h4 class="text-lg font-semibold mb-2 text-blue-700">Peer & Tutor Forums</h4>
+                    <p class="text-gray-600 text-sm text-center">Discussion boards for peer learning and tutor support around the clock.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modals for Course Previews -->
-    <!-- Preview Modal 1 -->
-    <div id="preview-modal-1" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow">
-                <!-- Modal header -->
-                <div class="flex justify-between items-start p-4 rounded-t border-b">
-                    <h3 class="text-xl font-semibold text-gray-900">SS3/WAEC/NECO Course Preview</h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="preview-modal-1">
-                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="p-6 space-y-6">
-                    <p class="text-base leading-relaxed text-gray-500">Explore sample lessons on key subjects like Mathematics, English, and Sciences. Our interactive modules include quizzes and video explanations.</p>
-                    <!-- Embed a sample video or content -->
-                    <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <!-- Modal footer -->
-                <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
-                    <a href="#enroll" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Enroll Now</a>
-                    <button data-modal-toggle="preview-modal-1" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Close</button>
-                </div>
+    <!-- Enhanced Courses Section with Detailed Information -->
+    <section id="courses" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Courses</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Course 1: SS3/WAEC/NECO -->
+          <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+            <img src="WAEC-and-Neco-595x340.png" alt="SS3/WAEC/NECO" class="w-full h-48 object-cover rounded-md mb-4">
+            <h3 class="text-2xl font-semibold mb-2">SS3/WAEC/NECO</h3>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Curriculum Overview:</h4>
+              <ul class="list-disc list-inside text-gray-600 text-sm">
+                <li>Mathematics (Pure, Applied)</li>
+                <li>English Language & Literature</li>
+                <li>Sciences: Physics, Chemistry, Biology</li>
+                <li>Social Sciences: Economics, Government</li>
+                <li>Arts & Vocational Subjects</li>
+                <li>Exam strategies & time management</li>
+              </ul>
             </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Teaching Methodology:</h4>
+              <p class="text-gray-600 text-sm">
+                Live lectures, interactive quizzes, on-demand videos, and detailed assignment reviews.
+              </p>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Resources Included:</h4>
+              <ul class="list-disc list-inside text-gray-600 text-sm">
+                <li>Study guides, solved examples</li>
+                <li>Past questions & marking schemes</li>
+                <li>Active forum support</li>
+              </ul>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Meet Your Tutors:</h4>
+              <ul class="text-gray-600 text-sm">
+                <li><strong>Mrs. Ada Johnson</strong> – Maths & Physics (15 yrs)</li>
+                <li><strong>Mr. Femi Akinwale</strong> – English, WAEC examiner</li>
+                <li><strong>Dr. Amaka Uche</strong> – Chemistry/Biology</li>
+              </ul>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Schedule & Duration:</h4>
+              <p class="text-gray-600 text-sm">10 weeks • 3–5 sessions/week • Flexible learning options.</p>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Learning Objectives:</h4>
+              <ul class="list-disc list-inside text-gray-600 text-sm">
+                <li>Master key exam topics</li>
+                <li>Gain confidence & accuracy</li>
+                <li>Excel in WAEC/NECO</li>
+              </ul>
+            </div>
+            <div class="mt-2 mb-4">
+              <h4 class="font-semibold text-blue-700">Sample Lesson:</h4>
+              <a href="#" onclick="document.getElementById('preview-modal-1').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Watch Sample Video</a>
+            </div>
+            <div class="flex-grow"></div>
+            <div class="flex justify-between mt-4">
+              <button onclick="document.getElementById('preview-modal-1').classList.remove('hidden')" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
+              <a href="#enroll" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
+            </div>
+          </div>
+          <!-- Course 2: JAMB -->
+          <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+            <img src="image%3A130419" alt="JAMB" class="w-full h-48 object-cover rounded-md mb-4">
+            <h3 class="text-2xl font-semibold mb-2">JAMB</h3>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Curriculum Overview:</h4>
+              <ul class="list-disc list-inside text-gray-600 text-sm">
+                <li>English, Maths, and your choice subjects</li>
+                <li>Practice CBT techniques</li>
+                <li>Past JAMB secrets & top scorers’ tips</li>
+              </ul>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Teaching Methodology:</h4>
+              <p class="text-gray-600 text-sm">Intensive live sessions, interactive mock tests, and real world CBT drills.</p>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Resources Included:</h4>
+              <ul class="list-disc list-inside text-gray-600 text-sm">
+                <li>CBT mock test software</li>
+                <li>Subject handbooks</li>
+                <li>Question discussion groups</li>
+              </ul>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Meet Your Tutors:</h4>
+              <ul class="text-gray-600 text-sm">
+                <li><strong>Mr. David Okoro</strong> – JAMB CBT specialist</li>
+                <li><strong>Ms. Ifeoma Onu</strong> – Verbal Reasoning Guru</li>
+              </ul>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Schedule & Duration:</h4>
+              <p class="text-gray-600 text-sm">6-8 weeks • Evening/Saturday options.</p>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Learning Objectives:</h4>
+              <ul class="list-disc list-inside text-gray-600 text-sm">
+                <li>Score 250+ in JAMB</li>
+                <li>Specialize CBT practice</li>
+                <li>Build smart exam timing skills</li>
+              </ul>
+            </div>
+            <div class="mt-2 mb-4">
+              <h4 class="font-semibold text-blue-700">Sample Lesson:</h4>
+              <a href="#" onclick="document.getElementById('preview-modal-2').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Watch Sample Video</a>
+            </div>
+            <div class="flex-grow"></div>
+            <div class="flex justify-between mt-4">
+              <button onclick="document.getElementById('preview-modal-2').classList.remove('hidden')" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
+              <a href="#enroll" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
+            </div>
+          </div>
+          <!-- Course 3: POST UTME -->
+          <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
+            <img src="oaugate-1140x570.jpg" alt="POST UTME" class="w-full h-48 object-cover rounded-md mb-4">
+            <h3 class="text-2xl font-semibold mb-2">POST UTME</h3>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Curriculum Overview:</h4>
+              <ul class="list-disc list-inside text-gray-600 text-sm">
+                <li>University-specific question drills</li>
+                <li>Advanced English, Maths, Current Affairs</li>
+                <li>Aptitude/Interview prep</li>
+              </ul>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Teaching Methodology:</h4>
+              <p class="text-gray-600 text-sm">Targeted live coaching, on-demand video, and mock test drills.</p>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Resources Included:</h4>
+              <ul class="list-disc list-inside text-gray-600 text-sm">
+                <li>Past POST UTME papers</li>
+                <li>Mock tests</li>
+                <li>1:1 advising sessions</li>
+              </ul>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Meet Your Tutors:</h4>
+              <ul class="text-gray-600 text-sm">
+                <li><strong>Mr. Bashir Musa</strong> – Uni prep expert</li>
+                <li><strong>Mrs. Opeyemi Lasisi</strong> – Aptitude & verbal coach</li>
+              </ul>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Schedule & Duration:</h4>
+              <p class="text-gray-600 text-sm">5 weeks • Live tests & revision.</p>
+            </div>
+            <div class="mb-2">
+              <h4 class="font-semibold text-blue-700">Learning Objectives:</h4>
+              <ul class="list-disc list-inside text-gray-600 text-sm">
+                <li>Pass POST UTME confidently</li>
+                <li>Interview & problem-solving mastery</li>
+                <li>Personalized progress tracking</li>
+              </ul>
+            </div>
+            <div class="mt-2 mb-4">
+              <h4 class="font-semibold text-blue-700">Sample Lesson:</h4>
+              <a href="#" onclick="document.getElementById('preview-modal-3').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Watch Sample Video</a>
+            </div>
+            <div class="flex-grow"></div>
+            <div class="flex justify-between mt-4">
+              <button onclick="document.getElementById('preview-modal-3').classList.remove('hidden')" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
+              <a href="#enroll" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <!-- Preview Modal 2 -->
-    <div id="preview-modal-2" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-            <div class="relative bg-white rounded-lg shadow">
-                <div class="flex justify-between items-start p-4 rounded-t border-b">
-                    <h3 class="text-xl font-semibold text-gray-900">JAMB Course Preview</h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="preview-modal-2">
-                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <div class="p-6 space-y-6">
-                    <p class="text-base leading-relaxed text-gray-500">Get a taste of our JAMB strategies with practice questions and timed tests.</p>
-                    <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
-                    <a href="#enroll" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Enroll Now</a>
-                    <button data-modal-toggle="preview-modal-2" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Close</button>
-                </div>
-            </div>
+    <!-- Modals for Sample Content Previews -->
+    <div id="preview-modal-1" class="hidden fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center">
+      <div class="bg-white rounded-lg w-full max-w-2xl p-8">
+        <div class="flex justify-between items-center border-b pb-2">
+          <h4 class="font-bold text-lg">Sample SS3/WAEC/NECO Lesson</h4>
+          <button onclick="document.getElementById('preview-modal-1').classList.add('hidden')" class="text-gray-600 hover:text-red-500 text-2xl">&times;</button>
         </div>
+        <div class="my-6">
+          <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
     </div>
+    <div id="preview-modal-2" class="hidden fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center">
+      <div class="bg-white rounded-lg w-full max-w-2xl p-8">
+        <div class="flex justify-between items-center border-b pb-2">
+          <h4 class="font-bold text-lg">Sample JAMB Lesson</h4>
+          <button onclick="document.getElementById('preview-modal-2').classList.add('hidden')" class="text-gray-600 hover:text-red-500 text-2xl">&times;</button>
+        </div>
+        <div class="my-6">
+          <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <div id="preview-modal-3" class="hidden fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center">
+      <div class="bg-white rounded-lg w-full max-w-2xl p-8">
+        <div class="flex justify-between items-center border-b pb-2">
+          <h4 class="font-bold text-lg">Sample POST UTME Lesson</h4>
+          <button onclick="document.getElementById('preview-modal-3').classList.add('hidden')" class="text-gray-600 hover:text-red-500 text-2xl">&times;</button>
+        </div>
+        <div class="my-6">
+          <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    </section>
 
-    <!-- Preview Modal 3 -->
-    <div id="preview-modal-3" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-            <div class="relative bg-white rounded-lg shadow">
-                <div class="flex justify-between items-start p-4 rounded-t border-b">
-                    <h3 class="text-xl font-semibold text-gray-900">POST UTME Course Preview</h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="preview-modal-3">
-                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <div class="p-6 space-y-6">
-                    <p class="text-base leading-relaxed text-gray-500">Preview university-specific POST UTME tips and mock exams.</p>
-                    <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
-                    <a href="#enroll" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Enroll Now</a>
-                    <button data-modal-toggle="preview-modal-3" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Close</button>
-                </div>
-            </div>
+    <!-- Progress Tracker Section (Rich Feature) -->
+    <section id="progress" class="bg-gray-100 py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Personal Progress Tracker</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div class="bg-white rounded-lg shadow p-6">
+            <h4 class="font-semibold mb-2 text-blue-700 text-xl">Track Your Scores</h4>
+            <p class="mb-4 text-gray-600">Automatically save mock test and quiz results in your profile.</p>
+            <img src="https://img.icons8.com/color/96/scorecard.png" class="mx-auto w-20">
+          </div>
+          <div class="bg-white rounded-lg shadow p-6">
+            <h4 class="font-semibold mb-2 text-blue-700 text-xl">Set Study Goals</h4>
+            <p class="mb-4 text-gray-600">Plan targets for daily, weekly, and monthly study hours within your dashboard.</p>
+            <img src="https://img.icons8.com/color/96/goals--v2.png" class="mx-auto w-20">
+          </div>
+          <div class="bg-white rounded-lg shadow p-6">
+            <h4 class="font-semibold mb-2 text-blue-700 text-xl">Get Achievement Badges</h4>
+            <p class="mb-4 text-gray-600">Earn badges when you finish topics, pass mock tests, and more!</p>
+            <img src="https://img.icons8.com/color/96/prize.png" class="mx-auto w-20">
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
     <!-- Vision and Mission Section -->
     <section id="vision-mission" class="py-20 bg-gray-100">
@@ -248,11 +398,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white p-8 rounded-lg shadow-md">
                     <h3 class="text-2xl font-bold mb-4 text-blue-700">Our Vision</h3>
-                    <p class="text-gray-600">To be the leading online tutorial college in Nigeria, empowering students to achieve academic excellence and secure their future through innovative and accessible education.</p>
+                    <p class="text-gray-600">To be the leading online tutorial college in Nigeria, empowering students to achieve academic excellence and secure their future through innovative and accessible digital learning.</p>
                 </div>
                 <div class="bg-white p-8 rounded-lg shadow-md">
                     <h3 class="text-2xl font-bold mb-4 text-blue-700">Our Mission</h3>
-                    <p class="text-gray-600">To provide high-quality, affordable online tutoring in key examination categories, fostering a learning environment that promotes critical thinking, confidence, and success in SS3/WAEC/NECO, JAMB, and POST UTME.</p>
+                    <p class="text-gray-600">To provide high-quality, affordable online tutoring in key examination categories, fostering a learning environment that promotes critical thinking, confidence, and lifelong success.</p>
                 </div>
             </div>
         </div>
@@ -307,13 +457,15 @@
                     </div>
                     <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
                         <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 19l-7-7 7-7"></path></svg>
                             <span class="sr-only">Previous</span>
                         </span>
                     </button>
                     <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
                         <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5l7 7-7 7"></path></svg>
                             <span class="sr-only">Next</span>
                         </span>
                     </button>
@@ -327,7 +479,7 @@
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
             <p class="text-xl mb-8">Join thousands of successful students today!</p>
-            <a href="mailto:drictutors@gmail.com" class="bg-white text-blue-700 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">Contact Us to Enroll</a>
+            <a href="mailto:drichtutors@gmail.com" class="bg-white text-blue-700 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">Contact Us to Enroll</a>
         </div>
     </section>
 
@@ -364,14 +516,13 @@
     <!-- Flowbite JS -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.js"></script>
     <script>
-          document.addEventListener('DOMContentLoaded', function() {
-  renderAuthButtons();
-});
-  // Navbar mobile toggle
-  document.getElementById('hamburger-btn').addEventListener('click', function() {
-    const menu = document.getElementById('mobile-menu');
-    menu.hidden = !menu.hidden;
-  });
+      document.addEventListener('DOMContentLoaded', function() {
+          // Navbar mobile toggle
+          document.getElementById('hamburger-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.hidden = !menu.hidden;
+          });
+      });
     </script>
 </body>
 </html>
