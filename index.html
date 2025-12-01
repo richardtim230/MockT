@@ -19,7 +19,6 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-        /* for smooth scrolling */
         html {
             scroll-behavior: smooth;
         }
@@ -70,9 +69,7 @@
     <!-- Hero Section with Carousel -->
     <section id="home" class="pt-20">
         <div id="default-carousel" class="relative w-full" data-carousel="slide">
-            <!-- Carousel wrapper -->
             <div class="relative h-64 overflow-hidden md:h-96">
-                <!-- Item 1 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                     <img src="WAEC-and-Neco-595x340.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="Online Learning">
                     <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent bg-opacity-60 flex items-center justify-start px-12 md:px-24">
@@ -83,7 +80,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Item 2 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                     <img src="background.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="Students Learning">
                     <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent bg-opacity-60 flex items-center justify-start px-12 md:px-24">
@@ -94,7 +90,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Item 3 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                     <img src="oaugate-1140x570.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="Exam Preparation">
                     <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent bg-opacity-60 flex items-center justify-start px-12 md:px-24">
@@ -106,13 +101,11 @@
                     </div>
                 </div>
             </div>
-            <!-- Slider indicators -->
             <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3">
                 <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
                 <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
                 <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
             </div>
-            <!-- Slider controls -->
             <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
                 <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -159,7 +152,7 @@
         </div>
     </section>
 
-    <!-- Enhanced Courses Section with Detailed Information -->
+    <!-- Enhanced Courses Section with Updated Preview Modals & Removed Tutor Info -->
     <section id="courses" class="py-20 bg-white">
       <div class="container mx-auto px-6">
         <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Courses</h2>
@@ -168,6 +161,7 @@
           <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
             <img src="WAEC-and-Neco-595x340.png" alt="SS3/WAEC/NECO" class="w-full h-48 object-cover rounded-md mb-4">
             <h3 class="text-2xl font-semibold mb-2">SS3/WAEC/NECO</h3>
+            <!-- No Meet Your Tutors or YouTube -->
             <div class="mb-2">
               <h4 class="font-semibold text-blue-700">Curriculum Overview:</h4>
               <ul class="list-disc list-inside text-gray-600 text-sm">
@@ -194,14 +188,6 @@
               </ul>
             </div>
             <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Meet Your Tutors:</h4>
-              <ul class="text-gray-600 text-sm">
-                <li><strong>Mrs. Ada Johnson</strong> – Maths & Physics (15 yrs)</li>
-                <li><strong>Mr. Femi Akinwale</strong> – English, WAEC examiner</li>
-                <li><strong>Dr. Amaka Uche</strong> – Chemistry/Biology</li>
-              </ul>
-            </div>
-            <div class="mb-2">
               <h4 class="font-semibold text-blue-700">Schedule & Duration:</h4>
               <p class="text-gray-600 text-sm">10 weeks • 3–5 sessions/week • Flexible learning options.</p>
             </div>
@@ -214,8 +200,8 @@
               </ul>
             </div>
             <div class="mt-2 mb-4">
-              <h4 class="font-semibold text-blue-700">Sample Lesson:</h4>
-              <a href="#" onclick="document.getElementById('preview-modal-1').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Watch Sample Video</a>
+              <h4 class="font-semibold text-blue-700">Lecture Screenshots:</h4>
+              <a href="#" onclick="document.getElementById('preview-modal-1').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Preview</a>
             </div>
             <div class="flex-grow"></div>
             <div class="flex justify-between mt-4">
@@ -248,13 +234,6 @@
               </ul>
             </div>
             <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Meet Your Tutors:</h4>
-              <ul class="text-gray-600 text-sm">
-                <li><strong>Mr. David Okoro</strong> – JAMB CBT specialist</li>
-                <li><strong>Ms. Ifeoma Onu</strong> – Verbal Reasoning Guru</li>
-              </ul>
-            </div>
-            <div class="mb-2">
               <h4 class="font-semibold text-blue-700">Schedule & Duration:</h4>
               <p class="text-gray-600 text-sm">6-8 weeks • Evening/Saturday options.</p>
             </div>
@@ -267,8 +246,8 @@
               </ul>
             </div>
             <div class="mt-2 mb-4">
-              <h4 class="font-semibold text-blue-700">Sample Lesson:</h4>
-              <a href="#" onclick="document.getElementById('preview-modal-2').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Watch Sample Video</a>
+              <h4 class="font-semibold text-blue-700">Lecture Screenshots:</h4>
+              <a href="#" onclick="document.getElementById('preview-modal-2').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Preview</a>
             </div>
             <div class="flex-grow"></div>
             <div class="flex justify-between mt-4">
@@ -301,13 +280,6 @@
               </ul>
             </div>
             <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Meet Your Tutors:</h4>
-              <ul class="text-gray-600 text-sm">
-                <li><strong>Mr. Bashir Musa</strong> – Uni prep expert</li>
-                <li><strong>Mrs. Opeyemi Lasisi</strong> – Aptitude & verbal coach</li>
-              </ul>
-            </div>
-            <div class="mb-2">
               <h4 class="font-semibold text-blue-700">Schedule & Duration:</h4>
               <p class="text-gray-600 text-sm">5 weeks • Live tests & revision.</p>
             </div>
@@ -320,8 +292,8 @@
               </ul>
             </div>
             <div class="mt-2 mb-4">
-              <h4 class="font-semibold text-blue-700">Sample Lesson:</h4>
-              <a href="#" onclick="document.getElementById('preview-modal-3').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Watch Sample Video</a>
+              <h4 class="font-semibold text-blue-700">Lecture Screenshots:</h4>
+              <a href="#" onclick="document.getElementById('preview-modal-3').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Preview</a>
             </div>
             <div class="flex-grow"></div>
             <div class="flex justify-between mt-4">
@@ -332,37 +304,109 @@
         </div>
       </div>
 
-    <!-- Modals for Sample Content Previews -->
+    <!-- Modals: Image sliders instead of YouTube previews -->
     <div id="preview-modal-1" class="hidden fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center">
-      <div class="bg-white rounded-lg w-full max-w-2xl p-8">
+      <div class="bg-white rounded-lg w-full max-w-2xl p-8 relative">
         <div class="flex justify-between items-center border-b pb-2">
-          <h4 class="font-bold text-lg">Sample SS3/WAEC/NECO Lesson</h4>
+          <h4 class="font-bold text-lg">SS3/WAEC/NECO Lecture Screenshots</h4>
           <button onclick="document.getElementById('preview-modal-1').classList.add('hidden')" class="text-gray-600 hover:text-red-500 text-2xl">&times;</button>
         </div>
         <div class="my-6">
-          <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
+            <!-- Image Slider -->
+            <div id="ss3-slider" class="relative w-full" data-carousel="static">
+              <div class="relative h-64 overflow-hidden rounded-lg">
+                <div class="duration-700 ease-in-out" data-carousel-item>
+                  <img src="ss3-slide1.png" alt="Lecture Screenshot 1" class="block w-full h-64 object-contain">
+                </div>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                  <img src="ss3-slide2.png" alt="Lecture Screenshot 2" class="block w-full h-64 object-contain">
+                </div>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                  <img src="ss3-slide3.png" alt="Lecture Screenshot 3" class="block w-full h-64 object-contain">
+                </div>
+              </div>
+              <div class="absolute z-30 flex space-x-3 left-1/2 bottom-4 -translate-x-1/2">
+                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+              </div>
+              <button type="button" class="absolute top-1/2 left-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-prev>
+                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+              </button>
+              <button type="button" class="absolute top-1/2 right-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-next>
+                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
         </div>
       </div>
     </div>
     <div id="preview-modal-2" class="hidden fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center">
-      <div class="bg-white rounded-lg w-full max-w-2xl p-8">
+      <div class="bg-white rounded-lg w-full max-w-2xl p-8 relative">
         <div class="flex justify-between items-center border-b pb-2">
-          <h4 class="font-bold text-lg">Sample JAMB Lesson</h4>
+          <h4 class="font-bold text-lg">JAMB Lecture Screenshots</h4>
           <button onclick="document.getElementById('preview-modal-2').classList.add('hidden')" class="text-gray-600 hover:text-red-500 text-2xl">&times;</button>
         </div>
         <div class="my-6">
-          <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
+            <!-- Image Slider -->
+            <div id="jamb-slider" class="relative w-full" data-carousel="static">
+              <div class="relative h-64 overflow-hidden rounded-lg">
+                <div class="duration-700 ease-in-out" data-carousel-item>
+                  <img src="jamb-slide1.png" alt="JAMB Screenshot 1" class="block w-full h-64 object-contain">
+                </div>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                  <img src="jamb-slide2.png" alt="JAMB Screenshot 2" class="block w-full h-64 object-contain">
+                </div>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                  <img src="jamb-slide3.png" alt="JAMB Screenshot 3" class="block w-full h-64 object-contain">
+                </div>
+              </div>
+              <div class="absolute z-30 flex space-x-3 left-1/2 bottom-4 -translate-x-1/2">
+                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+              </div>
+              <button type="button" class="absolute top-1/2 left-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-prev>
+                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+              </button>
+              <button type="button" class="absolute top-1/2 right-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-next>
+                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
         </div>
       </div>
     </div>
     <div id="preview-modal-3" class="hidden fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center">
-      <div class="bg-white rounded-lg w-full max-w-2xl p-8">
+      <div class="bg-white rounded-lg w-full max-w-2xl p-8 relative">
         <div class="flex justify-between items-center border-b pb-2">
-          <h4 class="font-bold text-lg">Sample POST UTME Lesson</h4>
+          <h4 class="font-bold text-lg">POST UTME Lecture Screenshots</h4>
           <button onclick="document.getElementById('preview-modal-3').classList.add('hidden')" class="text-gray-600 hover:text-red-500 text-2xl">&times;</button>
         </div>
         <div class="my-6">
-          <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sample Preview" frameborder="0" allowfullscreen></iframe>
+            <!-- Image Slider -->
+            <div id="utme-slider" class="relative w-full" data-carousel="static">
+              <div class="relative h-64 overflow-hidden rounded-lg">
+                <div class="duration-700 ease-in-out" data-carousel-item>
+                  <img src="utme-slide1.png" alt="UTME Screenshot 1" class="block w-full h-64 object-contain">
+                </div>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                  <img src="utme-slide2.png" alt="UTME Screenshot 2" class="block w-full h-64 object-contain">
+                </div>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                  <img src="utme-slide3.png" alt="UTME Screenshot 3" class="block w-full h-64 object-contain">
+                </div>
+              </div>
+              <div class="absolute z-30 flex space-x-3 left-1/2 bottom-4 -translate-x-1/2">
+                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+              </div>
+              <button type="button" class="absolute top-1/2 left-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-prev>
+                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+              </button>
+              <button type="button" class="absolute top-1/2 right-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-next>
+                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
         </div>
       </div>
     </div>
@@ -398,7 +442,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white p-8 rounded-lg shadow-md">
                     <h3 class="text-2xl font-bold mb-4 text-blue-700">Our Vision</h3>
-                    <p class="text-gray-600">To be the leading online tutorial college in Nigeria, empowering students to achieve academic excellence and secure their future through innovative and accessible digital learning.</p>
+                    <p class="text-gray-600">To be the leading online tutorial college in Nigeria, empowering students to achieve academic excellence and secure their future through innovative and accurate learning methods.</p>
                 </div>
                 <div class="bg-white p-8 rounded-lg shadow-md">
                     <h3 class="text-2xl font-bold mb-4 text-blue-700">Our Mission</h3>
@@ -408,23 +452,39 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
+    <!-- About Us Section With SVGs -->
     <section id="about" class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Why Choose D-RICH TUTORIAL COLLEGE?</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="text-center p-6">
-                    <img src="https://source.unsplash.com/random/100x100/?expert,icon" alt="Expert Tutors" class="mx-auto mb-4 rounded-full w-20 h-20">
+                    <!-- Custom SVG - Expert Tutors -->
+                    <svg class="mx-auto mb-4 w-20 h-20" fill="none" viewBox="0 0 80 80">
+                      <circle cx="40" cy="40" r="36" stroke="#2563EB" stroke-width="4" fill="#FFFBEB"/>
+                      <path d="M40 34a10 10 0 100-20 10 10 0 000 20z" fill="#FBBF24"/>
+                      <rect x="25" y="50" width="30" height="15" rx="7" fill="#2563EB"/>
+                      <rect x="32" y="50" width="16" height="4" rx="2" fill="#1E3A8A"/>
+                    </svg>
                     <h3 class="text-xl font-semibold mb-2">Expert Tutors</h3>
                     <p class="text-gray-600">Qualified educators with years of experience in exam preparation.</p>
                 </div>
                 <div class="text-center p-6">
-                    <img src="https://source.unsplash.com/random/100x100/?flexible,icon" alt="Flexible Learning" class="mx-auto mb-4 rounded-full w-20 h-20">
+                    <!-- Custom SVG - Flexible Learning -->
+                    <svg class="mx-auto mb-4 w-20 h-20" fill="none" viewBox="0 0 80 80">
+                      <rect x="12" y="18" width="56" height="40" rx="6" fill="#FBBF24" stroke="#2563EB" stroke-width="4"/>
+                      <circle cx="40" cy="38" r="10" fill="#2563EB"/>
+                      <rect x="28" y="50" width="24" height="4" rx="2" fill="#1E3A8A"/>
+                    </svg>
                     <h3 class="text-xl font-semibold mb-2">Flexible Learning</h3>
                     <p class="text-gray-600">Learn at your own pace with 24/7 access to resources.</p>
                 </div>
                 <div class="text-center p-6">
-                    <img src="https://source.unsplash.com/random/100x100/?success,icon" alt="Proven Success" class="mx-auto mb-4 rounded-full w-20 h-20">
+                    <!-- Custom SVG - Proven Success -->
+                    <svg class="mx-auto mb-4 w-20 h-20" fill="none" viewBox="0 0 80 80">
+                        <circle cx="40" cy="40" r="36" stroke="#2563EB" stroke-width="4" fill="#FBBF24"/>
+                        <path d="M32 45l8 8 16-16" stroke="#2563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <circle cx="40" cy="38" r="10" fill="#FFFBEB"/>
+                    </svg>
                     <h3 class="text-xl font-semibold mb-2">Proven Success</h3>
                     <p class="text-gray-600">High pass rates and student testimonials speak for our quality.</p>
                 </div>
@@ -434,17 +494,14 @@
                 <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">What Our Students Say</h3>
                 <div id="testimonial-carousel" class="relative w-full" data-carousel="slide">
                     <div class="relative h-56 overflow-hidden rounded-lg md:h-64">
-                        <!-- Testimonial 1 -->
                         <div class="hidden duration-700 ease-in-out p-8 bg-gray-100 rounded-lg text-center" data-carousel-item>
                             <p class="text-lg text-gray-600">"D-RICH helped me score 280 in JAMB! Highly recommended."</p>
                             <p class="font-semibold mt-4 text-blue-700">- Student A</p>
                         </div>
-                        <!-- Testimonial 2 -->
                         <div class="hidden duration-700 ease-in-out p-8 bg-gray-100 rounded-lg text-center" data-carousel-item>
                             <p class="text-lg text-gray-600">"Excellent tutors for WAEC prep. I passed with distinctions."</p>
                             <p class="font-semibold mt-4 text-blue-700">- Student B</p>
                         </div>
-                        <!-- Testimonial 3 -->
                         <div class="hidden duration-700 ease-in-out p-8 bg-gray-100 rounded-lg text-center" data-carousel-item>
                             <p class="text-lg text-gray-600">"Post UTME course was spot on. Got admitted to my dream uni."</p>
                             <p class="font-semibold mt-4 text-blue-700">- Student C</p>
