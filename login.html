@@ -31,9 +31,9 @@
   <h2 class="text-2xl md:text-3xl font-bold text-center text-blue-900 mb-8">Login</h2>
   <form id="loginForm" autocomplete="off">
     <div>
-      <label for="userKey" class="block font-semibold mb-1">Email or Full Name</label>
+      <label for="userKey" class="block font-semibold mb-1">Email or Phone</label>
       <input type="text" id="userKey" name="userKey" required class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-300" autocomplete="username">
-      <span class="text-xs text-red-500 hidden" id="error-userKey">Please enter your email or full name.</span>
+      <span class="text-xs text-red-500 hidden" id="error-userKey">Please enter your email or phone.</span>
     </div>
     <div class="mt-4">
       <label for="password" class="block font-semibold mb-1">Password</label>
@@ -74,13 +74,15 @@
 </div>
 
 <script>
+const API_URL = "https://examguard-jmvj.onrender.com/api/student/login";
+
 // Password visibility toggle
 document.getElementById('togglePassword').onclick = function() {
   const pass = document.getElementById('password');
   const eye = document.getElementById('eyeIcon');
   if (pass.type === 'password') {
     pass.type = 'text';
-    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18"/>`;
+    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 1[...]`
   } else {
     pass.type = 'password';
     eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>`;
@@ -98,12 +100,9 @@ function hideModal() {
 }
 document.getElementById('modal-close').onclick = function() {
   hideModal();
-  // Redirect to dashboard/index.html? Simulate
-  window.location.href = "index.html";
 };
 
-// Validation and submission (frontend demo)
-document.getElementById('loginForm').onsubmit = function(e) {
+document.getElementById('loginForm').onsubmit = async function(e) {
   e.preventDefault();
   let valid = true;
   const userKey = document.getElementById('userKey').value.trim();
@@ -118,14 +117,36 @@ document.getElementById('loginForm').onsubmit = function(e) {
   } else { errPass.classList.add('hidden'); }
   if (!valid) return;
   showModal('Authenticating, please wait...', true);
-  setTimeout(function() {
-    // Always success - demo only, connect backend as needed!
-    showModal('<span class="text-green-600">✔️ Login successful!</span><br>Redirecting to home...', false);
-    setTimeout(() => {
-      hideModal();
-      window.location.href = "index.html";
-    }, 1800);
-  }, 2000);
+
+  // API
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ emailOrPhone: userKey, password: pass })
+    });
+    let result = {};
+    try { result = await res.json(); } catch(e) {}
+    if (res.ok && result.user && result.token) {
+      // Save token (optionally, use sessionStorage/localStorage)
+      localStorage.setItem("jwt_token", result.token);
+      localStorage.setItem("user_role", result.user.role);
+      // Redirect based on role
+      let role = (result.user.role || "").toLowerCase();
+      let redirectUrl = "index.html";
+      if (role === "admin" || role === "superadmin") redirectUrl = "admin-dashboard.html";
+      else if (role === "tutor") redirectUrl = "tutor-dashboard.html";
+      else if (role === "student") redirectUrl = "student-dashboard.html";
+      showModal('<span class="text-green-600">✔️ Login successful!</span><br>Redirecting to dashboard...', false);
+      setTimeout(() => { hideModal(); window.location.href = redirectUrl; }, 1200);
+    } else {
+      showModal(result.message
+        ? `<span class="text-red-600">❌ ${result.message}</span>`
+        : "<span class='text-red-600'>❌ Login failed. Try again.</span>", false);
+    }
+  } catch (e) {
+    showModal("<span class='text-red-600'>❌ Network error. Please try again later.</span>", false);
+  }
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.js"></script>
