@@ -162,8 +162,9 @@
   </div>
 </div>
 
-<!-- Script: wizard, validation, password toggle, modal/redirect, passport preview -->
+<!-- Script: wizard, validation, password toggle, modal/redirect, passport preview, backend submit -->
 <script>
+const API_URL = "https://examguard-jmvj.onrender.com/api/student/register";
 const form = document.getElementById('wizardForm');
 const nextBtn = document.getElementById('nextBtn');
 const backBtn = document.getElementById('backBtn');
@@ -184,7 +185,7 @@ document.getElementById('togglePassword').onclick = function() {
   const eye = document.getElementById('eyeIcon');
   if (pass.type === 'password') {
     pass.type = 'text';
-    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18"/>`;
+    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 1[...]`
   } else {
     pass.type = 'password';
     eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>`;
@@ -302,21 +303,61 @@ document.getElementById('modal-close').onclick = function() {
   window.location.href = "login.html"; // redirect after close!
 };
 
-// Submit w/ spinner and redirect to login after success
-form.onsubmit = function(e) {
+// --- MAIN CHANGE: submit backend logic ---
+form.onsubmit = async function(e) {
   e.preventDefault();
   if (!validateStep(3)) return;
   showModal('Submitting your registration. Please wait...', true);
-  // Simulate "processing"
-  setTimeout(function() {
-    showModal('<span class="text-green-600">✔️ Registration successful!</span><br>Redirecting to login page...', false);
-    form.reset(); document.getElementById('passport-preview').innerHTML = '';
-    showStep(0);
-    setTimeout(() => {
-      hideModal();
-      window.location.href = "login.html";
-    }, 2000);
-  }, 2200);
+
+  // Prepare FormData for multipart/form-data request
+  const formData = new FormData();
+  formData.append("fullName", form.fullName.value.trim());
+  formData.append("email", form.email.value.trim());
+  formData.append("phone", form.phone.value.trim());
+  formData.append("dob", form.dob.value || "");
+  formData.append("gender", form.gender.value || "");
+  // could add address, referral, guardianName, guardianPhone as blank for now
+  formData.append("address", "");
+  formData.append("program", form.program.value);
+  formData.append("password", form.password.value);
+  formData.append("referral", "");
+  formData.append("guardianName", "");
+  formData.append("guardianPhone", "");
+  if (form.passport.files.length > 0) {
+    formData.append("passport", form.passport.files[0]);
+  }
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: formData
+    });
+
+    let result;
+    try {
+      result = await res.json();
+    } catch (err) {
+      result = {};
+    }
+
+    if (res.ok && result.message && result.message.toLowerCase().includes("success")) {
+      showModal('<span class="text-green-600">✔️ Registration successful!</span><br>Redirecting to login page...', false);
+      form.reset();
+      document.getElementById('passport-preview').innerHTML = '';
+      showStep(0);
+      setTimeout(() => {
+        hideModal();
+        window.location.href = "login.html";
+      }, 2000);
+    } else {
+      let msg = result && result.message
+        ? `<span class="text-red-600">❌ ${result.message}</span>`
+        : "<span class='text-red-600'>❌ Registration failed. Try again.</span>";
+      showModal(msg, false);
+    }
+  } catch (err) {
+    showModal("<span class='text-red-600'>❌ Network error. Please try again later.</span>", false);
+  }
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.js"></script>
