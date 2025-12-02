@@ -185,7 +185,7 @@ document.getElementById('togglePassword').onclick = function() {
   const eye = document.getElementById('eyeIcon');
   if (pass.type === 'password') {
     pass.type = 'text';
-    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 1[...]`
+    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 1[...]`;
   } else {
     pass.type = 'password';
     eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>`;
@@ -297,10 +297,18 @@ function hideModal() {
   document.getElementById('modal-feedback').classList.add('hidden');
 }
 
-// Modal close btn
+// --- CHANGE: Modal close btn handles differently success/failure ---
+let registrationWasSuccessful = false;
 document.getElementById('modal-close').onclick = function() {
   hideModal();
-  window.location.href = "login.html"; // redirect after close!
+  if (registrationWasSuccessful) {
+    window.location.href = "login.html";
+  } else {
+    showStep(0);
+    // Do NOT reset the form in failure; keep data as it is.
+    // But if user uploaded failed passport image, also keep the selection/prefill (handled by browser)
+    // Also: Modal/step validation UI resets are handled on step-1 showing.
+  }
 };
 
 // --- MAIN CHANGE: submit backend logic ---
@@ -341,6 +349,7 @@ form.onsubmit = async function(e) {
     }
 
     if (res.ok && result.message && result.message.toLowerCase().includes("success")) {
+      registrationWasSuccessful = true;
       showModal('<span class="text-green-600">✔️ Registration successful!</span><br>Redirecting to login page...', false);
       form.reset();
       document.getElementById('passport-preview').innerHTML = '';
@@ -350,13 +359,18 @@ form.onsubmit = async function(e) {
         window.location.href = "login.html";
       }, 2000);
     } else {
+      registrationWasSuccessful = false;
       let msg = result && result.message
         ? `<span class="text-red-600">❌ ${result.message}</span>`
         : "<span class='text-red-600'>❌ Registration failed. Try again.</span>";
       showModal(msg, false);
+      // Do NOT redirect to login; after OK, return to step 1 and allow user to retry, keeping form data
+      // (see modal-close handling above)
     }
   } catch (err) {
+    registrationWasSuccessful = false;
     showModal("<span class='text-red-600'>❌ Network error. Please try again later.</span>", false);
+    // Do NOT redirect to login
   }
 };
 </script>
