@@ -14,9 +14,50 @@
     body { font-family: 'Inter', sans-serif; }
     .sidebar-open { transform: translateX(0); }
     .sidebar-closed { transform: translateX(-100%); }
+    .modal-overlay {
+      background: rgba(0, 0, 0, 0.55) !important;
+    }
+    .locked-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.8);
+      color: #444;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      border-radius: 0.5rem;
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen">
+
+  <!-- Payment Modal -->
+  <div id="payment-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center modal-overlay">
+    <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md mx-4 text-center">
+      <h2 class="text-2xl font-bold text-blue-800 mb-4">Tutorial Fee Payment Required</h2>
+      <p class="mb-4 text-gray-700 text-lg">To unlock all dashboard features, kindly pay your D-RICH tutorial fee.</p>
+      <div class="my-4">
+        <span class="font-bold text-3xl text-green-700">₦6,000</span>
+      </div>
+      <div class="mb-6">
+        <p class="mb-2 text-gray-600 text-sm">
+          Payment is handled directly via WhatsApp.<br>
+          Message the admin to complete your tutorial fee payment and unlock your dashboard.
+        </p>
+        <a href="https://wa.me/2349155127634?text=Hello%20Admin,%20I%20want%20to%20pay%20my%20tutorial%20fee%20of%20N6000%20on%20D-RICH%20platform"
+          id="whatsapp-pay-btn"
+          class="inline-block rounded bg-green-600 hover:bg-green-700 text-white px-6 py-3 font-semibold text-lg flex items-center justify-center space-x-2"
+          target="_blank" rel="noopener">
+          <svg width="22" height="22" fill="none" viewBox="0 0 32 32"><path fill="#fff" d="M0 0h32v32H0z"/><path fill="#25D366" d="M16 3.2A12.8 12.8 0 003.2 16c0 2.257.624 4.442 1.81 6.349l-1.91 6.696 6.858-1.799A12.749 12.749 0 0016 28.8a12.8 12.8 0 100-25.6zm0 23.05a10.202 10.202 0 01-5.202-1.466l-.372-.216-4.072 1.069 1.087-4.017-.243-.393a10.178 10.178 0 01-1.583-5.267c0-5.611 4.568-10.18 10.18-10.18a10.116 10.116 0 018.788 5.061A10.139 10.139 0 0126.18 16c0 5.611-4.569 10.18-10.18 10.18zm5.605-7.652c-.308-.153-1.818-.896-2.099-1-.28-.104-.484-.153-.687.155-.203.308-.788 1-.967 1.207-.177.203-.357.23-.665.077-.308-.153-1.3-.479-2.476-1.525-.915-.815-1.53-1.822-1.71-2.13-.177-.308-.02-.474.133-.627.137-.137.307-.356.461-.535.154-.18.205-.308.308-.514s.052-.387-.025-.535c-.077-.154-.687-1.705-.943-2.334-.247-.593-.499-.513-.687-.523l-.586-.01a.535.535 0 00-.389.18c-.133.153-.5.489-.5 1.19.002.7.513 1.379.584 1.476.07.097 1.008 1.54 2.445 2.221 1.437.682 1.437.455 1.698.425.261-.03.865-.355.989-.7.123-.347.123-.644.087-.71-.036-.065-.28-.172-.584-.322z"/></svg>
+          <span>Pay via WhatsApp</span>
+        </a>
+      </div>
+      <button id="close-modal" class="mt-2 px-6 py-2 rounded bg-blue-800 hover:bg-blue-900 text-white font-semibold">Close</button>
+      <div class="mt-2 text-xs text-gray-500">You will not be able to access dashboard features until fee is paid.</div>
+    </div>
+  </div>
 
   <!-- Mobile Header -->
   <header class="md:hidden bg-white shadow-sm fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3">
@@ -33,31 +74,30 @@
       <div class="flex items-center space-x-3 mb-8">
         <div id="sidebar-avatar" class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center font-bold text-xl">--</div>
         <div>
-          <p class="font-semibold" id="sidebar-name">---</p>
-          <p class="text-xs text-blue-200" id="sidebar-email">@---</p>
+          <p id="sidebar-fullname" class="font-semibold">-- --</p>
+          <p class="text-xs text-blue-200" id="sidebar-username">@---</p>
         </div>
       </div>
-
       <!-- Nav Tabs (Links) -->
       <nav class="space-y-2">
-        <a href="#dashboard" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg bg-blue-700 text-white">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h[...]"/>
+        <a href="#dashboard" data-section="dashboard" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg bg-blue-700 text-white">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-10-1h16"/></svg>
           <span>Dashboard</span>
         </a>
-        <a href="#eclassroom" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-lin[...]"/>
+        <a href="#eclassroom" data-section="eclassroom" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0121 21.985v0a9.985 9.985 0 01-18 0V5.985"/></svg>
           <span>E-Classroom</span>
         </a>
-        <a href="#cbt" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1.5 1.5M12 3v1m0 16v1m8.485[...]"/>
+        <a href="#cbt" data-section="cbt" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1.5 1.5M12 3v1m0 16v1m8.485-12.485l-.707.707m-13.142 0l-.707-.707m16.97 8.486l-.707-.707m-13.142 0l-.707.707"/></svg>
           <span>CBT Exams</span>
         </a>
-        <a href="#payments" id="payments-link" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V[...]"/>
+        <a href="#payments" data-section="payments" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V7a3 3 0 00-3-3H7a3 3 0 00-3 3v10a3 3 0 003 3z"/></svg>
           <span>Payments</span>
         </a>
-        <a href="#profile" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 [...]"/>
+        <a href="#profile" data-section="profile" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7"/></svg>
           <span>Profile</span>
         </a>
       </nav>
@@ -76,164 +116,213 @@
     <!-- Dashboard Section -->
     <section id="dashboard" class="tab-content p-6">
       <div class="max-w-7xl mx-auto">
-        <h1 id="dashboard-title" class="text-3xl font-bold text-gray-800 mb-6">Welcome back!</h1>
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Welcome back, <span id="dash-fullname">Student</span>!</h1>
 
-        <!-- Stats Cards (locked info if unpaid)-->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div class="bg-white p-6 rounded-lg shadow-sm border flex flex-col items-center justify-center">
-            <p class="text-sm text-gray-500">Active Courses</p>
-            <p class="text-2xl font-bold text-gray-400"><span id="stat-active-courses">--</span></p>
-            <span class="mt-3 block px-2 py-1 bg-red-100 text-red-700 rounded text-xs" id="locked-courses-badge" style="display:none;">Locked - Pay Fee</span>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-sm border flex flex-col items-center justify-center">
-            <p class="text-sm text-gray-500">CBT Completed</p>
-            <p class="text-2xl font-bold text-gray-400"><span id="stat-cbt-completed">--</span></p>
-            <span class="mt-3 block px-2 py-1 bg-red-100 text-red-700 rounded text-xs" id="locked-cbt-badge" style="display:none;">Locked - Pay Fee</span>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-sm border flex flex-col items-center justify-center">
-            <p class="text-sm text-gray-500">Pending Payment</p>
-            <p class="text-2xl font-bold text-orange-600" id="stat-pending-payment">₦6,000</p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-sm border flex flex-col items-center justify-center">
-            <p class="text-sm text-gray-500">Next Exam</p>
-            <p class="text-lg font-bold text-gray-400" id="stat-next-exam">--</p>
-            <span class="mt-3 block px-2 py-1 bg-red-100 text-red-700 rounded text-xs" id="locked-exam-badge" style="display:none;">Locked - Pay Fee</span>
+        <!-- Lock/Payment Notice -->
+        <div id="dashboard-locked-overlay" class="locked-overlay hidden">
+          <div class="flex flex-col items-center">
+            <svg class="w-14 h-14 mb-3 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m0-6a2 2 0 00-2 2v2a2 2 0 002 2 2 2 0 002-2v-2a2 2 0 00-2-2z"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 17a7 7 0 1114 0v1a2 2 0 01-2 2H7a2 2 0 01-2-2v-1z"/>
+            </svg>
+            <h3 class="text-xl font-semibold mb-2">Access Locked</h3>
+            <p class="text-gray-600 mb-2">Your tutorial fee payment is pending. Please pay <span class="font-bold text-green-700">₦6,000</span> to unlock the entire dashboard.</p>
+            <button id="unlock-pay-now" class="mt-3 bg-green-600 text-white px-6 py-2 rounded font-bold text-md hover:bg-green-700 flex items-center">
+              <svg width="22" height="22" class="mr-2" fill="none" viewBox="0 0 32 32"><path fill="#25D366" d="M16 3.2A12.8 12.8 0 003.2 16c0 2.257.624 4.442 1.81 6.349l-1.91 6.696 6.858-1.799A12.749 12.749 0 0016 28.8a12.8 12.8 0 100-25.6zm0 23.05a10.202 10.202 0 01-5.202-1.466l-.372-.216-4.072 1.069 1.087-4.017-.243-.393a10.178 10.178 0 01-1.583-5.267c0-5.611 4.568-10.18 10.18-10.18a10.116 10.116 0 018.788 5.061A10.139 10.139 0 0126.18 16c0 5.611-4.569 10.18-10.18 10.18zm5.605-7.652c-.308-.153-1.818-.896-2.099-1-.28-.104-.484-.153-.687.155-.203.308-.788 1-.967 1.207-.177.203-.357.23-.665.077-.308-.153-1.3-.479-2.476-1.525-.915-.815-1.53-1.822-1.71-2.13-.177-.308-.02-.474.133-.627.137-.137.307-.356.461-.535.154-.18.205-.308.308-.514s.052-.387-.025-.535c-.077-.154-.687-1.705-.943-2.334-.247-.593-.499-.513-.687-.523l-.586-.01a.535.535 0 00-.389.18c-.133.153-.5.489-.5 1.19.002.7.513 1.379.584 1.476.07.097 1.008 1.54 2.445 2.221 1.437.682 1.437.455 1.698.425.261-.03.865-.355.989-.7.123-.347.123-.644.087-.71-.036-.065-.28-.172-.584-.322z"/></svg>
+              Pay Now on WhatsApp
+            </button>
           </div>
         </div>
 
-        <!-- Quick Actions (ALL LOCKED IF NOT PAID)-->
-        <div class="bg-white p-6 rounded-lg shadow-sm border mb-6">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 opacity-50 pointer-events-none" id="dashboard-stats">
+          <div class="bg-white p-6 rounded-lg shadow-sm border">
+            <p class="text-sm text-gray-500">Active Courses</p>
+            <p class="text-2xl font-bold text-blue-700" id="active-courses">--</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-sm border">
+            <p class="text-sm text-gray-500">CBT Completed</p>
+            <p class="text-2xl font-bold text-green-600" id="cbt-completed">--</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-sm border">
+            <p class="text-sm text-gray-500">Pending Payment</p>
+            <p class="text-2xl font-bold text-orange-600" id="pending-payment">₦6,000</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-sm border">
+            <p class="text-sm text-gray-500">Next Exam</p>
+            <p class="text-lg font-bold text-purple-600" id="next-exam">--</p>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white p-6 rounded-lg shadow-sm border mb-6 opacity-50 pointer-events-none" id="dashboard-quick-actions">
           <h2 class="text-xl font-semibold mb-4">Quick Actions</h2>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="text-center p-4 bg-gray-50 rounded-lg cursor-not-allowed opacity-50">
-              <div class="w-12 h-12 mx-auto mb-2 bg-gray-300 rounded-full flex items-center justify-center">
-                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 [...]"/></svg>
+            <a href="#eclassroom" class="text-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+              <div class="w-12 h-12 mx-auto mb-2 bg-blue-600 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 7.675 9.203 8.035 8 8.779"/></svg>
               </div>
-              <p class="text-sm font-medium text-gray-500">View Lectures</p>
-              <div class="mt-2 text-xs text-red-700">Locked. Pay Fee</div>
-            </div>
-            <div class="text-center p-4 bg-gray-50 rounded-lg cursor-not-allowed opacity-50">
-              <div class="w-12 h-12 mx-auto mb-2 bg-gray-300 rounded-full flex items-center justify-center">
-                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m0 [...]"/></svg>
+              <p class="text-sm font-medium">View Lectures</p>
+            </a>
+            <a href="#cbt" class="text-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition">
+              <div class="w-12 h-12 mx-auto mb-2 bg-green-600 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m0 16v1m8.485-12.485l-.707.707m-13.142 0l-.707-.707m16.97 8.486l-.707-.707m-13.142 0l-.707.707"/></svg>
               </div>
-              <p class="text-sm font-medium text-gray-500">Take CBT</p>
-              <div class="mt-2 text-xs text-red-700">Locked. Pay Fee</div>
-            </div>
-            <div class="text-center p-4 bg-gray-50 rounded-lg cursor-not-allowed opacity-50">
-              <div class="w-12 h-12 mx-auto mb-2 bg-gray-300 rounded-full flex items-center justify-center">
-                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 [...]"/></svg>
+              <p class="text-sm font-medium">Take CBT</p>
+            </a>
+            <a href="#payments" class="text-center p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition">
+              <div class="w-12 h-12 mx-auto mb-2 bg-orange-600 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V7a3 3 0 00-3-3H7a3 3 0 00-3 3v10a3 3 0 003 3z"/></svg>
               </div>
-              <p class="text-sm font-medium text-gray-500">Pay Fees</p>
-              <!-- No lock message, since this opens payments -->
-            </div>
-            <div class="text-center p-4 bg-gray-50 rounded-lg cursor-not-allowed opacity-50">
-              <div class="w-12 h-12 mx-auto mb-2 bg-gray-300 rounded-full flex items-center justify-center">
-                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 [...]"/></svg>
+              <p class="text-sm font-medium">Pay Fees</p>
+            </a>
+            <a href="#profile" class="text-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition">
+              <div class="w-12 h-12 mx-auto mb-2 bg-purple-600 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7"/></svg>
               </div>
-              <p class="text-sm font-medium text-gray-500">My Profile</p>
-              <div class="mt-2 text-xs text-red-700">Locked. Pay Fee</div>
-            </div>
+              <p class="text-sm font-medium">My Profile</p>
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- E-Classroom Section (LOCKED) -->
-    <section id="eclassroom" class="tab-content p-6 hidden">
+    <!-- E-Classroom Section (Dynamic) -->
+    <section id="eclassroom" class="tab-content p-6 hidden relative">
       <div class="max-w-7xl mx-auto">
-        <div class="bg-red-50 p-8 rounded-lg text-center border border-red-200">
-          <h1 class="text-2xl font-bold text-red-700 mb-3">E-Classroom Locked</h1>
-          <p class="text-lg text-red-600 mb-2">You must pay your tutorial fee to unlock the E-Classroom.</p>
-          <button onclick="openPaymentModal()" class="mt-4 bg-green-700 hover:bg-green-600 text-white px-6 py-2 rounded">Pay Now</button>
+        <h1 class="text-3xl font-bold text-gray-800 mb-6" id="eclassroom-title">E-Classroom</h1>
+        <div id="subject-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <div class="locked-overlay">
+          <div class="flex flex-col items-center">
+            <svg class="w-14 h-14 mb-3 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m0-6a2 2 0 00-2 2v2a2 2 0 002 2 2 2 0 002-2v-2a2 2 0 00-2-2z"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 17a7 7 0 1114 0v1a2 2 0 01-2 2H7a2 2 0 01-2-2v-1z"/>
+            </svg>
+            <h3 class="text-lg font-semibold mb-2">Access Locked</h3>
+            <p class="text-gray-600 mb-2">Tutorial fee payment required.<br>Visit Payments page to unlock.</p>
+            <button class="mt-3 bg-green-600 text-white px-6 py-2 rounded font-bold text-md hover:bg-green-700" onclick="openPaymentModal()">Pay Now</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- CBT Exams Section (LOCKED) -->
-    <section id="cbt" class="tab-content p-6 hidden">
+    <!-- CBT Exams Section -->
+    <section id="cbt" class="tab-content p-6 hidden relative">
       <div class="max-w-7xl mx-auto">
-        <div class="bg-red-50 p-8 rounded-lg text-center border border-red-200">
-          <h1 class="text-2xl font-bold text-red-700 mb-3">CBT Exams Locked</h1>
-          <p class="text-lg text-red-600 mb-2">You must pay your tutorial fee to access CBT exams.</p>
-          <button onclick="openPaymentModal()" class="mt-4 bg-green-700 hover:bg-green-600 text-white px-6 py-2 rounded">Pay Now</button>
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">CBT Exams</h1>
+        <div class="locked-overlay">
+          <div class="flex flex-col items-center">
+            <svg class="w-14 h-14 mb-3 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m0-6a2 2 0 00-2 2v2a2 2 0 002 2 2 2 0 002-2v-2a2 2 0 00-2-2z"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 17a7 7 0 1114 0v1a2 2 0 01-2 2H7a2 2 0 01-2-2v-1z"/>
+            </svg>
+            <h3 class="text-lg font-semibold mb-2">Access Locked</h3>
+            <p class="text-gray-600 mb-2">Tutorial fee payment required.<br>Visit Payments page to unlock.</p>
+            <button class="mt-3 bg-green-600 text-white px-6 py-2 rounded font-bold text-md hover:bg-green-700" onclick="openPaymentModal()">Pay Now</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Payments Section (UNLOCKED) -->
+    <!-- Payments Section -->
     <section id="payments" class="tab-content p-6 hidden">
       <div class="max-w-7xl mx-auto">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">Pay Your Tutorial Fee</h1>
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Payment History</h1>
+
+        <!-- Pay Now Card -->
         <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-lg mb-6">
           <h2 class="text-xl font-semibold mb-2">Tutorial Fee</h2>
-          <p class="text-3xl font-bold mb-1" id="payment-amount">₦6,000</p>
-          <p class="text-sm opacity-90 mb-4">Pay only once to unlock dashboard access</p>
-          <button onclick="openPaymentModal()" class="bg-white text-blue-700 px-5 py-2 rounded font-medium hover:bg-gray-100 transition">Pay via WhatsApp &rarr;</button>
+          <p class="text-3xl font-bold mb-1">₦6,000</p>
+          <p class="text-sm opacity-90 mb-4">To unlock dashboard access, message admin to pay.</p>
+          <a href="https://wa.me/2349155127634?text=Hello%20Admin,%20I%20want%20to%20pay%20my%20tutorial%20fee%20of%20N6000%20on%20D-RICH%20platform"
+            class="bg-white text-green-600 px-5 py-2 rounded font-medium hover:bg-gray-50 transition flex items-center justify-center"
+            target="_blank" rel="noopener">
+            <svg width="22" height="22" fill="none" class="mr-2" viewBox="0 0 32 32"><path fill="#25D366" d="M16 3.2A12.8 12.8 0 003.2 16c0 2.257.624 4.442 1.81 6.349l-1.91 6.696 6.858-1.799A12.749 12.749 0 0016 28.8a12.8 12.8 0 100-25.6zm0 23.05a10.202 10.202 0 01-5.202-1.466l-.372-.216-4.072 1.069 1.087-4.017-.243-.393a10.178 10.178 0 01-1.583-5.267c0-5.611 4.568-10.18 10.18-10.18a10.116 10.116 0 018.788 5.061A10.139 10.139 0 0126.18 16c0 5.611-4.569 10.18-10.18 10.18zm5.605-7.652c-.308-.153-1.818-.896-2.099-1-.28-.104-.484-.153-.687.155-.203.308-.788 1-.967 1.207-.177.203-.357.23-.665.077-.308-.153-1.3-.479-2.476-1.525-.915-.815-1.53-1.822-1.71-2.13-.177-.308-.02-.474.133-.627.137-.137.307-.356.461-.535.154-.18.205-.308.308-.514s.052-.387-.025-.535c-.077-.154-.687-1.705-.943-2.334-.247-.593-.499-.513-.687-.523l-.586-.01a.535.535 0 00-.389.18c-.133.153-.5.489-.5 1.19.002.7.513 1.379.584 1.476.07.097 1.008 1.54 2.445 2.221 1.437.682 1.437.455 1.698.425.261-.03.865-.355.989-.7.123-.347.123-.644.087-.71-.036-.065-.28-.172-.584-.322z"/></svg>
+            Pay Now on WhatsApp
+          </a>
         </div>
-        <div class="bg-white rounded-lg shadow-sm border overflow-hidden mt-8">
-          <div class="p-6">
-            <h2 class="text-lg font-semibold mb-2">How to Pay?</h2>
-            <ol class="list-decimal list-inside text-gray-700 mb-4">
-              <li>Click the "Pay via WhatsApp" button above. </li>
-              <li>You will be redirected to WhatsApp to chat with our admin (+2349155127634). </li>
-              <li>Send your full name and proof of payment. </li>
-              <li>Your dashboard will be unlocked after confirmation.</li>
-            </ol>
+        <div class="bg-red-100 border border-red-300 rounded-lg p-5 text-red-700 text-center font-medium mb-6">
+          Note: After payment, notify admin to unlock your dashboard access.
+        </div>
+
+        <!-- History -->
+        <div class="bg-white rounded-lg shadow-sm border overflow-hidden">
+          <table class="w-full">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Month</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="payment-history">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap" colspan="4">No payments yet. Please pay to unlock dashboard.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profile" class="tab-content p-6 hidden relative">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">My Profile</h1>
+        <div class="bg-white p-6 rounded-lg shadow-sm border">
+          <div class="flex items-center space-x-6 mb-6">
+            <div id="profile-avatar" class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold">--</div>
+            <div>
+              <h2 class="text-2xl font-bold" id="profile-fullname">-- --</h2>
+              <p class="text-gray-600" id="profile-username">@---</p>
+              <p class="text-sm text-gray-500" id="profile-student-id">--</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <p class="text-gray-900" id="profile-email">---</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+              <p class="text-gray-900" id="profile-phone">---</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+              <p class="text-gray-900" id="profile-location">---</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Enrolled Courses</label>
+              <p class="text-gray-900" id="profile-courses">---</p>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <button class="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition">Edit Profile</button>
+          </div>
+        </div>
+        <div class="locked-overlay">
+          <div class="flex flex-col items-center">
+            <svg class="w-14 h-14 mb-3 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m0-6a2 2 0 00-2 2v2a2 2 0 002 2 2 2 0 002-2v-2a2 2 0 00-2-2z"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 17a7 7 0 1114 0v1a2 2 0 01-2 2H7a2 2 0 01-2-2v-1z"/>
+            </svg>
+            <h3 class="text-lg font-semibold mb-2">Access Locked</h3>
+            <p class="text-gray-600 mb-2">Tutorial fee payment required.<br>Visit Payments page to unlock.</p>
+            <button class="mt-3 bg-green-600 text-white px-6 py-2 rounded font-bold text-md hover:bg-green-700" onclick="openPaymentModal()">Pay Now</button>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Profile Section (LOCKED) -->
-    <section id="profile" class="tab-content p-6 hidden">
-      <div class="max-w-4xl mx-auto">
-        <div class="bg-red-50 p-8 rounded-lg text-center border border-red-200">
-          <h1 class="text-2xl font-bold text-red-700 mb-3">Profile Locked</h1>
-          <p class="text-lg text-red-600 mb-2">You must pay your tutorial fee to access your profile data.</p>
-          <button onclick="openPaymentModal()" class="mt-4 bg-green-700 hover:bg-green-600 text-white px-6 py-2 rounded">Pay Now</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Modal for Payment -->
-    <div id="payment-modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
-      <div class="bg-white shadow-lg rounded-lg max-w-sm w-full p-8 text-center">
-        <h2 class="text-2xl font-bold text-green-700 mb-4">Pay Your Tutorial Fee</h2>
-        <p class="text-lg text-gray-700 mb-1">Amount: <span class="font-bold text-green-700">₦6,000</span></p>
-        <p class="text-gray-600 mb-4">You will be redirected to WhatsApp for payment.</p>
-        <a href="https://wa.me/2349155127634?text=Hello%20Admin%2C%20I%20want%20to%20pay%20my%20tutorial%20fee%20of%20%E2%82%A66%2C000.%20Here%20is%20my%20name%3A%20[FULL%20NAME%20HERE]."
-          target="_blank"
-          class="bg-green-700 hover:bg-green-600 text-white px-8 py-3 rounded text-lg font-semibold block mb-3"
-          id="pay-whatsapp-btn"
-        >Contact Admin on WhatsApp</a>
-        <button onclick="closePaymentModal()" class="mt-2 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded transition">Cancel</button>
-        <p class="mt-4 text-xs text-gray-500">After payment confirmation by the admin, your dashboard will be unlocked.</p>
-      </div>
-    </div>
 
   </main>
 
   <!-- Flowbite JS -->
   <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.js"></script>
   <script>
-    // Lock enforcement: Only allow payments section to open, force-lock rest if unpaid.
-    let userData = null;
+    // =========== CONFIG ============
+    const API_BASE = "https://examguard-jmvj.onrender.com/api/student";
+    const WHATSAPP_URL = "https://wa.me/2349155127634?text=Hello%20Admin,%20I%20want%20to%20pay%20my%20tutorial%20fee%20of%20N6000%20on%20D-RICH%20platform";
 
-    function openPaymentModal() {
-      document.getElementById("payment-modal").classList.remove("hidden");
-      // Optionally, prefill WhatsApp message with user's real name, if loaded:
-      if (userData && userData.fullName) {
-        let link = document.getElementById("pay-whatsapp-btn");
-        let baseUrl = "https://wa.me/2349155127634?text=";
-        let msg = encodeURIComponent(`Hello Admin, I want to pay my tutorial fee of ₦6,000. Here is my name: ${userData.fullName}.`);
-        link.href = baseUrl + msg;
-      }
-    }
-    function closePaymentModal() {
-      document.getElementById("payment-modal").classList.add("hidden");
-    }
-
-    // Sidebar Toggle
+    // =========== SIDEBAR ===========
     const sidebar = document.getElementById('sidebar');
     const toggleBtn = document.getElementById('sidebar-toggle');
     toggleBtn.addEventListener('click', () => {
@@ -241,7 +330,6 @@
       sidebar.classList.toggle('sidebar-closed');
     });
 
-    // Close sidebar when clicking outside (mobile)
     document.addEventListener('click', (e) => {
       if (window.innerWidth < 768 && sidebar.classList.contains('sidebar-open')) {
         if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
@@ -251,125 +339,273 @@
       }
     });
 
-    // Tab Navigation
-    const navLinks = document.querySelectorAll('.nav-link');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    // Only payments section is allowed to open. All other links are disabled if paymentStatus != 'paid'
-    function setTabLocking(isPaid) {
-      navLinks.forEach(link => {
-        const section = link.getAttribute('href').substring(1);
-        if (section === "payments") {
-          link.classList.remove("cursor-not-allowed", "opacity-50");
-          link.removeAttribute("tabindex");
-        } else {
-          if (!isPaid) {
-            link.classList.add("cursor-not-allowed", "opacity-50");
-            link.setAttribute("tabindex", "-1");
-          } else {
-            link.classList.remove("cursor-not-allowed", "opacity-50");
-            link.removeAttribute("tabindex");
-          }
-        }
-      });
-      // Prevent content from showing (allow only dashboard if paid, else only payments)
-      tabContents.forEach(section => {
-        section.classList.add("hidden");
-      });
-      if (isPaid) {
-        document.getElementById("dashboard").classList.remove("hidden");
-      } else {
-        document.getElementById("payments").classList.remove("hidden");
-      }
-    }
-
-    // Tab click event: If unpaid, block navigation to other tabs except 'payments'
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        const section = link.getAttribute('href').substring(1);
-        if (userData && userData.paymentStatus !== "paid" && section !== "payments") {
-          e.preventDefault();
-          openPaymentModal();
-          return;
-        }
-        // Update active link
-        navLinks.forEach(l => l.classList.remove('bg-blue-700', 'text-white'));
-        navLinks.forEach(l => l.classList.add('hover:bg-blue-700'));
-        link.classList.add('bg-blue-700', 'text-white');
-        link.classList.remove('hover:bg-blue-700');
-        // Show target content
-        tabContents.forEach(content => content.classList.add('hidden'));
-        document.getElementById(section).classList.remove('hidden');
-        // If it's E-Classroom, still show locked message.
-      });
-    });
-
-    // Log out
+    // ============= LOGOUT =============
     document.getElementById("logout-btn").onclick = function() {
       localStorage.removeItem("jwt_token");
       localStorage.removeItem("user_role");
       window.location.href = "login.html";
     };
 
-    // ====== API CALL: Fetch and Render User Data ======
-    async function fetchUserProfile() {
+    // =========== PAYMENT MODAL ==========
+    function openPaymentModal() {
+      document.getElementById('payment-modal').classList.remove('hidden');
+    }
+    function closePaymentModal() {
+      document.getElementById('payment-modal').classList.add('hidden');
+    }
+    document.getElementById('unlock-pay-now').onclick = openPaymentModal;
+    document.getElementById('close-modal').onclick = closePaymentModal;
+
+    // =========== NAV/SECTION LOCK ==========
+    // All sections except #payments should be locked if paymentStatus != "paid"
+    let userPaymentStatus = "pending"; // Default, changed when user loads
+    function applySectionLocks() {
+      // Only allow switching to payments tab if not paid
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        const section = link.getAttribute('data-section');
+        if (userPaymentStatus === "paid" || section === "payments") {
+          link.classList.remove('pointer-events-none', 'opacity-50');
+        } else {
+          if (section === "payments") {
+            link.classList.remove('pointer-events-none', 'opacity-50');
+          } else {
+            link.classList.add('pointer-events-none', 'opacity-50', 'cursor-not-allowed');
+          }
+        }
+      });
+
+      // Overlays
+      // Dashboard
+      document.getElementById('dashboard-locked-overlay').classList.toggle('hidden', userPaymentStatus === "paid");
+      // E-Classroom, CBT, Profile overlays
+      ['eclassroom', 'cbt', 'profile'].forEach(sec => {
+        const overlay = document.querySelector(`#${sec} .locked-overlay`);
+        overlay.style.display = userPaymentStatus === "paid" ? "none" : "flex";
+      });
+
+      // Dashboard stats and quick actions blur/lock
+      document.getElementById('dashboard-stats').classList.toggle('opacity-50', userPaymentStatus !== "paid");
+      document.getElementById('dashboard-stats').classList.toggle('pointer-events-none', userPaymentStatus !== "paid");
+      document.getElementById('dashboard-quick-actions').classList.toggle('opacity-50', userPaymentStatus !== "paid");
+      document.getElementById('dashboard-quick-actions').classList.toggle('pointer-events-none', userPaymentStatus !== "paid");
+    }
+
+    // =========== TAB NAVIGATION =============
+    const navLinks = document.querySelectorAll('.nav-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        // Prevent navigation to locked sections if payment is not made
+        if (userPaymentStatus !== "paid" && targetId !== "payments") return;
+
+        // Update active link
+        navLinks.forEach(l => l.classList.remove('bg-blue-700', 'text-white'));
+        navLinks.forEach(l => l.classList.add('hover:bg-blue-700'));
+        link.classList.add('bg-blue-700', 'text-white');
+        link.classList.remove('hover:bg-blue-700');
+
+        // Show target content
+        tabContents.forEach(content => content.classList.add('hidden'));
+        document.getElementById(targetId).classList.remove('hidden');
+        if(targetId === 'eclassroom') renderEclassroomSubjects();
+
+        // Close sidebar on mobile
+        if (window.innerWidth < 768) {
+          sidebar.classList.remove('sidebar-open');
+          sidebar.classList.add('sidebar-closed');
+        }
+      });
+    });
+    // Default: open dashboard
+    document.querySelector('a[href="#dashboard"]').classList.add('bg-blue-700', 'text-white');
+    document.querySelector('a[href="#dashboard"]').classList.remove('hover:bg-blue-700');
+
+    // ========== USER FETCH ==============
+    function getInitials(name) {
+      return String(name || "--")
+        .split(" ")
+        .filter(x=>!!x)[0]?.charAt(0).toUpperCase() + (String(name || "--").split(" ")[1]?.charAt(0).toUpperCase() || "");
+    }
+    function getUsername(email) {
+      if (!email) return "@--";
+      const part = email.split("@")[0];
+      return "@" + part;
+    }
+    function getStudentID(uid) {
+      if (!uid) return "--";
+      // Example: DRICH-2025-014 (not from real db; change as you wish)
+      return "DRICH-" + new Date().getFullYear() + "-" + String(uid).substr(-3).toUpperCase();
+    }
+    function getLocationPlaceholder() {
+      // You can adjust if there's address, city, etc. For now:
+      return "--";
+    }
+
+    function getCoursesStr(program) {
+      if (!program) return "--";
+      if (program === "WAEC/NECO") return "SS3, WAEC, NECO";
+      return program;
+    }
+
+    async function fetchUserDetails() {
       const token = localStorage.getItem("jwt_token");
       if (!token) {
         window.location.href = "login.html";
         return;
       }
       try {
-        const res = await fetch("https://examguard-jmvj.onrender.com/api/student/me", {
-          headers: { Authorization: "Bearer " + token }
+        const res = await fetch(API_BASE + "/me", {
+          headers: { "Authorization": "Bearer " + token }
         });
         if (!res.ok) throw new Error("Not authorized");
-        userData = await res.json();
-        renderUserProfile();
-      } catch {
-        localStorage.removeItem("jwt_token");
-        localStorage.removeItem("user_role");
+        const user = await res.json();
+        userPaymentStatus = (user.paymentStatus || "pending");
+        applySectionLocks();
+
+        // Sidebar
+        document.getElementById("sidebar-avatar").textContent = getInitials(user.fullName||"--");
+        document.getElementById("sidebar-fullname").textContent = user.fullName || "-- --";
+        document.getElementById("sidebar-username").textContent = getUsername(user.email);
+
+        // Dashboard
+        document.getElementById("dash-fullname").textContent = user.fullName || "Student";
+        document.getElementById("active-courses").textContent = user.program ? (user.program === "WAEC/NECO" ? "3" : "2") : "0";
+        document.getElementById("cbt-completed").textContent = "0";
+        document.getElementById("pending-payment").textContent = "₦6,000";
+        document.getElementById("next-exam").textContent = "--";
+        // Dashboard quick actions etc. stay blurred unless paid
+
+        // Profile Section
+        document.getElementById("profile-avatar").textContent = getInitials(user.fullName);
+        document.getElementById("profile-fullname").textContent = user.fullName || "-- --";
+        document.getElementById("profile-username").textContent = getUsername(user.email) || "@--";
+        document.getElementById("profile-student-id").textContent = "Student ID: " + getStudentID(user._id);
+        document.getElementById("profile-email").textContent = user.email || "--";
+        document.getElementById("profile-phone").textContent = user.phone || "--";
+        document.getElementById("profile-location").textContent = getLocationPlaceholder();
+        document.getElementById("profile-courses").textContent = getCoursesStr(user.program);
+
+        // Payment History
+        const historyTbody = document.getElementById("payment-history");
+        if (userPaymentStatus === "paid" && user.updatedAt) {
+          historyTbody.innerHTML = `<tr>
+            <td class="px-6 py-4 whitespace-nowrap">Tutorial Fee</td>
+            <td class="px-6 py-4 whitespace-nowrap">₦6,000</td>
+            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Paid</span></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${(new Date(user.updatedAt)).toLocaleDateString()}</td>
+          </tr>`;
+        } else {
+          historyTbody.innerHTML = `<tr>
+            <td class="px-6 py-4 whitespace-nowrap" colspan="4">No payments yet. Please pay to unlock dashboard.</td>
+          </tr>`;
+        }
+
+        // E-Classroom program used for subject rendering
+        window.registeredProgram = user.program || "WAEC/NECO";
+
+        // Show payment modal for pending on dashboard load
+        if (userPaymentStatus !== "paid") openPaymentModal();
+
+      } catch (err) {
         window.location.href = "login.html";
       }
     }
+    fetchUserDetails();
 
-    function renderUserProfile() {
-      // Sidebar info
-      document.getElementById("sidebar-avatar").textContent = (userData.fullName?.split(" ").slice(0,2).map(w => w[0]).join("") || "--").toUpperCase();
-      document.getElementById("sidebar-name").textContent = userData.fullName || "--";
-      document.getElementById("sidebar-email").textContent = userData.email || "--";
+    // ===== DYNAMIC E-CLASSROOM LOGIC =====
+    // Will be set based on API result
+    let registeredProgram = "WAEC/NECO";
+    const programSubjects = {
+      "WAEC/NECO": [
+        {
+          subject: "Mathematics",
+          info: "WAEC/NECO Prep • 24 Lessons",
+          status: "Locked"
+        },
+        {
+          subject: "English Language",
+          info: "WAEC/NECO Prep • 22 Lessons",
+          status: "Locked"
+        },
+        {
+          subject: "Physics",
+          info: "WAEC/NECO Prep • 15 Lessons",
+          status: "Locked"
+        }
+      ],
+      "JAMB": [
+        {
+          subject: "Use of English",
+          info: "JAMB Topic Drills • 20 Lessons",
+          status: "Locked"
+        },
+        {
+          subject: "Mathematics",
+          info: "JAMB Mathematics • 18 Lessons",
+          status: "Locked"
+        },
+        {
+          subject: "Government",
+          info: "JAMB Social Science • 12 Lessons",
+          status: "Locked"
+        }
+      ],
+      "POST UTME": [
+        {
+          subject: "POST UTME English",
+          info: "OAU & UNILAG Patterns • 12 Lessons",
+          status: "Locked"
+        },
+        {
+          subject: "POST UTME Physics",
+          info: "Uni-specific Physics • 12 Lessons",
+          status: "Locked"
+        },
+        {
+          subject: "POST UTME Maths",
+          info: "OAU/UNN/SU Examples • 8 Lessons",
+          status: "Locked"
+        }
+      ]
+    };
 
-      // Dashboard Title
-      document.getElementById("dashboard-title").textContent = `Welcome back, ${userData.fullName ? userData.fullName.split(" ")[0] : ""}!`;
-
-      // Stats (greyed/locked if unpaid)
-      document.getElementById("stat-active-courses").textContent = "--";
-      document.getElementById("stat-cbt-completed").textContent = "--";
-      document.getElementById("stat-next-exam").textContent = "--";
-      document.getElementById("stat-pending-payment").textContent = "₦6,000";
-
-      // Lock/Unlock badges
-      let isPaid = (userData.paymentStatus === "paid");
-      document.getElementById("locked-courses-badge").style.display = isPaid ? "none" : "block";
-      document.getElementById("locked-cbt-badge").style.display = isPaid ? "none" : "block";
-      document.getElementById("locked-exam-badge").style.display = isPaid ? "none" : "block";
-
-      // Payment Section
-      document.getElementById("payment-amount").textContent = "₦6,000";
-
-      // Tab locking: only payments section can be opened if unpaid
-      setTabLocking(isPaid);
-
-      // On unpaid, show payment modal immediately 
-      if (!isPaid) {
-        // Show the modal for payment after a second
-        setTimeout(() => {
-          openPaymentModal();
-        }, 1000);
+    function renderEclassroomSubjects() {
+      const grid = document.getElementById('subject-grid');
+      const subjects = programSubjects[window.registeredProgram || "WAEC/NECO"];
+      grid.innerHTML = '';
+      document.getElementById('eclassroom-title').textContent = `${window.registeredProgram || 'Program'} E-Classroom`;
+      if (!subjects || subjects.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-gray-500 text-center py-12">No subjects found for this program.</div>';
+        return;
       }
+      subjects.forEach(subj => {
+        grid.innerHTML += `
+          <div class="bg-white p-6 rounded-lg shadow-sm border relative">
+            <h3 class="font-semibold text-lg mb-2">${subj.subject}</h3>
+            <p class="text-sm text-gray-500 mb-4">${subj.info}</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">Locked</span>
+              <button disabled class="text-gray-400 text-sm font-medium cursor-not-allowed">Locked</button>
+            </div>
+          </div>
+        `;
+      });
     }
 
-    // On page load - try load user
-    fetchUserProfile();
+    // Optionally render E-Classroom subjects on direct navigation if needed
+    if (!document.getElementById('eclassroom').classList.contains('hidden')) {
+      renderEclassroomSubjects();
+    }
+
+    // Unlock if paid (simulate by removing overlays)
+    function unlockAllSections() {
+      userPaymentStatus = "paid";
+      applySectionLocks();
+    }
+
   </script>
 </body>
 </html>
