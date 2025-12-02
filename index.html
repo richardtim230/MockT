@@ -33,16 +33,10 @@
           <img src="image%3A130416" class="h-8" alt="logo">
           <span class="text-blue-900">D-RICH TUTORIALS</span>
         </div>
-        <div class="hidden md:flex space-x-8 font-medium items-center" id="navbar-menu">
-          <a href="#features" class="hover:text-yellow-600 transition">Features</a>
-          <a href="#courses" class="hover:text-yellow-600 transition">Courses</a>
-          <a href="gen-marketplace.html" class="hover:text-yellow-600 transition">Marketplace</a>
-          <a href="candidate-cgpa-calculator" class="hover:text-yellow-600 transition">CGPA Calculator</a>
-          <a href="#mocks" class="hover:text-yellow-600 transition">Mock Tests</a>
-          <a href="blog-notes-category" class="hover:text-yellow-600 transition">Blog & Earn</a>
-          <a href="about-us-faq" class="hover:text-yellow-600 transition">FAQ</a>
-          <a href="#contact" class="hover:text-yellow-600 transition">Contact</a>
-          <span id="navbar-auth"></span>
+        <div class="hidden md:flex space-x-4 items-center" id="navbar-menu">
+          <a href="registration.html" class="bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Register</a>
+          <a href="login.html" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Sign In</a>
+          <a href="#price" class="bg-white hover:bg-blue-50 text-blue-700 border border-blue-700 text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Price</a>
         </div>
         <button id="hamburger-btn" type="button" class="md:hidden p-2 text-yellow-700" aria-label="Open menu">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,20 +46,33 @@
         </button>
       </div>
       <div class="md:hidden" id="mobile-menu" hidden>
-        <div class="px-4 pb-3 space-y-1" id="mobile-menu-list">
-          <a href="#features" class="block py-2 hover:text-yellow-600">Features</a>
-          <a href="#courses" class="block py-2 hover:text-yellow-600">Courses</a>
-          <a href="gen-marketplace.html" class="block py-2 hover:text-yellow-600">Marketplace</a>
-          <a href="candidate-cgpa-calculator" class="hover:text-yellow-600 transition">CGPA Calculator</a>
-          <a href="#mocks" class="block py-2 hover:text-yellow-600">Mock Tests</a>
-          <a href="blog-notes-category" class="block py-2 hover:text-yellow-600">Blog & Earn</a>
-          <a href="about-us-faq" class="block py-2 hover:text-yellow-600">FAQ</a>
-          <a href="#contact" class="block py-2 hover:text-yellow-600">Contact</a>
-          <span id="mobile-auth"></span>
+        <div class="px-4 pb-3 space-y-3 flex flex-col" id="mobile-menu-list">
+          <a href="registration.html" class="bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Register</a>
+          <a href="login.html" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Sign In</a>
+          <a href="#price" class="bg-white hover:bg-blue-50 text-blue-700 border border-blue-700 text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Price</a>
         </div>
       </div>
     </nav>
- 
+ <section id="price" class="py-20 bg-gradient-to-t from-blue-50 to-white">
+      <div class="container mx-auto px-6 max-w-2xl">
+        <h2 class="text-4xl font-bold text-center mb-8 text-blue-800">Tutorial Fees</h2>
+        <div class="bg-white shadow rounded-lg p-8 flex flex-col items-center">
+          <div class="text-3xl font-bold text-green-700 mb-2">₦6,000</div>
+          <div class="text-gray-800 mb-4 text-center">
+            <span class="text-sm">One-time payment unlocks:</span><br>
+            <ul class="list-disc list-inside text-gray-600 my-2 text-left">
+              <li>Active classes</li>
+              <li>CBT & Mock Exams</li>
+              <li>Course materials</li>
+              <li>Student Dashboard</li>
+              <li>WhatsApp Group Access</li>
+            </ul>
+          </div>
+          <a href="registration.html" class="mt-4 bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-800 transition duration-150 shadow">Get Started</a>
+        </div>
+        <div class="mt-8 text-center text-sm text-gray-500">Need help? <a href="mailto:drichtutors@gmail.com" class="text-blue-700 underline">Contact us</a></div>
+      </div>
+    </section>
     <!-- Hero Section with Carousel -->
     <section id="home" class="pt-20">
         <div id="default-carousel" class="relative w-full" data-carousel="slide">
