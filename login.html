@@ -136,7 +136,7 @@ document.getElementById('loginForm').onsubmit = async function(e) {
       let redirectUrl = "index.html";
       if (role === "admin" || role === "superadmin") redirectUrl = "admin-dashboard.html";
       else if (role === "tutor") redirectUrl = "tutor-dashboard.html";
-      else if (role === "student") redirectUrl = "student-dashboard.html";
+      else if (role === "student") redirectUrl = "dashboard.html";
       showModal('<span class="text-green-600">✔️ Login successful!</span><br>Redirecting to dashboard...', false);
       setTimeout(() => { hideModal(); window.location.href = redirectUrl; }, 1200);
     } else {
