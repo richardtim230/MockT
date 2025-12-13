@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         .input-focus:focus { border-color: #2563eb; box-shadow: 0 0 0 1px #2563eb; }
+        .spinner {display:inline-block;width:1.25em;height:1.25em;border:3px solid #fff;border-radius:50%;border-top:3px solid #2563eb;animation:spin 0.85s linear infinite;vertical-align:-0.25em;}
+        @keyframes spin{to{transform:rotate(360deg);}}
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
@@ -41,9 +43,9 @@
                     placeholder="Enter your password" required />
             </div>
             <div>
-                <button type="submit"
-                    class="w-full py-3 px-6 rounded-xl bg-blue-700 text-white font-bold text-lg shadow-lg hover:bg-blue-800 transition">
-                    <i class="fas fa-sign-in-alt mr-2"></i> Log In
+                <button type="submit" id="login-btn"
+                    class="w-full py-3 px-6 rounded-xl bg-blue-700 text-white font-bold text-lg shadow-lg hover:bg-blue-800 transition relative">
+                    <i class="fas fa-sign-in-alt mr-2"></i> <span>Log In</span>
                 </button>
             </div>
             <div id="login-error-message" class="text-red-500 text-center font-medium text-sm hidden"></div>
@@ -57,15 +59,21 @@
                        readonly disabled />
             </div>
             <div>
-                <label for="examAccessCode" class="block text-sm font-semibold text-gray-700 mb-2">Exam Access Code</label>
-                <input type="text" id="examAccessCode" name="examAccessCode"
+                <label for="courseCode" class="block text-sm font-semibold text-gray-700 mb-2">Course Code</label>
+                <input type="text" id="courseCode" name="courseCode"
                     class="input-focus block w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none transition"
-                    placeholder="E.g. ZXC12345 (provided by admin/invigilator)" required />
+                    placeholder="E.g. MTH101" required />
             </div>
             <div>
-                <button type="submit"
-                    class="w-full py-3 px-6 rounded-xl bg-blue-700 text-white font-bold text-lg shadow-lg hover:bg-blue-800 transition">
-                    <i class="fas fa-arrow-right mr-2"></i> Access Exam
+                <label for="accessCode" class="block text-sm font-semibold text-gray-700 mb-2">Access Code</label>
+                <input type="password" id="accessCode" name="accessCode"
+                    class="input-focus block w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none transition"
+                    placeholder="Enter access code" required />
+            </div>
+            <div>
+                <button type="submit" id="access-btn"
+                    class="w-full py-3 px-6 rounded-xl bg-blue-700 text-white font-bold text-lg shadow-lg hover:bg-blue-800 transition relative">
+                    <i class="fas fa-arrow-right mr-2"></i> <span>Access Exam</span>
                 </button>
             </div>
             <div id="error-message" class="text-red-500 text-center font-medium text-sm hidden"></div>
@@ -74,7 +82,7 @@
     </div>
     <script>
     // ==== CONFIG ====
-    const API_BASE = "https://examguide.onrender.com"; // Use your backend API URL
+    const API_BASE = "https://examguide.onrender.com";
 
     // ==== UTILITIES ====
     function setToken(token) {
@@ -87,6 +95,18 @@
         localStorage.removeItem("student_jwt_token");
     }
 
+    // Spinner util for buttons
+    function setBtnSpinner(btn, show, text = "") {
+        if (show) {
+            btn.disabled = true;
+            btn._realText = btn.querySelector('span')?.textContent;
+            btn.querySelector('span').innerHTML = `<span class="mr-2 spinner"></span> ${text || "Processing..."}`;
+        } else {
+            btn.disabled = false;
+            if (btn._realText) btn.querySelector('span').textContent = btn._realText;
+        }
+    }
+
     // ==== DOM Shortcuts ====
     const loginForm = document.getElementById('login-form');
     const accessForm = document.getElementById('access-form');
@@ -97,6 +117,8 @@
     const loginErrMsg = document.getElementById('login-error-message');
     const errorElem = document.getElementById('error-message');
     const introDesc = document.getElementById('intro-desc');
+    const loginBtn = document.getElementById('login-btn');
+    const accessBtn = document.getElementById('access-btn');
     let currentUser = null;
 
     // ==== AUTH WORKFLOW ====
@@ -115,7 +137,7 @@
         loginForm.classList.remove("hidden");
         accessForm.classList.add("hidden");
         loginSection.innerHTML = '';
-        introDesc.textContent = "Log in and enter your access code to begin";
+        introDesc.textContent = "Log in and enter your course/access code to begin";
     }
     function showAccess(user) {
         loginForm.classList.add("hidden");
@@ -126,7 +148,7 @@
             <div><i class="fas fa-user-check text-green-600"></i> Logged in as <b>${user.fullName}</b></div>
             <button onclick="logoutUser()" class="text-xs text-blue-700 underline hover:text-blue-900 mt-2">Not you? Log out</button>
         `;
-        introDesc.textContent = "Enter your one-time exam access code";
+        introDesc.textContent = "Enter your course/access code";
     }
     function logoutUser() {
         clearToken();
@@ -155,11 +177,13 @@
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         loginErrMsg.classList.add("hidden");
+        setBtnSpinner(loginBtn, true, "Logging in...");
         const regnumber = regNumInput.value.trim();
         const password = passwordInput.value;
         if (!regnumber || !password) {
             loginErrMsg.textContent = "All fields are required.";
             loginErrMsg.classList.remove("hidden");
+            setBtnSpinner(loginBtn, false);
             return;
         }
         // POST login
@@ -173,52 +197,72 @@
             if (response.ok && data.token) {
                 setToken(data.token);
                 currentUser = data.user;
+                setBtnSpinner(loginBtn, false);
                 showAccess(data.user);
             } else {
                 loginErrMsg.textContent = data.message || "Invalid credentials.";
                 loginErrMsg.classList.remove("hidden");
+                setBtnSpinner(loginBtn, false);
             }
         } catch (err) {
             loginErrMsg.textContent = "Server/network error, try again.";
             loginErrMsg.classList.remove("hidden");
+            setBtnSpinner(loginBtn, false);
         }
     });
 
-    // ==== EXAM ACCESS HANDLER ====
-    accessForm.addEventListener('submit', async function(e){
-        e.preventDefault();
-        errorElem.classList.add("hidden");
-        if (!currentUser) {
-            errorElem.textContent = "User session expired. Please log in again.";
+// ==== EXAM ACCESS HANDLER ====
+accessForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    errorElem.classList.add("hidden");
+    const accessBtn = document.getElementById('access-btn');
+    function setBtnSpinner(btn, show, text = "") {
+        if (show) {
+            btn.disabled = true;
+            btn._realText = btn.querySelector('span')?.textContent;
+            btn.querySelector('span').innerHTML = `<span class="mr-2 spinner"></span> ${text || "Processing..."}`;
+        } else {
+            btn.disabled = false;
+            if (btn._realText) btn.querySelector('span').textContent = btn._realText;
+        }
+    }
+    setBtnSpinner(accessBtn, true, "Checking...");
+    if (!currentUser) {
+        errorElem.textContent = "User session expired. Please log in again.";
+        errorElem.classList.remove("hidden");
+        clearToken();
+        setTimeout(() => location.reload(), 1200);
+        setBtnSpinner(accessBtn, false);
+        return;
+    }
+    const accessCode = document.getElementById('examAccessCode').value.trim();
+
+    if (accessCode.length < 4) {
+        errorElem.textContent = "Access Code must be at least 4 characters.";
+        errorElem.classList.remove("hidden");
+        setBtnSpinner(accessBtn, false);
+        return;
+    }
+
+    // Validate the access code with the backend: Try to fetch the exam set for this code
+    try {
+        const check = await fetch(`${API_BASE}/api/exam-set/by-access?accessCode=${encodeURIComponent(accessCode)}`);
+        if (!check.ok) {
+            errorElem.textContent = "Invalid or expired exam access code.";
             errorElem.classList.remove("hidden");
-            clearToken();
-            setTimeout(()=>location.reload(),1200);
+            setBtnSpinner(accessBtn, false);
             return;
         }
-        const accessCode = document.getElementById('examAccessCode').value.trim();
-
-        if (accessCode.length < 4) {
-            errorElem.textContent = "Access Code must be at least 4 characters.";
-            errorElem.classList.remove("hidden");
-            return;
-        }
-
-        // Validate the access code with the backend: Try to fetch the exam set for this code
-        try {
-            const check = await fetch(`${API_BASE}/api/exam-set/by-access?accessCode=${encodeURIComponent(accessCode)}`);
-            if (!check.ok) {
-                errorElem.textContent = "Invalid or expired exam access code.";
-                errorElem.classList.remove("hidden");
-                return;
-            }
-            // Save code and redirect
-            localStorage.setItem("exam_access_code", accessCode);
-            window.location.href = "testsession";
-        } catch (err) {
-            errorElem.textContent = "Could not validate exam access code (network/server error).";
-            errorElem.classList.remove("hidden");
-        }
-    });
+        // Save code and redirect
+        localStorage.setItem("exam_access_code", accessCode);
+        setBtnSpinner(accessBtn, false);
+        window.location.href = "testsession"; // or cbt.html or your intended page
+    } catch (err) {
+        errorElem.textContent = "Could not validate exam access code (network/server error).";
+        errorElem.classList.remove("hidden");
+        setBtnSpinner(accessBtn, false);
+    }
+});
     </script>
 </body>
 </html>
