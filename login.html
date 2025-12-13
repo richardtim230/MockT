@@ -70,6 +70,11 @@
     <div id="modal-spinner" class="mb-4 spinner"></div>
     <div id="modal-message" class="text-lg font-semibold text-gray-700"></div>
     <button type="button" id="modal-close" class="mt-6 bg-blue-700 hover:bg-blue-600 text-white px-6 py-2 rounded transition hidden">Close</button>
+    <!-- Destination choices (hidden by default) -->
+    <div id="modal-choice-section" class="hidden mt-6 flex flex-col gap-4">
+      <button type="button" id="go-dashboard" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold px-4 py-2 rounded transition">Go to Dashboard</button>
+      <button type="button" id="go-cbt" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded transition">Go to CBT Exam Login</button>
+    </div>
   </div>
 </div>
 
@@ -82,24 +87,35 @@ document.getElementById('togglePassword').onclick = function() {
   const eye = document.getElementById('eyeIcon');
   if (pass.type === 'password') {
     pass.type = 'text';
-    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 1[...]`
+    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 1[...]"/>`;
   } else {
     pass.type = 'password';
     eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>`;
   }
 };
 
-function showModal(msg, loading=true) {
+function showModal(msg, loading=true, showChoices=false) {
   document.getElementById('modal-message').innerHTML = msg;
   document.getElementById('modal-feedback').classList.remove('hidden');
   document.getElementById('modal-spinner').style.display = loading ? 'block' : 'none';
-  document.getElementById('modal-close').style.display = loading ? 'none' : 'inline-block';
+  document.getElementById('modal-close').style.display = loading || showChoices ? 'none' : 'inline-block';
+  document.getElementById('modal-choice-section').classList.toggle('hidden', !showChoices);
 }
 function hideModal() {
   document.getElementById('modal-feedback').classList.add('hidden');
 }
 document.getElementById('modal-close').onclick = function() {
   hideModal();
+};
+
+document.getElementById('go-dashboard').onclick = function() {
+  hideModal();
+  // Role-based redirect if you wish, but send everyone to dashboard.html
+  window.location.href = "dashboard.html";
+};
+document.getElementById('go-cbt').onclick = function() {
+  hideModal();
+  window.location.href = "access.html";
 };
 
 document.getElementById('loginForm').onsubmit = async function(e) {
@@ -128,17 +144,15 @@ document.getElementById('loginForm').onsubmit = async function(e) {
     let result = {};
     try { result = await res.json(); } catch(e) {}
     if (res.ok && result.user && result.token) {
-      // Save token (optionally, use sessionStorage/localStorage)
+      // Save token and role (optionally, use sessionStorage/localStorage)
       localStorage.setItem("jwt_token", result.token);
       localStorage.setItem("user_role", result.user.role);
-      // Redirect based on role
-      let role = (result.user.role || "").toLowerCase();
-      let redirectUrl = "index.html";
-      if (role === "admin" || role === "superadmin") redirectUrl = "admin-dashboard.html";
-      else if (role === "tutor") redirectUrl = "tutor-dashboard.html";
-      else if (role === "student") redirectUrl = "dashboard.html";
-      showModal('<span class="text-green-600">✔️ Login successful!</span><br>Redirecting to dashboard...', false);
-      setTimeout(() => { hideModal(); window.location.href = redirectUrl; }, 1200);
+      // On successful login, show destination choice modal
+      showModal(
+        '<span class="text-green-600">✔️ Login successful!</span><br>Choose where you want to go:',
+        false,
+        true // showChoices = true
+      );
     } else {
       showModal(result.message
         ? `<span class="text-red-600">❌ ${result.message}</span>`
