@@ -196,7 +196,7 @@
             if (!accessCode) {
                 showModal("You must enter an access code first.", {
                     actionText: "Go to Access",
-                    onAction: ()=>{ window.location.href = "access.html"; }
+                    onAction: ()=>{ window.location.href = "cbt-login"; }
                 });
                 return;
             }
@@ -205,7 +205,7 @@
             if (!studentData) {
                 showModal("Session expired. Please log in again.", {
                     actionText: "Go to Access",
-                    onAction: ()=>{ window.location.href = "access.html"; }
+                    onAction: ()=>{ window.location.href = "cbt-login"; }
                 });
                 return;
             }
@@ -220,7 +220,7 @@
                     actionText: "Go to Access",
                     onAction: ()=>{
                         localStorage.removeItem("exam_access_code");
-                        window.location.href = "access.html";
+                        window.location.href = "cbt-login";
                     }
                 });
                 return;
@@ -345,7 +345,7 @@
                             student: studentData.fullName || studentData.name || '',
                             timeCompleted: new Date().toISOString()
                         }));
-                        window.location.href = "report.html";
+                        window.location.href = "result-summary";
                     }
                 });
             };
@@ -379,7 +379,7 @@
                         onAction: ()=>{
                             persistUserAnswers();
                             sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
-                            window.location.href = "report.html";
+                            window.location.href = "result-summary";
                         }
                     });
                 }
