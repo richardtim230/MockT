@@ -20,7 +20,6 @@
             font-weight: bold;
             color: #2563eb;
         }
-        /* Registration number - small text and wrapping */
         #student-regnum {
             font-size: 0.92rem;
             word-break: break-word;
@@ -44,7 +43,7 @@
             max-width: 92vw;
             max-height: 90vh;
         }
-        /* Question number pallet responsive grid (10 per row on mobile, flexible on desktop) */
+        /* Question number pallet responsive grid (10 per row) */
         .question-pallet {
             display: flex;
             flex-wrap: wrap;
@@ -58,9 +57,20 @@
         @media (max-width: 600px) {
             .question-pallet li { min-width: 10%; max-width: 10%; }
         }
-        /* Hide scrollbar for the nav pallet */
         .question-pallet::-webkit-scrollbar { display: none; }
         .question-pallet { -ms-overflow-style: none; scrollbar-width: none; }
+        .qp-done {
+            background: #e0fee4 !important;
+            color: #16a34a !important;
+            font-weight: bold !important;
+            border-color: #16a34a !important;
+        }
+        .qp-current {
+            background: #2563eb !important;
+            color: #fff !important;
+            font-weight: bold !important;
+            border-color: #2563eb !important;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
@@ -279,12 +289,14 @@
             const pallet = document.getElementById("question-nav-list");
             let navHtml = "";
             for (let j = 0; j < total; ++j) {
+                const navId = examData.questions[j].id;
+                const attempted = !!userAnswers[navId];
                 const curr = j===idx;
                 navHtml += `
                     <li>
                         <a href="#" data-qp="${j}" 
                            ${curr?'aria-current="page"':''} 
-                           class="block px-4 py-2 leading-tight text-sm sm:text-base text-gray-600 border border-gray-300 hover:bg-blue-100 ${curr ? "bg-blue-600 text-white font-bold" : "bg-white"}"
+                           class="block px-4 py-2 leading-tight text-sm sm:text-base border border-gray-300 hover:bg-blue-100 ${curr ? "qp-current" : attempted ? "qp-done" : "bg-white text-gray-600"}"
                            style="text-align:center;">
                            ${j+1}
                         </a>
@@ -297,6 +309,7 @@
                 input.onchange = function() {
                     userAnswers[q.id] = this.value;
                     persistUserAnswers();
+                    renderQuestion(idx); // rerender to highlight updated nav
                 };
             });
             // Previous/Next
