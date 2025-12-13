@@ -213,7 +213,7 @@
             }
             // Save code and redirect
             localStorage.setItem("exam_access_code", accessCode);
-            window.location.href = "cbt.html";
+            window.location.href = "testsession";
         } catch (err) {
             errorElem.textContent = "Could not validate exam access code (network/server error).";
             errorElem.classList.remove("hidden");
