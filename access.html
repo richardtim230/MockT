@@ -57,16 +57,10 @@
                        readonly disabled />
             </div>
             <div>
-                <label for="courseCode" class="block text-sm font-semibold text-gray-700 mb-2">Course Code</label>
-                <input type="text" id="courseCode" name="courseCode"
+                <label for="examAccessCode" class="block text-sm font-semibold text-gray-700 mb-2">Exam Access Code</label>
+                <input type="text" id="examAccessCode" name="examAccessCode"
                     class="input-focus block w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none transition"
-                    placeholder="E.g. MTH101" required />
-            </div>
-            <div>
-                <label for="accessCode" class="block text-sm font-semibold text-gray-700 mb-2">Access Code</label>
-                <input type="password" id="accessCode" name="accessCode"
-                    class="input-focus block w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none transition"
-                    placeholder="Enter access code" required />
+                    placeholder="E.g. ZXC12345 (provided by admin/invigilator)" required />
             </div>
             <div>
                 <button type="submit"
@@ -80,8 +74,7 @@
     </div>
     <script>
     // ==== CONFIG ====
-    // Change to your API URL if not same origin!
-    const API_BASE = "https://examguide.onrender.com"; // or "https://examapi.yoursite.com" if cross-origin
+    const API_BASE = "https://examguide.onrender.com"; // Use your backend API URL
 
     // ==== UTILITIES ====
     function setToken(token) {
@@ -93,6 +86,7 @@
     function clearToken() {
         localStorage.removeItem("student_jwt_token");
     }
+
     // ==== DOM Shortcuts ====
     const loginForm = document.getElementById('login-form');
     const accessForm = document.getElementById('access-form');
@@ -121,18 +115,18 @@
         loginForm.classList.remove("hidden");
         accessForm.classList.add("hidden");
         loginSection.innerHTML = '';
-        introDesc.textContent = "Log in and enter your course/access code to begin";
+        introDesc.textContent = "Log in and enter your access code to begin";
     }
     function showAccess(user) {
         loginForm.classList.add("hidden");
         accessForm.classList.remove("hidden");
         showRegNumber.value = user.fullName + " (" + (user.email || user.phone) + ")";
-        showRegNumber.dataset.regnum = user.email || user.phone || ""; // For validation
+        showRegNumber.dataset.regnum = user.email || user.phone || "";
         loginSection.innerHTML = `
             <div><i class="fas fa-user-check text-green-600"></i> Logged in as <b>${user.fullName}</b></div>
             <button onclick="logoutUser()" class="text-xs text-blue-700 underline hover:text-blue-900 mt-2">Not you? Log out</button>
         `;
-        introDesc.textContent = "Enter your course/access code";
+        introDesc.textContent = "Enter your one-time exam access code";
     }
     function logoutUser() {
         clearToken();
@@ -190,8 +184,8 @@
         }
     });
 
-    // ==== ACCESS EXAM HANDLER ====
-    accessForm.addEventListener('submit', function(e){
+    // ==== EXAM ACCESS HANDLER ====
+    accessForm.addEventListener('submit', async function(e){
         e.preventDefault();
         errorElem.classList.add("hidden");
         if (!currentUser) {
@@ -201,25 +195,27 @@
             setTimeout(()=>location.reload(),1200);
             return;
         }
-        const courseCode = document.getElementById('courseCode').value.trim();
-        const accessCode = document.getElementById('accessCode').value.trim();
+        const accessCode = document.getElementById('examAccessCode').value.trim();
 
-        if (courseCode.length < 3) {
-            errorElem.textContent = "Enter a valid Course Code.";
-            errorElem.classList.remove("hidden");
-            return;
-        }
         if (accessCode.length < 4) {
             errorElem.textContent = "Access Code must be at least 4 characters.";
             errorElem.classList.remove("hidden");
             return;
         }
-        // Validate/authorize exam here (call backend if needed)
-        if (courseCode.toUpperCase() === "MTH101" && accessCode === "1234") {
-            // You can save course info or do API validation here if needed.
+
+        // Validate the access code with the backend: Try to fetch the exam set for this code
+        try {
+            const check = await fetch(`${API_BASE}/api/exam-set/by-access?accessCode=${encodeURIComponent(accessCode)}`);
+            if (!check.ok) {
+                errorElem.textContent = "Invalid or expired exam access code.";
+                errorElem.classList.remove("hidden");
+                return;
+            }
+            // Save code and redirect
+            localStorage.setItem("exam_access_code", accessCode);
             window.location.href = "cbt.html";
-        } else {
-            errorElem.textContent = "Invalid Course Code or Access Code.";
+        } catch (err) {
+            errorElem.textContent = "Could not validate exam access code (network/server error).";
             errorElem.classList.remove("hidden");
         }
     });
