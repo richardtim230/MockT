@@ -20,6 +20,47 @@
             font-weight: bold;
             color: #2563eb;
         }
+        /* Registration number - small text and wrapping */
+        #student-regnum {
+            font-size: 0.92rem;
+            word-break: break-word;
+        }
+        /* Modal styles */
+        .modal-bg {
+            position: fixed;
+            z-index: 40;
+            inset: 0;
+            background: rgba(30,41,59,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-panel {
+            background: #fff;
+            border-radius: 1.2em;
+            box-shadow: 0 3px 18px #33415525;
+            padding: 2.2rem 1.5rem 2rem 1.5rem;
+            min-width: 270px;
+            max-width: 92vw;
+            max-height: 90vh;
+        }
+        /* Question number pallet responsive grid (10 per row on mobile, flexible on desktop) */
+        .question-pallet {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+        .question-pallet li {
+            flex: 0 0 10%;
+            max-width: 10%;
+            min-width: 30px;
+        }
+        @media (max-width: 600px) {
+            .question-pallet li { min-width: 10%; max-width: 10%; }
+        }
+        /* Hide scrollbar for the nav pallet */
+        .question-pallet::-webkit-scrollbar { display: none; }
+        .question-pallet { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
@@ -50,7 +91,7 @@
                 <!-- Reg Number -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Registration Number</label>
-                    <div id="student-regnum" class="text-sm font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full">
+                    <div id="student-regnum" class="text-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full">
                         <!-- Filled by JS -->
                     </div>
                 </div>
@@ -70,46 +111,17 @@
 
         <!-- Question Area -->
         <div class="p-10" id="question-area">
-            <!-- Loader or Question will appear here -->
             <div id="question-loader" class="text-center text-blue-600 font-semibold my-20">
                 Loading exam...
             </div>
         </div>
     </div>
-    <!-- Notification Modal -->
-    <div id="notify-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30 hidden">
-      <div class="bg-white rounded-2xl shadow-xl max-w-md w-full px-6 py-7 relative text-center">
-        <button id="notify-close" class="absolute right-4 top-3 text-2xl text-gray-300 hover:text-blue-600 font-bold">&times;</button>
-        <div id="notify-modal-title" class="text-xl font-bold text-blue-700 mb-2"></div>
-        <div id="notify-modal-message" class="text-gray-800 mb-4"></div>
-        <button id="notify-ok" class="px-8 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-xl font-bold mt-2">OK</button>
-      </div>
-    </div>
-    <!-- JS: Fetch and render exam & student data -->
+    <!-- MODAL NOTIFICATION -->
+    <div id="modal-root"></div>
     <script>
         const API_BASE = "https://examguide.onrender.com";
-
         function getToken() { return localStorage.getItem("student_jwt_token"); }
         function getExamAccessCode() { return localStorage.getItem("exam_access_code"); }
-
-        function showNotification(message, opts = {}) {
-            document.getElementById('notify-modal-title').textContent = opts.title || "Notification";
-            document.getElementById('notify-modal-message').innerHTML = message;
-            const modal = document.getElementById('notify-modal');
-            modal.classList.remove('hidden');
-            let closed = false;
-            function closeModal() {
-                if (closed) return;
-                closed = true;
-                modal.classList.add('hidden');
-                if (typeof opts.onClose === "function") opts.onClose();
-            }
-            document.getElementById('notify-close').onclick = closeModal;
-            document.getElementById('notify-ok').onclick = closeModal;
-            // Also close on ESC
-            modal.onkeydown = function(e) { if (e.key === "Escape") closeModal(); };
-            setTimeout(() => { document.getElementById('notify-ok').focus(); }, 250);
-        }
 
         async function fetchStudentProfile() {
             try {
@@ -130,7 +142,6 @@
 
         // User's answers
         let userAnswers = {};
-
         let examData = null, studentData = null, currentQ = 0, timer = null, duration = 0;
 
         function regNumFromName(name) {
@@ -142,38 +153,61 @@
             return `DRC/2025/${first}${last}`;
         }
 
+        // Modal util
+        function showModal(message, opts={}) {
+            const root = document.getElementById('modal-root');
+            root.innerHTML = `
+                <div class="modal-bg">
+                  <div class="modal-panel relative w-full max-w-sm mx-auto">
+                    <button class="absolute right-4 top-4 text-xl text-gray-400 hover:text-gray-700" id="close-modal-btn">&times;</button>
+                    ${(opts.icon!==false) ? `
+                      <div class="flex justify-center mb-4"><i class="fa fa-info-circle text-blue-500 text-4xl"></i></div>
+                    `: ""}
+                    <div class="text-center text-lg text-gray-800 font-bold mb-3">${opts.title||"Notice"}</div>
+                    <div class="mb-4 text-gray-600 text-sm">${message}</div>
+                    ${(opts.actionText) ? `<button id="modal-action-btn" class="mx-auto block py-2 px-7 bg-blue-700 text-white rounded-xl font-bold hover:bg-blue-900">${opts.actionText}</button>` : ""}
+                  </div>
+                </div>
+            `;
+            document.getElementById('close-modal-btn').onclick = ()=> root.innerHTML="";
+            if (opts.onAction) {
+                document.getElementById('modal-action-btn').onclick = ()=>{ root.innerHTML=""; opts.onAction(); };
+            }
+        }
+
+        function persistUserAnswers() {
+            sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
+        }
+
         async function main() {
             // Check exam access code
             const accessCode = getExamAccessCode();
             if (!accessCode) {
-                showNotification("You must enter an access code first.", {
-                    title: "No Access Code",
-                    onClose: () => { window.location.href = "access.html"; }
+                showModal("You must enter an access code first.", {
+                    actionText: "Go to Access",
+                    onAction: ()=>{ window.location.href = "access.html"; }
                 });
                 return;
             }
-
             // Get student/authenticated user
             studentData = await fetchStudentProfile();
             if (!studentData) {
-                showNotification("Session expired. Please log in again.", {
-                    title: "Session Expired",
-                    onClose: () => { window.location.href = "access.html"; }
+                showModal("Session expired. Please log in again.", {
+                    actionText: "Go to Access",
+                    onAction: ()=>{ window.location.href = "access.html"; }
                 });
                 return;
             }
-
             document.getElementById('student-name').innerText = studentData.fullName || studentData.name || '';
             // Custom reg number logic
             const regNum = regNumFromName(studentData.fullName || studentData.name || "");
             document.getElementById('student-regnum').innerText = regNum;
-
             // Get exam info by access code
             const result = await fetchExamDataByAccessCode(accessCode);
             if (!result || !result.examSet || !Array.isArray(result.questions)) {
-                showNotification("Invalid or expired access code. Please re-enter.", {
-                    title: "Invalid Access Code",
-                    onClose: () => {
+                showModal("Invalid or expired access code. Please re-enter.", {
+                    actionText: "Go to Access",
+                    onAction: ()=>{
                         localStorage.removeItem("exam_access_code");
                         window.location.href = "access.html";
                     }
@@ -188,7 +222,6 @@
                     id: q._id || (idx + 1)
                 }))
             };
-
             document.getElementById('exam-subject').innerText = examData.subject || '';
             document.getElementById('exam-duration').innerText = (examData.duration ? (examData.duration/3600) + " Hours" : '');
 
@@ -199,11 +232,6 @@
             duration = examData.duration || 3600;
             startTimer(duration);
             renderQuestion(currentQ);
-        }
-
-        // Save answers to session storage for reload safety
-        function persistUserAnswers() {
-            sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
         }
 
         function renderQuestion(idx) {
@@ -226,29 +254,44 @@
                         </label>
                     `).join('')}
                 </div>
-                <div class="flex gap-4 flex-wrap justify-between items-center">
-                    <button class="px-10 py-4 bg-gray-300 text-gray-800 font-bold rounded-xl hover:bg-gray-400 transition flex items-center shadow-md order-1" ${idx===0?'disabled':''} id="prev-btn">
-                        <i class="fas fa-chevron-left mr-3"></i> Previous
-                    </button>
-                    <nav aria-label="Question navigation" class="flex-1 flex justify-center order-2 mt-3">
-                        <ul class="flex flex-wrap justify-center gap-1 sm:gap-2">
-                            ${Array.from({length: total}).map((_,j)=>`
-                                <li>
-                                    <a href="#" data-qp="${j}" ${j===idx?'aria-current="page" class="px-5 py-3 text-white bg-blue-600 border border-blue-600"':'class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100"'}>${j+1}</a>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </nav>
-                    <div class="flex gap-6 order-3 flex-wrap">
-                        <button class="px-10 py-4 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition shadow-md" id="submit-btn">
-                            Submit Exam
+                <div class="flex flex-col gap-2 sm:flex-row sm:gap-4 justify-between items-center mt-4">
+                    <div class="w-full sm:w-auto flex justify-between gap-2 order-1 mb-2 sm:mb-0">
+                        <button class="px-10 py-4 bg-gray-300 text-gray-800 font-bold rounded-xl hover:bg-gray-400 transition shadow-md" ${idx===0?'disabled':''} id="prev-btn">
+                            <i class="fas fa-chevron-left mr-3"></i> Previous
                         </button>
                         <button class="px-10 py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition flex items-center shadow-md" ${idx===total-1?'disabled':''} id="next-btn">
                             Next <i class="fas fa-chevron-right ml-3"></i>
                         </button>
                     </div>
+                    <nav aria-label="Question navigation" class="flex-1 flex flex-col items-center order-2 w-full sm:w-auto">
+                        <ul class="question-pallet w-full flex flex-wrap justify-start" id="question-nav-list">
+                            <!-- Pallet items will go here -->
+                        </ul>
+                    </nav>
+                    <div class="flex gap-6 order-3 w-full sm:w-auto justify-center mt-2 sm:mt-0">
+                        <button class="px-10 py-4 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition shadow-md" id="submit-btn">
+                            Submit Exam
+                        </button>
+                    </div>
                 </div>
             `;
+            // Navigator in neat rows of 10 (responsive pallet)
+            const pallet = document.getElementById("question-nav-list");
+            let navHtml = "";
+            for (let j = 0; j < total; ++j) {
+                const curr = j===idx;
+                navHtml += `
+                    <li>
+                        <a href="#" data-qp="${j}" 
+                           ${curr?'aria-current="page"':''} 
+                           class="block px-4 py-2 leading-tight text-sm sm:text-base text-gray-600 border border-gray-300 hover:bg-blue-100 ${curr ? "bg-blue-600 text-white font-bold" : "bg-white"}"
+                           style="text-align:center;">
+                           ${j+1}
+                        </a>
+                    </li>
+                `;
+            }
+            pallet.innerHTML = navHtml;
             // Save response
             document.querySelectorAll('input[name="qSelect"]').forEach(input => {
                 input.onchange = function() {
@@ -266,7 +309,7 @@
                 if(currentQ < total-1) { currentQ++; renderQuestion(currentQ);}
             });
             // Navigator
-            document.querySelectorAll('a[data-qp]').forEach(a=>{
+            pallet.querySelectorAll('a[data-qp]').forEach(a=>{
                 a.onclick = ev => { ev.preventDefault(); 
                     currentQ = parseInt(a.getAttribute('data-qp')); 
                     renderQuestion(currentQ);
@@ -275,9 +318,11 @@
             // Submit
             document.getElementById("submit-btn").onclick = function(e){
                 e.preventDefault();
-                showNotification("Are you sure you want to submit the exam?", {
+                showModal("Are you sure you want to submit the exam?", {
                     title: "Submit Exam",
-                    onClose: (/* only action if confirmed */) => {
+                    icon: true,
+                    actionText: "Yes, Submit",
+                    onAction: ()=>{
                         persistUserAnswers();
                         sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
                         sessionStorage.setItem('cbt_exam_info', JSON.stringify({
@@ -315,9 +360,9 @@
                 if (remaining <= 0) {
                     clearInterval(timer);
                     timerElem.textContent = "00:00:00";
-                    showNotification("Time Up! Your exam has been automatically submitted.", {
-                        title: "Time Up",
-                        onClose: () => {
+                    showModal("Time Up! Your exam has been automatically submitted.", {
+                        actionText: "See Report",
+                        onAction: ()=>{
                             persistUserAnswers();
                             sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
                             window.location.href = "report.html";
