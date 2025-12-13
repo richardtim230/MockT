@@ -78,14 +78,14 @@
     </div>
     <!-- JS: Fetch and render exam & student data -->
     <script>
-        // === Settings (Update the API URLs as needed) ===
-        const API_BASE = "https://examguide.onrender.com"; // e.g., "https://examapi.yoursite.com"
-        // For demo, we'll mock these two requests:
-        //   1. /api/student/me   (Fetches student profile)
-        //   2. /api/exam/current (Or similar - fetches exam object, TODO: Replace with your endpoint)
+        // === Settings ===
+        const API_BASE = "https://examguide.onrender.com";
 
-        // -- Utility --
+        // Utility
         function getToken() { return localStorage.getItem("student_jwt_token"); }
+        function getExamAccessCode() {
+            return localStorage.getItem("exam_access_code");
+        }
 
         async function fetchStudentProfile() {
             try {
@@ -97,42 +97,27 @@
             } catch (err) { return null; }
         }
 
-        // Demo/mock exam fetch (replace with your real call)
-        async function fetchExamData() {
-            // Simulate API call latency
-            await new Promise(r => setTimeout(r, 350));
-            return {
-                subject: "Mathematics",
-                duration: 2 * 60 * 60, // in seconds
-                questions: [
-                    {
-                        id: 1,
-                        question: 'What is the value of <span class="font-semibold">x</span> in the equation 2x + 8 = 20?',
-                        options: [
-                            { key: "A", text: "6" },
-                            { key: "B", text: "8" },
-                            { key: "C", text: "10" },
-                            { key: "D", text: "14" }
-                        ]
-                    },
-                    {
-                        id: 2,
-                        question: "If y = 3x, find y when x = 5.",
-                        options: [
-                            { key: "A", text: "15" },
-                            { key: "B", text: "8" },
-                            { key: "C", text: "0" },
-                            { key: "D", text: "2" }
-                        ]
-                    }
-                ]
-            };
+        // Fetch exam by access code
+        async function fetchExamDataByAccessCode(accessCode) {
+            try {
+                const res = await fetch(API_BASE + `/api/exam-set/by-access?accessCode=${encodeURIComponent(accessCode)}`);
+                if (!res.ok) throw new Error("Not found");
+                return await res.json(); // { examSet, questions }
+            } catch (err) { return null; }
         }
 
         // ---- Render Logic ----
         let examData = null, studentData = null, currentQ = 0, timer = null, duration = 0;
 
         async function main() {
+            // Check exam access code
+            const accessCode = getExamAccessCode();
+            if (!accessCode) {
+                alert("You must enter an access code first."); 
+                window.location.href = "access.html";
+                return;
+            }
+
             // Get student/authenticated user
             studentData = await fetchStudentProfile();
             if (!studentData) {
@@ -144,9 +129,24 @@
             // Render student info
             document.getElementById('student-name').innerText = studentData.fullName || studentData.name || '';
             document.getElementById('student-regnum').innerText = studentData.email || studentData.phone || studentData.username || '';
-            
-            // Get exam info
-            examData = await fetchExamData();
+
+            // Get exam info by access code
+            const result = await fetchExamDataByAccessCode(accessCode);
+            if (!result || !result.examSet || !Array.isArray(result.questions)) {
+                alert("Invalid or expired access code. Please re-enter.");
+                localStorage.removeItem("exam_access_code");
+                window.location.href = "access.html";
+                return;
+            }
+            examData = {
+                subject: result.examSet.subject,
+                duration: result.examSet.duration || 3600,
+                questions: result.questions.map((q, idx) => ({
+                    ...q,
+                    id: idx + 1 // local numbering if missing
+                }))
+            };
+
             // Render exam info
             document.getElementById('exam-subject').innerText = examData.subject || '';
             document.getElementById('exam-duration').innerText = (examData.duration ? (examData.duration/3600) + " Hours" : '');
@@ -185,9 +185,6 @@
                                     <a href="#" data-qp="${j}" ${j===idx?'aria-current="page" class="px-5 py-3 text-white bg-blue-600 border border-blue-600"':'class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100"'}>${j+1}</a>
                                 </li>
                             `).join('')}
-                            <li>
-                                <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">...</a>
-                            </li>
                         </ul>
                     </nav>
                     <div class="flex gap-6 order-3">
