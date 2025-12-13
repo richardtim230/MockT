@@ -78,14 +78,10 @@
     </div>
     <!-- JS: Fetch and render exam & student data -->
     <script>
-        // === Settings ===
         const API_BASE = "https://examguide.onrender.com";
 
-        // Utility
         function getToken() { return localStorage.getItem("student_jwt_token"); }
-        function getExamAccessCode() {
-            return localStorage.getItem("exam_access_code");
-        }
+        function getExamAccessCode() { return localStorage.getItem("exam_access_code"); }
 
         async function fetchStudentProfile() {
             try {
@@ -96,8 +92,6 @@
                 return await res.json();
             } catch (err) { return null; }
         }
-
-        // Fetch exam by access code
         async function fetchExamDataByAccessCode(accessCode) {
             try {
                 const res = await fetch(API_BASE + `/api/exam-set/by-access?accessCode=${encodeURIComponent(accessCode)}`);
@@ -106,8 +100,19 @@
             } catch (err) { return null; }
         }
 
-        // ---- Render Logic ----
+        // User's answers
+        let userAnswers = {};
+
         let examData = null, studentData = null, currentQ = 0, timer = null, duration = 0;
+
+        function regNumFromName(name) {
+            if (!name) return "";
+            let parts = name.trim().split(/\s+/);
+            if (parts.length < 2) return "DRC/2025/" + (parts[0].substring(0,5).toUpperCase());
+            let first = parts[0].substring(0,2).toUpperCase();
+            let last = parts[parts.length-1].substring(0,3).toUpperCase();
+            return `DRC/2025/${first}${last}`;
+        }
 
         async function main() {
             // Check exam access code
@@ -126,9 +131,10 @@
                 return;
             }
 
-            // Render student info
             document.getElementById('student-name').innerText = studentData.fullName || studentData.name || '';
-            document.getElementById('student-regnum').innerText = studentData.email || studentData.phone || studentData.username || '';
+            // Custom reg number logic
+            const regNum = regNumFromName(studentData.fullName || studentData.name || "");
+            document.getElementById('student-regnum').innerText = regNum;
 
             // Get exam info by access code
             const result = await fetchExamDataByAccessCode(accessCode);
@@ -143,18 +149,25 @@
                 duration: result.examSet.duration || 3600,
                 questions: result.questions.map((q, idx) => ({
                     ...q,
-                    id: idx + 1 // local numbering if missing
+                    id: q._id || (idx + 1)
                 }))
             };
 
-            // Render exam info
             document.getElementById('exam-subject').innerText = examData.subject || '';
             document.getElementById('exam-duration').innerText = (examData.duration ? (examData.duration/3600) + " Hours" : '');
-            // Set timer
+
+            // Try to load existing answers from session (for reload safety)
+            const storedAnswers = sessionStorage.getItem('cbt_user_answers');
+            if(storedAnswers) userAnswers = JSON.parse(storedAnswers);
+
             duration = examData.duration || 3600;
             startTimer(duration);
-            // Render first question
             renderQuestion(currentQ);
+        }
+
+        // Save answers to session storage for reload safety
+        function persistUserAnswers() {
+            sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
         }
 
         function renderQuestion(idx) {
@@ -165,15 +178,18 @@
             }
             const total = examData.questions.length;
             const q = examData.questions[idx];
+            const savedAnswer = userAnswers[q.id] || "";
             qa.innerHTML = `
                 <h2 class="text-3xl font-bold text-gray-800 mb-8">Question ${idx+1}</h2>
                 <p class="text-xl leading-relaxed text-gray-700 mb-12">${q.question}</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">${q.options.map(opt => `
-                    <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
-                        <input type="radio" name="q${q.id}" value="${opt.key}" class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
-                        <span class="ml-6 text-xl">${opt.key}. ${opt.text}</span>
-                    </label>
-                `).join('')}</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    ${q.options.map(opt => `
+                        <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
+                            <input type="radio" name="qSelect" value="${opt.key}" ${savedAnswer===opt.key?'checked':''} class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
+                            <span class="ml-6 text-xl">${opt.key}. ${opt.text}</span>
+                        </label>
+                    `).join('')}
+                </div>
                 <div class="flex gap-4 flex-wrap justify-between items-center">
                     <button class="px-10 py-4 bg-gray-300 text-gray-800 font-bold rounded-xl hover:bg-gray-400 transition flex items-center shadow-md order-1" ${idx===0?'disabled':''} id="prev-btn">
                         <i class="fas fa-chevron-left mr-3"></i> Previous
@@ -197,7 +213,14 @@
                     </div>
                 </div>
             `;
-            // Add listeners
+            // Save response
+            document.querySelectorAll('input[name="qSelect"]').forEach(input => {
+                input.onchange = function() {
+                    userAnswers[q.id] = this.value;
+                    persistUserAnswers();
+                };
+            });
+            // Previous/Next
             document.getElementById("prev-btn").onclick = function(e){
                 e.preventDefault();
                 if(currentQ>0) { currentQ--; renderQuestion(currentQ);}
@@ -206,20 +229,31 @@
                 e.preventDefault();
                 if(currentQ < total-1) { currentQ++; renderQuestion(currentQ);}
             });
+            // Navigator
             document.querySelectorAll('a[data-qp]').forEach(a=>{
-                a.onclick = ev => { ev.preventDefault(); currentQ = parseInt(a.getAttribute('data-qp')); renderQuestion(currentQ);}
+                a.onclick = ev => { ev.preventDefault(); 
+                    currentQ = parseInt(a.getAttribute('data-qp')); 
+                    renderQuestion(currentQ);
+                }
             });
+            // Submit
             document.getElementById("submit-btn").onclick = function(e){
                 e.preventDefault();
                 if(confirm("Are you sure you want to submit the exam?")) {
-                    // Save/submit logic here
-                    alert("Submitted! (Demo only)");
-                    // location.href = "result_page.html"; // implement as needed
+                    persistUserAnswers();
+                    // Optionally send to backend -- for now, store in sessionStorage and redirect
+                    sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
+                    sessionStorage.setItem('cbt_exam_info', JSON.stringify({
+                        subject: examData.subject,
+                        regnum: document.getElementById('student-regnum').innerText,
+                        student: studentData.fullName || studentData.name || '',
+                        timeCompleted: new Date().toISOString()
+                    }));
+                    window.location.href = "report.html";
                 }
             };
         }
 
-        // -- Timer --
         function startTimer(secs) {
             let remaining = secs;
             const timerElem = document.getElementById('timer');
@@ -244,12 +278,13 @@
                     clearInterval(timer);
                     timerElem.textContent = "00:00:00";
                     alert("Time Up! Your exam has been automatically submitted.");
-                    // Add auto-submit logic here
+                    persistUserAnswers();
+                    sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
+                    window.location.href = "report.html";
                 }
             }, 1000);
         }
 
-        // ---- LAUNCH ----
         window.addEventListener("DOMContentLoaded", main);
     </script>
 </body>
