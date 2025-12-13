@@ -23,6 +23,15 @@
       0% { transform: rotate(0deg);}
       100% { transform: rotate(360deg);}
     }
+    /* Modal buttons */
+    .action-btn {
+      @apply bg-blue-700 hover:bg-blue-800 text-white px-6 py-2 rounded font-bold transition;
+      margin: 0 0.5em;
+    }
+    .action-btn-orange {
+      @apply bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded font-bold transition;
+      margin: 0 0.5em;
+    }
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
@@ -69,6 +78,7 @@
   <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-8 text-center">
     <div id="modal-spinner" class="mb-4 spinner"></div>
     <div id="modal-message" class="text-lg font-semibold text-gray-700"></div>
+    <div id="modal-actions" class="flex justify-center gap-4 mt-5"></div>
     <button type="button" id="modal-close" class="mt-6 bg-blue-700 hover:bg-blue-600 text-white px-6 py-2 rounded transition hidden">Close</button>
   </div>
 </div>
@@ -82,18 +92,36 @@ document.getElementById('togglePassword').onclick = function() {
   const eye = document.getElementById('eyeIcon');
   if (pass.type === 'password') {
     pass.type = 'text';
-    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 1[...]`
+    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 1[...]
   } else {
     pass.type = 'password';
     eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>`;
   }
 };
 
-function showModal(msg, loading=true) {
+function showModal(msg, loading=true, actions=[]) {
   document.getElementById('modal-message').innerHTML = msg;
   document.getElementById('modal-feedback').classList.remove('hidden');
   document.getElementById('modal-spinner').style.display = loading ? 'block' : 'none';
-  document.getElementById('modal-close').style.display = loading ? 'none' : 'inline-block';
+  document.getElementById('modal-close').style.display = (loading || actions.length > 0) ? 'none' : 'inline-block';
+  // Custom actions (for dashboard/CBT choice)
+  const modalActionsDiv = document.getElementById('modal-actions');
+  modalActionsDiv.innerHTML = '';
+  if (actions.length > 0) {
+    actions.forEach(({ label, callback, style }) => {
+      const btn = document.createElement('button');
+      btn.textContent = label;
+      btn.className = style ? style : "action-btn";
+      btn.onclick = () => {
+        hideModal();
+        callback();
+      };
+      modalActionsDiv.appendChild(btn);
+    });
+    modalActionsDiv.style.display = "flex";
+  } else {
+    modalActionsDiv.style.display = "none";
+  }
 }
 function hideModal() {
   document.getElementById('modal-feedback').classList.add('hidden');
@@ -131,14 +159,36 @@ document.getElementById('loginForm').onsubmit = async function(e) {
       // Save token (optionally, use sessionStorage/localStorage)
       localStorage.setItem("jwt_token", result.token);
       localStorage.setItem("user_role", result.user.role);
-      // Redirect based on role
-      let role = (result.user.role || "").toLowerCase();
-      let redirectUrl = "index.html";
-      if (role === "admin" || role === "superadmin") redirectUrl = "admin-dashboard.html";
-      else if (role === "tutor") redirectUrl = "tutor-dashboard.html";
-      else if (role === "student") redirectUrl = "dashboard.html";
-      showModal('<span class="text-green-600">✔️ Login successful!</span><br>Redirecting to dashboard...', false);
-      setTimeout(() => { hideModal(); window.location.href = redirectUrl; }, 1200);
+
+      // Ask user where to proceed:
+      showModal(
+        `
+        <span class="text-green-600">✔️ Login successful!</span><br>
+        <span class="block my-2 text-base text-gray-700">Proceed to Dashboard or CBT Exam?</span>
+        `,
+        false,
+        [
+          {
+            label: "Go to Dashboard",
+            style: "action-btn",
+            callback: () => {
+              let role = (result.user.role || "").toLowerCase();
+              let redirectUrl = "index.html";
+              if (role === "admin" || role === "superadmin") redirectUrl = "admin-dashboard.html";
+              else if (role === "tutor") redirectUrl = "tutor-dashboard.html";
+              else if (role === "student") redirectUrl = "dashboard.html";
+              window.location.href = redirectUrl;
+            }
+          },
+          {
+            label: "CBT Login",
+            style: "action-btn-orange",
+            callback: () => {
+              window.location.href = "cbt-login"; // or "cbt-login.html" as needed
+            }
+          }
+        ]
+      );
     } else {
       showModal(result.message
         ? `<span class="text-red-600">❌ ${result.message}</span>`
