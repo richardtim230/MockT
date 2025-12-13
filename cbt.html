@@ -36,29 +36,29 @@
                 <!-- Name -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-                    <div class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full">
-                        Adebayo Chinedu Emmanuel
+                    <div id="student-name" class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full">
+                        <!-- Filled by JS -->
                     </div>
                 </div>
                 <!-- Subject -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
-                    <div class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full">
-                        Mathematics
+                    <div id="exam-subject" class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full">
+                        <!-- Filled by JS -->
                     </div>
                 </div>
                 <!-- Reg Number -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Registration Number</label>
-                    <div class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full">
-                        DRC/2025/00123
+                    <div id="student-regnum" class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full">
+                        <!-- Filled by JS -->
                     </div>
                 </div>
                 <!-- Duration & Time Remaining stacked in right cell -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Duration</label>
-                    <div class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full mb-3">
-                        2 Hours
+                    <div id="exam-duration" class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full mb-3">
+                        <!-- Filled by JS -->
                     </div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Time Remaining</label>
                     <div id="timer" class="text-3xl font-bold text-red-600 bg-gray-900 text-white px-8 py-4 rounded-2xl shadow-lg text-center">
@@ -69,101 +69,191 @@
         </div>
 
         <!-- Question Area -->
-        <div class="p-10">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8">Question 1</h2>
-            <p class="text-xl leading-relaxed text-gray-700 mb-12">
-                What is the value of <span class="font-semibold">x</span> in the equation 2x + 8 = 20?
-            </p>
-
-            <!-- Options -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
-                    <input type="radio" name="q1" value="A" class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
-                    <span class="ml-6 text-xl">A. 6</span>
-                </label>
-                <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
-                    <input type="radio" name="q1" value="B" class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
-                    <span class="ml-6 text-xl">B. 8</span>
-                </label>
-                <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
-                    <input type="radio" name="q1" value="C" class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
-                    <span class="ml-6 text-xl">C. 10</span>
-                </label>
-                <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
-                    <input type="radio" name="q1" value="D" class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
-                    <span class="ml-6 text-xl">D. 14</span>
-                </label>
-            </div>
-
-            <!-- Navigation & Buttons: Always on same line, without Next/Prev in questions palette -->
-            <div class="flex gap-4 flex-wrap justify-between items-center">
-                <button class="px-10 py-4 bg-gray-300 text-gray-800 font-bold rounded-xl hover:bg-gray-400 transition flex items-center shadow-md order-1">
-                    <i class="fas fa-chevron-left mr-3"></i> Previous
-                </button>
-
-                <!-- Question Pagination: Only number buttons, no Next/Prev -->
-                <nav aria-label="Question navigation" class="flex-1 flex justify-center order-2">
-                    <ul class="inline-flex -space-x-px text-lg">
-                        <li>
-                            <a href="#" aria-current="page" class="px-5 py-3 text-white bg-blue-600 border border-blue-600">1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">3</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">4</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">5</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">...</a>
-                        </li>
-                    </ul>
-                </nav>
-
-                <div class="flex gap-6 order-3">
-                    <button class="px-10 py-4 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition shadow-md">
-                        Submit Exam
-                    </button>
-                    <button class="px-10 py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition flex items-center shadow-md">
-                        Next <i class="fas fa-chevron-right ml-3"></i>
-                    </button>
-                </div>
+        <div class="p-10" id="question-area">
+            <!-- Loader or Question will appear here -->
+            <div id="question-loader" class="text-center text-blue-600 font-semibold my-20">
+                Loading exam...
             </div>
         </div>
     </div>
-
-    <!-- Timer Script -->
+    <!-- JS: Fetch and render exam & student data -->
     <script>
-        let duration = 2 * 60 * 60; // 2 hours in seconds
-        const timerDisplay = document.getElementById('timer');
+        // === Settings (Update the API URLs as needed) ===
+        const API_BASE = ""; // e.g., "https://examapi.yoursite.com"
+        // For demo, we'll mock these two requests:
+        //   1. /api/student/me   (Fetches student profile)
+        //   2. /api/exam/current (Or similar - fetches exam object, TODO: Replace with your endpoint)
 
-        const countdown = setInterval(() => {
-            duration--;
-            const hours = Math.floor(duration / 3600);
-            const minutes = Math.floor((duration % 3600) / 60);
-            const seconds = duration % 60;
+        // -- Utility --
+        function getToken() { return localStorage.getItem("student_jwt_token"); }
 
-            timerDisplay.textContent = 
-                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        async function fetchStudentProfile() {
+            try {
+                const res = await fetch(API_BASE + "/api/student/me", {
+                    headers: { Authorization: "Bearer " + getToken() }
+                });
+                if (!res.ok) throw new Error("Not authenticated");
+                return await res.json();
+            } catch (err) { return null; }
+        }
 
-            if (duration <= 300) { // Last 5 minutes - turn red and bolder
-                timerDisplay.classList.add('animate-pulse');
-                timerDisplay.classList.remove('text-red-600');
-                timerDisplay.classList.add('text-red-500', 'bg-red-100');
+        // Demo/mock exam fetch (replace with your real call)
+        async function fetchExamData() {
+            // Simulate API call latency
+            await new Promise(r => setTimeout(r, 350));
+            return {
+                subject: "Mathematics",
+                duration: 2 * 60 * 60, // in seconds
+                questions: [
+                    {
+                        id: 1,
+                        question: 'What is the value of <span class="font-semibold">x</span> in the equation 2x + 8 = 20?',
+                        options: [
+                            { key: "A", text: "6" },
+                            { key: "B", text: "8" },
+                            { key: "C", text: "10" },
+                            { key: "D", text: "14" }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        question: "If y = 3x, find y when x = 5.",
+                        options: [
+                            { key: "A", text: "15" },
+                            { key: "B", text: "8" },
+                            { key: "C", text: "0" },
+                            { key: "D", text: "2" }
+                        ]
+                    }
+                ]
+            };
+        }
+
+        // ---- Render Logic ----
+        let examData = null, studentData = null, currentQ = 0, timer = null, duration = 0;
+
+        async function main() {
+            // Get student/authenticated user
+            studentData = await fetchStudentProfile();
+            if (!studentData) {
+                alert("Session expired. Please log in again."); 
+                window.location.href = "access.html";
+                return;
             }
 
-            if (duration <= 0) {
-                clearInterval(countdown);
-                timerDisplay.textContent = "00:00:00";
-                alert("Time Up! Your exam has been automatically submitted.");
-                // Add auto-submit logic here
+            // Render student info
+            document.getElementById('student-name').innerText = studentData.fullName || studentData.name || '';
+            document.getElementById('student-regnum').innerText = studentData.email || studentData.phone || studentData.username || '';
+            
+            // Get exam info
+            examData = await fetchExamData();
+            // Render exam info
+            document.getElementById('exam-subject').innerText = examData.subject || '';
+            document.getElementById('exam-duration').innerText = (examData.duration ? (examData.duration/3600) + " Hours" : '');
+            // Set timer
+            duration = examData.duration || 3600;
+            startTimer(duration);
+            // Render first question
+            renderQuestion(currentQ);
+        }
+
+        function renderQuestion(idx) {
+            const qa = document.getElementById("question-area");
+            if (!examData || !examData.questions || idx >= examData.questions.length) {
+                qa.innerHTML = '<div class="text-center my-10 text-red-500">No Question Found.</div>';
+                return;
             }
-        }, 1000);
+            const total = examData.questions.length;
+            const q = examData.questions[idx];
+            qa.innerHTML = `
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Question ${idx+1}</h2>
+                <p class="text-xl leading-relaxed text-gray-700 mb-12">${q.question}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">${q.options.map(opt => `
+                    <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
+                        <input type="radio" name="q${q.id}" value="${opt.key}" class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
+                        <span class="ml-6 text-xl">${opt.key}. ${opt.text}</span>
+                    </label>
+                `).join('')}</div>
+                <div class="flex gap-4 flex-wrap justify-between items-center">
+                    <button class="px-10 py-4 bg-gray-300 text-gray-800 font-bold rounded-xl hover:bg-gray-400 transition flex items-center shadow-md order-1" ${idx===0?'disabled':''} id="prev-btn">
+                        <i class="fas fa-chevron-left mr-3"></i> Previous
+                    </button>
+                    <nav aria-label="Question navigation" class="flex-1 flex justify-center order-2">
+                        <ul class="inline-flex -space-x-px text-lg">
+                            ${Array.from({length: total}).map((_,j)=>`
+                                <li>
+                                    <a href="#" data-qp="${j}" ${j===idx?'aria-current="page" class="px-5 py-3 text-white bg-blue-600 border border-blue-600"':'class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100"'}>${j+1}</a>
+                                </li>
+                            `).join('')}
+                            <li>
+                                <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">...</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="flex gap-6 order-3">
+                        <button class="px-10 py-4 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition shadow-md" id="submit-btn">
+                            Submit Exam
+                        </button>
+                        <button class="px-10 py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition flex items-center shadow-md" ${idx===total-1?'disabled':''} id="next-btn">
+                            Next <i class="fas fa-chevron-right ml-3"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            // Add listeners
+            document.getElementById("prev-btn").onclick = function(e){
+                e.preventDefault();
+                if(currentQ>0) { currentQ--; renderQuestion(currentQ);}
+            };
+            document.getElementById("next-btn")?.addEventListener("click",function(e){
+                e.preventDefault();
+                if(currentQ < total-1) { currentQ++; renderQuestion(currentQ);}
+            });
+            document.querySelectorAll('a[data-qp]').forEach(a=>{
+                a.onclick = ev => { ev.preventDefault(); currentQ = parseInt(a.getAttribute('data-qp')); renderQuestion(currentQ);}
+            });
+            document.getElementById("submit-btn").onclick = function(e){
+                e.preventDefault();
+                if(confirm("Are you sure you want to submit the exam?")) {
+                    // Save/submit logic here
+                    alert("Submitted! (Demo only)");
+                    // location.href = "result_page.html"; // implement as needed
+                }
+            };
+        }
+
+        // -- Timer --
+        function startTimer(secs) {
+            let remaining = secs;
+            const timerElem = document.getElementById('timer');
+            function update() {
+                const hours = Math.floor(remaining / 3600);
+                const minutes = Math.floor((remaining % 3600) / 60);
+                const seconds = remaining % 60;
+                timerElem.textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                if (remaining <= 300) {
+                    timerElem.classList.add('animate-pulse');
+                    timerElem.classList.remove('text-red-600');
+                    timerElem.classList.add('text-red-500', 'bg-red-100');
+                }
+            }
+            update();
+            if (timer) clearInterval(timer);
+            timer = setInterval(() => {
+                remaining--;
+                update();
+                if (remaining <= 0) {
+                    clearInterval(timer);
+                    timerElem.textContent = "00:00:00";
+                    alert("Time Up! Your exam has been automatically submitted.");
+                    // Add auto-submit logic here
+                }
+            }, 1000);
+        }
+
+        // ---- LAUNCH ----
+        window.addEventListener("DOMContentLoaded", main);
     </script>
 </body>
 </html>
