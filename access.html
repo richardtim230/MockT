@@ -211,58 +211,58 @@
         }
     });
 
-// ==== EXAM ACCESS HANDLER ====
-accessForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    errorElem.classList.add("hidden");
-    const accessBtn = document.getElementById('access-btn');
-    function setBtnSpinner(btn, show, text = "") {
-        if (show) {
-            btn.disabled = true;
-            btn._realText = btn.querySelector('span')?.textContent;
-            btn.querySelector('span').innerHTML = `<span class="mr-2 spinner"></span> ${text || "Processing..."}`;
-        } else {
-            btn.disabled = false;
-            if (btn._realText) btn.querySelector('span').textContent = btn._realText;
+    // ==== EXAM ACCESS HANDLER ====
+    accessForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        errorElem.classList.add("hidden");
+        setBtnSpinner(accessBtn, true, "Checking...");
+        if (!currentUser) {
+            errorElem.textContent = "User session expired. Please log in again.";
+            errorElem.classList.remove("hidden");
+            clearToken();
+            setTimeout(() => location.reload(), 1200);
+            setBtnSpinner(accessBtn, false);
+            return;
         }
-    }
-    setBtnSpinner(accessBtn, true, "Checking...");
-    if (!currentUser) {
-        errorElem.textContent = "User session expired. Please log in again.";
-        errorElem.classList.remove("hidden");
-        clearToken();
-        setTimeout(() => location.reload(), 1200);
-        setBtnSpinner(accessBtn, false);
-        return;
-    }
-    const accessCode = document.getElementById('examAccessCode').value.trim();
+        // Use the correct id here:
+        const accessCode = document.getElementById('accessCode').value.trim();
 
-    if (accessCode.length < 4) {
-        errorElem.textContent = "Access Code must be at least 4 characters.";
-        errorElem.classList.remove("hidden");
-        setBtnSpinner(accessBtn, false);
-        return;
-    }
-
-    // Validate the access code with the backend: Try to fetch the exam set for this code
-    try {
-        const check = await fetch(`${API_BASE}/api/exam-set/by-access?accessCode=${encodeURIComponent(accessCode)}`);
-        if (!check.ok) {
-            errorElem.textContent = "Invalid or expired exam access code.";
+        if (accessCode.length < 4) {
+            errorElem.textContent = "Access Code must be at least 4 characters.";
             errorElem.classList.remove("hidden");
             setBtnSpinner(accessBtn, false);
             return;
         }
-        // Save code and redirect
-        localStorage.setItem("exam_access_code", accessCode);
-        setBtnSpinner(accessBtn, false);
-        window.location.href = "testsession"; // or cbt.html or your intended page
-    } catch (err) {
-        errorElem.textContent = "Could not validate exam access code (network/server error).";
-        errorElem.classList.remove("hidden");
-        setBtnSpinner(accessBtn, false);
-    }
-});
+
+        // Optionally, course code can be validated as well
+        const courseCode = document.getElementById('courseCode').value.trim();
+        if (courseCode.length < 3) {
+            errorElem.textContent = "Course Code is required.";
+            errorElem.classList.remove("hidden");
+            setBtnSpinner(accessBtn, false);
+            return;
+        }
+
+        // Validate the access code with the backend: Try to fetch the exam set for this code
+        try {
+            const check = await fetch(`${API_BASE}/api/exam-set/by-access?accessCode=${encodeURIComponent(accessCode)}`);
+            if (!check.ok) {
+                errorElem.textContent = "Invalid or expired exam access code.";
+                errorElem.classList.remove("hidden");
+                setBtnSpinner(accessBtn, false);
+                return;
+            }
+            // Save code and redirect
+            localStorage.setItem("exam_access_code", accessCode);
+            localStorage.setItem("exam_course_code", courseCode); // Optionally store course code
+            setBtnSpinner(accessBtn, false);
+            window.location.href = "testsession"; // or cbt.html or your intended page
+        } catch (err) {
+            errorElem.textContent = "Could not validate exam access code (network/server error).";
+            errorElem.classList.remove("hidden");
+            setBtnSpinner(accessBtn, false);
+        }
+    });
     </script>
 </body>
 </html>
