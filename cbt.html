@@ -1,190 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CBT Exam Interface - D-Rich Tutorial College</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Flowbite CDN (includes Tailwind + Flowbite components) -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-  <style>
-    .option-box {
-      @apply border-2 border-gray-300 rounded-lg p-6 cursor-pointer transition-all duration-200 hover:border-blue-500 hover:bg-blue-50;
-    }
-    .option-box.selected {
-      @apply border-blue-600 bg-blue-100 shadow-lg;
-    }
-    .timer {
-      @apply text-2xl font-bold text-red-600;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-Rich Tutorial College CBT Exam</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Flowbite CSS & JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        .option-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .option-card input:checked + span {
+            font-weight: bold;
+            color: #2563eb;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-5xl w-full overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-8 px-10 text-center">
+            <h1 class="text-4xl font-extrabold tracking-wide">D-RICH TUTORIAL COLLEGE</h1>
+            <p class="mt-2 text-blue-200">Computer-Based Test (CBT) Examination</p>
+        </div>
 
-  <!-- Header -->
-  <header class="bg-white shadow-md">
-    <div class="container mx-auto px-4 py-4">
-      <h1 class="text-3xl font-bold text-center text-indigo-700">D-RICH TUTORIAL COLLEGE</h1>
+        <!-- Student Info & Exam Details -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-10 border-b-2 border-gray-200 bg-gray-50">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                    <div class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm">
+                        Adebayo Chinedu Emmanuel
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Registration Number</label>
+                    <div class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm">
+                        DRC/2025/00123
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6 text-right lg:text-right">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+                    <div class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm inline-block">
+                        Mathematics
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Duration</label>
+                    <div class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm inline-block">
+                        2 Hours
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Time Remaining</label>
+                    <div id="timer" class="text-3xl font-bold text-red-600 bg-gray-900 text-white px-8 py-4 rounded-2xl shadow-lg inline-block">
+                        02:00:00
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Area -->
+        <div class="p-10">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">Question 1</h2>
+            <p class="text-xl leading-relaxed text-gray-700 mb-12">
+                What is the value of <span class="font-semibold">x</span> in the equation 2x + 8 = 20?
+            </p>
+
+            <!-- Options -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
+                    <input type="radio" name="q1" value="A" class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
+                    <span class="ml-6 text-xl">A. 6</span>
+                </label>
+                <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
+                    <input type="radio" name="q1" value="B" class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
+                    <span class="ml-6 text-xl">B. 8</span>
+                </label>
+                <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
+                    <input type="radio" name="q1" value="C" class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
+                    <span class="ml-6 text-xl">C. 10</span>
+                </label>
+                <label class="option-card flex items-center p-8 bg-white border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300">
+                    <input type="radio" name="q1" value="D" class="w-7 h-7 text-blue-600 focus:ring-blue-500" />
+                    <span class="ml-6 text-xl">D. 14</span>
+                </label>
+            </div>
+
+            <!-- Navigation & Pagination -->
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-8">
+                <button class="px-10 py-4 bg-gray-300 text-gray-800 font-bold rounded-xl hover:bg-gray-400 transition flex items-center shadow-md">
+                    <i class="fas fa-chevron-left mr-3"></i> Previous
+                </button>
+
+                <!-- Flowbite Pagination -->
+                <nav aria-label="Question navigation">
+                    <ul class="inline-flex -space-x-px text-lg">
+                        <li>
+                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-xl hover:bg-gray-100">Prev</a>
+                        </li>
+                        <li>
+                            <a href="#" aria-current="page" class="px-5 py-3 text-white bg-blue-600 border border-blue-600">1</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">2</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">3</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">4</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">5</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100">...</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-xl hover:bg-gray-100">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="flex gap-6">
+                    <button class="px-10 py-4 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition shadow-md">
+                        Submit Exam
+                    </button>
+                    <button class="px-10 py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition flex items-center shadow-md">
+                        Next <i class="fas fa-chevron-right ml-3"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <div class="container mx-auto flex-grow flex flex-col lg:flex-row gap-8 px-4 py-8">
+    <!-- Timer Script -->
+    <script>
+        let duration = 2 * 60 * 60; // 2 hours in seconds
+        const timerDisplay = document.getElementById('timer');
 
-    <!-- Left Section: Student Info & Question -->
-    <div class="flex-grow lg:w-3/4 bg-white rounded-xl shadow-lg p-8">
-      
-      <!-- Student Info -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-lg">
-        <div>
-          <label class="font-semibold text-gray-700">Full Name:</label>
-          <p class="mt-1 text-gray-900">John Doe</p>
-        </div>
-        <div>
-          <label class="font-semibold text-gray-700">Registration Number:</label>
-          <p class="mt-1 text-gray-900">DRC/2025/001</p>
-        </div>
-        <div class="text-right md:text-left">
-          <label class="font-semibold text-gray-700">Subject:</label>
-          <p class="mt-1 text-gray-900">Mathematics</p>
-          <label class="font-semibold text-gray-700 block mt-3">Time:</label>
-          <p class="timer" id="timer">01:30:00</p>
-        </div>
-      </div>
+        const countdown = setInterval(() => {
+            duration--;
+            const hours = Math.floor(duration / 3600);
+            const minutes = Math.floor((duration % 3600) / 60);
+            const seconds = duration % 60;
 
-      <hr class="my-8 border-gray-300">
+            timerDisplay.textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      <!-- Question Section -->
-      <div class="mb-10">
-        <h2 class="text-2xl font-bold mb-6">Question 1</h2>
-        
-        <p class="text-xl leading-relaxed mb-8">
-          What is the value of <i>x</i> in the equation 2<i>x</i> + 5 = 17?
-        </p>
+            if (duration <= 300) { // Last 5 minutes - turn red and bolder
+                timerDisplay.classList.add('animate-pulse');
+                timerDisplay.classList.remove('text-red-600');
+                timerDisplay.classList.add('text-red-500', 'bg-red-100');
+            }
 
-        <!-- Options Grid (2x2 as in sketch) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="option-box" data-option="A">
-            <span class="text-xl font-semibold">A.</span>
-            <p class="mt-3 text-lg">6</p>
-          </div>
-          <div class="option-box" data-option="B">
-            <span class="text-xl font-semibold">B.</span>
-            <p class="mt-3 text-lg">12</p>
-          </div>
-          <div class="option-box" data-option="C">
-            <span class="text-xl font-semibold">C.</span>
-            <p class="mt-3 text-lg">8</p>
-          </div>
-          <div class="option-box selected" data-option="D">
-            <span class="text-xl font-semibold">D.</span>
-            <p class="mt-3 text-lg">10</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Navigation Buttons -->
-      <div class="flex justify-between mt-12">
-        <button class="px-8 py-4 bg-gray-600 text-white font-semibold rounded-lg shadow hover:bg-gray-700 transition">
-          Prev
-        </button>
-        <button class="px-8 py-4 bg-indigo-600 text-white font-semibold rounded-lg shadow hover:bg-indigo-700 transition">
-          Submit
-        </button>
-        <button class="px-8 py-4 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition">
-          Next
-        </button>
-      </div>
-    </div>
-
-    <!-- Right Section: Question Palette -->
-    <div class="lg:w-1/4">
-      <div class="bg-white rounded-xl shadow-lg p-6">
-        <h3 class="text-xl font-bold text-center mb-6">Question Palette</h3>
-        <div class="grid grid-cols-5 gap-3">
-          <!-- Sample 20 questions -->
-          <button class="w-12 h-12 rounded-full bg-green-500 text-white font-bold shadow hover:bg-green-600">1</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">2</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">3</button>
-          <button class="w-12 h-12 rounded-full bg-red-500 text-white font-bold shadow hover:bg-red-600">4</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">5</button>
-          <button class="w-12 h-12 rounded-full bg-purple-500 text-white font-bold shadow hover:bg-purple-600">6</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">7</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">8</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">9</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">10</button>
-          <!-- Add more as needed -->
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">11</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">12</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">13</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">14</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">15</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">16</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">17</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">18</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">19</button>
-          <button class="w-12 h-12 rounded-full bg-gray-300 text-gray-800 font-bold shadow hover:bg-gray-400">20</button>
-        </div>
-
-        <!-- Legend -->
-        <div class="mt-8 text-sm">
-          <h4 class="font-semibold mb-3">Legend:</h4>
-          <div class="flex items-center gap-3 mb-2">
-            <div class="w-8 h-8 rounded-full bg-green-500"></div>
-            <span>Answered</span>
-          </div>
-          <div class="flex items-center gap-3 mb-2">
-            <div class="w-8 h-8 rounded-full bg-red-500"></div>
-            <span>Marked for Review</span>
-          </div>
-          <div class="flex items-center gap-3 mb-2">
-            <div class="w-8 h-8 rounded-full bg-purple-500"></div>
-            <span>Answered & Marked</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-gray-300"></div>
-            <span>Not Answered</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Simple timer countdown (demo: 1 hour 30 minutes)
-    let timeLeft = 90 * 60; // 90 minutes in seconds
-    const timerElement = document.getElementById('timer');
-
-    function formatTime(seconds) {
-      const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
-      const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-      const s = (seconds % 60).toString().padStart(2, '0');
-      return `${h}:${m}:${s}`;
-    }
-
-    timerElement.textContent = formatTime(timeLeft);
-
-    const timerInterval = setInterval(() => {
-      timeLeft--;
-      timerElement.textContent = formatTime(timeLeft);
-
-      if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        timerElement.textContent = "00:00:00";
-        alert("Time's up!");
-      }
-    }, 1000);
-
-    // Option selection
-    document.querySelectorAll('.option-box').forEach(box => {
-      box.addEventListener('click', () => {
-        // Remove selected class from siblings
-        document.querySelectorAll('.option-box').forEach(b => b.classList.remove('selected'));
-        // Add selected to clicked
-        box.classList.add('selected');
-      });
-    });
-  </script>
+            if (duration <= 0) {
+                clearInterval(countdown);
+                timerDisplay.textContent = "00:00:00";
+                alert("Time Up! Your exam has been automatically submitted.");
+                // Add auto-submit logic here
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
