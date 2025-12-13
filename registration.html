@@ -233,7 +233,7 @@ backBtn.onclick = function() {
 };
 
 loginBtn.onclick = function() {
-  window.location.href = "login.html";
+  window.location.href = "login";
 };
 
 // Simple validations per step
@@ -302,7 +302,7 @@ let registrationWasSuccessful = false;
 document.getElementById('modal-close').onclick = function() {
   hideModal();
   if (registrationWasSuccessful) {
-    window.location.href = "login.html";
+    window.location.href = "login";
   } else {
     showStep(0);
     // Do NOT reset the form in failure; keep data as it is.
@@ -356,7 +356,7 @@ form.onsubmit = async function(e) {
       showStep(0);
       setTimeout(() => {
         hideModal();
-        window.location.href = "login.html";
+        window.location.href = "login";
       }, 2000);
     } else {
       registrationWasSuccessful = false;
