@@ -50,7 +50,7 @@
                 <!-- Reg Number -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Registration Number</label>
-                    <div id="student-regnum" class="text-lg font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full">
+                    <div id="student-regnum" class="text-sm font-medium text-gray-900 bg-white px-5 py-3 rounded-xl border border-gray-300 shadow-sm w-full">
                         <!-- Filled by JS -->
                     </div>
                 </div>
@@ -76,12 +76,40 @@
             </div>
         </div>
     </div>
+    <!-- Notification Modal -->
+    <div id="notify-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30 hidden">
+      <div class="bg-white rounded-2xl shadow-xl max-w-md w-full px-6 py-7 relative text-center">
+        <button id="notify-close" class="absolute right-4 top-3 text-2xl text-gray-300 hover:text-blue-600 font-bold">&times;</button>
+        <div id="notify-modal-title" class="text-xl font-bold text-blue-700 mb-2"></div>
+        <div id="notify-modal-message" class="text-gray-800 mb-4"></div>
+        <button id="notify-ok" class="px-8 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-xl font-bold mt-2">OK</button>
+      </div>
+    </div>
     <!-- JS: Fetch and render exam & student data -->
     <script>
         const API_BASE = "https://examguide.onrender.com";
 
         function getToken() { return localStorage.getItem("student_jwt_token"); }
         function getExamAccessCode() { return localStorage.getItem("exam_access_code"); }
+
+        function showNotification(message, opts = {}) {
+            document.getElementById('notify-modal-title').textContent = opts.title || "Notification";
+            document.getElementById('notify-modal-message').innerHTML = message;
+            const modal = document.getElementById('notify-modal');
+            modal.classList.remove('hidden');
+            let closed = false;
+            function closeModal() {
+                if (closed) return;
+                closed = true;
+                modal.classList.add('hidden');
+                if (typeof opts.onClose === "function") opts.onClose();
+            }
+            document.getElementById('notify-close').onclick = closeModal;
+            document.getElementById('notify-ok').onclick = closeModal;
+            // Also close on ESC
+            modal.onkeydown = function(e) { if (e.key === "Escape") closeModal(); };
+            setTimeout(() => { document.getElementById('notify-ok').focus(); }, 250);
+        }
 
         async function fetchStudentProfile() {
             try {
@@ -118,16 +146,20 @@
             // Check exam access code
             const accessCode = getExamAccessCode();
             if (!accessCode) {
-                alert("You must enter an access code first."); 
-                window.location.href = "access.html";
+                showNotification("You must enter an access code first.", {
+                    title: "No Access Code",
+                    onClose: () => { window.location.href = "access.html"; }
+                });
                 return;
             }
 
             // Get student/authenticated user
             studentData = await fetchStudentProfile();
             if (!studentData) {
-                alert("Session expired. Please log in again."); 
-                window.location.href = "access.html";
+                showNotification("Session expired. Please log in again.", {
+                    title: "Session Expired",
+                    onClose: () => { window.location.href = "access.html"; }
+                });
                 return;
             }
 
@@ -139,9 +171,13 @@
             // Get exam info by access code
             const result = await fetchExamDataByAccessCode(accessCode);
             if (!result || !result.examSet || !Array.isArray(result.questions)) {
-                alert("Invalid or expired access code. Please re-enter.");
-                localStorage.removeItem("exam_access_code");
-                window.location.href = "access.html";
+                showNotification("Invalid or expired access code. Please re-enter.", {
+                    title: "Invalid Access Code",
+                    onClose: () => {
+                        localStorage.removeItem("exam_access_code");
+                        window.location.href = "access.html";
+                    }
+                });
                 return;
             }
             examData = {
@@ -194,8 +230,8 @@
                     <button class="px-10 py-4 bg-gray-300 text-gray-800 font-bold rounded-xl hover:bg-gray-400 transition flex items-center shadow-md order-1" ${idx===0?'disabled':''} id="prev-btn">
                         <i class="fas fa-chevron-left mr-3"></i> Previous
                     </button>
-                    <nav aria-label="Question navigation" class="flex-1 flex justify-center order-2">
-                        <ul class="inline-flex -space-x-px text-lg">
+                    <nav aria-label="Question navigation" class="flex-1 flex justify-center order-2 mt-3">
+                        <ul class="flex flex-wrap justify-center gap-1 sm:gap-2">
                             ${Array.from({length: total}).map((_,j)=>`
                                 <li>
                                     <a href="#" data-qp="${j}" ${j===idx?'aria-current="page" class="px-5 py-3 text-white bg-blue-600 border border-blue-600"':'class="px-5 py-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100"'}>${j+1}</a>
@@ -203,7 +239,7 @@
                             `).join('')}
                         </ul>
                     </nav>
-                    <div class="flex gap-6 order-3">
+                    <div class="flex gap-6 order-3 flex-wrap">
                         <button class="px-10 py-4 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition shadow-md" id="submit-btn">
                             Submit Exam
                         </button>
@@ -239,18 +275,20 @@
             // Submit
             document.getElementById("submit-btn").onclick = function(e){
                 e.preventDefault();
-                if(confirm("Are you sure you want to submit the exam?")) {
-                    persistUserAnswers();
-                    // Optionally send to backend -- for now, store in sessionStorage and redirect
-                    sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
-                    sessionStorage.setItem('cbt_exam_info', JSON.stringify({
-                        subject: examData.subject,
-                        regnum: document.getElementById('student-regnum').innerText,
-                        student: studentData.fullName || studentData.name || '',
-                        timeCompleted: new Date().toISOString()
-                    }));
-                    window.location.href = "report.html";
-                }
+                showNotification("Are you sure you want to submit the exam?", {
+                    title: "Submit Exam",
+                    onClose: (/* only action if confirmed */) => {
+                        persistUserAnswers();
+                        sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
+                        sessionStorage.setItem('cbt_exam_info', JSON.stringify({
+                            subject: examData.subject,
+                            regnum: document.getElementById('student-regnum').innerText,
+                            student: studentData.fullName || studentData.name || '',
+                            timeCompleted: new Date().toISOString()
+                        }));
+                        window.location.href = "report.html";
+                    }
+                });
             };
         }
 
@@ -277,10 +315,14 @@
                 if (remaining <= 0) {
                     clearInterval(timer);
                     timerElem.textContent = "00:00:00";
-                    alert("Time Up! Your exam has been automatically submitted.");
-                    persistUserAnswers();
-                    sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
-                    window.location.href = "report.html";
+                    showNotification("Time Up! Your exam has been automatically submitted.", {
+                        title: "Time Up",
+                        onClose: () => {
+                            persistUserAnswers();
+                            sessionStorage.setItem('cbt_user_answers', JSON.stringify(userAnswers));
+                            window.location.href = "report.html";
+                        }
+                    });
                 }
             }, 1000);
         }
