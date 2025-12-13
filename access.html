@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-Rich CBT | Exam Access</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        .input-focus:focus { border-color: #2563eb; box-shadow: 0 0 0 1px #2563eb; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-8 sm:p-12" id="main-card">
+        <!-- Header -->
+        <div class="mb-10 text-center">
+            <div class="mb-4">
+                <i class="fas fa-lock text-blue-700 text-4xl mb-2"></i>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-blue-800 mb-1 tracking-wide">
+                D-RICH CBT EXAM ACCESS
+            </h1>
+            <p class="text-sm text-blue-400" id="intro-desc">
+                Log in and enter your course/access code to begin
+            </p>
+        </div>
+        <!-- Login form -->
+        <form id="login-form" autocomplete="off" class="space-y-7 hidden">
+            <div>
+                <label for="regNumber" class="block text-sm font-semibold text-gray-700 mb-2">Registration Number</label>
+                <input type="text" id="regNumber" name="regNumber"
+                    class="input-focus block w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none transition"
+                    placeholder="E.g. DRC/2025/00123" required />
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                <input type="password" id="password" name="password"
+                    class="input-focus block w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none transition"
+                    placeholder="Enter your password" required />
+            </div>
+            <div>
+                <button type="submit"
+                    class="w-full py-3 px-6 rounded-xl bg-blue-700 text-white font-bold text-lg shadow-lg hover:bg-blue-800 transition">
+                    <i class="fas fa-sign-in-alt mr-2"></i> Log In
+                </button>
+            </div>
+            <div id="login-error-message" class="text-red-500 text-center font-medium text-sm hidden"></div>
+        </form>
+        <!-- Access code form -->
+        <form id="access-form" autocomplete="off" class="space-y-7 hidden">
+            <div>
+                <label for="showRegNumber" class="block text-sm font-semibold text-gray-700 mb-2">Registration Number</label>
+                <input type="text" id="showRegNumber"
+                       class="block w-full px-5 py-3 rounded-xl border border-gray-200 bg-gray-100 shadow-sm text-gray-700 font-bold cursor-not-allowed"
+                       readonly disabled />
+            </div>
+            <div>
+                <label for="courseCode" class="block text-sm font-semibold text-gray-700 mb-2">Course Code</label>
+                <input type="text" id="courseCode" name="courseCode"
+                    class="input-focus block w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none transition"
+                    placeholder="E.g. MTH101" required />
+            </div>
+            <div>
+                <label for="accessCode" class="block text-sm font-semibold text-gray-700 mb-2">Access Code</label>
+                <input type="password" id="accessCode" name="accessCode"
+                    class="input-focus block w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none transition"
+                    placeholder="Enter access code" required />
+            </div>
+            <div>
+                <button type="submit"
+                    class="w-full py-3 px-6 rounded-xl bg-blue-700 text-white font-bold text-lg shadow-lg hover:bg-blue-800 transition">
+                    <i class="fas fa-arrow-right mr-2"></i> Access Exam
+                </button>
+            </div>
+            <div id="error-message" class="text-red-500 text-center font-medium text-sm hidden"></div>
+        </form>
+        <div id="login-section" class="mt-6 text-center text-gray-700 text-sm"></div>
+    </div>
+    <script>
+    // ==== CONFIG ====
+    // Change to your API URL if not same origin!
+    const API_BASE = ""; // or "https://examapi.yoursite.com" if cross-origin
+
+    // ==== UTILITIES ====
+    function setToken(token) {
+        localStorage.setItem("student_jwt_token", token);
+    }
+    function getToken() {
+        return localStorage.getItem("student_jwt_token");
+    }
+    function clearToken() {
+        localStorage.removeItem("student_jwt_token");
+    }
+    // ==== DOM Shortcuts ====
+    const loginForm = document.getElementById('login-form');
+    const accessForm = document.getElementById('access-form');
+    const loginSection = document.getElementById('login-section');
+    const regNumInput = document.getElementById('regNumber');
+    const showRegNumber = document.getElementById('showRegNumber');
+    const passwordInput = document.getElementById('password');
+    const loginErrMsg = document.getElementById('login-error-message');
+    const errorElem = document.getElementById('error-message');
+    const introDesc = document.getElementById('intro-desc');
+    let currentUser = null;
+
+    // ==== AUTH WORKFLOW ====
+    async function fetchProfile(token) {
+        try {
+            const res = await fetch(API_BASE + "/api/student/me", {
+                headers: { Authorization: "Bearer " + token }
+            });
+            if (!res.ok) throw new Error("Not authenticated");
+            return await res.json();
+        } catch (err) {
+            return null;
+        }
+    }
+    function showLogin() {
+        loginForm.classList.remove("hidden");
+        accessForm.classList.add("hidden");
+        loginSection.innerHTML = '';
+        introDesc.textContent = "Log in and enter your course/access code to begin";
+    }
+    function showAccess(user) {
+        loginForm.classList.add("hidden");
+        accessForm.classList.remove("hidden");
+        showRegNumber.value = user.fullName + " (" + (user.email || user.phone) + ")";
+        showRegNumber.dataset.regnum = user.email || user.phone || ""; // For validation
+        loginSection.innerHTML = `
+            <div><i class="fas fa-user-check text-green-600"></i> Logged in as <b>${user.fullName}</b></div>
+            <button onclick="logoutUser()" class="text-xs text-blue-700 underline hover:text-blue-900 mt-2">Not you? Log out</button>
+        `;
+        introDesc.textContent = "Enter your course/access code";
+    }
+    function logoutUser() {
+        clearToken();
+        location.reload();
+    }
+    window.logoutUser = logoutUser;
+
+    // ==== ON PAGE LOAD ====
+    (async function checkAuthOnLoad() {
+        const token = getToken();
+        if (token) {
+            const user = await fetchProfile(token);
+            if (user && user._id) {
+                currentUser = user; // Save for later use
+                showAccess(user);
+            } else {
+                clearToken();
+                showLogin();
+            }
+        } else {
+            showLogin();
+        }
+    })();
+
+    // ==== LOGIN HANDLER ====
+    loginForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        loginErrMsg.classList.add("hidden");
+        const regnumber = regNumInput.value.trim();
+        const password = passwordInput.value;
+        if (!regnumber || !password) {
+            loginErrMsg.textContent = "All fields are required.";
+            loginErrMsg.classList.remove("hidden");
+            return;
+        }
+        // POST login
+        try {
+            const response = await fetch(API_BASE + "/api/student/login", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ emailOrPhone: regnumber, password })
+            });
+            const data = await response.json();
+            if (response.ok && data.token) {
+                setToken(data.token);
+                currentUser = data.user;
+                showAccess(data.user);
+            } else {
+                loginErrMsg.textContent = data.message || "Invalid credentials.";
+                loginErrMsg.classList.remove("hidden");
+            }
+        } catch (err) {
+            loginErrMsg.textContent = "Server/network error, try again.";
+            loginErrMsg.classList.remove("hidden");
+        }
+    });
+
+    // ==== ACCESS EXAM HANDLER ====
+    accessForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        errorElem.classList.add("hidden");
+        if (!currentUser) {
+            errorElem.textContent = "User session expired. Please log in again.";
+            errorElem.classList.remove("hidden");
+            clearToken();
+            setTimeout(()=>location.reload(),1200);
+            return;
+        }
+        const courseCode = document.getElementById('courseCode').value.trim();
+        const accessCode = document.getElementById('accessCode').value.trim();
+
+        if (courseCode.length < 3) {
+            errorElem.textContent = "Enter a valid Course Code.";
+            errorElem.classList.remove("hidden");
+            return;
+        }
+        if (accessCode.length < 4) {
+            errorElem.textContent = "Access Code must be at least 4 characters.";
+            errorElem.classList.remove("hidden");
+            return;
+        }
+        // Validate/authorize exam here (call backend if needed)
+        if (courseCode.toUpperCase() === "MTH101" && accessCode === "1234") {
+            // You can save course info or do API validation here if needed.
+            window.location.href = "cbt.html";
+        } else {
+            errorElem.textContent = "Invalid Course Code or Access Code.";
+            errorElem.classList.remove("hidden");
+        }
+    });
+    </script>
+</body>
+</html>
