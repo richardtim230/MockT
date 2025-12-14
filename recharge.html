@@ -93,7 +93,7 @@
         const res = await fetch(API_BASE + "/api/student/me", {headers: {Authorization: "Bearer " + token }});
         if (!res.ok) throw new Error("Not authenticated");
         return await res.json();
-      } catch { return null;}
+      } catch (err) { console.error("fetchProfile error:", err); return null;}
     }
     async function updateBalance() {
       const token = getToken();
@@ -117,7 +117,7 @@
       window.location.href = "access.html";
     });
 
-    // ==== Recharge Handler ====
+    // ==== Recharge Handler (with extensive logging) ====
     rechargeForm.addEventListener('submit', async function(e){
       e.preventDefault();
       formMsg.className = "text-center font-semibold mb-2 text-blue-600";
@@ -143,16 +143,37 @@
         setTimeout(()=>window.location.href="access.html",1100);
         return;
       }
+      // ========== LOG all request data ==========
+      console.log("=== Recharge Attempt ===");
+      console.log("TOKEN (truncated):", token ? token.substring(0,30) + "..." : "No token");
+      console.log("Request payload:", { code });
+      const sentHeaders = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+token
+      };
+      console.log("Request headers:", sentHeaders);
+
       try {
-        // Send request to redeem code
         const res = await fetch(`${API_BASE}/api/credit/redeem-credit`, {
           method: "POST",
-          headers: {"Content-Type": "application/json", "Authorization": "Bearer "+token},
+          headers: sentHeaders,
           body: JSON.stringify({ code })
         });
-        const data = await res.json();
+
+        let data;
+        try {
+          data = await res.json();
+        } catch(parseErr) {
+          console.error("Could not parse JSON:", parseErr);
+          data = { parseError: true, text: await res.text() };
+        }
+        // Log full response info
+        console.log("Response status:", res.status);
+        console.log("Response data:", data);
+
         rechargeBtn.disabled = false;
         rechargeBtn.querySelector('span').textContent = origBtn;
+
         if (res.ok && data.success) {
           formMsg.className = "text-green-700 font-bold text-center mt-2 mb-2";
           formMsg.innerHTML = `<i class="fa fa-check-circle"></i> ${data.message || 'Recharge successful!'} <br>
@@ -177,8 +198,12 @@
               ctaHref: "https://wa.me/2349155127634?text=Recharge%20code%20issue%20on%20D-RICH%20Tutorial"
             });
           }
+          if (res.status === 401) {
+            console.warn("Detected 401 Unauthorized. Token expired or missing!");
+          }
         }
       } catch (err) {
+        console.error("Recharge fetch/network error:", err);
         rechargeBtn.disabled = false;
         rechargeBtn.querySelector('span').textContent = origBtn;
         formMsg.className = "text-red-600 font-semibold text-center mt-2 mb-2";
