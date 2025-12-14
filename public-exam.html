@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice CBT Exams | Available Public Exam Listings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .glass {
+      background: rgba(255,255,255,0.52);
+      box-shadow: 0 8px 32px 0 rgba(37,99,235,0.09);
+      border-radius: 1.6em;
+      backdrop-filter: blur(3.5px);
+      border: 1px solid rgba(56,116,255,0.08);
+      transition: transform .16s cubic-bezier(.4,0,.2,1), box-shadow .18s;
+    }
+    .glass:hover {
+      transform: scale(1.028) translateY(-1px);
+      box-shadow: 0 14px 32px 0 rgba(37,99,235,0.15);
+    }
+    .tag {
+      display: inline-block;
+      padding: .18em .85em;
+      font-size: .78em;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #dbeafe 0%, #f0f9ff 100%);
+      color: #2563eb;
+      margin-right:.28em;
+    }
+    body {
+      background: linear-gradient(135deg,#eef2ff 40%,#c7d2fe 100%);
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col items-center justify-center px-2 py-0 select-none">
+  <header class="w-full max-w-4xl mx-auto pt-12 pb-6 text-center">
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-1 text-blue-800 drop-shadow font-[system-ui]">
+      <i class="fa-solid fa-graduation-cap text-blue-700 mr-2"></i> 
+      Available CBT Practice Exams
+    </h1>
+    <p class="text-lg text-blue-500 font-medium mb-4">Browse available computer-based practice exams and start your journey to a better grade! Click "Practice Now" to get started effortlessly.</p>
+  </header>
+
+  <main class="w-full max-w-5xl px-2 mx-auto">
+    <!-- Exam cards container -->
+    <section id="exams-list" class="grid grid-cols-1 sm:grid-cols-2 gap-6"></section>
+    <div class="flex justify-center mt-5">
+      <button id="reload-btn" class="hidden py-2 px-8 rounded-2xl bg-blue-700 text-white font-bold text-lg shadow hover:bg-blue-900 transition-all">
+        <i class="fa fa-refresh animate-spin mr-2"></i> Reload Exams
+      </button>
+    </div>
+    <div id="status-message" class="mt-10 text-center text-blue-900 text-lg font-semibold"></div>
+  </main>
+
+  <footer class="w-full max-w-4xl mx-auto py-8 flex flex-col sm:flex-row items-center justify-between mt-10 text-blue-900 bg-transparent text-xs sm:text-sm">
+    <div>
+      <b>D-Rich CBT &copy; <span id="year"></span></b> 
+      <span class="ml-3 hidden sm:inline text-gray-400">|</span>
+      <span class="ml-2 text-gray-500">For best experience, use Chrome or Edge.</span>
+    </div>
+    <a href="access.html" class="mt-3 sm:mt-0 px-5 py-2 rounded-2xl bg-blue-50 hover:bg-indigo-100 text-blue-700 font-semibold shadow transition"><i class="fas fa-sign-in-alt mr-1"></i>Exam Access Page</a>
+  </footer>
+
+  <script>
+    // ========== CONFIG ==========
+    const API_BASE = "https://examguide.onrender.com";
+    const accessPage = "access.html";
+
+    // ========== DOMS ==========
+    const examsList = document.getElementById('exams-list');
+    const statusMsg = document.getElementById('status-message');
+    const reloadBtn = document.getElementById('reload-btn');
+
+    // ========== UTILITY ==========
+    // Format duration as "1h 20m"
+    function formatDuration(secs) {
+      if (!secs || isNaN(secs)) return "--";
+      const h = Math.floor(secs / 3600);
+      const m = Math.floor((secs%3600)/60);
+      return [h>0?(h+'h'):"", m>0?(m+'m'):""].filter(Boolean).join(' ') || '1h';
+    }
+
+    // ========== FETCH & DISPLAY ==========
+    async function fetchExams() {
+      examsList.innerHTML = "";
+      statusMsg.textContent = "Loading available exams...";
+      reloadBtn.classList.add("hidden");
+      try {
+        const res = await fetch(`${API_BASE}/api/exam-set`);
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        if (!Array.isArray(data) || data.length === 0) {
+          statusMsg.textContent = "No public exams are currently available. Please check back later.";
+          reloadBtn.classList.remove("hidden");
+          return;
+        }
+        // Sort exams by recent first (uses createdAt descending in backend)
+        data.forEach((exam, idx) => {
+          examsList.appendChild(renderExamCard(exam, idx));
+        });
+        statusMsg.textContent = "";
+      } catch (e) {
+        statusMsg.textContent = "Could not fetch exams. Please try again.";
+        reloadBtn.classList.remove("hidden");
+      }
+    }
+
+    // ========== CARD UI ==========
+    function renderExamCard(exam, idx=0) {
+      // Escape HTML utility
+      function esc(str) { return String(str||'').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s])); }
+      // Color variation for cards
+      const shades = [
+        "bg-gradient-to-br from-blue-50 via-white to-indigo-50",
+        "bg-gradient-to-tr from-violet-50 to-blue-50",
+        "bg-gradient-to-br from-blue-100 to-indigo-100",
+        "bg-gradient-to-b from-white to-indigo-50"
+      ];
+      // Favicon/emoji based on subject
+      const icons = {
+        mth: "fa-square-root-variable",
+        chm: "fa-flask-vial",
+        bio: "fa-leaf",
+        phy: "fa-atom",
+        eng: "fa-pen-fancy",
+        lit: "fa-book-open",
+        eco: "fa-chart-line",
+        geo: "fa-globe-africa",
+        gov: "fa-landmark",
+        crs: "fa-bible",
+        // fallback
+        default: "fa-file-alt"
+      };
+      let subj = (exam.subject || '').toLowerCase();
+      let icon = Object.keys(icons).find(k=>subj.startsWith(k)) ? icons[subj.substr(0,3)] : icons.default;
+      // Get title fallback
+      const title = exam.title || exam.subject || "Untitled Exam";
+      const examCode = exam.accessCode || "";
+      // Card column
+      const shade = shades[idx % shades.length];
+      // Card markup
+      const card = document.createElement('div');
+      card.className = `glass ${shade} relative overflow-hidden transition-all p-5 shadow-lg flex flex-col justify-between`;
+      card.style.minHeight = "165px";
+      card.innerHTML = `
+        <div class="flex-1">
+          <div class="mb-2 flex items-center gap-2">
+            <span class="tag"><i class="fa ${icon} fa-fw"></i> ${esc(exam.subject)}</span>
+            <span class="ml-1 text-xs font-bold text-gray-500 select-text" title="Exam Set Unique Code">${esc(exam.accessCode)}</span>
+          </div>
+          <div class="font-extrabold text-blue-900 text-lg sm:text-xl mb-1 truncate" title="${esc(title)}">${esc(title)}</div>
+          <div class="flex flex-row flex-wrap gap-3 items-center text-xs pt-1 pb-1 font-semibold text-indigo-500">
+            <div class="flex items-center"><i class="fa fa-clock mr-1"></i> ${formatDuration(exam.duration)}</div>
+            <div class="flex items-center"><i class="fa fa-list-ol mr-1"></i> <span class="question-count-ct">--</span> Questions</div>
+            <div class="flex items-center"><i class="fa fa-calendar-alt mr-1"></i> ${exam.createdAt ? (new Date(exam.createdAt).toLocaleDateString()) : "--"}</div>
+          </div>
+        </div>
+        <div class="pt-2 flex flex-col items-center">
+          <button type="button"
+            class="practice-btn w-full md:w-auto bg-blue-700 hover:bg-indigo-900 rounded-2xl font-bold text-white px-7 py-3 transition text-base border-none shadow-lg flex items-center justify-center gap-2 active:scale-95"
+            data-code="${esc(exam.accessCode)}"
+          >
+            <i class="fa fa-play-circle mr-1"></i> Practice Now
+          </button>
+        </div>
+      `;
+      // After added: Try to fetch number of questions for this exam set for richer UI
+      fetchExamQuestionCount(exam._id, card.querySelector('.question-count-ct'));
+      // On button: open access.html and prefill
+      card.querySelector('.practice-btn').onclick = () => {
+        // Save prefill code in localStorage OR pass via query
+        // We'll use query string for best UX
+        window.location.href = `${accessPage}?examCode=${encodeURIComponent(examCode)}`;
+      };
+      return card;
+    }
+
+    // Fetch question count for richer UI (optional)
+    async function fetchExamQuestionCount(examSetId, el) {
+      if (!examSetId || !el) return;
+      try {
+        const res = await fetch(`${API_BASE}/api/cbt-questions?examSet=${encodeURIComponent(examSetId)}&limit=1`);
+        // The backend does not return count, so we use headers or fetch again
+        const all = await fetch(`${API_BASE}/api/cbt-questions?examSet=${encodeURIComponent(examSetId)}&limit=1000`);
+        const data = await all.json();
+        el.textContent = Array.isArray(data) ? data.length : "--";
+      } catch { el.textContent = "--"; }
+    }
+
+    reloadBtn.onclick = fetchExams;
+
+    // Auto-fill year
+    document.getElementById('year').textContent = (new Date()).getFullYear();
+
+    // ========== RUN ==========
+    fetchExams();
+
+    // ========== ENHANCED: Listen to query param on access.html ==========
+    // Suggestion: On target page (access.html), you can auto-prefill registration field:
+    // - Read: new URLSearchParams(window.location.search).get("examCode")
+    // - Set: document.getElementById('courseCode').value = ...;
+  </script>
+</body>
+</html>
