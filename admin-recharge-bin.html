@@ -58,9 +58,7 @@
 
   <script>
     // === CONFIG ===
-    const API_BASE = "https://examguide.onrender.com/api/admin/credit"; // adjust as your backend
-    const AUTH_TOKEN = localStorage.getItem("admin_token") || localStorage.getItem("jwt_token");
-
+    const API_BASE = "https://examguide.onrender.com/api/credit"; // No admin auth, open endpoints
     function setMsg(s, col="blue"){ 
       let msg = document.getElementById('msg');
       if(s){
@@ -91,9 +89,7 @@
       let tbody = document.getElementById('credit-tbody');
       tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-blue-400">Loading...</td></tr>`;
       try {
-        const res = await fetch(`${API_BASE}?status=${status}`,{
-          headers: { Authorization: 'Bearer ' + AUTH_TOKEN}
-        });
+        const res = await fetch(`${API_BASE}?status=${status}`);
         const data = await res.json();
         if(!Array.isArray(data)) throw new Error("Failed to load credits");
         if(data.length === 0){
@@ -133,7 +129,7 @@
         msg: `Are you sure you want to delete <span class="font-mono">${code}</span>?`,
         cta:"Yes, Delete",
         onClose: async ()=>{
-          await fetch(`${API_BASE}/${code}`,{ method:"DELETE", headers:{Authorization:'Bearer '+AUTH_TOKEN} });
+          await fetch(`${API_BASE}/${code}`,{ method:"DELETE" });
           setMsg("Code deleted!","red");
           getCodes();
         }
@@ -146,7 +142,7 @@
         msg: `Make <span class="font-mono">${code}</span> reusable by students?`,
         cta:"Yes, Restore",
         onClose: async ()=>{
-          await fetch(`${API_BASE}/restore/${code}`,{ method:"POST", headers:{Authorization:'Bearer '+AUTH_TOKEN} });
+          await fetch(`${API_BASE}/restore/${code}`,{ method:"POST" });
           setMsg("Code reset to unused!","blue");
           getCodes();
         }
@@ -167,7 +163,7 @@
         btn.disabled = true; btn.innerHTML='<span class="spinner"></span> Generating...';
         const res = await fetch(`${API_BASE}/generate`, {
           method:"POST",
-          headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + AUTH_TOKEN },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ count: qty, points: pts })
         });
         btn.disabled = false; btn.innerHTML='<i class="fa fa-plus-circle"></i> Generate Card(s)';
