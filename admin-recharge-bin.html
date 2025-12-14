@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin – Credit Code Management | D-RICH Tutorial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .glass-panel { background:rgba(255,255,255,0.91); border-radius:2rem; box-shadow:0 8px 40px 0 rgba(31,38,135,0.11);}
+    .tablet-scroll::-webkit-scrollbar {display:none;}
+    .tablet-scroll {scrollbar-width: none;}
+    .spinner {display:inline-block;width:1.25em;height:1.25em;border:3px solid #fff;
+        border-radius:50%;border-top:3px solid #2563eb;animation:spin 0.7s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .code-cell {font-family:monospace;letter-spacing:0.1em;}
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+  <main class="w-full max-w-3xl mx-auto glass-panel p-6 sm:p-10 fade-in relative">
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-blue-900 mb-2 text-center flex items-center justify-center gap-2">
+      <i class="fa fa-tools text-yellow-400"></i> Credit Code Generator
+    </h1>
+    <div class="mb-5 text-center text-blue-500 font-medium">Generate, View, and Manage Credit Cards for Student Recharge</div>
+    
+    <form id="newcode-form" class="flex flex-col sm:flex-row gap-3 items-center justify-center bg-blue-100 rounded-xl px-4 py-4 mb-6">
+      <input type="number" id="quantity" min="1" max="50" value="1" class="rounded-lg px-4 py-2 border border-gray-200 shadow-inner text-lg w-28"
+        placeholder="Qty" required/>
+      <select id="points" class="rounded-lg px-4 py-2 border border-gray-200 shadow-inner text-lg w-32" required>
+        <option value="250">250 pts</option>
+        <option value="100">100 pts</option>
+        <option value="500">500 pts</option>
+        <option value="1000">1000 pts</option>
+      </select>
+      <button type="submit" class="bg-blue-700 hover:bg-blue-900 py-2 px-7 rounded-xl text-white font-bold text-base transition flex items-center gap-2 w-full sm:w-auto">
+        <i class="fa fa-plus-circle"></i> Generate Card(s)
+      </button>
+    </form>
+    <div id="msg" class=" text-center text-base font-semibold mb-2"></div>
+    <div class="overflow-x-auto tablet-scroll">
+      <table class="w-full table-auto text-left rounded-xl shadow border mt-1">
+        <thead class="bg-gradient-to-r from-blue-700 to-indigo-700 text-white text-base rounded-t">
+          <tr>
+            <th class="py-2 px-3 rounded-tl">Code</th>
+            <th class="py-2 px-3">Points</th>
+            <th class="py-2 px-3">Status</th>
+            <th class="py-2 px-3">Used By</th>
+            <th class="py-2 px-3 rounded-tr">Action</th>
+          </tr>
+        </thead>
+        <tbody id="credit-tbody" class="bg-white">
+            <tr><td colspan="5" class="py-6 text-center text-blue-400">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <div id="modal-root"></div>
+
+  <script>
+    // === CONFIG ===
+    const API_BASE = "https://examguide.onrender.com/api/admin/credit"; // adjust as your backend
+    const AUTH_TOKEN = localStorage.getItem("admin_token") || localStorage.getItem("jwt_token");
+
+    function setMsg(s, col="blue"){ 
+      let msg = document.getElementById('msg');
+      if(s){
+        msg.textContent = s, msg.className = `text-center text-base mt-2 mb-1 font-semibold text-${col}-600`;
+      }else{
+        msg.textContent = '', msg.className='mb-2';
+      }
+    }
+    function showModal({title, icon="info-circle", msg, cta, onClose}) {
+      const r = document.getElementById('modal-root');
+      r.innerHTML = `
+        <div class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
+          <div class="bg-white py-7 px-7 max-w-sm w-full rounded-xl text-center shadow-2xl border">
+            <i class="fa fa-${icon} text-blue-600 text-4xl mb-2 animate-bounce"></i>
+            <div class="mb-1 mt-0.5 text-lg font-bold text-gray-900">${title}</div>
+            <div class="text-gray-800 mb-2">${msg}</div>
+            ${cta ? `<button class="block w-full mt-4 rounded-lg bg-blue-600 py-2 font-semibold text-white" id="modal-cta-btn">${cta}</button>` : ""}
+            <button class="block w-full mt-3 rounded-lg bg-gray-200 py-2 font-semibold" id="modal-close-btn">Close</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('modal-close-btn').onclick = ()=>{ r.innerHTML=""; if(onClose)onClose() };
+      if(document.getElementById('modal-cta-btn')) document.getElementById('modal-cta-btn').onclick = ()=>{ r.innerHTML=""; if(onClose)onClose() };
+    }
+
+    // Fetch and show codes
+    async function getCodes(status="") {
+      let tbody = document.getElementById('credit-tbody');
+      tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-blue-400">Loading...</td></tr>`;
+      try {
+        const res = await fetch(`${API_BASE}?status=${status}`,{
+          headers: { Authorization: 'Bearer ' + AUTH_TOKEN}
+        });
+        const data = await res.json();
+        if(!Array.isArray(data)) throw new Error("Failed to load credits");
+        if(data.length === 0){
+          tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-blue-400">No codes found</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = data.map(code => `
+          <tr>
+            <td class="py-2 px-3 font-mono code-cell text-base">${code.code}</td>
+            <td class="py-2 px-3">${code.points}</td>
+            <td class="py-2 px-3">
+              ${code.used
+                ? `<span class="px-2 inline-block rounded text-xs font-bold bg-green-50 text-green-700 border border-green-300">Used</span>`
+                : `<span class="px-2 inline-block rounded text-xs font-bold bg-yellow-50 text-yellow-600 border border-yellow-300">Unused</span>`
+              }
+            </td>
+            <td class="py-2 px-3">
+              ${code.used && code.usedBy
+                ? `<span class="text-gray-800">${code.usedBy.fullName||'User'}<br><span class="text-xs text-gray-400">${code.usedBy.email||''}</span></span>`
+                : ""
+              }
+            </td>
+            <td class="py-2 px-3">
+              <button title="Delete" onclick="deleteCode('${code.code}')" class="text-red-500 hover:text-red-800 mx-1"><i class="fa fa-trash"></i></button>
+              ${code.used ? `<button title="Restore" onclick="restoreCode('${code.code}')" class="text-indigo-500 hover:text-indigo-800 mx-1"><i class="fa fa-undo"></i></button>` : ""}
+            </td>
+          </tr>
+        `).join('\n');
+      } catch(e){
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-red-400">Failed to load credit codes</td></tr>`;
+      }
+    }
+    window.deleteCode = function(code){
+      showModal({
+        title: "Delete Code?",
+        icon: "trash",
+        msg: `Are you sure you want to delete <span class="font-mono">${code}</span>?`,
+        cta:"Yes, Delete",
+        onClose: async ()=>{
+          await fetch(`${API_BASE}/${code}`,{ method:"DELETE", headers:{Authorization:'Bearer '+AUTH_TOKEN} });
+          setMsg("Code deleted!","red");
+          getCodes();
+        }
+      });
+    }
+    window.restoreCode = function(code){
+      showModal({
+        title: "Restore Code?",
+        icon: "undo",
+        msg: `Make <span class="font-mono">${code}</span> reusable by students?`,
+        cta:"Yes, Restore",
+        onClose: async ()=>{
+          await fetch(`${API_BASE}/restore/${code}`,{ method:"POST", headers:{Authorization:'Bearer '+AUTH_TOKEN} });
+          setMsg("Code reset to unused!","blue");
+          getCodes();
+        }
+      });
+    }
+
+    // Form handler
+    document.getElementById('newcode-form').onsubmit = async function(e){
+      e.preventDefault();
+      setMsg("");
+      const qty = parseInt(document.getElementById('quantity').value,10);
+      const pts = parseInt(document.getElementById('points').value,10);
+      if(qty < 1 || qty > 50) {
+        setMsg("1-50 at a time!","red"); return;
+      }
+      try {
+        const btn = this.querySelector('button');
+        btn.disabled = true; btn.innerHTML='<span class="spinner"></span> Generating...';
+        const res = await fetch(`${API_BASE}/generate`, {
+          method:"POST",
+          headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + AUTH_TOKEN },
+          body: JSON.stringify({ count: qty, points: pts })
+        });
+        btn.disabled = false; btn.innerHTML='<i class="fa fa-plus-circle"></i> Generate Card(s)';
+        const data = await res.json();
+        if(res.ok && data.codes && Array.isArray(data.codes)){
+          setMsg("Codes generated!","green");
+          showModal({
+            title: "New Codes",
+            icon: "bolt",
+            msg: "Copy and send to students.<br><hr class='my-2'>"+data.codes.map(c=>`<b class="font-mono text-indigo-700">${c.code}</b> (<span class="text-black">${c.points} pts</span>)`).join('<br>'),
+          });
+          getCodes();
+        }else{
+          setMsg(data.message || "Error creating codes","red")
+        }
+      }catch(e){
+        setMsg("Server/network error!","red");
+      }
+    };
+
+    // Initial list
+    getCodes();
+
+  </script>
+</body>
+</html>
