@@ -10,8 +10,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         .input-focus:focus { border-color: #2563eb; box-shadow: 0 0 0 1px #2563eb; }
-        .spinner {display:inline-block;width:1.25em;height:1.25em;border:3px solid #fff;border-radius:50%;border-top:3px solid #2563eb;animation:spin 0.85s linear infinite;vertical-align:-0.25em;}
+        .spinner {
+          display:inline-block;width:1.25em;height:1.25em;
+          border:3px solid #fff;border-radius:50%;
+          border-top:3px solid #2563eb;animation:spin 0.85s linear infinite;vertical-align:-0.25em;
+        }
         @keyframes spin{to{transform:rotate(360deg);}}
+        /* Modal styles */
+        .modal-bg {
+          position: fixed;
+          z-index: 40;
+          inset: 0;
+          background: rgba(30,41,59,0.35);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .modal-panel {
+          background: #fff;
+          border-radius: 1.6em;
+          box-shadow: 0 3px 18px #33415520;
+          padding: 2.2rem 1.5rem 2rem 1.5rem;
+          min-width: 270px;
+          max-width: 92vw;
+          max-height: 90vh;
+          text-align: center;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
@@ -85,6 +109,8 @@
         </form>
         <div id="login-section" class="mt-6 text-center text-gray-700 text-sm"></div>
     </div>
+    <!-- Modal Container -->
+    <div id="modal-root"></div>
     <script>
     // ==== CONFIG ====
     const API_BASE = "https://examguide.onrender.com";
@@ -110,6 +136,36 @@
             btn.disabled = false;
             if (btn._realText) btn.querySelector('span').textContent = btn._realText;
         }
+    }
+
+    // ==== Modal Utility ====
+    function showModal(options) {
+        const root = document.getElementById("modal-root");
+        root.innerHTML = `
+            <div class="modal-bg">
+                <div class="modal-panel">
+                    <div class="flex flex-col items-center space-y-2">
+                        <i class="fa fa-info-circle text-yellow-500 text-5xl mb-2 animate-bounce"></i>
+                        <div class="text-xl font-extrabold text-indigo-900 mb-1">${options.title || "Notice"}</div>
+                        <p class="text-base text-gray-700 mb-3">${options.message}</p>
+                        ${options.cta ? `
+                            <a href="${options.ctaHref}" target="_blank" rel="noopener"
+                               class="mt-2 w-full flex items-center justify-center gap-2 py-3 px-6 rounded-2xl font-bold text-white bg-green-600 hover:bg-green-700 shadow transform hover:scale-105 transition-all text-lg">
+                                <i class="fab fa-whatsapp text-2xl"></i>
+                                ${options.cta}
+                            </a>
+                        ` : ""}
+                        <button id="close-modal-btn"
+                          class="mt-3 py-2 px-7 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-900 shadow-sm transition">
+                          Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById("close-modal-btn").onclick = () => {
+            root.innerHTML = "";
+        };
     }
 
     // ==== DOM Shortcuts ====
@@ -262,13 +318,27 @@
             });
             const data = await response.json();
             if (!response.ok) {
-                errorElem.textContent = data.message || "Unable to access exam.";
-                errorElem.classList.remove("hidden");
                 setBtnSpinner(accessBtn, false);
+                // Special handling for out of credit (friendly modal)
+                if ((data.message && data.message.toLowerCase().includes("insufficient")) ||
+                    (data.creditPoints !== undefined && data.creditPoints < 10)) {
+                    showModal({
+                        title: "Not Enough Credit Points",
+                        message: "You need at least <b>10 credit points</b> to access a CBT exam.<br><br>" +
+                            "<span class='text-indigo-700 font-semibold'>Get more credits now and continue your examination journey!</span><br>" +
+                            "<span class='block text-gray-500 mt-3'>250 credit points for ₦1,000 only.</span>",
+                        cta: "Get More Credit Points via WhatsApp",
+                        ctaHref: "https://wa.me/2349155127634?text=Hello%2C%20I%20want%20to%20purchase%20CBT%20credit%20points%20on%20D-RICH%20Tutorial."
+                    });
+                } else {
+                    errorElem.textContent = data.message || "Unable to access exam.";
+                    errorElem.classList.remove("hidden");
+                }
                 // If credits were updated, update the display
                 if (data.creditPoints !== undefined) {
                     studentCreditElem.innerText = data.creditPoints;
-                    document.getElementById("login-credit-show").innerText = data.creditPoints;
+                    const loginCreditShow = document.getElementById("login-credit-show");
+                    if(loginCreditShow) loginCreditShow.innerText = data.creditPoints;
                 }
                 return;
             }
@@ -276,7 +346,7 @@
             localStorage.setItem("exam_access_code", accessCode);
             localStorage.setItem("exam_course_code", courseCode);
             setBtnSpinner(accessBtn, false);
-            document.getElementById("credit-message").textContent = 
+            document.getElementById("credit-message").textContent =
                 `10 credits deducted! Remaining credit: ${data.creditPoints}`;
             setTimeout(() => { window.location.href = "testsession"; }, 1000);
         } catch (err) {
