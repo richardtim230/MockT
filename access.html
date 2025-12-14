@@ -137,7 +137,14 @@
             if (btn._realText) btn.querySelector('span').textContent = btn._realText;
         }
     }
-
+// Prefill exam code if present in URL
+window.addEventListener('DOMContentLoaded', function(){
+  const params = new URLSearchParams(window.location.search);
+  const examCode = params.get('examCode');
+  if (examCode && document.getElementById('courseCode')) {
+    document.getElementById('courseCode').value = examCode;
+  }
+});
     // ==== Modal Utility ====
     function showModal(options) {
         // Fetch student info for WhatsApp message if available
