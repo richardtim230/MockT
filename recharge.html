@@ -13,6 +13,14 @@
     @keyframes spin {to{transform:rotate(360deg);}}
     .fade-in { animation: fadeIn 0.7s ease; }
     @keyframes fadeIn { from{ opacity:0; transform: translateY(2rem);} to{ opacity:1; transform: none;}}
+    .modal-bg {
+      position: fixed; z-index: 40; inset: 0; background: rgba(30,41,59,0.35);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-panel {
+      background: #fff; border-radius: 1.5em; box-shadow:0 3px 20px #33415515;
+      padding: 2.2rem 1.5rem 1.9rem 1.5rem; max-width: 90vw; min-width: 300px; text-align: center;
+    }
   </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -46,6 +54,8 @@
       Only credit cards issued by admin can be used.
     </div>
   </main>
+  <!-- Modal -->
+  <div id="modal-root" style="display:none;"></div>
   <script>
     const API_BASE = "https://examguide.onrender.com";
     const rechargeForm = document.getElementById('recharge-form');
@@ -53,53 +63,108 @@
     const codeInput = document.getElementById('cardCode');
     const rechargeBtn = document.getElementById('recharge-btn');
     const formMsg = document.getElementById('form-message');
+    const modalRoot = document.getElementById('modal-root');
 
-    rechargeForm.onsubmit = async function(e){
+    function showModal({title, identifier, code, onConfirm, onCancel}) {
+      modalRoot.style.display = "flex";
+      modalRoot.innerHTML = `
+        <div class="modal-bg">
+          <div class="modal-panel animate-fadeIn">
+            <i class="fa fa-question-circle text-yellow-500 text-5xl mb-2 animate-bounce"></i>
+            <div class="text-lg font-bold text-blue-900 mb-2">${title || "Confirm Recharge"}</div>
+            <div class="mb-2 text-gray-700 text-base">
+              Please carefully confirm the details before proceeding.<br>
+              <div class="mt-3 flex flex-col gap-2 items-center justify-center mx-auto">
+                <div class="text-sm text-gray-500 flex flex-col gap-1 w-full max-w-xs">
+                  <span class="font-bold text-gray-700">Email/Username:</span>
+                  <span class="font-mono text-indigo-700 text-base tracking-wide">${identifier}</span>
+                </div>
+                <div class="text-sm text-gray-500 flex flex-col gap-1 w-full max-w-xs">
+                  <span class="font-bold text-gray-700">Recharge Card Code:</span>
+                  <span class="font-mono text-blue-600 text-base tracking-widest">${code}</span>
+                </div>
+              </div>
+              <hr class="my-3">
+              <span class="text-sm text-red-500 font-semibold">Ensure this email/username is correct; credits cannot be reversed if sent to the wrong student!</span>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2 mt-7 justify-center">
+              <button id="modal-confirm-btn" class="py-2 px-6 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded-xl flex-1 transition shadow-sm">
+                <i class="fa fa-check-circle mr-1"></i> Confirm & Assign
+              </button>
+              <button id="modal-cancel-btn" class="py-2 px-6 bg-gray-200 text-gray-700 font-bold rounded-xl flex-1 hover:bg-gray-300 transition shadow-sm">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.getElementById('modal-confirm-btn').onclick = function() {
+        hideModal();
+        onConfirm && onConfirm();
+      };
+      document.getElementById('modal-cancel-btn').onclick = function() {
+        hideModal();
+        onCancel && onCancel();
+      };
+    }
+    function hideModal() {
+      modalRoot.innerHTML = "";
+      modalRoot.style.display = "none";
+    }
+
+    rechargeForm.onsubmit = function(e){
       e.preventDefault();
       formMsg.textContent = "";
       formMsg.className = "text-center mt-2 mb-2";
-      rechargeBtn.disabled = true;
-      rechargeBtn.querySelector('span').innerHTML = `<span class="spinner"></span> Processing...`;
-
       const identifier = identifierInput.value.trim();
       const code = codeInput.value.trim().toUpperCase();
+      // Validate first
       if (!identifier || !code) {
         formMsg.textContent = "Fill both fields.";
         formMsg.className = "text-red-600 text-center font-bold mt-2 mb-2";
-        rechargeBtn.disabled = false;
-        rechargeBtn.querySelector('span').textContent = "Assign Credit";
         return;
       }
       if (code.length !== 12 || !/^[A-Z0-9]{12}$/.test(code)) {
         formMsg.textContent = "Code must be 12 alphanumeric characters.";
         formMsg.className = "text-red-600 text-center font-bold mt-2 mb-2";
-        rechargeBtn.disabled = false;
-        rechargeBtn.querySelector('span').textContent = "Assign Credit";
         return;
       }
-      try {
-        const res = await fetch(`${API_BASE}/api/credit/admin-redeem`, {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({ identifier, code })
-        });
-        const data = await res.json();
-        rechargeBtn.disabled = false;
-        rechargeBtn.querySelector('span').textContent = "Assign Credit";
-        if (res.ok && data.success) {
-          formMsg.textContent = `Success! ${data.points} points added to ${identifier}.`;
-          formMsg.className = "text-green-700 text-center font-bold mt-2 mb-2";
-          identifierInput.value = ""; codeInput.value = "";
-        } else {
-          formMsg.textContent = data.message || "Operation failed.";
-          formMsg.className = "text-red-600 text-center font-bold mt-2 mb-2";
+      showModal({
+        title: "Confirm Recharge",
+        identifier,
+        code,
+        onConfirm: async function() {
+          formMsg.textContent = "";
+          rechargeBtn.disabled = true;
+          rechargeBtn.querySelector('span').innerHTML = `<span class="spinner"></span> Processing...`;
+          try {
+            const res = await fetch(`${API_BASE}/api/credit/admin-redeem`, {
+              method: "POST",
+              headers: {"Content-Type":"application/json"},
+              body: JSON.stringify({ identifier, code })
+            });
+            const data = await res.json();
+            rechargeBtn.disabled = false;
+            rechargeBtn.querySelector('span').textContent = "Assign Credit";
+            if (res.ok && data.success) {
+              formMsg.textContent = `Success! ${data.points} points added to ${identifier}.`;
+              formMsg.className = "text-green-700 text-center font-bold mt-2 mb-2";
+              identifierInput.value = ""; codeInput.value = "";
+            } else {
+              formMsg.textContent = data.message || "Operation failed.";
+              formMsg.className = "text-red-600 text-center font-bold mt-2 mb-2";
+            }
+          } catch (e) {
+            formMsg.textContent = "Network/server error. Try again.";
+            formMsg.className = "text-red-600 text-center font-bold mt-2 mb-2";
+            rechargeBtn.disabled = false;
+            rechargeBtn.querySelector('span').textContent = "Assign Credit";
+          }
+        },
+        onCancel: function() {
+          // No action, simply hides modal
         }
-      } catch (e) {
-        formMsg.textContent = "Network/server error. Try again.";
-        formMsg.className = "text-red-600 text-center font-bold mt-2 mb-2";
-        rechargeBtn.disabled = false;
-        rechargeBtn.querySelector('span').textContent = "Assign Credit";
-      }
+      });
     };
   </script>
 </body>
