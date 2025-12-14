@@ -10,16 +10,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     .glass {
-      background: rgba(255,255,255,0.52);
-      box-shadow: 0 8px 32px 0 rgba(37,99,235,0.09);
+      background: rgba(255,255,255,0.68);
+      box-shadow: 0 8px 32px 0 rgba(37,99,235,0.09), 0 2px 8px 0 rgba(68,99,235,0.10);
       border-radius: 1.6em;
-      backdrop-filter: blur(3.5px);
-      border: 1px solid rgba(56,116,255,0.08);
-      transition: transform .16s cubic-bezier(.4,0,.2,1), box-shadow .18s;
+      backdrop-filter: blur(5px);
+      border: 1.5px solid rgba(56,116,255,0.13);
+      transition: transform .14s cubic-bezier(.4,0,.2,1), box-shadow .12s;
+      overflow: hidden;
+      min-height: 230px;
+      position: relative;
     }
     .glass:hover {
-      transform: scale(1.028) translateY(-1px);
-      box-shadow: 0 14px 32px 0 rgba(37,99,235,0.15);
+      transform: scale(1.025) translateY(-2px);
+      box-shadow: 0 16px 38px 0 rgba(37,99,235,0.20), 0 3px 18px 0 rgba(68,99,235,0.11);
     }
     .tag {
       display: inline-block;
@@ -31,44 +34,122 @@
       margin-right:.28em;
     }
     body {
-      background: linear-gradient(135deg,#eef2ff 40%,#c7d2fe 100%);
+      background: linear-gradient(135deg, #2e1065 0%, #3b82f6 140%);
       min-height: 100vh;
+    }
+    .hero-bg {
+      background: linear-gradient(125deg,rgba(37,99,235,.80) 65%,rgba(68,56,202,.60) 100%),
+        url('https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=900&q=80') center center/cover no-repeat;
+      min-height:310px;
+      box-shadow: 0 6px 40px 0 rgba(30,41,59,0.18);
+      position: relative;
+      z-index: 0;
+    }
+    .hero-overlay {
+      background: linear-gradient(135deg,rgba(30,41,59,0.29) 40%,rgba(30,64,175,0.08) 100%);
+      position: absolute;
+      inset: 0;
+      border-radius: 0 0 2.7em 2.7em;
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .exam-thumb {
+      position: absolute;
+      left:0;top:0;width:100%;height:110px;object-fit:cover; object-position:center; z-index:1;
+      filter: brightness(.93) saturate(1.18) blur(0.2px);
+      transition: filter .2s;
+    }
+    .glass:hover .exam-thumb {filter: brightness(1.01) saturate(1.065);}
+    .fallback-bg {
+      background: linear-gradient(100deg,#6366f1 0%, #93c5fd 100%);
+      width:100%;height:110px;
+    }
+    .avatar-bg {
+      background: linear-gradient(90deg,#a5b4fc,#60a5fa);
+    }
+    /* Responsive correction for cards grid gap */
+    @media (max-width: 510px){
+      .hero-bg{ min-height:210px;}
+      .exam-thumb, .fallback-bg { height:65px !important;}
+      .glass{ min-height:170px;}
     }
   </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col items-center justify-center px-2 py-0 select-none">
-  <header class="w-full max-w-4xl mx-auto pt-12 pb-6 text-center">
-    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-1 text-blue-800 drop-shadow font-[system-ui]">
-      <i class="fa-solid fa-graduation-cap text-blue-700 mr-2"></i> 
-      Available CBT Practice Exams
-    </h1>
-    <p class="text-lg text-blue-500 font-medium mb-4">Browse available computer-based practice exams and start your journey to a better grade! Click "Practice Now" to get started effortlessly.</p>
-  </header>
+<body class="antialiased min-h-screen flex flex-col items-center bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 px-0 py-0 select-none">
+  <!-- ========= HERO SECTION ========== -->
+  <section class="hero-bg w-full max-w-5xl mx-auto rounded-b-3xl shadow-2xl mb-6 lg:rounded-b-[46px] border-b-4 border-blue-900 relative overflow-hidden">
+    <div class="hero-overlay"></div>
+    <div class="hero-content relative z-10 px-6 sm:px-12 pt-10 pb-12 text-center flex flex-col items-center justify-center">
+      <h1 class="max-w-3xl text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_10px_rgba(79,70,229,.35)] mb-2">
+        <i class="fa-solid fa-graduation-cap text-2xl md:text-3xl text-yellow-300 mr-2 animate-bounce"></i>
+        <span class="bg-gradient-to-r from-yellow-400 via-blue-100 to-white bg-clip-text text-transparent">Explore Real CBT Exams</span>
+      </h1>
+      <div class="max-w-xl mx-auto">
+        <p class="text-blue-100/90 text-lg md:text-xl font-medium mb-2 sm:mb-1 px-2" style="text-shadow: 0 1px 7px #2226;">
+          Browse and practice fully-featured, modern computer-based test exams for diverse subjects.<br>
+          <span class="inline-block bg-white text-blue-900 px-3 py-1 rounded-xl mt-2 font-bold text-sm shadow">All sets modeled after real university CBT.</span>
+        </p>
+      </div>
+      <div class="flex justify-center gap-3 mt-5">
+        <a href="#exams-list"
+          class="inline-flex gap-2 px-7 py-3 bg-yellow-400/95 rounded-xl font-extrabold text-blue-900 shadow-lg text-lg hover:bg-yellow-300 hover:scale-105 transition-all border-none focus:ring-2 focus:ring-blue-400">
+          <i class="fa fa-list-alt"></i>View Exams
+        </a>
+        <a href="access.html"
+          class="inline-flex gap-2 px-5 py-3 bg-white/90 rounded-xl text-blue-700 font-bold shadow text-lg hover:bg-white hover:scale-105 border-none transition-all">
+          <i class="fas fa-sign-in-alt"></i> Exam Access
+        </a>
+      </div>
+      <div class="flex justify-center mt-8">
+        <span class="inline-flex items-center gap-2 py-1 px-3 rounded-full avatar-bg shadow text-white text-xs md:text-sm font-semibold">
+          <i class="fa fa-users"></i> 1000+ students love D-Rich CBT
+        </span>
+      </div>
+    </div>
+  </section>
 
-  <main class="w-full max-w-5xl px-2 mx-auto">
+  <main class="w-full max-w-6xl px-2 pb-14 mx-auto">
+    <h2 class="mb-6 text-2xl sm:text-3xl font-bold text-white tracking-wider text-center font-[system-ui]">
+      <span class="inline-block bg-gradient-to-tr from-yellow-300 via-blue-200 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_2px_5px_rgba(0,0,0,.18)] px-1">
+        Available Practice Exams
+      </span>
+    </h2>
     <!-- Exam cards container -->
-    <section id="exams-list" class="grid grid-cols-1 sm:grid-cols-2 gap-6"></section>
-    <div class="flex justify-center mt-5">
+    <section id="exams-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8"></section>
+    <div class="flex justify-center mt-7">
       <button id="reload-btn" class="hidden py-2 px-8 rounded-2xl bg-blue-700 text-white font-bold text-lg shadow hover:bg-blue-900 transition-all">
         <i class="fa fa-refresh animate-spin mr-2"></i> Reload Exams
       </button>
     </div>
-    <div id="status-message" class="mt-10 text-center text-blue-900 text-lg font-semibold"></div>
+    <div id="status-message" class="mt-12 text-center text-blue-100 text-xl font-semibold"></div>
   </main>
 
-  <footer class="w-full max-w-4xl mx-auto py-8 flex flex-col sm:flex-row items-center justify-between mt-10 text-blue-900 bg-transparent text-xs sm:text-sm">
+  <footer class="w-full max-w-4xl mx-auto py-8 flex flex-col sm:flex-row items-center justify-between mt-10 text-blue-100 bg-blue-900 bg-opacity-95 text-xs sm:text-sm rounded-2xl shadow-xl border-t-4 border-indigo-900">
     <div>
-      <b>D-Rich CBT &copy; <span id="year"></span></b> 
-      <span class="ml-3 hidden sm:inline text-gray-400">|</span>
-      <span class="ml-2 text-gray-500">For best experience, use Chrome or Edge.</span>
+      <b>D-Rich CBT &copy; <span id="year"></span></b>
+      <span class="ml-3 hidden sm:inline text-blue-300">|</span>
+      <span class="ml-2 text-blue-400">For best experience, use Chrome or Edge.</span>
     </div>
-    <a href="access.html" class="mt-3 sm:mt-0 px-5 py-2 rounded-2xl bg-blue-50 hover:bg-indigo-100 text-blue-700 font-semibold shadow transition"><i class="fas fa-sign-in-alt mr-1"></i>Exam Access Page</a>
+    <a href="access.html" class="mt-3 sm:mt-0 px-5 py-2 rounded-2xl bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold shadow transition"><i class="fas fa-sign-in-alt mr-1"></i>Exam Access Page</a>
   </footer>
 
   <script>
     // ========== CONFIG ==========
     const API_BASE = "https://examguide.onrender.com";
     const accessPage = "access.html";
+    // Demo images to randomly use for cards; you can add more URLs, or use exam subject to pick per subject.
+    const examImages = [
+      "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1510936111840-6cef99cef21e?auto=format&fit=crop&w=800&q=80"
+    ];
 
     // ========== DOMS ==========
     const examsList = document.getElementById('exams-list');
@@ -80,8 +161,21 @@
     function formatDuration(secs) {
       if (!secs || isNaN(secs)) return "--";
       const h = Math.floor(secs / 3600);
-      const m = Math.floor((secs%3600)/60);
-      return [h>0?(h+'h'):"", m>0?(m+'m'):""].filter(Boolean).join(' ') || '1h';
+      const m = Math.floor((secs % 3600) / 60);
+      return [h > 0 ? (h + 'h') : "", m > 0 ? (m + 'm') : ""].filter(Boolean).join(' ') || '1h';
+    }
+
+    function getExamImage(subject, idx = 0) {
+      // Optionally, you can assign a default image by subject keyword
+      let subj = (subject || "").toLowerCase();
+      if (subj.includes("math") || subj.startsWith("mth")) return "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80";
+      if (subj.includes("chem") || subj.startsWith("chm")) return "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80";
+      if (subj.includes("bio")) return "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80";
+      if (subj.includes("phy")) return "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80";
+      if (subj.includes("eco")) return "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80";
+      if (subj.includes("geo")) return "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80";
+      // or just use a random fallback
+      return examImages[idx % examImages.length];
     }
 
     // ========== FETCH & DISPLAY ==========
@@ -110,17 +204,10 @@
     }
 
     // ========== CARD UI ==========
-    function renderExamCard(exam, idx=0) {
+    function renderExamCard(exam, idx = 0) {
       // Escape HTML utility
-      function esc(str) { return String(str||'').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s])); }
+      function esc(str) { return String(str || '').replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s])); }
       // Color variation for cards
-      const shades = [
-        "bg-gradient-to-br from-blue-50 via-white to-indigo-50",
-        "bg-gradient-to-tr from-violet-50 to-blue-50",
-        "bg-gradient-to-br from-blue-100 to-indigo-100",
-        "bg-gradient-to-b from-white to-indigo-50"
-      ];
-      // Favicon/emoji based on subject
       const icons = {
         mth: "fa-square-root-variable",
         chm: "fa-flask-vial",
@@ -132,36 +219,38 @@
         geo: "fa-globe-africa",
         gov: "fa-landmark",
         crs: "fa-bible",
-        // fallback
         default: "fa-file-alt"
       };
       let subj = (exam.subject || '').toLowerCase();
-      let icon = Object.keys(icons).find(k=>subj.startsWith(k)) ? icons[subj.substr(0,3)] : icons.default;
-      // Get title fallback
+      let icon = Object.keys(icons).find(k => subj.startsWith(k)) ? icons[subj.substr(0, 3)] : icons.default;
+
+      const bgImg = getExamImage(exam.subject, idx);
       const title = exam.title || exam.subject || "Untitled Exam";
       const examCode = exam.accessCode || "";
-      // Card column
-      const shade = shades[idx % shades.length];
       // Card markup
       const card = document.createElement('div');
-      card.className = `glass ${shade} relative overflow-hidden transition-all p-5 shadow-lg flex flex-col justify-between`;
-      card.style.minHeight = "165px";
+      card.className = `glass group shadow-lg flex flex-col justify-between relative `;
       card.innerHTML = `
-        <div class="flex-1">
-          <div class="mb-2 flex items-center gap-2">
-            <span class="tag"><i class="fa ${icon} fa-fw"></i> ${esc(exam.subject)}</span>
-            <span class="ml-1 text-xs font-bold text-gray-500 select-text" title="Exam Set Unique Code">${esc(exam.accessCode)}</span>
+        <div class="relative">
+          <img src="${bgImg}" alt="Exam Subject" class="exam-thumb transition duration-150 ease-in group-hover:saturate-125 group-hover:brightness-105" loading="lazy" />
+          <div class="absolute top-1 left-1 px-3 py-1 rounded-full bg-blue-200/70 text-blue-900 font-semibold shadow text-xs backdrop-blur border border-blue-200" style="z-index:3;">
+            <i class="fa ${icon} mr-1"></i>${esc(exam.subject)}
           </div>
-          <div class="font-extrabold text-blue-900 text-lg sm:text-xl mb-1 truncate" title="${esc(title)}">${esc(title)}</div>
-          <div class="flex flex-row flex-wrap gap-3 items-center text-xs pt-1 pb-1 font-semibold text-indigo-500">
+          <div class="absolute right-2 top-2 bg-gradient-to-tr from-blue-600/80 to-blue-400/90 text-white px-4 py-1 rounded-xl text-xs font-bold tracking-widest shadow border border-blue-300" title="Exam Set Code">
+            ${esc(exam.accessCode)}
+          </div>
+        </div>
+        <div class="flex-1 pt-3 px-2 relative z-10">
+          <div class="font-extrabold text-blue-900 text-[1.11rem] md:text-lg mb-1 truncate" title="${esc(title)}">${esc(title)}</div>
+          <div class="flex flex-row flex-wrap gap-3 items-center text-xs pt-1 pb-1 font-semibold text-blue-700">
             <div class="flex items-center"><i class="fa fa-clock mr-1"></i> ${formatDuration(exam.duration)}</div>
-            <div class="flex items-center"><i class="fa fa-list-ol mr-1"></i> <span class="question-count-ct">--</span> Questions</div>
+            <div class="flex items-center"><i class="fa fa-list-ol mr-1"></i> <span class="question-count-ct">--</span> Qs</div>
             <div class="flex items-center"><i class="fa fa-calendar-alt mr-1"></i> ${exam.createdAt ? (new Date(exam.createdAt).toLocaleDateString()) : "--"}</div>
           </div>
         </div>
-        <div class="pt-2 flex flex-col items-center">
+        <div class="pt-2 pb-3 px-3 flex flex-col items-center">
           <button type="button"
-            class="practice-btn w-full md:w-auto bg-blue-700 hover:bg-indigo-900 rounded-2xl font-bold text-white px-7 py-3 transition text-base border-none shadow-lg flex items-center justify-center gap-2 active:scale-95"
+            class="practice-btn w-full bg-gradient-to-tr from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 rounded-2xl font-bold text-white px-7 py-2.5 text-base shadow-lg flex items-center justify-center gap-2 active:scale-95 hover:ring-2 hover:ring-indigo-300 focus:ring"
             data-code="${esc(exam.accessCode)}"
           >
             <i class="fa fa-play-circle mr-1"></i> Practice Now
@@ -172,8 +261,6 @@
       fetchExamQuestionCount(exam._id, card.querySelector('.question-count-ct'));
       // On button: open access.html and prefill
       card.querySelector('.practice-btn').onclick = () => {
-        // Save prefill code in localStorage OR pass via query
-        // We'll use query string for best UX
         window.location.href = `${accessPage}?examCode=${encodeURIComponent(examCode)}`;
       };
       return card;
@@ -183,8 +270,6 @@
     async function fetchExamQuestionCount(examSetId, el) {
       if (!examSetId || !el) return;
       try {
-        const res = await fetch(`${API_BASE}/api/cbt-questions?examSet=${encodeURIComponent(examSetId)}&limit=1`);
-        // The backend does not return count, so we use headers or fetch again
         const all = await fetch(`${API_BASE}/api/cbt-questions?examSet=${encodeURIComponent(examSetId)}&limit=1000`);
         const data = await all.json();
         el.textContent = Array.isArray(data) ? data.length : "--";
@@ -198,11 +283,6 @@
 
     // ========== RUN ==========
     fetchExams();
-
-    // ========== ENHANCED: Listen to query param on access.html ==========
-    // Suggestion: On target page (access.html), you can auto-prefill registration field:
-    // - Read: new URLSearchParams(window.location.search).get("examCode")
-    // - Set: document.getElementById('courseCode').value = ...;
   </script>
 </body>
 </html>
