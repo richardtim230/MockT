@@ -166,7 +166,7 @@
       }
       setBtnSpinner(btn, true, "Verifying...");
       try {
-        const res = await fetch(API_BASE + '/api/student/redeem-credit', {
+        const res = await fetch(API_BASE + '/api/credit/redeem-credit', {
           method:"POST",
           headers:{
             "Content-Type":"application/json",
