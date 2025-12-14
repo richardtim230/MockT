@@ -84,7 +84,7 @@
   <!-- Modal for success/error -->
   <div id="modal-root"></div>
   <script>
-    const API_BASE = "https://examguide.onrender.com";
+    const API_BASE = "/api/credit";
     // Util
     function getToken() { return localStorage.getItem("student_jwt_token"); }
     function setBtnSpinner(btn, show, text = "") {
@@ -125,7 +125,7 @@
     let currentUser = null;
     async function fetchProfile() {
       try {
-        const res = await fetch(API_BASE + "/api/student/me", {
+        const res = await fetch("/api/student/me", {
           headers: { Authorization: "Bearer " + getToken() }
         });
         if (!res.ok) throw new Error("Not authenticated");
@@ -166,7 +166,7 @@
       }
       setBtnSpinner(btn, true, "Verifying...");
       try {
-        const res = await fetch(API_BASE + '/api/credit/redeem-credit', {
+        const res = await fetch(`${API_BASE}/redeem-credit`, {
           method:"POST",
           headers:{
             "Content-Type":"application/json",
