@@ -211,6 +211,7 @@
       if (res.ok && result.user && result.token) {
         // Save token and role (optionally, use sessionStorage/localStorage)
         localStorage.setItem("jwt_token", result.token);
+localStorage.setItem("student_jwt_token", result.token);
         localStorage.setItem("user_role", result.user.role);
         // On successful login, show destination choice modal
         showModal(
