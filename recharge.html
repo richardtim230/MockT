@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>D-RICH CBT | Credit Recharge</title>
+  <title>D-RICH CBT | Recharge Credit (Admin Email/Username)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -11,205 +11,96 @@
     .input-focus:focus { border-color: #2563eb; box-shadow: 0 0 0 1.5px #2563eb; }
     .spinner {display:inline-block;width:1.2em;height:1.2em;border:3px solid #fff;border-radius:50%;border-top:3px solid #2563eb;animation:spin 0.8s linear infinite;vertical-align:-0.15em;}
     @keyframes spin {to{transform:rotate(360deg);}}
-    .modal-bg {position:fixed;z-index:40;inset:0;background:rgba(30,41,59,0.38);display:flex;align-items:center;justify-content:center;}
-    .modal-panel {background:#fff;border-radius:1.4em;box-shadow:0 3px 22px #33415528;padding:2.15rem 1.3rem 2rem 1.3rem;min-width:270px;max-width:92vw;text-align:center;}
     .fade-in { animation: fadeIn 0.7s ease; }
     @keyframes fadeIn { from{ opacity:0; transform: translateY(2rem);} to{ opacity:1; transform: none;}}
   </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
   <main class="w-full max-w-md mx-auto glass-panel p-7 sm:p-11 shadow-2xl fade-in relative">
-    <!-- Header -->
-    <div class="mb-7 text-center flex flex-col items-center">
+    <div class="mb-6 text-center">
       <i class="fa fa-credit-card text-blue-700 text-4xl mb-2"></i>
-      <h1 class="text-2xl sm:text-3xl font-extrabold text-blue-900 mb-0.5 tracking-wider">
-        Credit Recharge
-      </h1>
-      <p class="text-sm text-blue-500 tracking-wide font-medium mt-1">Enter your provided recharge code to load your points</p>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-blue-900 mb-1">Recharge Credit</h1>
+      <p class="text-sm text-blue-500">Assign credit points directly to a student by their email or username and recharge card code</p>
     </div>
-    <!-- Credit Points Balance -->
-    <div id="user-balance" class="w-full mb-7 flex flex-col sm:flex-row items-center justify-between gap-2 px-4 py-3 rounded-xl bg-indigo-50 border border-indigo-100 shadow-inner text-indigo-800 font-bold text-lg">
-      Balance: <span id="creditPoints" class="ml-2 font-extrabold text-indigo-900 flex items-center gap-1">--</span>
-      <button id="logout-btn" class="ml-auto text-xs text-blue-500 hover:text-blue-800 font-bold px-2 py-1 rounded hover:bg-blue-100">Log out</button>
-    </div>
-    <!-- Recharge Form -->
-    <form id="recharge-form" autocomplete="off" class="flex flex-col gap-6">
+    <form id="recharge-form" class="flex flex-col gap-6">
       <div>
-        <label for="cardCode" class="block text-sm font-semibold text-gray-700 mb-2">
-          Credit Card Code <span class="text-xs text-gray-400 font-normal">(12 characters)</span>
-        </label>
+        <label class="block text-sm font-semibold text-gray-700 mb-2" for="identifier">Student Email or Username</label>
+        <input type="text" id="identifier"
+          class="input-focus w-full px-5 py-3 rounded-xl border border-gray-300 text-base shadow-sm"
+          placeholder="student@email.com OR username" required />
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2" for="cardCode">Recharge Card Code <span class="text-xs text-gray-400 font-normal">(12 characters)</span></label>
         <input type="text" id="cardCode" maxlength="12" minlength="12"
-          class="input-focus block w-full px-5 py-3 rounded-xl border border-gray-300 text-base shadow-sm font-mono tracking-wide uppercase"
-          placeholder="E.g. 8FE28HT2NWB4" pattern="[A-Za-z0-9]{12}" required
-          autocomplete="off" />
+          class="input-focus w-full px-5 py-3 rounded-xl border border-gray-300 text-base shadow-sm font-mono tracking-wide uppercase"
+          placeholder="E.g. 8FE28HT2NWB4" pattern="[A-Za-z0-9]{12}" required />
       </div>
       <button type="submit" id="recharge-btn"
         class="w-full py-3 px-6 rounded-xl bg-blue-700 text-white font-bold text-lg shadow-lg hover:bg-blue-800 transition flex items-center gap-2 justify-center">
-        <i class="fas fa-bolt"></i> <span>Recharge</span>
+        <i class="fas fa-bolt"></i> <span>Assign Credit</span>
       </button>
       <div id="form-message" class="text-center mt-1 text-base font-semibold"></div>
     </form>
     <div class="text-xs text-center text-gray-500 mt-7">
-      Only credit cards issued by admin can be used. Recharge points instantly after payment.
+      This recharge form will assign points to a student by email or username.<br>
+      Only credit cards issued by admin can be used.
     </div>
   </main>
-  <!-- Modal Root -->
-  <div id="modal-root"></div>
   <script>
-    // ==== CONFIG ====
     const API_BASE = "https://examguide.onrender.com";
-    // ==== Auth Utilities ====
-    function setToken(token) { localStorage.setItem("student_jwt_token", token); }
-    function getToken() { return localStorage.getItem("student_jwt_token"); }
-    function clearToken() { localStorage.removeItem("student_jwt_token"); }
-    // ==== Modal Utility ====
-    function showModal({ title, msg, icon="info-circle", cta, ctaHref }) {
-      const r = document.getElementById("modal-root");
-      r.innerHTML = `
-        <div class="modal-bg">
-          <div class="modal-panel">
-            <i class="fa fa-${icon} text-blue-600 text-5xl mb-3 animate-bounce"></i>
-            <div class="text-xl font-bold text-indigo-900 mb-1">${title || "Notice"}</div>
-            <div class="mb-3 text-gray-800">${msg}</div>
-            ${cta ? `<a href="${ctaHref}" class="block w-full rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold py-3 mt-3" target="_blank" rel="noopener"><i class="fab fa-whatsapp mr-2"></i>${cta}</a>` : ""}
-            <button id="modal-close-btn" class="mt-2 py-2 px-7 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-900">Close</button>
-          </div>
-        </div>
-      `;
-      document.getElementById("modal-close-btn").onclick = () => { r.innerHTML = ""; };
-    }
-    // ==== DOM Shortcuts ====
-    const creditPointsElem = document.getElementById('creditPoints');
-    const logoutBtn = document.getElementById('logout-btn');
     const rechargeForm = document.getElementById('recharge-form');
-    const cardCodeInput = document.getElementById('cardCode');
+    const identifierInput = document.getElementById('identifier');
+    const codeInput = document.getElementById('cardCode');
     const rechargeBtn = document.getElementById('recharge-btn');
     const formMsg = document.getElementById('form-message');
-    let currentUser = null;
 
-    // ==== Fetch Profile and Balance ====
-    async function fetchProfile(token){
-      try {
-        const res = await fetch(API_BASE + "/api/student/me", {headers: {Authorization: "Bearer " + token }});
-        if (!res.ok) throw new Error("Not authenticated");
-        return await res.json();
-      } catch (err) { console.error("fetchProfile error:", err); return null;}
-    }
-    async function updateBalance() {
-      const token = getToken();
-      if (!token) { creditPointsElem.innerHTML = "--"; return; }
-      const user = await fetchProfile(token);
-      if (user && user._id) {
-        currentUser = user;
-        creditPointsElem.textContent = user.creditPoints !== undefined ? user.creditPoints : "0";
-      } else {
-        clearToken();
-        formMsg.className = "text-red-600 font-semibold text-center mt-2 mb-2";
-        formMsg.textContent = "Session expired. Please log in again.";
-        setTimeout(()=>window.location.href="access.html",900);
-      }
-    }
-    updateBalance();
-
-    // ==== Log out Handler ====
-    logoutBtn.addEventListener('click', ()=>{
-      clearToken();
-      window.location.href = "access.html";
-    });
-
-    // ==== Recharge Handler (with extensive logging) ====
-    rechargeForm.addEventListener('submit', async function(e){
+    rechargeForm.onsubmit = async function(e){
       e.preventDefault();
-      formMsg.className = "text-center font-semibold mb-2 text-blue-600";
       formMsg.textContent = "";
+      formMsg.className = "text-center mt-2 mb-2";
       rechargeBtn.disabled = true;
-      let origBtn = rechargeBtn.querySelector('span').textContent;
-      rechargeBtn.querySelector('span').innerHTML = `<span class="mr-2 spinner"></span> Loading...`;
-      const code = cardCodeInput.value.trim().toUpperCase();
-      // Frontend validate length and pattern
+      rechargeBtn.querySelector('span').innerHTML = `<span class="spinner"></span> Processing...`;
+
+      const identifier = identifierInput.value.trim();
+      const code = codeInput.value.trim().toUpperCase();
+      if (!identifier || !code) {
+        formMsg.textContent = "Fill both fields.";
+        formMsg.className = "text-red-600 text-center font-bold mt-2 mb-2";
+        rechargeBtn.disabled = false;
+        rechargeBtn.querySelector('span').textContent = "Assign Credit";
+        return;
+      }
       if (code.length !== 12 || !/^[A-Z0-9]{12}$/.test(code)) {
-        formMsg.className = "text-red-600 font-semibold text-center mt-2 mb-2";
-        formMsg.textContent = "Enter a valid 12-character code.";
+        formMsg.textContent = "Code must be 12 alphanumeric characters.";
+        formMsg.className = "text-red-600 text-center font-bold mt-2 mb-2";
         rechargeBtn.disabled = false;
-        rechargeBtn.querySelector('span').textContent = origBtn;
+        rechargeBtn.querySelector('span').textContent = "Assign Credit";
         return;
       }
-      const token = getToken();
-      if (!token) {
-        formMsg.className = "text-red-600 font-semibold text-center mt-2 mb-2";
-        formMsg.textContent = "Session expired. Please log in again.";
-        rechargeBtn.disabled = false;
-        rechargeBtn.querySelector('span').textContent = origBtn;
-        setTimeout(()=>window.location.href="access.html",1100);
-        return;
-      }
-      // ========== LOG all request data ==========
-      console.log("=== Recharge Attempt ===");
-      console.log("TOKEN (truncated):", token ? token.substring(0,30) + "..." : "No token");
-      console.log("Request payload:", { code });
-      const sentHeaders = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer "+token
-      };
-      console.log("Request headers:", sentHeaders);
-
       try {
-        const res = await fetch(`${API_BASE}/api/credit/redeem-credit`, {
+        const res = await fetch(`${API_BASE}/api/credit/admin-redeem`, {
           method: "POST",
-          headers: sentHeaders,
-          body: JSON.stringify({ code })
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({ identifier, code })
         });
-
-        let data;
-        try {
-          data = await res.json();
-        } catch(parseErr) {
-          console.error("Could not parse JSON:", parseErr);
-          data = { parseError: true, text: await res.text() };
-        }
-        // Log full response info
-        console.log("Response status:", res.status);
-        console.log("Response data:", data);
-
+        const data = await res.json();
         rechargeBtn.disabled = false;
-        rechargeBtn.querySelector('span').textContent = origBtn;
-
+        rechargeBtn.querySelector('span').textContent = "Assign Credit";
         if (res.ok && data.success) {
-          formMsg.className = "text-green-700 font-bold text-center mt-2 mb-2";
-          formMsg.innerHTML = `<i class="fa fa-check-circle"></i> ${data.message || 'Recharge successful!'} <br>
-            <b class="font-mono text-lg">${data.points} pts added.</b>`;
-          creditPointsElem.textContent = data.creditPoints || "--";
-          showModal({
-            title: "Success!",
-            icon: "bolt",
-            msg: `Recharge successful.<br><b>${data.points} points</b> added.<br>Current Balance: <span class='font-bold text-indigo-700'>${data.creditPoints}</span>`,
-          });
-          cardCodeInput.value = "";
+          formMsg.textContent = `Success! ${data.points} points added to ${identifier}.`;
+          formMsg.className = "text-green-700 text-center font-bold mt-2 mb-2";
+          identifierInput.value = ""; codeInput.value = "";
         } else {
-          let message = data.message || "Invalid recharge code.";
-          formMsg.className = "text-red-600 font-semibold text-center mt-2 mb-2";
-          formMsg.innerHTML = `<i class="fa fa-times-circle"></i> ${message}`;
-          if (res.status === 409) {
-            showModal({
-              title: "Code Already Used",
-              icon: "exclamation-triangle",
-              msg: "This recharge code has already been used.<br>If you think this is an error, kindly contact admin.",
-              cta: "Contact Admin on WhatsApp",
-              ctaHref: "https://wa.me/2349155127634?text=Recharge%20code%20issue%20on%20D-RICH%20Tutorial"
-            });
-          }
-          if (res.status === 401) {
-            console.warn("Detected 401 Unauthorized. Token expired or missing!");
-          }
+          formMsg.textContent = data.message || "Operation failed.";
+          formMsg.className = "text-red-600 text-center font-bold mt-2 mb-2";
         }
-      } catch (err) {
-        console.error("Recharge fetch/network error:", err);
+      } catch (e) {
+        formMsg.textContent = "Network/server error. Try again.";
+        formMsg.className = "text-red-600 text-center font-bold mt-2 mb-2";
         rechargeBtn.disabled = false;
-        rechargeBtn.querySelector('span').textContent = origBtn;
-        formMsg.className = "text-red-600 font-semibold text-center mt-2 mb-2";
-        formMsg.textContent = "Network/server error. Please try again.";
+        rechargeBtn.querySelector('span').textContent = "Assign Credit";
       }
-    });
+    };
   </script>
 </body>
 </html>
