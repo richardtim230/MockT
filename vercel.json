@@ -2,7 +2,7 @@
   "rewrites": [
     { "source": "/jamb-waec-postutme-exams", "destination": "/public-exam.html" },
     { "source": "/blogger-marketer-registration", "destination": "/blogger-reg.html" },
-    { "source": "/blogger-login", "destination": "/blogger-login.html" },
+    { "source": "/cbt-login", "destination": "/access.html" },
     { "source": "/candidate-cgpa-calculator", "destination": "/cpga.html" },
     { "source": "/blog-notes-category", "destination": "/category.html" },
         { "source": "/about-us-faq", "destination": "/aBout-us.html" },
