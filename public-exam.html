@@ -140,6 +140,126 @@
       box-shadow: 0 6px 19px #60a5fa33;
       transform: scale(1.022);
     }
+    /* Pagination style */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.7em;
+      margin: 1.2em 0 0.6em 0;    /* less vertical margin for compactness */
+      margin-bottom: 0.8em;
+    }
+    .pagination-btn {
+      color: #1e3a8a;
+      font-weight: 700;
+      cursor: pointer;
+      min-width: 2.3em;
+      min-height: 2.3em;
+      border-radius: 1em;
+      background: #e0e7ff;
+      border: none;
+      outline: none;
+      transition: background .15s, color .13s;
+      font-size: 1em;
+      box-shadow: 0 2px 7px #3b82f61a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pagination-btn.active, .pagination-btn:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+    /* WhatsApp info strip - reduced margin and padding */
+    .whatsapp-strip {
+      margin: 12px auto 0 auto;    /* Reduced from 44px/18px */
+      max-width: 34em;
+      background: linear-gradient(90deg,#22d3ee 70%,#14b8a6 100%);
+      color: #065f46;
+      border-radius: 1.6em;
+      box-shadow: 0 8px 24px #7dd3fc2c;
+      padding: 0.5em 0.7em;        /* Compact padding */
+      font-weight: 600;
+      text-align: center;
+      font-size: 1.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.74em;
+      justify-content: center;
+    }
+    .whatsapp-link {
+      color: #0f5132;
+      font-weight: 800;
+      background: #fff;
+      border-radius: 1em;
+      padding: 0.20em 1.0em;
+      margin-left: 0.32em;
+      text-decoration: none;
+      transition: background .13s, color .12s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      box-shadow: 0 1px 9px 0 #14b8a61c;
+      font-size: 0.96em;
+    }
+    .whatsapp-link:hover {
+      background: #10b981;
+      color: #fff;
+      text-decoration: underline;
+    }
+    /* Search bar styling */
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.4em; /* Reduced for compactness */
+      gap: 0.4em;
+      width: 96%;
+      max-width: 544px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(255,255,255,0.18);
+      border-radius: 2em;
+      padding: 0.37em 0.8em;
+      box-shadow: 0 3px 14px #64748b15;
+    }
+    .search-input {
+      flex: 1;
+      padding: 0.55em 1.1em;
+      border-radius: 1.3em;
+      outline: none;
+      font-size: 1.03em;
+      border: none;
+      font-weight: 500;
+      background: #f8fafc;
+      color: #1e293b;
+      box-shadow: 0 1px 5px #1e3a8a11;
+      transition: box-shadow .11s;
+    }
+    .search-btn {
+      background: #2563eb;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 1em;
+      padding: 0.39em 1.18em;
+      font-size: 1em;
+      box-shadow: 0 2px 8px #2563eb18;
+      transition: background .14s;
+      cursor: pointer;
+      margin-left: 0.15em;
+    }
+    .search-btn:hover, .search-btn:focus {
+      background: #1e40af;
+    }
+    @media (max-width: 640px) {
+      .search-bar {
+        flex-direction: column;
+        gap: 0.3em;
+        padding: 0.47em .6em;
+      }
+      .whatsapp-strip { font-size: 0.95em; gap: 0.45em; padding: 0.3em 0.27em; }
+    }
   </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col items-center bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 px-0 py-0 select-none">
@@ -153,13 +273,17 @@
       </h1>
       <div class="max-w-xl mx-auto">
         <p class="text-blue-100/90 text-lg md:text-xl font-medium mb-2 sm:mb-1 px-2" style="text-shadow: 0 1px 7px #2226;">
-          Browse and practice full-featured computer-based test (CBT) exams for a wide range of university courses.<br>
-          <span class="inline-block bg-white text-blue-900 px-3 py-1 rounded-xl mt-2 font-bold text-sm shadow">Kick-start your revision journey today!</span>
+          Specifically crafted for <b>JAMB</b>, <b>WAEC</b>, <b>NECO</b> and <b>POST UTME</b> candidates.<br>
+          Access and practice real exam-style CBT for your target exams and subjects.<br>
+          <span class="inline-block bg-white text-blue-900 px-3 py-1 rounded-xl mt-2 font-bold text-sm shadow">
+            Join thousands of candidates in boosting your score this year!
+          </span>
         </p>
       </div>
       <div class="flex justify-center gap-3 mt-5">
         <a href="#exams-list"
-          class="inline-flex gap-2 px-7 py-3 bg-yellow-400/95 rounded-xl font-extrabold text-blue-900 shadow-lg text-lg hover:bg-yellow-300 hover:scale-105 transition-all border-none focus:ring-2 focus:ring-blue-400">
+          class="inline-flex gap-2 px-7 py-3 bg-yellow-400/95 rounded-xl font-extrabold text-blue-900 shadow-lg text-lg hover:bg-yellow-300 hover:scale-105 transition-all border-none focus:ring-2 focus:ring-yellow-500 outline-none"
+        >
           <i class="fa fa-list-alt"></i>View Exams
         </a>
         <a href="access.html"
@@ -169,29 +293,49 @@
       </div>
       <div class="flex justify-center mt-8">
         <span class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-blue-200 shadow text-blue-900 text-xs md:text-sm font-semibold">
-          <i class="fa fa-users"></i> Join 1,000+ students on D-Rich CBT!
+          <i class="fa fa-users"></i> Join 1,000+ JAMB, WAEC, NECO & POST UTME candidates!
         </span>
       </div>
     </div>
   </section>
 
-  <main class="w-full max-w-6xl px-2 pb-14 mx-auto">
+  <main class="w-full max-w-6xl px-2 pb-7 mx-auto"> <!-- reduced pb-14 to pb-7 for tighter footer space -->
     <h2 class="mb-6 text-2xl sm:text-3xl font-bold text-white tracking-wider text-center font-[system-ui]">
       <span class="inline-block bg-gradient-to-tr from-yellow-300 via-blue-200 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_2px_5px_rgba(0,0,0,.18)] px-1">
         Available Practice Exams
       </span>
     </h2>
+    <!-- ========== Search / Filter Bar ========== -->
+    <div class="search-bar mb-7">
+      <input type="search" id="search-input" class="search-input" placeholder="Search by subject, title or code..." aria-label="Search Exams">
+      <button id="search-btn" class="search-btn"><i class="fa fa-search"></i> Search</button>
+      <button id="clear-search-btn" class="search-btn bg-blue-100 text-blue-900 hover:bg-blue-300 hover:text-blue-900" style="color: #1e3a8a; background:#f1f5f9"><i class="fa fa-times"></i> Clear</button>
+    </div>
+
     <!-- Exam cards container -->
     <section id="exams-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-7"></section>
+    <div id="pagination-container" class="pagination"></div>
+
     <div class="flex justify-center mt-7">
       <button id="reload-btn" class="hidden py-2 px-8 rounded-2xl bg-blue-700 text-white font-bold text-lg shadow hover:bg-blue-900 transition-all">
         <i class="fa fa-refresh animate-spin mr-2"></i> Reload Exams
       </button>
     </div>
     <div id="status-message" class="mt-12 text-center text-blue-100 text-xl font-semibold"></div>
+
+    <!-- WhatsApp group info between cards and footer -->
+    <div class="whatsapp-strip" id="whatsapp-strip">
+      <i class="fab fa-whatsapp text-green-700 text-2xl animate-bounce"></i>
+      <span>
+        Need help, info, or instant Mock Exam links? <b>Join our WhatsApp tutorial group</b> for updates, support and more!
+      </span>
+      <a href="https://chat.whatsapp.com/your-group-invite-link" class="whatsapp-link" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i> Join Now
+      </a>
+    </div>
   </main>
 
-  <footer class="w-full max-w-4xl mx-auto py-8 flex flex-col sm:flex-row items-center justify-between mt-10 text-blue-100 bg-blue-900 bg-opacity-95 text-xs sm:text-sm rounded-2xl shadow-xl border-t-4 border-indigo-900">
+  <footer class="w-full max-w-4xl mx-auto py-8 flex flex-col sm:flex-row items-center justify-between mt-10 text-blue-100 bg-blue-900 bg-opacity-95 text-xs sm:text-sm rounded-2xl shadow-xl border-t-4 border-blue-800 px-7">
     <div>
       <b>D-Rich CBT &copy; <span id="year"></span></b>
       <span class="ml-3 hidden sm:inline text-blue-300">|</span>
@@ -211,6 +355,16 @@
     const examsList = document.getElementById('exams-list');
     const statusMsg = document.getElementById('status-message');
     const reloadBtn = document.getElementById('reload-btn');
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    const clearSearchBtn = document.getElementById('clear-search-btn');
+    const paginationContainer = document.getElementById('pagination-container');
+
+    // ========== STATE ==========
+    let allExams = [];
+    let filteredExams = [];
+    const PAGE_SIZE = 10;
+    let currentPage = 1;
 
     // ========== UTILITY ==========
     function formatDuration(secs) {
@@ -220,11 +374,18 @@
       return [h > 0 ? (h + 'h') : "", m > 0 ? (m + 'm') : ""].filter(Boolean).join(' ') || '1h';
     }
 
+    function esc(str) {
+      return String(str || '').replace(/[&<>"']/g, s => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[s]);
+    }
+
     // ========== FETCH & DISPLAY ==========
     async function fetchExams() {
       examsList.innerHTML = "";
       statusMsg.textContent = "Loading available exams...";
       reloadBtn.classList.add("hidden");
+      paginationContainer.innerHTML = "";
       try {
         const res = await fetch(`${API_BASE}/api/exam-set`);
         if (!res.ok) throw new Error();
@@ -232,23 +393,58 @@
         if (!Array.isArray(data) || data.length === 0) {
           statusMsg.textContent = "No public exams are currently available. Please check back later.";
           reloadBtn.classList.remove("hidden");
+          allExams = [];
+          filteredExams = [];
+          renderExams();
           return;
         }
-        // Sort exams by recent first (uses createdAt descending in backend)
-        data.forEach((exam, idx) => {
-          examsList.appendChild(renderExamCard(exam, idx));
-        });
+        allExams = data;
+        filteredExams = data;
         statusMsg.textContent = "";
+        currentPage = 1;
+        renderExams();
       } catch (e) {
         statusMsg.textContent = "Could not fetch exams. Please try again.";
         reloadBtn.classList.remove("hidden");
+        allExams = [];
+        filteredExams = [];
+        renderExams();
+      }
+    }
+
+    // ========== RENDERING ==========
+    function renderExams() {
+      examsList.innerHTML = "";
+      statusMsg.textContent = "";
+      let total = filteredExams.length;
+      if (total === 0) {
+        statusMsg.textContent = "No matching exams found.";
+        paginationContainer.innerHTML = "";
+        return;
+      }
+      // Pagination logic
+      const totalPages = Math.ceil(total / PAGE_SIZE);
+      if (currentPage > totalPages) currentPage = totalPages || 1;
+      const startIdx = (currentPage - 1) * PAGE_SIZE;
+      const pageExams = filteredExams.slice(startIdx, startIdx + PAGE_SIZE);
+
+      pageExams.forEach((exam, idx) => {
+        examsList.appendChild(renderExamCard(exam, idx));
+      });
+
+      renderPagination(totalPages, currentPage);
+
+      // scroll to top of exams cards on page change
+      if (typeof window !== 'undefined') {
+        setTimeout(() => {
+          const el = document.getElementById("exams-list");
+          if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
+        }, 40);
       }
     }
 
     // ========== CARD UI ==========
     function renderExamCard(exam, idx = 0) {
-      // Escape HTML utility
-      function esc(str) { return String(str || '').replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s])); }
       // Icon selection
       const icons = {
         mth: "fa-square-root-variable",
@@ -264,7 +460,7 @@
         default: "fa-file-alt"
       };
       let subj = (exam.subject || '').toLowerCase();
-      let icon = Object.keys(icons).find(k => subj.startsWith(k)) ? icons[subj.substr(0, 3)] : icons.default;
+      let icon = Object.keys(icons).find((k) => subj.startsWith(k)) ? icons[subj.substr(0, 3)] : icons.default;
 
       const title = exam.title || exam.subject || "Untitled Exam";
       const examCode = exam.accessCode || "";
@@ -311,6 +507,115 @@
         const data = await all.json();
         el.textContent = Array.isArray(data) ? data.length : "--";
       } catch { el.textContent = "--"; }
+    }
+
+    // ========== SEARCH / FILTER ==========
+    function applySearchFilter() {
+      const val = (searchInput.value || '').trim().toLowerCase();
+      if (val === "") {
+        filteredExams = [...allExams];
+      } else {
+        filteredExams = allExams.filter((exam) => {
+          const subject = (exam.subject || '').toLowerCase();
+          const title = (exam.title || '').toLowerCase();
+          const code = (exam.accessCode || '').toLowerCase();
+          return [subject, title, code].some(field => field.includes(val));
+        });
+      }
+      currentPage = 1;
+      renderExams();
+    }
+
+    searchBtn.onclick = function(e) {
+      e.preventDefault();
+      applySearchFilter();
+    };
+    clearSearchBtn.onclick = function(e) {
+      e.preventDefault();
+      searchInput.value = "";
+      filteredExams = [...allExams];
+      currentPage = 1;
+      renderExams();
+    };
+
+    searchInput.addEventListener('input', function(e) {
+      // Live search as user types
+      applySearchFilter();
+    });
+
+    // Allow "Enter" in search box to trigger search
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applySearchFilter();
+      }
+    });
+
+    // ========== PAGINATION ==========
+    function renderPagination(totalPages, currPage) {
+      paginationContainer.innerHTML = "";
+      if (totalPages <= 1) return;
+      // Add Prev Button
+      const prevBtn = document.createElement('button');
+      prevBtn.textContent = "<";
+      prevBtn.className = "pagination-btn";
+      prevBtn.disabled = currPage === 1;
+      if (currPage === 1) prevBtn.style.opacity = "0.65";
+      prevBtn.onclick = function() {
+        if (currentPage > 1) {
+          currentPage -= 1;
+          renderExams();
+        }
+      };
+      paginationContainer.appendChild(prevBtn);
+
+      // Dynamic page numbers (hide too many in long list)
+      let range = [];
+      if (totalPages <= 5) {
+        for (let i = 1; i <= totalPages; i++) range.push(i);
+      } else {
+        if (currPage <= 3) {
+          range = [1,2,3,4,"...",totalPages];
+        } else if (currPage >= totalPages-2) {
+          range = [1,"...",totalPages-3,totalPages-2,totalPages-1,totalPages];
+        } else {
+          range = [1,"...",currPage-1,currPage,currPage+1,"...",totalPages];
+        }
+      }
+      range.forEach(item => {
+        if (item === "...") {
+          const dots = document.createElement('span');
+          dots.textContent = "...";
+          dots.style.padding = "0 0.5em";
+          dots.style.fontWeight = "bold";
+          dots.style.color = "#64748b";
+          paginationContainer.appendChild(dots);
+        } else {
+          const btn = document.createElement('button');
+          btn.className = "pagination-btn";
+          btn.textContent = item;
+          if (item === currPage) btn.classList.add("active");
+          btn.onclick = function() {
+            currentPage = item;
+            renderExams();
+          };
+          paginationContainer.appendChild(btn);
+        }
+      });
+
+      // Add Next Button
+      const nextBtn = document.createElement('button');
+      nextBtn.textContent = ">";
+      nextBtn.className = "pagination-btn";
+      nextBtn.disabled = currPage === totalPages;
+      if (currPage === totalPages) nextBtn.style.opacity = "0.65";
+      nextBtn.onclick = function() {
+        if (currentPage < totalPages) {
+          currentPage += 1;
+          renderExams();
+        }
+      };
+      paginationContainer.appendChild(nextBtn);
     }
 
     reloadBtn.onclick = fetchExams;
