@@ -58,6 +58,10 @@
                        class="block w-full px-5 py-3 rounded-xl border border-gray-200 bg-gray-100 shadow-sm text-gray-700 font-bold cursor-not-allowed"
                        readonly disabled />
             </div>
+            <div class="flex items-center justify-between mb-2">
+                <label for="studentCredit" class="block text-sm font-semibold text-gray-700">Credit Points</label>
+                <span id="studentCredit" class="text-lg font-bold text-indigo-700"></span>
+            </div>
             <div>
                 <label for="courseCode" class="block text-sm font-semibold text-gray-700 mb-2">Course Code</label>
                 <input type="text" id="courseCode" name="courseCode"
@@ -65,7 +69,7 @@
                     placeholder="E.g. MTH101" required />
             </div>
             <div>
-                <label for="accessCode" class="block text-sm font-semibold text-gray-700 mb-2">Access Code</label>
+                <label for="accessCode" class="block text-sm font-semibold text-gray-700 mb-2">Access Code <span class="text-xs text-gray-400">(10 Credits required)</span></label>
                 <input type="password" id="accessCode" name="accessCode"
                     class="input-focus block w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none transition"
                     placeholder="Enter access code" required />
@@ -77,6 +81,7 @@
                 </button>
             </div>
             <div id="error-message" class="text-red-500 text-center font-medium text-sm hidden"></div>
+            <div id="credit-message" class="text-blue-700 text-center font-medium text-sm mt-2"></div>
         </form>
         <div id="login-section" class="mt-6 text-center text-gray-700 text-sm"></div>
     </div>
@@ -113,6 +118,7 @@
     const loginSection = document.getElementById('login-section');
     const regNumInput = document.getElementById('regNumber');
     const showRegNumber = document.getElementById('showRegNumber');
+    const studentCreditElem = document.getElementById('studentCredit');
     const passwordInput = document.getElementById('password');
     const loginErrMsg = document.getElementById('login-error-message');
     const errorElem = document.getElementById('error-message');
@@ -146,9 +152,12 @@
         showRegNumber.dataset.regnum = user.email || user.phone || "";
         loginSection.innerHTML = `
             <div><i class="fas fa-user-check text-green-600"></i> Logged in as <b>${user.fullName}</b></div>
+            <div class="text-gray-500">Credit Points: <b id="login-credit-show">${user.creditPoints != null ? user.creditPoints : "--"}</b></div>
             <button onclick="logoutUser()" class="text-xs text-blue-700 underline hover:text-blue-900 mt-2">Not you? Log out</button>
         `;
         introDesc.textContent = "Enter your course/access code";
+        // Show available credit
+        studentCreditElem.innerText = user.creditPoints != null ? user.creditPoints : "--";
     }
     function logoutUser() {
         clearToken();
@@ -211,10 +220,11 @@
         }
     });
 
-    // ==== EXAM ACCESS HANDLER ====
+    // ==== EXAM ACCESS HANDLER (USE CREDIT) ====
     accessForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         errorElem.classList.add("hidden");
+        document.getElementById("credit-message").textContent = "";
         setBtnSpinner(accessBtn, true, "Checking...");
         if (!currentUser) {
             errorElem.textContent = "User session expired. Please log in again.";
@@ -224,8 +234,8 @@
             setBtnSpinner(accessBtn, false);
             return;
         }
-        // Use the correct id here:
         const accessCode = document.getElementById('accessCode').value.trim();
+        const courseCode = document.getElementById('courseCode').value.trim();
 
         if (accessCode.length < 4) {
             errorElem.textContent = "Access Code must be at least 4 characters.";
@@ -233,9 +243,6 @@
             setBtnSpinner(accessBtn, false);
             return;
         }
-
-        // Optionally, course code can be validated as well
-        const courseCode = document.getElementById('courseCode').value.trim();
         if (courseCode.length < 3) {
             errorElem.textContent = "Course Code is required.";
             errorElem.classList.remove("hidden");
@@ -243,20 +250,35 @@
             return;
         }
 
-        // Validate the access code with the backend: Try to fetch the exam set for this code
         try {
-            const check = await fetch(`${API_BASE}/api/exam-set/by-access?accessCode=${encodeURIComponent(accessCode)}`);
-            if (!check.ok) {
-                errorElem.textContent = "Invalid or expired exam access code.";
+            // Use protected endpoint that deducts credit and checks access
+            const response = await fetch(`${API_BASE}/api/student/exam-set/use-credit`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + getToken()
+                },
+                body: JSON.stringify({ accessCode })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                errorElem.textContent = data.message || "Unable to access exam.";
                 errorElem.classList.remove("hidden");
                 setBtnSpinner(accessBtn, false);
+                // If credits were updated, update the display
+                if (data.creditPoints !== undefined) {
+                    studentCreditElem.innerText = data.creditPoints;
+                    document.getElementById("login-credit-show").innerText = data.creditPoints;
+                }
                 return;
             }
-            // Save code and redirect
+            // Credits deducted & access granted!
             localStorage.setItem("exam_access_code", accessCode);
-            localStorage.setItem("exam_course_code", courseCode); // Optionally store course code
+            localStorage.setItem("exam_course_code", courseCode);
             setBtnSpinner(accessBtn, false);
-            window.location.href = "testsession"; // or cbt.html or your intended page
+            document.getElementById("credit-message").textContent = 
+                `10 credits deducted! Remaining credit: ${data.creditPoints}`;
+            setTimeout(() => { window.location.href = "testsession"; }, 1000);
         } catch (err) {
             errorElem.textContent = "Could not validate exam access code (network/server error).";
             errorElem.classList.remove("hidden");
