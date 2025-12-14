@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/cbt-login", "destination": "/access.html" },
+    { "source": "/jamb-waec-postutme-exams", "destination": "/public-exam.html" },
     { "source": "/blogger-marketer-registration", "destination": "/blogger-reg.html" },
     { "source": "/blogger-login", "destination": "/blogger-login.html" },
     { "source": "/candidate-cgpa-calculator", "destination": "/cpga.html" },
