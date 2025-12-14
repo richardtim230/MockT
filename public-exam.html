@@ -9,30 +9,6 @@
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    .glass {
-      background: rgba(255,255,255,0.68);
-      box-shadow: 0 8px 32px 0 rgba(37,99,235,0.09), 0 2px 8px 0 rgba(68,99,235,0.10);
-      border-radius: 1.6em;
-      backdrop-filter: blur(5px);
-      border: 1.5px solid rgba(56,116,255,0.13);
-      transition: transform .14s cubic-bezier(.4,0,.2,1), box-shadow .12s;
-      overflow: hidden;
-      min-height: 230px;
-      position: relative;
-    }
-    .glass:hover {
-      transform: scale(1.025) translateY(-2px);
-      box-shadow: 0 16px 38px 0 rgba(37,99,235,0.20), 0 3px 18px 0 rgba(68,99,235,0.11);
-    }
-    .tag {
-      display: inline-block;
-      padding: .18em .85em;
-      font-size: .78em;
-      border-radius: 9999px;
-      background: linear-gradient(90deg, #dbeafe 0%, #f0f9ff 100%);
-      color: #2563eb;
-      margin-right:.28em;
-    }
     body {
       background: linear-gradient(135deg, #2e1065 0%, #3b82f6 140%);
       min-height: 100vh;
@@ -56,25 +32,113 @@
       position: relative;
       z-index: 2;
     }
+    .glass {
+      background: rgba(255,255,255,0.90);
+      box-shadow: 0 8px 32px 0 rgba(37,99,235,0.12), 0 6px 18px 0 rgba(68,99,235,0.10);
+      border-radius: 2em;
+      border: 1.5px solid rgba(56,116,255,0.13);
+      transition: transform .13s cubic-bezier(.4,0,.2,1), box-shadow .10s;
+      overflow: hidden;
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-bottom: 0.1rem;
+      padding: 0;
+    }
+    .glass:hover {
+      transform: scale(1.017) translateY(-1.5px);
+      box-shadow: 0 16px 38px 0 rgba(37,99,235,0.13), 0 3px 18px 0 rgba(68,99,235,0.15);
+    }
     .exam-thumb {
-      position: absolute;
-      left:0;top:0;width:100%;height:110px;object-fit:cover; object-position:center; z-index:1;
-      filter: brightness(.93) saturate(1.18) blur(0.2px);
+      width: 100%; 
+      height: 130px;
+      object-fit: cover; 
+      object-position: center;
       transition: filter .2s;
+      z-index:1;
+      border-top-left-radius: 2em;
+      border-top-right-radius: 2em;
     }
-    .glass:hover .exam-thumb {filter: brightness(1.01) saturate(1.065);}
-    .fallback-bg {
-      background: linear-gradient(100deg,#6366f1 0%, #93c5fd 100%);
-      width:100%;height:110px;
+    @media (max-width: 680px){
+      .exam-thumb { height: 90px; }
+      .glass { min-height: 230px;}
     }
-    .avatar-bg {
-      background: linear-gradient(90deg,#a5b4fc,#60a5fa);
+    .info-bar {
+      margin-top: -.5em;
+      margin-bottom: .4em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6em;
+      align-items: center;
     }
-    /* Responsive correction for cards grid gap */
-    @media (max-width: 510px){
-      .hero-bg{ min-height:210px;}
-      .exam-thumb, .fallback-bg { height:65px !important;}
-      .glass{ min-height:170px;}
+    .subject-badge {
+      background: #2563eb;
+      color: #fff;
+      font-size: 0.97em;
+      border-radius: .9em;
+      padding: .32em 1em .32em .82em;
+      font-weight: bold;
+      min-width: 96px;
+      display: flex;
+      align-items: center;
+      gap: .32em;
+    }
+    .code-badge {
+      background: #f1f5f9;
+      color:#1e40af;
+      font-size: 0.98em;
+      border-radius: .9em;
+      padding: .32em 1.1em .32em 1.1em;
+      font-weight: 600;
+    }
+    .exam-title {
+      font-size: 1.15rem;
+      color: #1e293b;
+      font-weight: bold;
+      margin-bottom: .47em;
+      margin-top: .04em;
+      letter-spacing: 0.01em;
+    }
+    .exam-meta-list {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.2em;
+      margin-bottom:.27em;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      font-size: 1.01em;
+      color: #1e3a8a;
+      gap: .27em;
+      font-weight: 600;
+      min-width: 92px;
+      white-space: nowrap;
+    }
+    .practice-btn {
+      background: linear-gradient(90deg,#1e40af 80%,#2563eb 100%);
+      border-radius: 1.3em;
+      min-height:2.7em;
+      font-weight: bold;
+      font-size: 1em;
+      color: #fff;
+      letter-spacing:.01em;
+      width: 93%;
+      box-shadow: 0 4px 24px #3b82f62f;
+      margin: 0.8em auto 0.75em auto;
+      transition: background .13s, transform .09s, box-shadow .12s;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.41em;
+    }
+    .practice-btn:hover, .practice-btn:focus {
+      background:linear-gradient(90deg,#1d4ed8 90%,#818cf8 100%);
+      box-shadow: 0 6px 19px #60a5fa33;
+      transform: scale(1.022);
     }
   </style>
 </head>
@@ -85,12 +149,12 @@
     <div class="hero-content relative z-10 px-6 sm:px-12 pt-10 pb-12 text-center flex flex-col items-center justify-center">
       <h1 class="max-w-3xl text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_10px_rgba(79,70,229,.35)] mb-2">
         <i class="fa-solid fa-graduation-cap text-2xl md:text-3xl text-yellow-300 mr-2 animate-bounce"></i>
-        <span class="bg-gradient-to-r from-yellow-400 via-blue-100 to-white bg-clip-text text-transparent">Explore Real CBT Exams</span>
+        <span class="bg-gradient-to-r from-yellow-400 via-blue-100 to-white bg-clip-text text-transparent">Practice CBT Exams</span>
       </h1>
       <div class="max-w-xl mx-auto">
         <p class="text-blue-100/90 text-lg md:text-xl font-medium mb-2 sm:mb-1 px-2" style="text-shadow: 0 1px 7px #2226;">
-          Browse and practice fully-featured, modern computer-based test exams for diverse subjects.<br>
-          <span class="inline-block bg-white text-blue-900 px-3 py-1 rounded-xl mt-2 font-bold text-sm shadow">All sets modeled after real university CBT.</span>
+          Browse and practice full-featured computer-based test (CBT) exams for a wide range of university courses.<br>
+          <span class="inline-block bg-white text-blue-900 px-3 py-1 rounded-xl mt-2 font-bold text-sm shadow">Kick-start your revision journey today!</span>
         </p>
       </div>
       <div class="flex justify-center gap-3 mt-5">
@@ -104,8 +168,8 @@
         </a>
       </div>
       <div class="flex justify-center mt-8">
-        <span class="inline-flex items-center gap-2 py-1 px-3 rounded-full avatar-bg shadow text-white text-xs md:text-sm font-semibold">
-          <i class="fa fa-users"></i> 1000+ students love D-Rich CBT
+        <span class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-blue-200 shadow text-blue-900 text-xs md:text-sm font-semibold">
+          <i class="fa fa-users"></i> Join 1,000+ students on D-Rich CBT!
         </span>
       </div>
     </div>
@@ -118,7 +182,7 @@
       </span>
     </h2>
     <!-- Exam cards container -->
-    <section id="exams-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8"></section>
+    <section id="exams-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-7"></section>
     <div class="flex justify-center mt-7">
       <button id="reload-btn" class="hidden py-2 px-8 rounded-2xl bg-blue-700 text-white font-bold text-lg shadow hover:bg-blue-900 transition-all">
         <i class="fa fa-refresh animate-spin mr-2"></i> Reload Exams
@@ -140,16 +204,8 @@
     // ========== CONFIG ==========
     const API_BASE = "https://examguide.onrender.com";
     const accessPage = "access.html";
-    // Demo images to randomly use for cards; you can add more URLs, or use exam subject to pick per subject.
-    const examImages = [
-      "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1510936111840-6cef99cef21e?auto=format&fit=crop&w=800&q=80"
-    ];
+    // Single image for all cards (feel free to swap for any image URL as needed)
+    const cardImage = "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=900&q=80";
 
     // ========== DOMS ==========
     const examsList = document.getElementById('exams-list');
@@ -157,25 +213,11 @@
     const reloadBtn = document.getElementById('reload-btn');
 
     // ========== UTILITY ==========
-    // Format duration as "1h 20m"
     function formatDuration(secs) {
       if (!secs || isNaN(secs)) return "--";
       const h = Math.floor(secs / 3600);
       const m = Math.floor((secs % 3600) / 60);
       return [h > 0 ? (h + 'h') : "", m > 0 ? (m + 'm') : ""].filter(Boolean).join(' ') || '1h';
-    }
-
-    function getExamImage(subject, idx = 0) {
-      // Optionally, you can assign a default image by subject keyword
-      let subj = (subject || "").toLowerCase();
-      if (subj.includes("math") || subj.startsWith("mth")) return "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80";
-      if (subj.includes("chem") || subj.startsWith("chm")) return "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80";
-      if (subj.includes("bio")) return "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80";
-      if (subj.includes("phy")) return "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80";
-      if (subj.includes("eco")) return "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80";
-      if (subj.includes("geo")) return "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80";
-      // or just use a random fallback
-      return examImages[idx % examImages.length];
     }
 
     // ========== FETCH & DISPLAY ==========
@@ -207,7 +249,7 @@
     function renderExamCard(exam, idx = 0) {
       // Escape HTML utility
       function esc(str) { return String(str || '').replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s])); }
-      // Color variation for cards
+      // Icon selection
       const icons = {
         mth: "fa-square-root-variable",
         chm: "fa-flask-vial",
@@ -224,40 +266,35 @@
       let subj = (exam.subject || '').toLowerCase();
       let icon = Object.keys(icons).find(k => subj.startsWith(k)) ? icons[subj.substr(0, 3)] : icons.default;
 
-      const bgImg = getExamImage(exam.subject, idx);
       const title = exam.title || exam.subject || "Untitled Exam";
       const examCode = exam.accessCode || "";
       // Card markup
       const card = document.createElement('div');
-      card.className = `glass group shadow-lg flex flex-col justify-between relative `;
+      card.className = `glass group shadow-lg relative`;
       card.innerHTML = `
-        <div class="relative">
-          <img src="${bgImg}" alt="Exam Subject" class="exam-thumb transition duration-150 ease-in group-hover:saturate-125 group-hover:brightness-105" loading="lazy" />
-          <div class="absolute top-1 left-1 px-3 py-1 rounded-full bg-blue-200/70 text-blue-900 font-semibold shadow text-xs backdrop-blur border border-blue-200" style="z-index:3;">
-            <i class="fa ${icon} mr-1"></i>${esc(exam.subject)}
+        <img src="${cardImage}" alt="Exam Subject" class="exam-thumb relative z-10" loading="lazy" />
+        <div class="flex-1 pt-2 px-5 pb-2 relative z-20 flex flex-col">
+          <div class="info-bar">
+            <span class="subject-badge mb-0"><i class="fa ${icon}"></i>&nbsp;${esc(exam.subject)}</span>
+            <span class="code-badge mb-0">${esc(exam.accessCode)}</span>
           </div>
-          <div class="absolute right-2 top-2 bg-gradient-to-tr from-blue-600/80 to-blue-400/90 text-white px-4 py-1 rounded-xl text-xs font-bold tracking-widest shadow border border-blue-300" title="Exam Set Code">
-            ${esc(exam.accessCode)}
+          <div class="exam-title mb-1">${esc(title)}</div>
+          <div class="exam-meta-list mb-1">
+            <span class="meta-item"><i class="fa fa-clock mr-1"></i> ${formatDuration(exam.duration)}</span>
+            <span class="meta-item"><i class="fa fa-list-ol mr-1"></i> <span class="question-count-ct">--</span> Questions</span>
           </div>
+          <div class="meta-item mt-0 mb-0 text-[0.97em]"><i class="fa fa-calendar-alt mr-1"></i> ${exam.createdAt ? (new Date(exam.createdAt).toLocaleDateString()) : "--"}</div>
         </div>
-        <div class="flex-1 pt-3 px-2 relative z-10">
-          <div class="font-extrabold text-blue-900 text-[1.11rem] md:text-lg mb-1 truncate" title="${esc(title)}">${esc(title)}</div>
-          <div class="flex flex-row flex-wrap gap-3 items-center text-xs pt-1 pb-1 font-semibold text-blue-700">
-            <div class="flex items-center"><i class="fa fa-clock mr-1"></i> ${formatDuration(exam.duration)}</div>
-            <div class="flex items-center"><i class="fa fa-list-ol mr-1"></i> <span class="question-count-ct">--</span> Qs</div>
-            <div class="flex items-center"><i class="fa fa-calendar-alt mr-1"></i> ${exam.createdAt ? (new Date(exam.createdAt).toLocaleDateString()) : "--"}</div>
-          </div>
-        </div>
-        <div class="pt-2 pb-3 px-3 flex flex-col items-center">
+        <div class="flex-1 flex flex-col justify-end">
           <button type="button"
-            class="practice-btn w-full bg-gradient-to-tr from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 rounded-2xl font-bold text-white px-7 py-2.5 text-base shadow-lg flex items-center justify-center gap-2 active:scale-95 hover:ring-2 hover:ring-indigo-300 focus:ring"
+            class="practice-btn mb-0"
             data-code="${esc(exam.accessCode)}"
           >
             <i class="fa fa-play-circle mr-1"></i> Practice Now
           </button>
         </div>
       `;
-      // After added: Try to fetch number of questions for this exam set for richer UI
+      // Fetch number of questions for this exam set
       fetchExamQuestionCount(exam._id, card.querySelector('.question-count-ct'));
       // On button: open access.html and prefill
       card.querySelector('.practice-btn').onclick = () => {
