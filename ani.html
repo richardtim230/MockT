@@ -1,424 +1,528 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="bg-slate-900">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CapCut-Like Script Animator Studio</title>
-  <!-- Tailwind (latest) & Flowbite -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Script Animation Studio</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    html[data-theme="dark"] { background: #0e191e; color-scheme: dark; }
-    body {
-      font-family: 'Inter', system-ui, Arial, sans-serif;
-      background: linear-gradient(135deg,#101823 0 60%,#1a3755 100%);
-      min-height: 100vh;
-    }
-    .glass {
-      backdrop-filter: blur(16px) saturate(160%);
-      background: rgba(30,41,59,0.83);
-      border-radius: 1.5rem;
-      box-shadow: 0 8px 36px 0 #17255444, 0 2px 4px #0003;
-      border: 1.5px solid #33415560;
-    }
-    .slide-dot {
-      width: 0.88rem; height:.88rem; border-radius:9999px; margin: 0 3px;
-      background: #334155;
-      border: 2px solid #2563eb44; display:inline-block; transition:.1s;
-      cursor:pointer;
-    }
-    .slide-dot.active { background: #3b82f6; box-shadow: 0 0 5px #38bdf8bb; }
-    .slide-dot:focus { outline:2px solid #2563eb; }
-    .css-loader { border-top-color: #3b82f6; animation:spin 1s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    ::selection { background: #2563eb33; }
+    :root { --studio-accent: #6366F1 }
+    body { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
+    .bg-glass { background: rgba(30, 41, 59, 0.89); backdrop-filter: blur(8px);}
+    .slide-dot {width:.67rem; height:.67rem; border-radius:50%; background:#404; margin:0 .15rem; display:inline-block; opacity:.2; cursor:pointer;}
+    .slide-dot.active {background:var(--studio-accent); opacity:1;}
+    .slide-dot:focus{outline:2px solid var(--studio-accent);}
+    .canvas-thumb {border-radius:.7em; box-shadow:0 4px 10px #0002;}
+    @media (max-width: 768px){ .flex-wrap-lg {flex-wrap: wrap;} }
+    /* Loader */
+    .css-loader {border-top-color: var(--studio-accent); animation: spin 1s linear infinite;}
+    @keyframes spin { to { transform: rotate(360deg);} }
+    .fade-in{ animation:fadeIn 0.7s;}
+    @keyframes fadeIn{from{opacity:0;transform:scale(.985);} to{opacity:1;transform:scale(1);} }
+    /* Dark mode overrides */
+    html.dark body,.dark .bg-glass {background:#1e293b !important; color:#f6f6fa;}
+    .dark input, .dark textarea {background:#262f40; color:#f6f6fa; border-color:#485072;}
+    .dark .slide-dot.active {background:#818cf8;}
+    .dark .btn-primary {background: #6366f1;}
+    .dark .bg-glass {background:rgba(30,41,59,0.97);}
   </style>
 </head>
-<body>
-  <header class="py-6 shadow-lg bg-blue-900/80 glass sticky top-0 z-40">
-    <div class="container mx-auto px-6 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <img src="https://img.icons8.com/clouds/64/000000/animation.png" alt="" class="h-8 w-8">
-        <h1 class="text-2xl font-extrabold tracking-tight text-sky-200">Script Animator Studio</h1>
-        <span class="ml-2 text-xs rounded px-2 bg-sky-900/70 text-sky-100">CapCut-Like • BETA</span>
-      </div>
-      <a href="https://github.com/SamsiKay2024" target="_blank" class="opacity-60 hover:opacity-95 transition underline text-xs">
-        GitHub
-      </a>
-    </div>
-  </header>
-  <main class="container mx-auto flex-1 p-2 sm:p-6">
-    <form id="upload-form"
-      class="glass max-w-2xl mx-auto my-8 p-8 sm:p-12 shadow-2xl space-y-8"
-      autocomplete="off">
-      <h2 class="text-center text-2xl font-bold mb-6 text-sky-100 tracking-wide">1. Import Your Assets</h2>
-      <div>
-        <label class="block font-medium mb-1">👾 Media (images/videos, in order)</label>
-        <div id="dropzone"
-          class="flex items-center border-2 border-dashed border-blue-700/70 rounded-xl bg-sky-900/30 p-6 cursor-pointer hover:bg-sky-800/75 transition">
-          <span class="text-blue-300 text-sm mr-4">Drag &amp; drop or click&nbsp;<span class="underline">to select</span></span>
-          <input type="file" id="images-input" accept="image/*,video/*" multiple hidden required />
-          <div id="thumb-list" class="flex gap-2 ml-4 overflow-x-auto"></div>
-        </div>
-        <small class="block mt-2 text-blue-200">Any mix of PNG, JPG, MP4, WEBP, etc. (order matters)</small>
-      </div>
-      <div>
-        <label class="block font-medium mb-1">📄 Script (TXT, 1 slide per line)</label>
-        <input type="file" id="script-input" accept=".txt" required class="w-full rounded-lg border text-lg p-2 bg-blue-950/60 border-blue-700/60 focus:ring-sky-500 focus:border-sky-400" />
-      </div>
-      <div>
-        <label class="block font-medium mb-1">🎤 Voice Over (optional, audio file):</label>
-        <input type="file" id="audio-input" accept="audio/*" class="w-full rounded-lg border bg-blue-950/60 border-blue-700/60 text-lg p-2" />
-      </div>
-      <div class="flex flex-wrap gap-4 items-center">
-        <label class="font-medium">⏱️ Default Duration:
-          <input id="duration-input" type="number" value="2.5" min="1" max="30" step="0.1"
-            class="ml-1 border w-20 rounded px-2 bg-slate-800/60 border-blue-700/60 text-lg"/>
-        </label>
-        <span class="text-xs text-blue-400 opacity-70">Can fine-tune each slide later</span>
-      </div>
-      <div id="form-warning" class="hidden text-red-300 rounded py-2 px-3 border border-red-600 text-sm font-semibold bg-red-900/40"></div>
-      <button type="submit" class="w-full py-3 bg-gradient-to-tr from-sky-700 via-blue-600 to-sky-800 text-sky-100 font-bold rounded-xl text-lg shadow-lg hover:scale-105 active:scale-95 transition">
-        <span class="mr-2">🎬</span>Start Creating
+<body class="min-h-screen bg-gradient-to-bl from-indigo-900 via-indigo-950 to-slate-900 text-slate-900 dark:text-white transition">
+  <!-- Header -->
+  <header class="sticky top-0 z-30 bg-glass border-b border-slate-700/50 flex items-center px-4 py-2 shadow">
+    <div class="flex items-center gap-2 text-indigo-300 font-bold text-xl"><i class="fa-solid fa-clapperboard"></i> Script Animate Studio</div>
+    <nav class="ml-auto flex gap-3 items-center">
+      <a href="https://github.com/" class="text-indigo-300 hover:text-indigo-100 px-2 text-lg" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+      <button id="darkmode-btn" class="border border-slate-700 rounded px-2 py-1 bg-gradient-to-br from-slate-800 to-slate-900 text-indigo-300 hover:bg-slate-800 transition flex items-center gap-1" title="Toggle Dark Mode">
+        <i class="fa-solid fa-moon"></i>
       </button>
+    </nav>
+  </header>
+  <main class="container mx-auto max-w-4xl px-2 py-5">
+    <!-- Controls Card -->
+    <form id="upload-form" class="bg-glass shadow-xl rounded-xl p-8 md:p-10 mt-10 mx-auto space-y-6">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2 flex items-center gap-2 text-indigo-100"><i class="fa-solid fa-magic"></i> New Project</h2>
+      <!-- Dropzone -->
+      <div>
+        <label class="font-medium mb-2 flex items-center gap-2 text-indigo-200">📦 Media files (Images/Videos, drag to reorder)
+          <span class="ml-2 px-2 py-1 rounded text-indigo-200 text-xs font-mono bg-slate-800">All slides must match script lines</span>
+        </label>
+        <div id="dropzone" class="group border-2 border-dashed border-indigo-500/70 rounded-lg bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 hover:bg-indigo-900 grid place-items-center py-7 px-2 text-indigo-200 text-sm text-center cursor-pointer ring-0 hover:ring-2 hover:ring-indigo-500/30 outline-none focus:ring-2 focus:ring-indigo-500 select-none transition relative" tabindex="0">
+          <span><i class="fa-solid fa-upload"></i> Drop images or videos here, or click to select</span>
+          <input type="file" id="images-input" accept="image/*,video/*" multiple required class="hidden"/>
+        </div>
+        <div id="file-thumb-list" class="flex flex-wrap-lg items-center gap-3 mt-3"></div>
+      </div>
+      <div>
+        <label class="flex items-center gap-2 font-medium mb-1 text-indigo-200">💬 Script File (1 line per slide)
+          <span class="text-xs text-slate-300 ml-2">txt only, or paste/edit lines below</span>
+        </label>
+        <input type="file" id="script-input" accept=".txt" class="border border-slate-800 rounded px-3 py-2 bg-slate-900 text-white w-full block"/>
+        <textarea id="script-editor" class="mt-3 block w-full px-3 py-2 border border-slate-700 rounded min-h-[80px] bg-slate-900 text-white resize-y" placeholder="1 slide per line..." rows="3"></textarea>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <div class="flex-1">
+          <label class="font-medium mb-1 text-indigo-200">🎤 Optional Voice-over (MP3, WAV, etc)</label>
+          <input type="file" id="audio-input" accept="audio/*" class="border border-slate-800 rounded px-2 py-1 block bg-slate-900 text-white"/>
+        </div>
+        <div>
+          <label class="font-medium mb-1 text-indigo-200">⏱️ Default Slide Duration (sec)</label>
+          <input type="number" id="duration-input" class="border border-slate-800 rounded px-2 w-24 bg-slate-900 text-indigo-100" min="1" max="60" step="0.1" value="2.5">
+        </div>
+      </div>
+      <div id="upload-warning" class="rounded bg-indigo-900/80 px-3 py-2 mt-2 text-indigo-200 text-sm hidden"></div>
+      <button type="submit" class="btn-primary bg-gradient-to-br from-indigo-700 to-violet-900 hover:from-indigo-600 hover:to-violet-800 transition text-white px-7 py-2 font-bold rounded shadow">🚀 Start Editing</button>
     </form>
 
-    <!-- Main Animation Studio Area -->
-    <section id="studio-main" class="hidden mt-10">
-      <div class="glass mx-auto p-7 md:p-10 max-w-4xl flex flex-col gap-6 shadow-2xl relative">
-        <h2 class="text-lg sm:text-xl font-bold text-sky-50 tracking-wide mb-2">2. Preview &amp; Edit <span class="hidden md:inline text-slate-400 font-normal text-base ml-4">[arrow keys = slide, Shift+←/→ = jump]</span></h2>
-        <div class="flex flex-col md:flex-row items-stretch gap-8">
-          <!-- Slide area: image OR video, loading, overlay text -->
-          <div class="relative md:mr-4">
-            <img id="display-image" src="" class="rounded-2xl shadow-xl object-contain w-[340px] h-[340px] max-w-full max-h-[70vw] bg-blue-800/70 transition duration-300 hidden" alt="Slide image"/>
-            <video id="display-video" class="rounded-2xl shadow-xl object-contain w-[340px] h-[340px] max-w-full bg-blue-800/70 transition duration-300 hidden"
-              controls></video>
-            <div id="slide-loader" class="absolute inset-0 flex items-center justify-center pointer-events-none hidden">
-              <div class="w-14 h-14 border-4 border-blue-200 rounded-full css-loader"></div>
-            </div>
-            <div class="absolute left-0 top-2 right-0 flex justify-between items-center px-2 pointer-events-none">
-              <span id="slide-number" class="rounded bg-sky-900/80 px-2 py-1 text-xs font-bold text-sky-200" style="letter-spacing:0.05em"></span>
-              <span id="slide-tags" class="rounded bg-sky-900/70 px-2 py-1 text-xs text-sky-400"></span>
-            </div>
-          </div>
-          <!-- Slide controls/edits -->
-          <div class="flex-1 min-w-[230px] flex flex-col gap-4">
-            <label class="font-semibold mb-1 text-sky-100" for="slide-script">Script</label>
-            <textarea id="slide-script" class="w-full rounded-lg border text-base px-3 py-2 border-blue-700/60 bg-blue-950/60 text-sky-100 focus:ring-sky-500 focus:border-sky-400"
-                      rows="3" spellcheck="false"></textarea>
-            <div class="flex flex-wrap gap-4 items-end">
-              <div>
-                <label class="text-xs">Duration (s)</label>
-                <input id="slide-duration" type="number" min="1" max="30" step="0.1"
-                       class="border border-blue-800/50 bg-blue-950/60 text-lg rounded px-2 w-20" />
-              </div>
-              <div>
-                <label class="text-xs">Transition</label>
-                <select id="slide-transition" class="border border-blue-800/50 bg-blue-950/60 rounded text-base px-2 w-28">
-                  <option value="fade">Fade</option>
-                  <option value="slide">Slide</option>
-                  <option value="none">None</option>
-                </select>
-              </div>
-            </div>
-            <audio id="voiceover" controls class="w-full mt-2 rounded bg-blue-950/70 hidden"></audio>
-            <div class="flex items-center flex-wrap gap-3 mt-4">
-              <button id="prev-btn" class="btn-secondary border px-3 py-1 rounded hover:bg-slate-700 font-medium text-sky-100 bg-slate-800/70">◀ Previous</button>
-              <button id="next-btn" class="btn-secondary border px-3 py-1 rounded hover:bg-slate-700 font-medium text-sky-100 bg-slate-800/70">Next ▶</button>
-              <button id="play-btn" class="btn-primary border px-4 py-1 rounded font-semibold text-blue-50 bg-blue-700 hover:bg-blue-800 shadow mr-1">▶ Play All</button>
-              <button id="stop-btn" class="border px-4 py-1 rounded text-sky-200 bg-slate-700 font-semibold hover:bg-slate-800" type="button">Stop</button>
-              <span id="playing-indicator" class="ml-3 text-sky-400 font-mono text-base hidden">Playing...</span>
-              <button id="export-btn" type="button"
-                class="ml-auto px-5 py-2 rounded-xl bg-gradient-to-r from-sky-700 via-blue-700 to-sky-900 shadow text-lg font-bold text-blue-100 hover:scale-105 transition">
-                💾 Export Video
-              </button>
-            </div>
-          </div>
+    <!-- Animation Edit/Preview Area -->
+    <section id="anim-area" class="hidden mt-12 bg-glass shadow-2xl rounded-2xl px-2 pb-8 pt-6 sm:px-10 fade-in">
+      <div class="flex justify-between items-center mb-5">
+        <h3 class="text-xl font-semibold text-indigo-100 flex items-center gap-2"><i class="fa-solid fa-film"></i> Slide Editor</h3>
+        <div class="flex gap-2 items-center">
+          <button id="export-btn" class="btn-primary px-4 py-2 rounded bg-indigo-700 hover:bg-indigo-800 text-white font-bold shadow-sm flex items-center gap-2"><i class="fa-solid fa-download"></i><span>Export Video</span></button>
+          <button id="restart-btn" class="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 shadow-sm ml-3" title="New Project"><i class="fa-solid fa-arrow-rotate-left"></i></button>
         </div>
-        <!-- Timeline/indicator -->
-        <div id="timeline"
-             class="flex items-center justify-center mt-4 mb-2 gap-0.5 flex-wrap select-none">
-          <!-- Slide dots will be created here -->
+      </div>
+      <!-- Timeline -->
+      <div class="flex items-center gap-4 mb-5">
+        <div id="slide-timeline" class="flex flex-1 items-center gap-1"></div>
+        <div class="min-w-32 w-fit hidden md:flex gap-3 text-indigo-200 font-semibold items-baseline ml-2">
+          <span id="slide-idx-label">Slide 1 / N</span>
+        </div>
+      </div>
+      <!-- Slide+controls -->
+      <div class="flex flex-wrap gap-12 justify-between">
+        <!-- Preview media -->
+        <div class="flex flex-col items-center max-w-lg w-full">
+          <div class="relative">
+            <img id="display-image" src="" class="w-[410px] h-[410px] max-w-full max-h-[60vw] rounded-xl border border-slate-800 shadow-xl bg-black fade-in transition hidden" alt="Slide preview"/>
+            <video id="display-video" class="w-[410px] h-[410px] max-w-full max-h-[60vw] rounded-xl border border-slate-800 shadow-xl bg-black fade-in transition hidden" controls></video>
+            <div id="preview-loader" class="absolute inset-0 flex items-center justify-center hidden fade-in"><div class="w-12 h-12 border-4 border-indigo-200 rounded-full css-loader"></div></div>
+          </div>
+          <audio id="voiceover" controls class="w-full mt-5 rounded shadow hidden"></audio>
+        </div>
+        <!-- Slide controls -->
+        <div class="min-w-[260px] w-fit flex-1">
+          <div class="mb-4">
+            <label class="font-semibold">Script for this Slide</label>
+            <textarea id="slide-script" rows="3" class="block w-full p-2 border border-slate-700 rounded bg-slate-900 text-indigo-100 mt-3 resize-y"></textarea>
+          </div>
+          <div class="flex gap-4 mb-3">
+            <div>
+              <label class="text-xs">Duration (s)</label>
+              <input id="slide-duration" type="number" min="1" max="60" step="0.1" class="border border-slate-700 rounded p-1 w-20 bg-slate-900 text-indigo-100"/>
+            </div>
+            <div>
+              <label class="text-xs">Transition</label>
+              <select id="slide-transition" class="border border-slate-700 rounded p-1 w-24 bg-slate-900 text-indigo-100">
+                <option value="fade">Fade</option>
+                <option value="slide">Slide</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+          </div>
+          <!-- Player controls -->
+          <div class="flex flex-wrap gap-3 items-center mb-3 mt-3">
+            <button class="btn-secondary font-bold px-5 py-1 rounded bg-slate-800 text-indigo-200 hover:bg-indigo-700 transition" id="prev-btn"><i class="fa-solid fa-arrow-left"></i> Prev</button>
+            <button class="btn-secondary font-bold px-5 py-1 rounded bg-slate-800 text-indigo-200 hover:bg-indigo-700 transition" id="next-btn">Next <i class="fa-solid fa-arrow-right"></i></button>
+            <button class="btn-primary font-bold px-5 py-1 rounded bg-indigo-700 hover:bg-indigo-800 text-white transition" id="play-btn"><i class="fa-solid fa-play"></i> Play All</button>
+            <button class="btn-secondary font-bold px-5 py-1 rounded bg-slate-900 text-indigo-400" id="stop-btn" type="button"><i class="fa-solid fa-stop"></i></button>
+            <span id="playing-indicator" class="ml-2 text-indigo-300 hidden">Playing...</span>
+          </div>
         </div>
       </div>
     </section>
-    <!-- Result: Download as video -->
-    <div id="render-result" class="hidden mt-10 flex flex-col items-center space-y-4">
-      <div class="w-full flex justify-center mb-2">
-        <video id="rendered-video" controls class="rounded shadow-lg w-[370px] max-w-full"></video>
+    <!-- Video Export/Result -->
+    <div id="render-result" class="hidden mt-12 flex flex-col items-center fade-in">
+      <div class="w-full flex justify-center mb-5">
+        <video id="rendered-video" controls class="bg-black rounded-xl shadow-2xl border border-slate-800 w-[420px] max-w-full"></video>
       </div>
       <a id="download-link" download="script-animation.mp4"
-         class="bg-sky-700 text-sky-50 px-6 py-3 rounded-xl font-semibold text-lg shadow-lg hover:scale-105 transition"
+         class="bg-gradient-to-r from-indigo-600 to-violet-800 text-white px-5 py-2 rounded font-semibold text-lg shadow-2xl hover:bg-indigo-800 transition"
          href="#" style="display:none">⬇️ Download Video</a>
+      <button id="edit-more-btn" class="mt-6 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-indigo-200 rounded shadow"><i class="fa-solid fa-arrow-left"></i> Back to Edit</button>
     </div>
-    <!-- Overlay: render spinner -->
-    <div id="render-spinner" class="fixed z-[10000] top-0 left-0 w-full h-full flex items-center justify-center bg-[#0a1725cc] hidden">
-      <div class="glass flex flex-col items-center p-10 shadow-xl">
-        <div class="w-14 h-14 border-4 border-blue-200 rounded-full css-loader mb-5"></div>
-        <div class="text-lg font-extrabold text-sky-100 text-center tracking-wide">Rendering high quality video…<br/>It may take a minute. Please wait…</div>
+    <!-- Spinner during export -->
+    <div id="render-spinner" class="fixed z-40 top-0 left-0 w-full h-full flex items-center justify-center bg-slate-900/80 hidden">
+      <div class="bg-slate-950/90 p-8 shadow-lg rounded-2xl flex flex-col items-center">
+        <div class="w-14 h-14 border-4 border-indigo-400 rounded-full css-loader mb-4"></div>
+        <div class="text-lg font-semibold text-indigo-300 flex gap-2 items-center mb-2"><i class="fa-solid fa-download"></i> Rendering video...</div>
+        <div id="render-progress" class="text-slate-300 text-base w-full mt-3 text-center"></div>
       </div>
     </div>
   </main>
-  <footer class="mt-10 mb-2 text-center text-sm text-sky-300/60">© 2026 Script Animator Studio</footer>
+  <footer class="text-center mt-12 text-xs text-slate-500 dark:text-indigo-300">© 2026 Script Animate Studio &nbsp;|&nbsp; MIT License</footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-  <!-- FFmpeg WASM for "export as video" -->
   <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.9/dist/ffmpeg.min.js"></script>
   <script>
-    // ========== APP STATE
-    let slides = [], audioUrl = "", current=0, autoPlaying=false, audioElement=null, autoAdvanceInt=null;
-    // ========== UI ELEMENTS
-    const dropzone = document.getElementById('dropzone'), imageInput = document.getElementById('images-input');
-    const thumbList = document.getElementById('thumb-list'), scriptInput = document.getElementById('script-input');
-    const audioInput = document.getElementById('audio-input'), durationInput = document.getElementById('duration-input');
-    const form = document.getElementById('upload-form'), warning = document.getElementById('form-warning');
-    const studioArea = document.getElementById('studio-main');
-    const displayImg = document.getElementById('display-image'), displayVideo = document.getElementById('display-video');
-    const slideLoader = document.getElementById('slide-loader'), slideNumber = document.getElementById('slide-number'), slideTags = document.getElementById('slide-tags');
-    const slideScript = document.getElementById('slide-script'), slideDuration = document.getElementById('slide-duration'), slideTransition = document.getElementById('slide-transition');
-    const voiceover = document.getElementById('voiceover'), prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn');
-    const playBtn = document.getElementById('play-btn'), stopBtn = document.getElementById('stop-btn'), playingIndicator = document.getElementById('playing-indicator');
-    const timeline = document.getElementById('timeline'), exportBtn = document.getElementById('export-btn');
-    const renderResult = document.getElementById('render-result'), renderedVideo = document.getElementById('rendered-video'), downloadLink = document.getElementById('download-link');
+    // --- Theme: dark mode toggle ---
+    const darkBtn = document.getElementById('darkmode-btn');
+    const root = document.documentElement;
+    function setDark(flag){
+      root.classList.toggle('dark',flag);
+      localStorage.setItem("studio_dark", flag?"1":"0");
+      darkBtn.innerHTML = flag ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+    }
+    setDark(localStorage.getItem("studio_dark")==="1" || (window.matchMedia("(prefers-color-scheme: dark)").matches));
+    darkBtn.onclick = ()=> setDark(!root.classList.contains("dark"));
+
+    // --- Elements
+    const dropzone = document.getElementById('dropzone');
+    const imageInput = document.getElementById('images-input');
+    const scriptInput = document.getElementById('script-input');
+    const scriptEditor = document.getElementById('script-editor');
+    const audioInput = document.getElementById('audio-input');
+    const durationInput = document.getElementById('duration-input');
+    const thumbList = document.getElementById('file-thumb-list');
+    const form = document.getElementById('upload-form');
+    const warning = document.getElementById('upload-warning');
+    const animArea = document.getElementById('anim-area');
+    const displayImg = document.getElementById('display-image');
+    const displayVideo = document.getElementById('display-video');
+    const previewLoader = document.getElementById('preview-loader');
+    const voiceover = document.getElementById('voiceover');
+    const playBtn = document.getElementById('play-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const slideScript = document.getElementById('slide-script');
+    const slideDuration = document.getElementById('slide-duration');
+    const slideTransition = document.getElementById('slide-transition');
+    const slideTimeline = document.getElementById('slide-timeline');
+    const slideIdxLabel = document.getElementById('slide-idx-label');
+    const playingIndicator = document.getElementById('playing-indicator');
+    const renderResult = document.getElementById('render-result');
+    const renderedVideo = document.getElementById('rendered-video');
+    const downloadLink = document.getElementById('download-link');
     const renderSpinner = document.getElementById('render-spinner');
-    // ========== DRAG & DROP + THUMBNAILS
+    const renderProgress = document.getElementById('render-progress');
+    const exportBtn = document.getElementById('export-btn');
+    const editMoreBtn = document.getElementById('edit-more-btn');
+    const restartBtn = document.getElementById('restart-btn');
+
+    // --- Drag & Drop, Thumbnails, Reordering ---
+    let dragging = null;
     dropzone.addEventListener('click', ()=> imageInput.click());
-    dropzone.addEventListener('dragover', e=>{e.preventDefault();dropzone.classList.add('bg-blue-900/80');});
-    dropzone.addEventListener('dragleave', e=>{e.preventDefault();dropzone.classList.remove('bg-blue-900/80');});
+    dropzone.addEventListener('dragover', e=>{e.preventDefault(); dropzone.classList.add('ring-4','ring-indigo-400');});
+    dropzone.addEventListener('dragleave', ()=> dropzone.classList.remove('ring-4','ring-indigo-400'));
     dropzone.addEventListener('drop', (e)=>{
-      e.preventDefault();
-      dropzone.classList.remove('bg-blue-900/80');
+      e.preventDefault(); dropzone.classList.remove('ring-4','ring-indigo-400');
       imageInput.files = e.dataTransfer.files;
       showThumbs(imageInput.files);
     });
     imageInput.addEventListener('change', ()=> showThumbs(imageInput.files));
-    function showThumbs(files) {
-      thumbList.innerHTML = '';
-      Array.from(files).forEach(f=>{
-        const type = f.type.startsWith('video') ? 'video' : 'image';
+
+    // Show ordered thumbnails with drag-to-reorder
+    function showThumbs(files){
+      thumbList.innerHTML="";
+      Array.from(files).forEach((f,i)=>{
         const url = URL.createObjectURL(f);
-        let el = document.createElement(type==='image'?'img':'video');
-        el.src = url; el.className = 'rounded-lg border border-slate-900 w-11 h-11 object-cover shadow-sm'; el.title = f.name;
-        el.tabIndex=-1;
-        if(type==="video") {el.muted = true; el.loop=true; el.autoplay=true;}
+        const type = f.type.startsWith('video') ? 'video' : 'image';
+        let el = document.createElement(type==="image"?"img":"video");
+        el.src=url;
+        el.className="canvas-thumb w-14 h-14 object-cover border-2 border-slate-800";
+        el.setAttribute('draggable',"true");
+        el.setAttribute('data-idx',i);
+        el.title = f.name;
+        el.ondragstart=ev=>{dragging=i;};
+        el.ondragover=ev=>{ev.preventDefault();};
+        el.ondrop=ev=>{
+          ev.preventDefault();
+          let to = Number(ev.target.getAttribute("data-idx"));
+          reorderFiles(i, to);
+          showThumbs(files);
+        };
         thumbList.appendChild(el);
       });
     }
-    // ========== FORM UPLOAD & VALIDATION
+    function reorderFiles(a,b){
+      if(a==b) return;
+      // Modify imageInput.files ordering
+      const dt = new DataTransfer();
+      let arr = Array.from(imageInput.files);
+      const [moved] = arr.splice(a,1);
+      arr.splice(b,0,moved);
+      arr.forEach(f=>dt.items.add(f));
+      imageInput.files = dt.files;
+    }
+
+    // --- Script upload/load into editable area
+    scriptInput.addEventListener('change', async ()=>{
+      if(!scriptInput.files.length) return;
+      try{
+        let txt = await scriptInput.files[0].text();
+        scriptEditor.value = txt.trim();
+      }catch{ scriptEditor.value = ""; }
+    });
+
+    // --- App State
+    let slides = [];
+    let audioUrl = "";
+    let current = 0;
+    let autoPlaying = false;
+    let audioElement = null;
+    let autoAdvanceInterval = null;
+
+    // --- Form upload/validation
     form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      warning.classList.add('hidden');
-      slides=[];  renderResult.classList.add('hidden');
+      e.preventDefault(); warning.classList.add('hidden');
+      slides = [];
       const files = Array.from(imageInput.files);
-      if(!files.length){showWarn('Please select media files.');return;}
-      let scriptLines=[];
-      if (!scriptInput.files.length) { showWarn('Script .txt is required.'); return; }
-      try {
-        scriptLines = (await scriptInput.files[0].text()).split('\n').map(s=>s.trim()).filter(Boolean);
-      } catch { showWarn("Can't read script file."); return; }
-      if(files.length !== scriptLines.length) { showWarn(`Media (${files.length}) ≠ Script lines (${scriptLines.length}). Check import order!`);return;}
-      let defaultDur = Number(durationInput.value)||2.5;
-      slides = files.map((file,i)=>{
-        const type = file.type.startsWith("video")? "video":"image";
-        return { type, file, url:URL.createObjectURL(file), script: scriptLines[i], duration: defaultDur, transition:"fade"};
-      });
+      if(!files.length){ showWarn('Select or drag images or videos.'); return; }
+      let scriptLines = scriptEditor.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+      if (!scriptLines.length) { showWarn('Script text is empty. Paste or upload .txt!'); return; }
+      if(files.length !== scriptLines.length) {
+        showWarn(`Slides (${files.length}) and script lines (${scriptLines.length}) count mismatch.`); return;
+      }
+      let defaultDur = Number(durationInput.value) || 2.5;
+      slides = files.map((file,i)=>({
+        type: file.type.startsWith("video")? "video":"image",
+        file, url: URL.createObjectURL(file),
+        script: scriptLines[i],
+        duration: defaultDur,
+        transition: "fade"
+      }));
       // Audio
       if(audioInput.files.length){
         audioUrl = URL.createObjectURL(audioInput.files[0]);
-        voiceover.src = audioUrl; voiceover.classList.remove('hidden');
-      } else { audioUrl = "";voiceover.classList.add('hidden');}
+        voiceover.src = audioUrl;
+        voiceover.classList.remove('hidden');
+      } else {
+        audioUrl = ""; voiceover.classList.add('hidden');
+      }
+      animArea.classList.remove('hidden');
+      renderResult.classList.add("hidden");
       current=0;
-      studioArea.classList.remove('hidden');
-      renderTimeline(); renderSlide();
-      stopAutoPlay();
-      scrollIntoStudio();
+      renderSlide(); renderTimeline(); stopAutoPlay();
+      scrollTo(0, animArea.offsetTop-20);
     });
-    function showWarn(msg){ warning.textContent=msg;warning.classList.remove('hidden'); }
-    function scrollIntoStudio() { setTimeout(()=>{studioArea.scrollIntoView({behavior:'smooth'});}, 300);}
-    // ========== SLIDE RENDER & CONTROLS
+    function showWarn(msg){ warning.textContent = msg; warning.classList.remove('hidden'); }
+
+    // --- Timeline/navigation
     function renderTimeline(){
-      timeline.innerHTML = "";
+      slideTimeline.innerHTML="";
       slides.forEach((s,i)=>{
         let dot = document.createElement('span');
         dot.className = 'slide-dot'+(i===current?' active':'');
-        dot.title = 'Slide '+(i+1); dot.tabIndex=0;
-        dot.onclick = ()=>{current=i;renderSlide();renderTimeline();};
-        dot.onkeydown = e=>{ if([' ','Enter'].includes(e.key)) {current=i;renderSlide();renderTimeline();}};
-        timeline.appendChild(dot);
+        dot.tabIndex=0; dot.title="Go to Slide "+(i+1);
+        dot.onclick=()=>{current=i;renderSlide(); renderTimeline();};
+        dot.onkeydown=e=>{ if(e.key===" "||e.key==="Enter"){current=i;renderSlide();renderTimeline();} };
+        slideTimeline.appendChild(dot);
       });
+      slideIdxLabel.textContent = `Slide ${current+1} / ${slides.length}`;
     }
+
+    // --- Slide navigation, editing
     function renderSlide(){
-      if(!slides.length) return;
       const s = slides[current];
-      slideLoader.classList.remove('hidden');
+      previewLoader.classList.remove('hidden');
       displayImg.classList.add('hidden'); displayVideo.classList.add('hidden');
-      setTimeout(async()=>{
+      setTimeout(()=>{
         if(s.type==="image"){
-          displayImg.src = s.url; displayImg.classList.remove('hidden');
-          displayVideo.pause();displayVideo.src="";displayVideo.classList.add('hidden');
+          displayImg.src=s.url;
+          displayImg.classList.remove('hidden','fade-in');
+          void displayImg.offsetWidth; displayImg.classList.add('fade-in');
+          displayVideo.pause(); displayVideo.currentTime=0;
         }else{
-          displayVideo.src = s.url;displayVideo.classList.remove('hidden');
+          displayVideo.src=s.url;
+          displayVideo.classList.remove('hidden','fade-in');
+          void displayVideo.offsetWidth; displayVideo.classList.add('fade-in');
           displayImg.src=""; displayImg.classList.add('hidden');
         }
         slideScript.value = s.script;
         slideDuration.value = s.duration;
         slideTransition.value = s.transition;
-        slideNumber.textContent = `Slide ${current+1}/${slides.length}`;
-        slideTags.textContent = s.type.charAt(0).toUpperCase()+s.type.substr(1)+" / "+(s.transition.charAt(0).toUpperCase()+s.transition.substr(1));
-        slideLoader.classList.add('hidden');
-      }, 120);
+        previewLoader.classList.add('hidden');
+      },180);
     }
-    // On edits
-    slideScript.addEventListener('blur', ()=>{ slides[current].script=slideScript.value; });
-    slideDuration.addEventListener('blur', ()=>{ slides[current].duration=Number(slideDuration.value)||2.5; });
-    slideTransition.addEventListener('change', ()=>{ slides[current].transition=slideTransition.value; });
-
-    prevBtn.onclick = ()=>{ if(current>0){current--;renderSlide();renderTimeline();}};
     nextBtn.onclick = ()=>{ if(current<slides.length-1){current++;renderSlide();renderTimeline();}};
-    // Keyboard navigation
-    document.addEventListener('keydown',(e)=>{
-      if(studioArea.classList.contains('hidden')) return;
-      if(document.activeElement.tagName==='TEXTAREA'||document.activeElement.tagName==='INPUT') return;
-      if(e.key==="ArrowRight") nextBtn.click();
-      if(e.key==="ArrowLeft") prevBtn.click();
-      if((e.shiftKey)&&e.key==="ArrowRight") { current = Math.min(current+3,slides.length-1); renderSlide(); renderTimeline();}
-      if((e.shiftKey)&&e.key==="ArrowLeft") { current = Math.max(current-3,0); renderSlide(); renderTimeline();}
-    });
+    prevBtn.onclick = ()=>{if(current>0){current--;renderSlide();renderTimeline();}};
+    slideScript.addEventListener('blur', ()=>{slides[current].script=slideScript.value;});
+    slideDuration.addEventListener('blur', ()=>{slides[current].duration=Number(slideDuration.value)||2.5;});
+    slideTransition.addEventListener('change', ()=>{slides[current].transition=slideTransition.value;});
 
-    // ========== PLAYER
-    playBtn.onclick = ()=>{
+    // --- Player
+    playBtn.onclick=()=>{
       if(autoPlaying){ stopAutoPlay(); return;}
-      autoPlaying = true; playBtn.textContent="⏸️ Pause"; playingIndicator.classList.remove('hidden');
+      autoPlaying=true; playBtn.innerHTML='<i class="fa-solid fa-pause"></i> Pause'; playingIndicator.classList.remove('hidden');
       if(audioUrl) autoPlayWithVoiceOver();
       else autoPlayScript();
     };
-    stopBtn.onclick = ()=> stopAutoPlay();
+    stopBtn.onclick=()=> stopAutoPlay();
     function autoPlayScript(){
-      current=0;renderSlide();renderTimeline();
-      function step(){
-        if(!autoPlaying)return;
-        const d=slides[current].duration||2.5;
-        setTimeout(()=>{
-          if(!autoPlaying)return;
-          if(current<slides.length-1){current++;renderSlide();renderTimeline();step();}
-          else stopAutoPlay();
-        }, d*1000);
+      current=0; renderSlide(); renderTimeline();
+      function advance(){
+        if(!autoPlaying) return;
+        if(current<slides.length-1){
+          setTimeout(()=>{
+            if(!autoPlaying) return;
+            current++;renderSlide();renderTimeline(); advance();
+          }, (slides[current].duration||2.5)*1000);
+        }else setTimeout(stopAutoPlay, (slides[current].duration||2.5)*1000);
       }
-      step();
+      advance();
     }
     function stopAutoPlay(){
-      autoPlaying = false; playBtn.textContent="▶ Play All"; playingIndicator.classList.add('hidden');
-      if(autoAdvanceInt) clearInterval(autoAdvanceInt);
-      if(audioElement) { audioElement.pause(); audioElement = null;}
-      displayVideo.pause();displayVideo.currentTime=0;
+      autoPlaying=false; playBtn.innerHTML='<i class="fa-solid fa-play"></i> Play All'; playingIndicator.classList.add('hidden');
+      if(autoAdvanceInterval) clearInterval(autoAdvanceInterval);
+      if(audioElement){audioElement.pause();audioElement=null;}
+      displayVideo.pause(); displayVideo.currentTime=0;
     }
     function autoPlayWithVoiceOver(){
-      audioElement = new Audio(audioUrl); autoPlaying=true;
-      audioElement.onloadedmetadata = ()=>{
-        let total = audioElement.duration, unit = total/slides.length;
-        let idx=0;current=idx;renderSlide();renderTimeline();
+      audioElement=new Audio(audioUrl);
+      audioElement.onloadedmetadata=()=>{
+        let total=audioElement.duration, unit=total/slides.length;
+        let idx=0; current=idx; renderSlide(); renderTimeline();
         audioElement.play();
-        autoAdvanceInt = setInterval(()=>{
-          if(!autoPlaying) {stopAutoPlay();return;}
+        autoAdvanceInterval = setInterval(()=>{
+          if(!autoPlaying){ stopAutoPlay(); return;}
           idx++;
           if(idx<slides.length){current=idx;renderSlide();renderTimeline();}
-          else {clearInterval(autoAdvanceInt);}
+          else{clearInterval(autoAdvanceInterval);}
         }, unit*1000);
         audioElement.onended = stopAutoPlay;
       };
-      audioElement.onerror = ()=>{ stopAutoPlay(); showWarn('Audio load error.');};
+      audioElement.onerror=()=>{stopAutoPlay(); showWarn("Audio error.");};
     }
-    // ========== EXPORT AS VIDEO (FFMPEG WASM)
-    let ffmpegLoaded = false;
+    document.addEventListener('keydown',e=>{
+      if(animArea.classList.contains('hidden')) return;
+      if(e.target.tagName==='TEXTAREA'||e.target.tagName==='INPUT') return;
+      if(e.key==="ArrowRight") nextBtn.click();
+      if(e.key==="ArrowLeft") prevBtn.click();
+    });
+
+    // --- Video Export (ffmpeg.wasm)
+    let ffmpegLoaded=false;
     const {createFFmpeg, fetchFile} = FFmpeg;
-    const ffmpeg = createFFmpeg({log: false, corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.4/dist/ffmpeg-core.js'});
-    exportBtn.onclick = async () => {
-      renderSpinner.classList.remove('hidden'); renderResult.classList.add('hidden'); downloadLink.style.display="none";
-      try {
-        // 1. Load ffmpeg
-        if (!ffmpegLoaded) { await ffmpeg.load(); ffmpegLoaded = true; }
-        // 2. Canvas frames for each slide
-        const framerate = 30, width=720, height=720;
-        const c = document.createElement('canvas'); c.width=width;c.height=height; const ctx=c.getContext('2d');
-        let imageFiles=[];
+    const ffmpeg = createFFmpeg({log:true, corePath:"https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.4/dist/ffmpeg-core.js"});
+    exportBtn.onclick = async ()=>{
+      if(!slides.length) return;
+      stopAutoPlay();
+      renderSpinner.classList.remove('hidden');
+      renderProgress.textContent = "Loading video engine...";
+      renderResult.classList.add('hidden');
+      downloadLink.style.display="none";
+      try{
+        if(!ffmpegLoaded){ await ffmpeg.load(); ffmpegLoaded=true; }
+        renderProgress.textContent = "Rendering slides...";
+        const width=1024, height=1024;
+        const c = document.createElement('canvas'); c.width=width; c.height=height; 
+        const ctx = c.getContext('2d');
+        // For each slide: paint, overlay text, and write PNG to ffmpeg FS
         for(let i=0;i<slides.length;++i){
-          ctx.fillStyle="#101929";ctx.fillRect(0,0,width,height);
+          ctx.fillStyle="#151823"; ctx.fillRect(0,0,width,height);
           if(slides[i].type==="image"){
             await new Promise(resolve=>{
-              const img = new Image(); img.onload=()=>{
-                let scale=Math.min(width/img.width,height/img.height);
-                let iw=img.width*scale, ih=img.height*scale;
-                ctx.drawImage(img,(width-iw)/2,(height-ih)/2,iw,ih);
+              const img = new Image();
+              img.onload=()=>{
+                let scale = Math.min(width/img.width,height/img.height);
+                let w=img.width*scale, h=img.height*scale;
+                ctx.drawImage(img,(width-w)/2,(height-h)/2,w,h);
                 resolve();
-              }; img.src=slides[i].url;
+              }; img.src = slides[i].url;
             });
           }else{
             await new Promise(resolve=>{
               const video = document.createElement('video');
-              video.src = slides[i].url; video.muted=true;video.currentTime=0;
-              video.addEventListener('seeked',()=>{
-                ctx.drawImage(video,0,0,width,height); resolve();});
-              video.addEventListener('loadeddata',()=>{video.currentTime=0;});
+              video.src=slides[i].url; video.muted=true;
+              video.crossOrigin="anonymous";
+              video.oncanplay = ()=>{video.currentTime=0;};
+              video.onseeked=()=>{
+                ctx.drawImage(video,0,0,width,height);
+                resolve();
+              };
+              video.onerror=()=>resolve();
             });
           }
-          // Text overlay
-          ctx.font = "bold 38px Inter,Arial,sans-serif";
-          ctx.textAlign="center";ctx.fillStyle="#fff";ctx.shadowColor="#111";ctx.shadowBlur=8;
-          let lines = slides[i].script.trim().split(/\n/);
-          let y0 = height-80-(lines.length-1)*46/2;
-          for(let k=0;k<lines.length;++k)
-            ctx.fillText(lines[k],width/2,y0+k*46);
+          ctx.font=`700 54px 'Inter','Arial',sans-serif`;
+          ctx.textAlign='center'; ctx.fillStyle="#fff";
+          ctx.shadowColor="#1e293b"; ctx.shadowBlur=6;
+          ctx.lineWidth = 3;
+          const lines = slides[i].script.trim().split(/\r?\n/);
+          let lineOffset=(lines.length-1)*40;
+          for(let l=0;l<lines.length;++l)
+            ctx.fillText(lines[l], width/2, height-110-lineOffset+80*l);
           ctx.shadowBlur=0;
-          // PNG to ffmpeg FS
-          const dataUrl = c.toDataURL('image/png');
-          const bin = atob(dataUrl.split(',')[1]);
-          const arr = new Uint8Array(bin.length); for (let l = 0; l < bin.length; ++l) arr[l] = bin.charCodeAt(l);
-          const filename = `slide${i.toString().padStart(3,'0')}.png`;
-          ffmpeg.FS("writeFile",filename,arr);
-          imageFiles.push({name: filename, duration: slides[i].duration||2.5 });
+          const dataUrl=c.toDataURL('image/png');
+          const bin=atob(dataUrl.split(',')[1]);
+          const arr=new Uint8Array(bin.length);
+          for(let k=0;k<bin.length;++k) arr[k]=bin.charCodeAt(k);
+          const fname=`slide${i.toString().padStart(3,'0')}.png`;
+          ffmpeg.FS('writeFile', fname, arr);
           ctx.clearRect(0,0,width,height);
+          renderProgress.textContent = `Processed slide ${i+1} / ${slides.length}`;
         }
-        // input.txt
+        // Create input.txt for concat/duration
         let concatFile = "";
-        for(let i=0;i<imageFiles.length;++i){
-          concatFile += `file '${imageFiles[i].name}'\n`;
-          concatFile += `duration ${imageFiles[i].duration}\n`;
+        for(let i=0;i<slides.length;++i){
+          concatFile += `file 'slide${i.toString().padStart(3,'0')}.png'\n`;
+          concatFile += `duration ${slides[i].duration || 2.5}\n`;
         }
-        concatFile += `file '${imageFiles[imageFiles.length-1].name}'\n`;
-        ffmpeg.FS('writeFile','input.txt',concatFile);
-        // audio, if any
+        concatFile += `file 'slide${(slides.length-1).toString().padStart(3,'0')}.png'\n`;
+        ffmpeg.FS('writeFile', 'input.txt', concatFile);
+
+        // Audio?
         let ffmpegArgsVid;
         if(audioUrl){
+          renderProgress.textContent = "Adding voiceover...";
           const audioBlob = await (await fetch(audioUrl)).blob();
           const audioBuf = new Uint8Array(await audioBlob.arrayBuffer());
-          ffmpeg.FS("writeFile","voiceover.mp3",audioBuf);
-          ffmpegArgsVid = [
+          ffmpeg.FS("writeFile", "voiceover.mp3", audioBuf);
+          ffmpegArgsVid=[
             "-f","concat","-safe","0","-i","input.txt",
             "-i","voiceover.mp3",
             "-vf","format=yuv420p",
             "-map","0:v:0","-map","1:a:0?","-shortest",
             "-r","30",
-            "-c:v","libx264","-pix_fmt","yuv420p", "-c:a","aac","-b:a","192k",
-            "-movflags","+faststart","out.mp4"
+            "-c:v","libx264","-pix_fmt","yuv420p",
+            "-c:a","aac",
+            "-b:a","192k",
+            "-movflags","+faststart",
+            "out.mp4"
           ];
         }else{
-          ffmpegArgsVid = [
+          ffmpegArgsVid=[
             "-f","concat","-safe","0","-i","input.txt",
             "-vf","format=yuv420p",
             "-r","30",
-            "-c:v","libx264","-pix_fmt","yuv420p", "-movflags","+faststart",
+            "-c:v","libx264","-pix_fmt","yuv420p",
+            "-movflags","+faststart",
             "out.mp4"
           ];
         }
+        renderProgress.textContent="Encoding video...";
         await ffmpeg.run(...ffmpegArgsVid);
+        renderProgress.textContent="Finalizing...";
         const outBuf = ffmpeg.FS('readFile','out.mp4');
-        const outBlob = new Blob([outBuf.buffer],{type:"video/mp4"});
+        const outBlob = new Blob([outBuf.buffer], {type:"video/mp4"});
         const outUrl = URL.createObjectURL(outBlob);
-        renderedVideo.src = outUrl; downloadLink.href = outUrl; downloadLink.style.display = "";
+        renderedVideo.src=outUrl;
+        downloadLink.href=outUrl;
+        downloadLink.style.display="";
         renderResult.classList.remove('hidden');
-      } catch (e){
-        alert("Video render failed!\n"+(e.message||e));console.error(e);
-      } finally { renderSpinner.classList.add('hidden'); }
-    }
+        scrollTo(0,renderResult.offsetTop-40);
+        // Cleanup, prevent memory leaks
+        for(let i=0;i<slides.length;++i)
+          ffmpeg.FS('unlink',`slide${i.toString().padStart(3,'0')}.png`);
+        ffmpeg.FS('unlink', 'input.txt');
+        try{ffmpeg.FS('unlink',"voiceover.mp3");}catch{}
+        try{ffmpeg.FS('unlink','out.mp4');}catch{}
+      }catch(e){
+        renderProgress.textContent = "";
+        alert("Video rendering failed:\n"+(e.message||e));
+        console.error(e);
+      }finally{
+        renderSpinner.classList.add('hidden');
+      }
+    };
+    editMoreBtn.onclick=()=>{
+      renderResult.classList.add('hidden');
+      animArea.classList.remove('hidden');
+      scrollTo(0,animArea.offsetTop-20);
+    };
+    restartBtn.onclick=()=>{location.reload();}
   </script>
 </body>
 </html>
