@@ -1,104 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <title>Video Export Test</title>
-  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.9/dist/ffmpeg.min.js"></script>
+  <meta charset="UTF-8" />
+  <title>ffmpeg.wasm MP4 Export DEMO</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.9/dist/ffmpeg.min.js"></script>
+  <style>
+    .css-loader{border-top-color:#6366f1;animation:spin 1s linear infinite;}
+    @keyframes spin {to {transform:rotate(360deg)}}
+  </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col p-6">
-  <h1 class="text-xl font-bold mb-4">CAPCUT-Like Export Test</h1>
-  <input type="file" accept="image/*" id="img" multiple><br/>
-  <textarea id="txt" rows="3" class="border p-2 my-3" placeholder="Script, one line per image"></textarea><br/>
-  <input type="file" accept="audio/*" id="aud"><br/>
-  <button id="doit" class="mt-3 px-5 py-2 bg-blue-700 text-white rounded">Export Video</button>
-  <progress id="bar" max="100" value="0" style="width:100%;display:none"></progress>
-  <div id="outdiv" class="mt-6"></div>
+<body class="bg-slate-100 text-slate-900 p-6">
+  <h1 class="text-xl font-bold mb-5">ffmpeg.wasm Video Export Test</h1>
+  <button id="render-btn" class="bg-indigo-600 text-white px-5 py-2 rounded font-semibold mb-6">Export MP4</button>
+  <div id="render-spinner" class="mb-6 hidden"><div class="w-8 h-8 border-4 border-indigo-300 rounded-full css-loader"></div></div>
+  <div id="log" class="font-mono bg-slate-200 text-xs rounded mb-4 p-2 max-w-2xl"></div>
+  <video id="rendered-video" controls class="bg-black rounded shadow max-w-lg w-full"></video>
+  <a id="download-link" download="sample.mp4" class="bg-indigo-700 text-white px-4 py-2 rounded mt-3 inline-block" href="#" style="display:none">Download Video</a>
   <script>
-    const { createFFmpeg, fetchFile } = FFmpeg;
-    const ffmpeg = createFFmpeg({ log: true, corePath: "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.4/dist/ffmpeg-core.js" });
-    let ffmpegLoaded = false;
-
-    document.getElementById('doit').onclick = async () => {
-      // Reset
-      document.getElementById('bar').style.display='block';
-      document.getElementById('bar').value=0;
-      document.getElementById('outdiv').innerHTML = "";
-      // Get files
-      const imgs = document.getElementById('img').files;
-      const script = document.getElementById('txt').value.split('\n').map(x=>x.trim()).filter(Boolean);
-      const aud = document.getElementById('aud').files[0];
-      if (imgs.length !== script.length) { alert('Images and script lines mismatch!'); return; }
-      if (!imgs.length) { alert('Add images!'); return; }
-      // Load ffmpeg
-      if (!ffmpegLoaded) { await ffmpeg.load(); ffmpegLoaded = true; }
-      // For each image, create slide PNG with overlayed script using canvas:
-      const width=800, height=800, ctx=document.createElement('canvas').getContext('2d');
-      ctx.canvas.width = width; ctx.canvas.height = height;
-      let fnames=[];
-      for (let i=0;i<imgs.length;++i){
-        ctx.fillStyle = "#222"; ctx.fillRect(0,0,width,height);
-        await new Promise(res=>{
-          const img = new Image();
-          img.onload = ()=>{ 
-            let scale = Math.min(width/img.width, height/img.height);
-            let w = img.width*scale, h = img.height*scale;
-            ctx.drawImage(img, (width-w)/2, (height-h)/2, w, h);
-            ctx.font = 'bold 42px Arial'; ctx.fillStyle="#fff"; ctx.textAlign='center';
-            ctx.textBaseline='bottom';
-            ctx.fillText(script[i], width/2, height-70);
-            const dataUrl = ctx.canvas.toDataURL('image/png');
-            const bin = atob(dataUrl.split(",")[1]);
-            const arr = new Uint8Array(bin.length);
-            for(let l=0;l<bin.length;++l) arr[l]=bin.charCodeAt(l);
-            const fname = `slide${i.toString().padStart(3,'0')}.png`;
-            ffmpeg.FS('writeFile', fname, arr);
-            fnames.push(fname);
-            res();
-          };
-          img.src = URL.createObjectURL(imgs[i]);
-        });
-        document.getElementById('bar').value = ((i+1)/imgs.length)*70;
+    // Demo: create 3 colored "slides" as PNGs
+    function makeSlides() {
+      let slides = [], colors = ["#64748b", "#818cf8", "#e879f9"], lines = ["Hello World!", "ffmpeg.wasm export", "Line #3"];
+      const c = document.createElement('canvas'); c.width=800; c.height=800;
+      const ctx = c.getContext('2d');
+      for(let i=0; i<3; ++i) {
+        ctx.fillStyle = colors[i]; ctx.fillRect(0,0,800,800);
+        ctx.font = "bold 58px sans-serif";
+        ctx.textAlign = "center"; ctx.fillStyle="#fff";
+        ctx.fillText(lines[i], 400, 430);
+        slides.push(c.toDataURL("image/png"));
       }
-      // input.txt for concat demuxer
-      let concatTxt = fnames.map(fn=>"file '"+fn+"'\nduration 2.5\n").join('') + "file '" + fnames.slice(-1) + "'\n";
-      ffmpeg.FS('writeFile', 'input.txt', concatTxt);
-      // Write audio (optional)
-      let args = [];
-      if(aud){
-        ffmpeg.FS('writeFile', 'audio.mp3', await fetchFile(aud));
-        args = [
-          '-f','concat','-safe','0','-i','input.txt',
-          '-i','audio.mp3',
-          '-vf','format=yuv420p',
-          '-map','0:v:0','-map','1:a:0?','-shortest',
-          '-c:v','libx264','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k',
-          '-movflags','+faststart','out.mp4'
-        ];
-      }else{
-        args = [
-          '-f','concat','-safe','0','-i','input.txt',
-          '-vf','format=yuv420p',
-          '-r','30',
-          '-c:v','libx264','-pix_fmt','yuv420p',
-          '-movflags','+faststart','out.mp4'
-        ];
-      }
-      document.getElementById('bar').value=85;
-      await ffmpeg.run(...args);
-      document.getElementById('bar').value=100;
-      const data = ffmpeg.FS('readFile','out.mp4');
-      const blob = new Blob([data.buffer],{type: "video/mp4"});
-      const url = URL.createObjectURL(blob);
-      document.getElementById('outdiv').innerHTML = `<video controls src="${url}" style="max-width:90vw;width:400px"></video>
-        <br><a download="export.mp4" href="${url}" class="bg-blue-600 text-white px-5 py-2 rounded my-2 inline-block">Download video</a>`;
-      // Clean up
-      try{ fnames.forEach(fn=>ffmpeg.FS('unlink',fn)); }catch{}
-      try{ ffmpeg.FS('unlink','out.mp4'); }catch{}
-      try{ ffmpeg.FS('unlink','input.txt'); }catch{}
-      try{ ffmpeg.FS('unlink','audio.mp3'); }catch{}
-      document.getElementById('bar').style.display='none';
+      return slides;
     }
+    function b64toArr(dataUrl){
+      const bin = atob(dataUrl.split(',')[1]);
+      const arr = new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;++i) arr[i]=bin.charCodeAt(i);
+      return arr;
+    }
+    // ffmpeg
+    const { createFFmpeg, fetchFile } = FFmpeg;
+    const ffmpeg = createFFmpeg({ log: true });
+
+    document.getElementById('render-btn').onclick = async function() {
+      this.disabled = true;
+      document.getElementById('log').textContent = "Loading ffmpeg.wasm..."; 
+      document.getElementById('render-spinner').classList.remove('hidden');
+      try {
+        if (!ffmpeg.isLoaded()) await ffmpeg.load();
+        const slides = makeSlides();
+        for (let i = 0; i < slides.length; ++i) {
+          ffmpeg.FS('writeFile', `slide${i}.png`, b64toArr(slides[i]));
+        }
+        // Concat file
+        let concatTxt = '';
+        for (let i = 0; i<slides.length; ++i) {
+          concatTxt += `file 'slide${i}.png'\nduration 2.5\n`;
+        }
+        concatTxt += `file 'slide${slides.length-1}.png'\n`; // ffmpeg needs last line repeated
+        ffmpeg.FS('writeFile', 'input.txt', concatTxt);
+
+        document.getElementById('log').textContent += "\nEncoding...";
+        // Run ffmpeg
+        await ffmpeg.run('-f','concat','-safe','0','-i','input.txt',
+                         '-vf','format=yuv420p',
+                         '-r','30','-c:v','libx264',
+                         '-pix_fmt','yuv420p','-movflags','+faststart','out.mp4');
+        const outBuf = ffmpeg.FS('readFile','out.mp4');
+        const outUrl = URL.createObjectURL(new Blob([outBuf.buffer],{type:"video/mp4"}));
+        document.getElementById('rendered-video').src = outUrl;
+        document.getElementById('download-link').href = outUrl;
+        document.getElementById('download-link').style.display = '';
+        document.getElementById('log').textContent += "\nDone!";
+      } catch(e) {
+        document.getElementById('log').textContent += "\nERROR: " + e.message;
+        alert("Video export failed:\n"+e.message);
+      } finally {
+        document.getElementById('render-btn').disabled = false;
+        document.getElementById('render-spinner').classList.add('hidden');
+      }
+    };
   </script>
 </body>
 </html>
