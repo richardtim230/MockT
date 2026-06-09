@@ -26,13 +26,11 @@
 
         .page {
             width: 210mm;
-            height: 297mm;
+            min-height: 297mm;
             background: white;
             margin: 20px auto;
-            padding: 30px;
+            padding: 35px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
         }
 
         @media print {
@@ -44,37 +42,32 @@
 
             .page {
                 width: 100%;
-                height: 100%;
+                min-height: 100%;
                 margin: 0;
-                padding: 30px;
+                padding: 35px;
                 box-shadow: none;
-                display: block;
             }
 
             .no-print {
                 display: none !important;
             }
-
-            .pdf-container {
-                display: block;
-            }
         }
 
         .letterhead {
             border-bottom: 3px solid #ffb400;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
+            padding-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .logo-section {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .logo-text h1 {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 900;
             color: #ffb400;
             margin: 0;
@@ -82,15 +75,15 @@
         }
 
         .logo-text p {
-            font-size: 11px;
+            font-size: 12px;
             color: #666;
-            margin: 3px 0 0 0;
+            margin: 4px 0 0 0;
             font-weight: 500;
         }
 
         .contact-info {
             text-align: right;
-            font-size: 10px;
+            font-size: 11px;
             color: #555;
             line-height: 1.5;
         }
@@ -102,65 +95,65 @@
         .date-ref-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 12px;
-            font-size: 11px;
+            gap: 40px;
+            margin-bottom: 18px;
+            font-size: 12px;
             color: #333;
         }
 
         .date-ref-section p {
             margin: 0;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .date-ref-section strong {
             display: block;
             font-weight: 600;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
 
         .recipient-section {
-            margin-bottom: 12px;
-            font-size: 11px;
+            margin-bottom: 15px;
+            font-size: 12px;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         .recipient-section p {
-            margin: 0 0 5px 0;
+            margin: 0 0 6px 0;
         }
 
         .fillable-line {
             border-bottom: 1px solid #333;
             display: inline-block;
-            min-width: 250px;
-            margin: 0 5px;
+            min-width: 280px;
+            margin: 0 6px;
         }
 
         .salutation {
-            margin-bottom: 10px;
-            font-size: 11px;
+            margin-bottom: 12px;
+            font-size: 12px;
             color: #333;
             font-weight: 600;
         }
 
         .intro-box {
             background: linear-gradient(135deg, rgba(6,23,40,0.05) 0%, rgba(255,180,0,0.08) 100%);
-            border-left: 3px solid #ffb400;
-            padding: 12px;
-            margin-bottom: 12px;
-            border-radius: 3px;
+            border-left: 4px solid #ffb400;
+            padding: 14px;
+            margin-bottom: 15px;
+            border-radius: 4px;
         }
 
         .intro-box p {
-            font-size: 10px;
+            font-size: 12px;
             color: #333;
             margin: 0;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .intro-box p + p {
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
         .intro-box strong {
@@ -168,73 +161,73 @@
         }
 
         .section-title {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             color: #061728;
-            margin-top: 10px;
-            margin-bottom: 8px;
+            margin-top: 12px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .section-title-icon {
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .feature-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 10px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
         }
 
         .feature-card {
             background: #f9fafb;
-            border-left: 2px solid #ffb400;
-            padding: 8px;
-            border-radius: 2px;
-            font-size: 9px;
+            border-left: 3px solid #ffb400;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 11px;
         }
 
         .feature-card-title {
             font-weight: 600;
             color: #061728;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
 
         .feature-card-text {
             color: #666;
-            font-size: 8px;
-            line-height: 1.3;
+            font-size: 10px;
+            line-height: 1.4;
         }
 
         .advantage-box {
             background: #061728;
             color: white;
-            padding: 10px;
-            border-radius: 3px;
-            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 14px;
         }
 
         .advantage-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
         .advantage-item {
             display: flex;
-            font-size: 9px;
-            gap: 6px;
-            line-height: 1.3;
+            font-size: 11px;
+            gap: 8px;
+            line-height: 1.5;
         }
 
         .advantage-check {
             color: #ffb400;
             font-weight: bold;
             flex-shrink: 0;
-            min-width: 10px;
+            min-width: 14px;
         }
 
         .advantage-text-title {
@@ -244,32 +237,32 @@
 
         .advantage-text-desc {
             color: #d1d5db;
-            font-size: 8px;
-            margin-top: 1px;
+            font-size: 10px;
+            margin-top: 2px;
         }
 
         .benefit-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            margin-bottom: 10px;
+            gap: 8px;
+            margin-bottom: 14px;
         }
 
         .benefit-item {
             display: flex;
-            gap: 6px;
-            font-size: 9px;
-            padding: 6px;
+            gap: 8px;
+            font-size: 11px;
+            padding: 8px;
             background: #f9fafb;
-            border-radius: 2px;
-            line-height: 1.4;
+            border-radius: 3px;
+            line-height: 1.5;
         }
 
         .benefit-check {
             color: #10b981;
             font-weight: bold;
             flex-shrink: 0;
-            min-width: 10px;
+            min-width: 12px;
         }
 
         .benefit-content {
@@ -284,19 +277,19 @@
         .package-box {
             background: linear-gradient(135deg, #fff7ed 0%, #fffbf0 100%);
             border: 2px solid #ffb400;
-            padding: 10px;
-            border-radius: 3px;
-            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 14px;
         }
 
         .package-price {
             text-align: center;
-            margin-bottom: 6px;
-            font-size: 10px;
+            margin-bottom: 8px;
+            font-size: 11px;
         }
 
         .package-amount {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: 700;
             color: #061728;
             text-align: center;
@@ -306,48 +299,48 @@
             text-align: center;
             color: #b45309;
             font-weight: 600;
-            font-size: 9px;
-            margin-top: 2px;
-            margin-bottom: 8px;
+            font-size: 10px;
+            margin-top: 3px;
+            margin-bottom: 10px;
         }
 
         .package-items {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4px;
+            gap: 6px;
         }
 
         .package-item {
-            font-size: 9px;
+            font-size: 11px;
             color: #333;
             display: flex;
-            gap: 5px;
-            padding: 2px 0;
-            line-height: 1.3;
+            gap: 6px;
+            padding: 3px 0;
+            line-height: 1.4;
         }
 
         .package-item-icon {
             color: #ffb400;
             font-weight: bold;
             flex-shrink: 0;
-            min-width: 10px;
+            min-width: 12px;
         }
 
         .closing-section {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 15px;
-            margin-bottom: 10px;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 18px;
+            margin-bottom: 14px;
         }
 
         .closing-text {
-            font-size: 10px;
+            font-size: 11px;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .closing-text p {
-            margin: 0 0 5px 0;
+            margin: 0 0 6px 0;
         }
 
         .closing-text p:last-child {
@@ -356,23 +349,23 @@
 
         .contact-card {
             background: #fff7ed;
-            border-left: 3px solid #ffb400;
-            padding: 8px;
-            border-radius: 2px;
+            border-left: 4px solid #ffb400;
+            padding: 10px;
+            border-radius: 3px;
         }
 
         .contact-card-title {
             font-weight: 700;
-            font-size: 10px;
+            font-size: 11px;
             color: #061728;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
         .contact-card-item {
-            font-size: 9px;
+            font-size: 10px;
             color: #555;
-            margin-bottom: 3px;
-            line-height: 1.3;
+            margin-bottom: 4px;
+            line-height: 1.5;
         }
 
         .contact-card-item:last-child {
@@ -385,10 +378,10 @@
         }
 
         .signature-section {
-            margin-top: 8px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
+            margin-top: 12px;
         }
 
         .signature-block {
@@ -396,38 +389,38 @@
         }
 
         .signature-text {
-            font-size: 10px;
+            font-size: 12px;
             color: #333;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .signature-line {
             border-top: 1px solid #333;
-            width: 160px;
-            margin-bottom: 3px;
+            width: 180px;
+            margin-bottom: 4px;
         }
 
         .signature-name {
             font-weight: 700;
-            font-size: 10px;
+            font-size: 11px;
             color: #061728;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
         }
 
         .signature-role {
-            font-size: 9px;
+            font-size: 10px;
             color: #666;
             font-style: italic;
         }
 
         .postscript-box {
             background: #fffbf0;
-            border-left: 3px solid #ffb400;
-            padding: 8px;
-            border-radius: 2px;
-            font-size: 9px;
+            border-left: 4px solid #ffb400;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 11px;
             color: #555;
-            line-height: 1.5;
+            line-height: 1.6;
             grid-column: 1 / -1;
         }
 
@@ -448,7 +441,7 @@
             right: 0;
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 12px 20px;
+            padding: 14px 20px;
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -462,22 +455,28 @@
         }
 
         .toolbar-logo {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 900;
             color: #ffb400;
+            margin-right: 10px;
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
         }
 
         .toolbar-buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .btn {
-            padding: 8px 16px;
+            padding: 10px 18px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             transition: all 0.3s ease;
         }
@@ -502,7 +501,7 @@
         }
 
         .pdf-container {
-            margin-top: 60px;
+            margin-top: 70px;
         }
 
         @page {
@@ -514,11 +513,11 @@
 <body>
     <!-- Toolbar -->
     <div class="toolbar no-print">
-        <div class="flex items-center gap-3">
+        <div class="toolbar-left">
             <div class="toolbar-logo">🎓</div>
             <div>
                 <div class="toolbar-title">ExamGuard Proposal Letter</div>
-                <div style="font-size: 10px; color: #999;">Professional School Management Platform</div>
+                <div style="font-size: 11px; color: #999;">Professional School Management Platform</div>
             </div>
         </div>
         <div class="toolbar-buttons">
@@ -561,7 +560,7 @@
             <!-- Recipient Details -->
             <div class="recipient-section">
                 <p><strong>TO:</strong> <span class="fillable-line"></span></p>
-                <p>Address: <span class="fillable-line"></span></p>
+                <p><strong>Address:</strong> <span class="fillable-line"></span></p>
             </div>
 
             <!-- Salutation -->
@@ -571,7 +570,7 @@
 
             <!-- Introduction -->
             <div class="intro-box">
-                <p><strong>Warm Greetings!</strong> We are <strong>ExamGuard</strong>, a company that helps schools run smoothly and efficiently. We provide a complete School Management System that transforms education through automation and innovation.</p>
+                <p><strong>Warm Greetings!</strong> We are <strong>ExamGuard</strong>, a company dedicated to transforming education through innovative school management solutions. We help institutions like yours streamline operations, improve communication, and enhance student outcomes.</p>
             </div>
 
             <!-- Section 1: What We Offer -->
@@ -583,11 +582,11 @@
             <div class="feature-grid">
                 <div class="feature-card">
                     <div class="feature-card-title">📊 Admin Dashboard</div>
-                    <div class="feature-card-text">Manage entire school operations in one place</div>
+                    <div class="feature-card-text">Manage entire school operations in one centralized place</div>
                 </div>
                 <div class="feature-card">
                     <div class="feature-card-title">👨‍🏫 Teacher's Dashboard</div>
-                    <div class="feature-card-text">Track student performance and manage classes</div>
+                    <div class="feature-card-text">Upload materials and track student performance</div>
                 </div>
                 <div class="feature-card">
                     <div class="feature-card-title">👨‍🎓 Student's Dashboard</div>
@@ -633,7 +632,7 @@
                         <div class="advantage-check">✓</div>
                         <div>
                             <div class="advantage-text-title">Regular Check-ups</div>
-                            <div class="advantage-text-desc">School visits for optimization</div>
+                            <div class="advantage-text-desc">Scheduled school visits</div>
                         </div>
                     </div>
                     <div class="advantage-item">
@@ -671,42 +670,42 @@
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
                         <div class="benefit-title">Saves Time</div>
-                        <div style="font-size: 8px; color: #666;">Automates administrative tasks</div>
+                        <div style="font-size: 10px; color: #666;">Automates administrative tasks</div>
                     </div>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
                         <div class="benefit-title">Better Communication</div>
-                        <div style="font-size: 8px; color: #666;">Parents stay connected</div>
+                        <div style="font-size: 10px; color: #666;">Parents stay connected</div>
                     </div>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
                         <div class="benefit-title">Reduces Stress</div>
-                        <div style="font-size: 8px; color: #666;">Less paperwork for teachers</div>
+                        <div style="font-size: 10px; color: #666;">Less paperwork for teachers</div>
                     </div>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
                         <div class="benefit-title">Accurate Records</div>
-                        <div style="font-size: 8px; color: #666;">All data stored safely</div>
+                        <div style="font-size: 10px; color: #666;">All data stored safely</div>
                     </div>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
                         <div class="benefit-title">Professional Image</div>
-                        <div style="font-size: 8px; color: #666;">School looks modern</div>
+                        <div style="font-size: 10px; color: #666;">School looks modern</div>
                     </div>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
                         <div class="benefit-title">Improves Performance</div>
-                        <div style="font-size: 8px; color: #666;">Track progress easily</div>
+                        <div style="font-size: 10px; color: #666;">Track progress easily</div>
                     </div>
                 </div>
             </div>
@@ -760,7 +759,7 @@
             <!-- Closing Section -->
             <div class="closing-section">
                 <div class="closing-text">
-                    <p>We believe every school deserves quality management technology at an affordable price. <strong>ExamGuard is here to make that happen.</strong> We look forward to partnering with you!</p>
+                    <p>We believe every school deserves quality management technology at an affordable price. <strong>ExamGuard is here to make that happen.</strong> We look forward to partnering with your institution and helping you provide the best experience for your students, teachers, and parents.</p>
                 </div>
                 <div class="contact-card">
                     <div class="contact-card-title">📞 Contact Us</div>
@@ -788,7 +787,7 @@
                     <div class="signature-role">Making School Management Simple</div>
                 </div>
                 <div class="postscript-box">
-                    <p><span class="postscript-label">P.S.</span> If you'd like a quick tour, call or email us. We're ready to show you what ExamGuard can do!</p>
+                    <p><span class="postscript-label">P.S.</span> If you'd like a quick tour of the system, just give us a call or send us an email. We're ready to show you what ExamGuard can do for your school!</p>
                 </div>
             </div>
         </div>
