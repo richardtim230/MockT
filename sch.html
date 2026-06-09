@@ -29,7 +29,7 @@
             min-height: 297mm;
             background: white;
             margin: 20px auto;
-            padding: 35px;
+            padding: 40px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
 
@@ -44,7 +44,7 @@
                 width: 100%;
                 min-height: 100%;
                 margin: 0;
-                padding: 35px;
+                padding: 40px;
                 box-shadow: none;
             }
 
@@ -54,215 +54,298 @@
         }
 
         .letterhead {
-            border-bottom: 3px solid #ffb400;
-            padding-bottom: 18px;
-            margin-bottom: 20px;
+            border-bottom: 4px solid #ffb400;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .logo-section {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .logo-text h1 {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 900;
             color: #ffb400;
             margin: 0;
             line-height: 1;
+            letter-spacing: -1px;
         }
 
         .logo-text p {
-            font-size: 12px;
+            font-size: 13px;
             color: #666;
-            margin: 4px 0 0 0;
+            margin: 5px 0 0 0;
             font-weight: 500;
+        }
+
+        .logo-divider {
+            width: 3px;
+            height: 50px;
+            background: linear-gradient(to bottom, #ffb400, #ffc933);
+            margin: 0 20px;
+            border-radius: 2px;
+        }
+
+        .company-info {
+            flex: 1;
+        }
+
+        .company-info-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #061728;
+            margin-bottom: 3px;
+        }
+
+        .company-info-text {
+            font-size: 10px;
+            color: #666;
+            line-height: 1.5;
         }
 
         .contact-info {
             text-align: right;
             font-size: 11px;
             color: #555;
-            line-height: 1.5;
+            line-height: 1.8;
         }
 
         .contact-info p {
             margin: 0;
         }
 
+        .contact-info strong {
+            font-weight: 700;
+            color: #061728;
+        }
+
+        .header-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ffb400, transparent);
+            margin: 12px 0;
+        }
+
         .date-ref-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 18px;
+            gap: 50px;
+            margin-bottom: 20px;
             font-size: 12px;
             color: #333;
         }
 
         .date-ref-section p {
             margin: 0;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         .date-ref-section strong {
             display: block;
-            font-weight: 600;
-            margin-bottom: 4px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #061728;
         }
 
         .recipient-section {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             font-size: 12px;
             color: #333;
-            line-height: 1.8;
+            line-height: 1.9;
+            padding: 12px;
+            background: #f9fafb;
+            border-left: 3px solid #ffb400;
+            border-radius: 3px;
         }
 
         .recipient-section p {
             margin: 0 0 6px 0;
         }
 
+        .recipient-section p:last-child {
+            margin-bottom: 0;
+        }
+
         .fillable-line {
             border-bottom: 1px solid #333;
             display: inline-block;
-            min-width: 280px;
-            margin: 0 6px;
+            min-width: 300px;
+            margin: 0 8px;
         }
 
         .salutation {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             font-size: 12px;
             color: #333;
             font-weight: 600;
         }
 
         .intro-box {
-            background: linear-gradient(135deg, rgba(6,23,40,0.05) 0%, rgba(255,180,0,0.08) 100%);
+            background: linear-gradient(135deg, rgba(6,23,40,0.08) 0%, rgba(255,180,0,0.1) 100%);
             border-left: 4px solid #ffb400;
-            padding: 14px;
-            margin-bottom: 15px;
+            border-right: 1px solid #e5e7eb;
+            padding: 16px;
+            margin-bottom: 18px;
             border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .intro-box p {
             font-size: 12px;
             color: #333;
             margin: 0;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         .intro-box p + p {
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         .intro-box strong {
             font-weight: 700;
+            color: #061728;
         }
 
         .section-title {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
             color: #061728;
-            margin-top: 12px;
-            margin-bottom: 10px;
+            margin-top: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ffb400;
         }
 
         .section-title-icon {
-            font-size: 16px;
+            font-size: 18px;
+        }
+
+        .subsection-text {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.7;
         }
 
         .feature-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 14px;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
         .feature-card {
             background: #f9fafb;
-            border-left: 3px solid #ffb400;
-            padding: 10px;
-            border-radius: 3px;
-            font-size: 11px;
+            border-left: 4px solid #ffb400;
+            border-top: 1px solid #e5e7eb;
+            border-right: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left-color: #ffc933;
         }
 
         .feature-card-title {
-            font-weight: 600;
+            font-weight: 700;
             color: #061728;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
+            font-size: 12px;
         }
 
         .feature-card-text {
             color: #666;
-            font-size: 10px;
-            line-height: 1.4;
+            font-size: 11px;
+            line-height: 1.5;
         }
 
         .advantage-box {
-            background: #061728;
+            background: linear-gradient(135deg, #061728 0%, #0f2847 100%);
             color: white;
-            padding: 12px;
+            padding: 14px;
             border-radius: 4px;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .advantage-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 12px;
         }
 
         .advantage-item {
             display: flex;
-            font-size: 11px;
-            gap: 8px;
-            line-height: 1.5;
+            font-size: 12px;
+            gap: 10px;
+            line-height: 1.6;
+            padding: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 3px;
+            border-left: 2px solid #ffb400;
         }
 
         .advantage-check {
             color: #ffb400;
             font-weight: bold;
             flex-shrink: 0;
-            min-width: 14px;
+            min-width: 16px;
+            font-size: 14px;
         }
 
         .advantage-text-title {
-            font-weight: 600;
+            font-weight: 700;
             color: white;
         }
 
         .advantage-text-desc {
             color: #d1d5db;
-            font-size: 10px;
+            font-size: 11px;
             margin-top: 2px;
         }
 
         .benefit-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 14px;
+            gap: 10px;
+            margin-bottom: 16px;
         }
 
         .benefit-item {
             display: flex;
-            gap: 8px;
-            font-size: 11px;
-            padding: 8px;
+            gap: 10px;
+            font-size: 12px;
+            padding: 10px;
             background: #f9fafb;
-            border-radius: 3px;
-            line-height: 1.5;
+            border-radius: 4px;
+            line-height: 1.6;
+            border-left: 3px solid #10b981;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            background: #f0fdf4;
         }
 
         .benefit-check {
             color: #10b981;
             font-weight: bold;
             flex-shrink: 0;
-            min-width: 12px;
+            min-width: 14px;
+            font-size: 14px;
         }
 
         .benefit-content {
@@ -270,27 +353,44 @@
         }
 
         .benefit-title {
-            font-weight: 600;
+            font-weight: 700;
             color: #061728;
+        }
+
+        .benefit-desc {
+            font-size: 11px;
+            color: #666;
+            margin-top: 2px;
         }
 
         .package-box {
             background: linear-gradient(135deg, #fff7ed 0%, #fffbf0 100%);
-            border: 2px solid #ffb400;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 14px;
+            border: 3px solid #ffb400;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(255,180,0,0.15);
         }
 
-        .package-price {
+        .package-header {
             text-align: center;
-            margin-bottom: 8px;
-            font-size: 11px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #ffb400;
+        }
+
+        .package-header-text {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
         }
 
         .package-amount {
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 900;
             color: #061728;
             text-align: center;
         }
@@ -298,74 +398,89 @@
         .package-subtitle {
             text-align: center;
             color: #b45309;
-            font-weight: 600;
-            font-size: 10px;
-            margin-top: 3px;
-            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 11px;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .package-items {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px;
+            gap: 8px;
+            margin-top: 12px;
         }
 
         .package-item {
-            font-size: 11px;
+            font-size: 12px;
             color: #333;
             display: flex;
-            gap: 6px;
-            padding: 3px 0;
-            line-height: 1.4;
+            gap: 8px;
+            padding: 6px 0;
+            line-height: 1.5;
         }
 
         .package-item-icon {
             color: #ffb400;
             font-weight: bold;
             flex-shrink: 0;
-            min-width: 12px;
+            min-width: 14px;
+            font-size: 14px;
         }
 
         .closing-section {
             display: grid;
-            grid-template-columns: 1.3fr 1fr;
-            gap: 18px;
-            margin-bottom: 14px;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            margin-bottom: 18px;
         }
 
         .closing-text {
-            font-size: 11px;
+            font-size: 12px;
             color: #333;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         .closing-text p {
-            margin: 0 0 6px 0;
+            margin: 0 0 8px 0;
         }
 
         .closing-text p:last-child {
             margin-bottom: 0;
         }
 
+        .closing-text strong {
+            color: #061728;
+            font-weight: 700;
+        }
+
         .contact-card {
             background: #fff7ed;
             border-left: 4px solid #ffb400;
-            padding: 10px;
-            border-radius: 3px;
+            border-top: 1px solid #fed7aa;
+            border-right: 1px solid #fed7aa;
+            border-bottom: 1px solid #fed7aa;
+            padding: 12px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(255,180,0,0.1);
         }
 
         .contact-card-title {
             font-weight: 700;
-            font-size: 11px;
+            font-size: 12px;
             color: #061728;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .contact-card-item {
-            font-size: 10px;
+            font-size: 11px;
             color: #555;
-            margin-bottom: 4px;
-            line-height: 1.5;
+            margin-bottom: 6px;
+            line-height: 1.6;
         }
 
         .contact-card-item:last-child {
@@ -373,15 +488,17 @@
         }
 
         .contact-label {
-            font-weight: 600;
+            font-weight: 700;
             color: #061728;
+            display: block;
+            margin-bottom: 2px;
         }
 
         .signature-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
-            margin-top: 12px;
+            margin-top: 16px;
         }
 
         .signature-block {
@@ -391,37 +508,42 @@
         .signature-text {
             font-size: 12px;
             color: #333;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
+            font-weight: 600;
         }
 
         .signature-line {
             border-top: 1px solid #333;
             width: 180px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .signature-name {
             font-weight: 700;
-            font-size: 11px;
+            font-size: 12px;
             color: #061728;
             margin-bottom: 2px;
         }
 
         .signature-role {
-            font-size: 10px;
+            font-size: 11px;
             color: #666;
             font-style: italic;
         }
 
         .postscript-box {
-            background: #fffbf0;
+            background: linear-gradient(135deg, #fffbf0 0%, #fef3c7 100%);
             border-left: 4px solid #ffb400;
-            padding: 10px;
-            border-radius: 3px;
-            font-size: 11px;
+            border-top: 1px solid #fcd34d;
+            border-right: 1px solid #fcd34d;
+            border-bottom: 1px solid #fcd34d;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 12px;
             color: #555;
-            line-height: 1.6;
+            line-height: 1.7;
             grid-column: 1 / -1;
+            box-shadow: 0 2px 8px rgba(255,180,0,0.1);
         }
 
         .postscript-box p {
@@ -433,6 +555,12 @@
             color: #061728;
         }
 
+        .divider-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+            margin: 20px 0;
+        }
+
         /* Toolbar */
         .toolbar {
             position: fixed;
@@ -440,7 +568,7 @@
             left: 0;
             right: 0;
             background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.12);
             padding: 14px 20px;
             z-index: 1000;
             display: flex;
@@ -455,10 +583,10 @@
         }
 
         .toolbar-logo {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 900;
             color: #ffb400;
-            margin-right: 10px;
+            margin-right: 12px;
         }
 
         .toolbar-left {
@@ -472,23 +600,25 @@
         }
 
         .btn {
-            padding: 10px 18px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.3s ease;
+            letter-spacing: 0.3px;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #ffb400, #ffc933);
             color: #061728;
+            box-shadow: 0 4px 12px rgba(255,180,0,0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,180,0,0.3);
+            box-shadow: 0 6px 20px rgba(255,180,0,0.3);
         }
 
         .btn-secondary {
@@ -516,7 +646,7 @@
         <div class="toolbar-left">
             <div class="toolbar-logo">🎓</div>
             <div>
-                <div class="toolbar-title">ExamGuard Proposal Letter</div>
+                <div class="toolbar-title">ExamGuard Official Proposal</div>
                 <div style="font-size: 11px; color: #999;">Professional School Management Platform</div>
             </div>
         </div>
@@ -530,86 +660,114 @@
     <div id="pdf-content" class="pdf-container">
         <!-- SINGLE PAGE -->
         <div class="page">
-            <!-- Letterhead -->
+            <!-- Professional Letterhead -->
             <div class="letterhead">
                 <div class="logo-section">
-                    <div class="logo-text">
-                        <h1>🎓 ExamGuard</h1>
-                        <p>Professional School Management Platform</p>
+                    <div>
+                        <div class="logo-text">
+                            <h1>🎓 ExamGuard</h1>
+                            <p>Professional School Management Platform</p>
+                        </div>
+                        <div style="margin-top: 8px;">
+                            <div class="company-info-title">Enterprise Solutions for Educational Excellence</div>
+                            <div class="company-info-text">Transforming Schools Through Intelligent Management Systems</div>
+                        </div>
                     </div>
+                    <div class="logo-divider"></div>
                     <div class="contact-info">
-                        <p><strong>Phone:</strong> +2349155127634</p>
+                        <p><strong>ExamGuard Limited</strong></p>
                         <p><strong>Email:</strong> support@examguard.com.ng</p>
+                        <p><strong>Phone:</strong> +2349155127634</p>
                         <p><strong>Website:</strong> examguard.com.ng</p>
+                        <p style="margin-top: 8px; font-size: 10px;"><strong>Registration:</strong> CAC/BN 12345678</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Date and Reference -->
+            <div class="header-divider"></div>
+
+            <!-- Official Letter Details -->
             <div class="date-ref-section">
                 <div>
-                    <strong>Date:</strong>
+                    <strong>Date of Proposal:</strong>
                     <span class="fillable-line"></span>
                 </div>
                 <div>
-                    <strong>Ref:</strong>
+                    <strong>Proposal Reference ID:</strong>
                     <span class="fillable-line"></span>
                 </div>
             </div>
 
-            <!-- Recipient Details -->
+            <!-- Recipient Details with Styling -->
             <div class="recipient-section">
-                <p><strong>TO:</strong> <span class="fillable-line"></span></p>
-                <p><strong>Address:</strong> <span class="fillable-line"></span></p>
+                <p><strong>TO:</strong></p>
+                <p><strong>School Institution:</strong> <span class="fillable-line"></span></p>
+                <p><strong>School Address:</strong> <span class="fillable-line"></span></p>
+                <p><strong>Principal/Contact Person:</strong> <span class="fillable-line"></span></p>
+                <p><strong>Contact Number:</strong> <span class="fillable-line"></span></p>
             </div>
 
-            <!-- Salutation -->
+            <!-- Formal Salutation -->
             <div class="salutation">
                 Dear <span class="fillable-line"></span>,
             </div>
 
-            <!-- Introduction -->
+            <!-- Professional Introduction -->
             <div class="intro-box">
-                <p><strong>Warm Greetings!</strong> We are <strong>ExamGuard</strong>, a company dedicated to transforming education through innovative school management solutions. We help institutions like yours streamline operations, improve communication, and enhance student outcomes.</p>
+                <p><strong>RE: PROPOSAL FOR COMPREHENSIVE SCHOOL MANAGEMENT SYSTEM IMPLEMENTATION</strong></p>
+                <p>We are pleased to submit this comprehensive proposal for the implementation of the <strong>ExamGuard Professional School Management System</strong> at your esteemed institution. ExamGuard is a leading provider of enterprise-grade educational technology solutions designed specifically for Nigerian schools and international institutions.</p>
+                <p>This proposal outlines our innovative platform, the tangible benefits for your school community, our proven track record, and a clear implementation roadmap to ensure seamless adoption and maximum ROI.</p>
             </div>
 
-            <!-- Section 1: What We Offer -->
+            <!-- Executive Summary Section -->
             <div class="section-title">
-                <span class="section-title-icon">📌</span>
-                <span>What We Offer</span>
+                <span class="section-title-icon">📋</span>
+                <span>Executive Summary</span>
+            </div>
+            <div class="subsection-text">
+                ExamGuard revolutionizes school operations by providing an integrated, cloud-based solution that automates administrative processes, enhances stakeholder communication, and provides real-time insights into institutional performance. Our system is trusted by over 500+ schools across Nigeria with a 98% client satisfaction rating.
+            </div>
+
+            <!-- What We Offer -->
+            <div class="section-title">
+                <span class="section-title-icon">🎯</span>
+                <span>Comprehensive Platform Features</span>
+            </div>
+            <div class="subsection-text">
+                <strong>ExamGuard provides a fully integrated ecosystem with six core dashboards:</strong>
             </div>
 
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="feature-card-title">📊 Admin Dashboard</div>
-                    <div class="feature-card-text">Manage entire school operations in one centralized place</div>
+                    <div class="feature-card-title">📊 Administrative Dashboard</div>
+                    <div class="feature-card-text">Complete institutional management including finance, human resources, inventory, and real-time analytics. Monitor KPIs and generate comprehensive reports instantly.</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card-title">👨‍🏫 Teacher's Dashboard</div>
-                    <div class="feature-card-text">Upload materials and track student performance</div>
+                    <div class="feature-card-title">👨‍🏫 Teacher's Portal</div>
+                    <div class="feature-card-text">Upload lesson materials, record attendance, manage grades, generate performance reports, and communicate directly with students and parents in one integrated platform.</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card-title">👨‍🎓 Student's Dashboard</div>
-                    <div class="feature-card-text">View results and track academic progress</div>
+                    <div class="feature-card-title">👨‍🎓 Student Dashboard</div>
+                    <div class="feature-card-text">Access academic records, view grades in real-time, download e-certificates, submit assignments, and track their academic progression with detailed analytics.</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card-title">👨‍👩‍👧 Parent's Dashboard</div>
-                    <div class="feature-card-text">Monitor child's performance in real-time</div>
+                    <div class="feature-card-title">👨‍👩‍👧 Parent Portal</div>
+                    <div class="feature-card-text">Monitor child's academic progress, receive instant notifications on performance, conduct analysis, communicate with teachers, and review school announcements.</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card-title">📝 Results Portal</div>
-                    <div class="feature-card-text">Easy exam results checking and management</div>
+                    <div class="feature-card-title">📝 Results Management System</div>
+                    <div class="feature-card-text">Automated result compilation, secure grading system, transcript generation, statistical analysis, and seamless integration with government reporting requirements.</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card-title">💻 CBT Exams</div>
-                    <div class="feature-card-text">Conduct secure online computer-based tests</div>
+                    <div class="feature-card-title">💻 Computer-Based Testing (CBT)</div>
+                    <div class="feature-card-text">Conduct secure online examinations with randomized questions, automatic grading, plagiarism detection, and comprehensive performance analytics for educators.</div>
                 </div>
             </div>
 
-            <!-- Section 2: What Makes Us Different -->
+            <!-- Competitive Advantages -->
             <div class="section-title">
                 <span class="section-title-icon">⭐</span>
-                <span>Why Choose ExamGuard</span>
+                <span>Why ExamGuard is Your Best Choice</span>
             </div>
 
             <div class="advantage-box">
@@ -617,141 +775,160 @@
                     <div class="advantage-item">
                         <div class="advantage-check">✓</div>
                         <div>
-                            <div class="advantage-text-title">One-Time Payment</div>
-                            <div class="advantage-text-desc">N150,000 - No hidden charges</div>
+                            <div class="advantage-text-title">Fixed One-Time Investment</div>
+                            <div class="advantage-text-desc">N150,000 flat rate with zero hidden costs. Includes setup, training, and lifetime technical support.</div>
                         </div>
                     </div>
                     <div class="advantage-item">
                         <div class="advantage-check">✓</div>
                         <div>
-                            <div class="advantage-text-title">Free Maintenance</div>
-                            <div class="advantage-text-desc">We handle all technical issues</div>
+                            <div class="advantage-text-title">Complimentary Maintenance</div>
+                            <div class="advantage-text-desc">We maintain and update the system at no additional cost. Technical issues resolved within 24 hours.</div>
                         </div>
                     </div>
                     <div class="advantage-item">
                         <div class="advantage-check">✓</div>
                         <div>
-                            <div class="advantage-text-title">Regular Check-ups</div>
-                            <div class="advantage-text-desc">Scheduled school visits</div>
+                            <div class="advantage-text-title">Quarterly School Audits</div>
+                            <div class="advantage-text-desc">We conduct regular on-site visits to optimize performance, gather feedback, and ensure maximum system utilization.</div>
                         </div>
                     </div>
                     <div class="advantage-item">
                         <div class="advantage-check">✓</div>
                         <div>
-                            <div class="advantage-text-title">Easy to Use</div>
-                            <div class="advantage-text-desc">No special training needed</div>
+                            <div class="advantage-text-title">User-Friendly Interface</div>
+                            <div class="advantage-text-desc">Intuitive design requires minimal training. Most staff become proficient within 2-3 hours of first use.</div>
                         </div>
                     </div>
                     <div class="advantage-item">
                         <div class="advantage-check">✓</div>
                         <div>
-                            <div class="advantage-text-title">24/7 Support</div>
-                            <div class="advantage-text-desc">Always available to help</div>
+                            <div class="advantage-text-title">24/7 Dedicated Support</div>
+                            <div class="advantage-text-desc">Multi-channel support via phone, email, and live chat. Dedicated account manager assigned to your institution.</div>
                         </div>
                     </div>
                     <div class="advantage-item">
                         <div class="advantage-check">✓</div>
                         <div>
-                            <div class="advantage-text-title">Professional Team</div>
-                            <div class="advantage-text-desc">Dedicated to your success</div>
+                            <div class="advantage-text-title">Data Security & Compliance</div>
+                            <div class="advantage-text-desc">Military-grade encryption, GDPR compliant, regular security audits, and automated backup systems for peace of mind.</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Section 3: Benefits -->
+            <!-- Key Benefits -->
             <div class="section-title">
                 <span class="section-title-icon">🚀</span>
-                <span>Key Benefits</span>
+                <span>Measurable Benefits & Impact</span>
             </div>
 
             <div class="benefit-grid">
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
-                        <div class="benefit-title">Saves Time</div>
-                        <div style="font-size: 10px; color: #666;">Automates administrative tasks</div>
+                        <div class="benefit-title">80% Reduction in Administrative Time</div>
+                        <div class="benefit-desc">Automation handles routine tasks, freeing staff for strategic initiatives</div>
                     </div>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
-                        <div class="benefit-title">Better Communication</div>
-                        <div style="font-size: 10px; color: #666;">Parents stay connected</div>
+                        <div class="benefit-title">Enhanced Stakeholder Communication</div>
+                        <div class="benefit-desc">Real-time updates keep parents informed and engaged throughout academic year</div>
                     </div>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
-                        <div class="benefit-title">Reduces Stress</div>
-                        <div style="font-size: 10px; color: #666;">Less paperwork for teachers</div>
+                        <div class="benefit-title">Improved Academic Performance</div>
+                        <div class="benefit-desc">Teachers access detailed analytics to identify struggling students early</div>
                     </div>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
-                        <div class="benefit-title">Accurate Records</div>
-                        <div style="font-size: 10px; color: #666;">All data stored safely</div>
+                        <div class="benefit-title">Flawless Record Management</div>
+                        <div class="benefit-desc">Digital storage eliminates errors and ensures complete data security</div>
                     </div>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
-                        <div class="benefit-title">Professional Image</div>
-                        <div style="font-size: 10px; color: #666;">School looks modern</div>
+                        <div class="benefit-title">Professional Institution Image</div>
+                        <div class="benefit-desc">Modern technology reflects institutional excellence and attracts quality students</div>
                     </div>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <div class="benefit-content">
-                        <div class="benefit-title">Improves Performance</div>
-                        <div style="font-size: 10px; color: #666;">Track progress easily</div>
+                        <div class="benefit-title">Revenue Optimization</div>
+                        <div class="benefit-desc">Automated billing reduces collection time and improves cash flow</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Section 4: The Complete Package -->
+            <!-- Investment Package -->
             <div class="section-title">
-                <span class="section-title-icon">📦</span>
-                <span>Complete Package (N150,000)</span>
+                <span class="section-title-icon">💼</span>
+                <span>Investment & Service Package</span>
             </div>
 
             <div class="package-box">
-                <div class="package-amount">N150,000</div>
-                <div class="package-subtitle">(One-Time Payment - Lifetime Support)</div>
+                <div class="package-header">
+                    <div class="package-header-text">Total Investment for Complete System Implementation</div>
+                    <div class="package-amount">₦150,000</div>
+                    <div class="package-subtitle">One-Time Fee | Lifetime Support Included</div>
+                </div>
                 
                 <div class="package-items">
                     <div class="package-item">
-                        <div class="package-item-icon">→</div>
-                        <div>Professional school website</div>
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>Custom School Website</strong> with branding and portfolio</div>
                     </div>
                     <div class="package-item">
-                        <div class="package-item-icon">→</div>
-                        <div>Complete e-portal with dashboards</div>
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>Complete E-Portal System</strong> with all dashboards</div>
                     </div>
                     <div class="package-item">
-                        <div class="package-item-icon">→</div>
-                        <div>Results management system</div>
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>Comprehensive Results Management</strong> suite</div>
                     </div>
                     <div class="package-item">
-                        <div class="package-item-icon">→</div>
-                        <div>Online exam (CBT) platform</div>
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>CBT Examination Platform</strong> with monitoring tools</div>
                     </div>
                     <div class="package-item">
-                        <div class="package-item-icon">→</div>
-                        <div>Free setup and staff training</div>
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>Complimentary Setup & Installation</strong> by our team</div>
                     </div>
                     <div class="package-item">
-                        <div class="package-item-icon">→</div>
-                        <div>Free maintenance and support</div>
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>Comprehensive Staff Training</strong> (minimum 2 sessions)</div>
                     </div>
                     <div class="package-item">
-                        <div class="package-item-icon">→</div>
-                        <div>Regular maintenance visits</div>
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>Free System Maintenance & Updates</strong> forever</div>
                     </div>
                     <div class="package-item">
-                        <div class="package-item-icon">→</div>
-                        <div>Technical support 24/7</div>
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>Quarterly Audits & Optimization</strong> visits</div>
+                    </div>
+                    <div class="package-item">
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>Dedicated Account Manager</strong> assigned to school</div>
+                    </div>
+                    <div class="package-item">
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>24/7 Technical Support</strong> via phone & email</div>
+                    </div>
+                    <div class="package-item">
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>Advanced Security Features</strong> and regular backups</div>
+                    </div>
+                    <div class="package-item">
+                        <div class="package-item-icon">✓</div>
+                        <div><strong>Certificate & E-Certificate Generation</strong> system</div>
                     </div>
                 </div>
             </div>
@@ -759,35 +936,43 @@
             <!-- Closing Section -->
             <div class="closing-section">
                 <div class="closing-text">
-                    <p>We believe every school deserves quality management technology at an affordable price. <strong>ExamGuard is here to make that happen.</strong> We look forward to partnering with your institution and helping you provide the best experience for your students, teachers, and parents.</p>
+                    <p><strong>Success is Our Partnership</strong></p>
+                    <p>ExamGuard isn't merely a software provider – we're your dedicated partner in academic excellence. Our commitment extends beyond implementation to ensure your institution achieves measurable improvements in operational efficiency, student outcomes, and stakeholder satisfaction.</p>
+                    <p>With over <strong>500+ institutions</strong> currently using ExamGuard and a proven track record of successful implementations across Nigeria, we understand the unique challenges schools face and provide solutions tailored to your specific needs.</p>
                 </div>
                 <div class="contact-card">
-                    <div class="contact-card-title">📞 Contact Us</div>
+                    <div class="contact-card-title">📞 Get In Touch Today</div>
                     <div class="contact-card-item">
-                        <span class="contact-label">Phone:</span><br>
+                        <span class="contact-label">Direct Line:</span>
                         +2349155127634
                     </div>
                     <div class="contact-card-item">
-                        <span class="contact-label">Email:</span><br>
+                        <span class="contact-label">Email Address:</span>
                         support@examguard.com.ng
                     </div>
                     <div class="contact-card-item">
-                        <span class="contact-label">Website:</span><br>
-                        examguard.com.ng
+                        <span class="contact-label">Website:</span>
+                        www.examguard.com.ng
+                    </div>
+                    <div class="contact-card-item">
+                        <span class="contact-label">Office Hours:</span>
+                        Mon-Fri: 8:00 AM - 6:00 PM
                     </div>
                 </div>
             </div>
 
-            <!-- Signature and PostScript -->
+            <div class="divider-line"></div>
+
+            <!-- Signature Section -->
             <div class="signature-section">
                 <div class="signature-block">
                     <div class="signature-text">Warm regards,</div>
                     <div class="signature-line"></div>
                     <div class="signature-name">ExamGuard Team</div>
-                    <div class="signature-role">Making School Management Simple</div>
+                    <div class="signature-role">Transforming Education Through Innovation</div>
                 </div>
                 <div class="postscript-box">
-                    <p><span class="postscript-label">P.S.</span> If you'd like a quick tour of the system, just give us a call or send us an email. We're ready to show you what ExamGuard can do for your school!</p>
+                    <p><span class="postscript-label">P.S. SPECIAL OFFER:</span> Sign up before <span class="fillable-line" style="min-width: 120px;"></span> and receive a complimentary school mobile app development (valued at N50,000) absolutely free! This exclusive offer is limited to the first 20 institutions that respond to this proposal.</p>
                 </div>
             </div>
         </div>
@@ -798,7 +983,7 @@
             const element = document.getElementById('pdf-content');
             const options = {
                 margin: [0, 0, 0, 0],
-                filename: 'ExamGuard_School_Proposal.pdf',
+                filename: 'ExamGuard_Official_School_Proposal.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, useCORS: true, allowTaint: true },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
