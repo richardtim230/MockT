@@ -4,461 +4,387 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExamGuard - School Proposal Letter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+            .page {
+                page-break-after: always;
+                break-after: page;
+            }
+            .page:last-child {
+                page-break-after: avoid;
+            }
+        }
+
+        .page {
+            min-height: 100vh;
+            background: white;
+            padding: 40px;
+        }
+
+        .watermark {
+            position: absolute;
+            opacity: 0.03;
+            font-size: 100px;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .letterhead {
+            border-bottom: 3px solid #ffb400;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .signature-line {
+            border-top: 1px solid #1f2937;
+            width: 200px;
+            margin-top: 40px;
+            padding-top: 10px;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #061728 0%, #0f2847 100%);
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #061728 0%, #0f2847 100%);
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
-            border-bottom: 5px solid #ffb400;
-        }
-
-        .logo {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: #ffb400;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .content {
-            padding: 50px 40px;
-        }
-
-        .greeting {
-            margin-bottom: 30px;
-        }
-
-        .greeting-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #061728;
-            margin-bottom: 8px;
-        }
-
-        .greeting-text {
-            font-size: 15px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        .meta-info {
-            display: flex;
-            gap: 40px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 13px;
-        }
-
-        .meta-item {
-            color: #666;
-        }
-
-        .meta-label {
-            font-weight: 600;
-            color: #061728;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        h2 {
-            font-size: 22px;
-            color: #061728;
-            margin-top: 35px;
-            margin-bottom: 20px;
-            font-weight: 700;
-            border-left: 4px solid #ffb400;
-            padding-left: 15px;
-        }
-
-        h3 {
-            font-size: 16px;
-            color: #0f2847;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .section-text {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-        .features-list {
-            list-style: none;
-            margin: 20px 0;
-        }
-
-        .features-list li {
-            font-size: 14px;
-            color: #555;
-            padding: 12px 0;
-            padding-left: 30px;
-            position: relative;
-            line-height: 1.6;
-        }
-
-        .features-list li:before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #10b981;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .advantages {
-            background: #f9fafb;
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 4px solid #ffb400;
-            margin: 25px 0;
-        }
-
-        .advantages-list {
-            list-style: none;
-        }
-
-        .advantages-list li {
-            font-size: 14px;
-            color: #333;
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
-            font-weight: 500;
-            line-height: 1.6;
-        }
-
-        .advantages-list li:before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: #ffb400;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .package-box {
-            background: linear-gradient(135deg, rgba(255, 180, 0, 0.05) 0%, rgba(61, 130, 246, 0.05) 100%);
-            border: 2px solid #ffb400;
-            border-radius: 8px;
-            padding: 25px;
-            margin: 25px 0;
-        }
-
-        .package-price {
-            font-size: 24px;
-            font-weight: 700;
-            color: #061728;
-            margin-bottom: 15px;
-        }
-
-        .package-list {
-            list-style: none;
-        }
-
-        .package-list li {
-            font-size: 13px;
-            color: #555;
-            padding: 8px 0;
-            padding-left: 25px;
-            position: relative;
-        }
-
-        .package-list li:before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: #ffb400;
-            font-weight: bold;
-        }
-
-        .next-steps {
-            background: linear-gradient(135deg, #0f2847 0%, #061728 100%);
-            color: white;
-            padding: 30px 25px;
-            border-radius: 8px;
-            margin: 30px 0;
-        }
-
-        .next-steps h3 {
-            color: #ffb400;
-            margin-top: 0;
-        }
-
-        .next-steps ol {
-            margin-left: 20px;
-        }
-
-        .next-steps li {
-            font-size: 13px;
-            margin: 8px 0;
-            line-height: 1.6;
-        }
-
-        .contact-box {
-            background: #f9fafb;
-            padding: 30px 25px;
-            border-radius: 8px;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .contact-box h3 {
-            color: #061728;
-            margin-top: 0;
-            font-size: 16px;
-        }
-
-        .contact-item {
-            font-size: 14px;
-            color: #555;
-            margin: 10px 0;
-        }
-
-        .contact-item strong {
-            color: #061728;
-            font-weight: 600;
-        }
-
-        .closing {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #555;
-            line-height: 1.8;
-        }
-
-        .signature {
-            margin-top: 40px;
-            font-size: 14px;
-        }
-
-        .signature-block {
-            font-weight: 600;
-            color: #061728;
-            margin-bottom: 20px;
-        }
-
-        .tagline {
-            font-style: italic;
-            color: #666;
-            font-size: 13px;
-        }
-
-        .postscript {
-            background: #fffbf0;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 25px;
-            border-left: 4px solid #ffb400;
-            font-size: 13px;
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .postscript strong {
-            color: #061728;
-        }
-
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-
-            .container {
-                box-shadow: none;
-                border-radius: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .content {
-                padding: 30px 20px;
-            }
-
-            .header {
-                padding: 40px 20px;
-            }
-
-            h2 {
-                font-size: 19px;
-            }
-
-            .meta-info {
-                flex-direction: column;
-                gap: 15px;
-            }
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo">🎓 ExamGuard</div>
-            <h1>School Management Solution Proposal</h1>
-            <p>Transforming Education Through Technology</p>
+<body class="bg-gray-100">
+    <!-- Download Button -->
+    <div class="no-print p-4 bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-blue-900">ExamGuard Proposal Letter</h1>
+            <button onclick="generatePDF()" class="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-blue-900 font-semibold py-2 px-6 rounded-lg transition-all duration-300 shadow-lg">
+                📥 Download as PDF
+            </button>
         </div>
+    </div>
 
-        <!-- Content -->
-        <div class="content">
+    <!-- Page 1 -->
+    <div id="pdf-content" class="max-w-4xl mx-auto">
+        <div class="page bg-white shadow-2xl mt-6 relative">
+            <div class="watermark">EXAMGUARD</div>
+
+            <!-- Letterhead -->
+            <div class="letterhead">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <div class="text-4xl font-bold text-amber-500">🎓 ExamGuard</div>
+                        <p class="text-gray-600 text-sm mt-1">Professional School Management Platform</p>
+                    </div>
+                    <div class="text-right text-sm text-gray-600">
+                        <p><strong>Phone:</strong> +2349155127634</p>
+                        <p><strong>Email:</strong> support@examguard.com.ng</p>
+                        <p><strong>Website:</strong> examguard.com.ng</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header Info -->
+            <div class="grid grid-cols-2 gap-8 mb-8 text-sm">
+                <div>
+                    <p class="text-gray-600"><strong>Date:</strong> [Insert Date]</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-gray-600"><strong>Ref:</strong> EG-PROPOSAL-2024</p>
+                </div>
+            </div>
+
             <!-- Greeting -->
-            <div class="greeting">
-                <p class="greeting-title">TO WHOM IT MAY CONCERN</p>
-                <p class="greeting-text">Dear [School Name/Principal Name],</p>
-                <p class="greeting-text" style="font-weight: 600; color: #ffb400;">Warm Greetings!</p>
-                <p class="greeting-text">We hope this letter finds you and your team well. We are ExamGuard, a company that helps schools like yours run smoothly and efficiently using simple technology.</p>
+            <div class="mb-8">
+                <p class="text-gray-800 mb-2">TO WHOM IT MAY CONCERN</p>
+                <p class="text-gray-800 font-semibold mb-4">Dear [School Name/Principal Name],</p>
             </div>
 
-            <div class="meta-info">
-                <div class="meta-item">
-                    <span class="meta-label">Date:</span>
-                    [Insert Date]
+            <!-- Introduction -->
+            <div class="bg-gradient-to-r from-blue-50 to-amber-50 border-l-4 border-amber-500 p-6 rounded-r-lg mb-8">
+                <p class="text-gray-800 text-sm leading-relaxed"><strong>Warm Greetings!</strong></p>
+                <p class="text-gray-800 text-sm leading-relaxed mt-3">We hope this letter finds you and your team well. We are <strong>ExamGuard</strong>, a company that helps schools like yours run smoothly and efficiently using simple, reliable technology. Our mission is to transform education through automation and innovation.</p>
+            </div>
+
+            <!-- What We Offer Section -->
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-blue-900 mb-4 flex items-center">
+                    <span class="text-2xl mr-2">📌</span>
+                    What We Offer
+                </h2>
+                <p class="text-gray-700 text-sm mb-4">We provide a complete <strong>School Management System</strong> that makes managing your school easier, faster, and more efficient. Here's what you get:</p>
+
+                <!-- Features Grid -->
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="bg-white border-l-4 border-amber-400 p-4 rounded-lg">
+                        <p class="font-semibold text-gray-900 text-sm">📊 Admin Dashboard</p>
+                        <p class="text-gray-600 text-xs mt-1">Manage the entire school in one place</p>
+                    </div>
+                    <div class="bg-white border-l-4 border-blue-400 p-4 rounded-lg">
+                        <p class="font-semibold text-gray-900 text-sm">👨‍🏫 Teacher's Dashboard</p>
+                        <p class="text-gray-600 text-xs mt-1">Upload materials and track student performance</p>
+                    </div>
+                    <div class="bg-white border-l-4 border-green-400 p-4 rounded-lg">
+                        <p class="font-semibold text-gray-900 text-sm">👨‍🎓 Student's Dashboard</p>
+                        <p class="text-gray-600 text-xs mt-1">View results and track academic progress</p>
+                    </div>
+                    <div class="bg-white border-l-4 border-purple-400 p-4 rounded-lg">
+                        <p class="font-semibold text-gray-900 text-sm">👨‍👩‍👧 Parent's Dashboard</p>
+                        <p class="text-gray-600 text-xs mt-1">Monitor child's performance and activities</p>
+                    </div>
+                    <div class="bg-white border-l-4 border-red-400 p-4 rounded-lg">
+                        <p class="font-semibold text-gray-900 text-sm">📝 Results Portal</p>
+                        <p class="text-gray-600 text-xs mt-1">Easy exam results checking and management</p>
+                    </div>
+                    <div class="bg-white border-l-4 border-yellow-400 p-4 rounded-lg">
+                        <p class="font-semibold text-gray-900 text-sm">💻 CBT Exams</p>
+                        <p class="text-gray-600 text-xs mt-1">Conduct online computer-based tests</p>
+                    </div>
                 </div>
-                <div class="meta-item">
-                    <span class="meta-label">Subject:</span>
-                    ExamGuard – Complete School Management Solution
-                </div>
-            </div>
-
-            <!-- What We Offer -->
-            <h2>📌 What We Offer</h2>
-            <p class="section-text">We provide a complete <strong>School Management System</strong> that makes managing your school easier and faster. Here's what you get:</p>
-
-            <h3>1. School Website + E-Portal</h3>
-            <p class="section-text">Your school gets its own professional website and online portal where everyone can access what they need from anywhere:</p>
-            <ul class="features-list">
-                <li><strong>Admin Dashboard</strong> – Manage the whole school in one place</li>
-                <li><strong>Teacher's Dashboard</strong> – Teachers can upload materials, check student performance, and manage classes</li>
-                <li><strong>Student's Dashboard</strong> – Students see their results, check assignments, and track their progress</li>
-                <li><strong>Parent's Dashboard</strong> – Parents can monitor their child's performance and school activities</li>
-                <li><strong>Results Checking Portal</strong> – Students and parents can easily check exam results</li>
-                <li><strong>CBT Exams</strong> – Your school can conduct computer-based tests online</li>
-            </ul>
-
-            <h3>2. What Makes Us Different</h3>
-            <div class="advantages">
-                <ul class="advantages-list">
-                    <li><strong>One-Time Payment</strong> – Just pay N150,000 and you're good to go (no hidden charges)</li>
-                    <li><strong>Free Maintenance</strong> – We maintain the system for free, so you don't worry about technical issues</li>
-                    <li><strong>Regular Check-ups</strong> – We visit your school regularly to ensure everything is working perfectly</li>
-                    <li><strong>Easy to Use</strong> – No complicated stuff. Your staff can use it without special training</li>
-                    <li><strong>24/7 Support</strong> – We're always available to help when you need us</li>
-                </ul>
-            </div>
-
-            <!-- How ExamGuard Helps -->
-            <h2>🚀 How ExamGuard Helps Your School</h2>
-            <ul class="features-list">
-                <li><strong>Saves Time</strong> – Instead of manual record-keeping, everything is automated</li>
-                <li><strong>Reduces Stress</strong> – Teachers spend less time on paperwork and more time teaching</li>
-                <li><strong>Better Communication</strong> – Parents stay connected with what's happening in school</li>
-                <li><strong>Accurate Records</strong> – All student information is stored safely and organized</li>
-                <li><strong>Professional Image</strong> – Your school looks modern and well-organized</li>
-                <li><strong>Improves Performance</strong> – Everyone can track progress easily and identify areas to improve</li>
-            </ul>
-
-            <!-- Package -->
-            <h2>📦 The Complete Package</h2>
-            <div class="package-box">
-                <div class="package-price">N150,000 (One-Time Payment)</div>
-                <ul class="package-list">
-                    <li>Professional school website</li>
-                    <li>Complete e-portal with all dashboards</li>
-                    <li>Results management system</li>
-                    <li>Online exam (CBT) platform</li>
-                    <li>Free setup and training for your staff</li>
-                    <li>Free maintenance and support</li>
-                    <li>Regular maintenance visits</li>
-                    <li>Technical support whenever you need it</li>
-                </ul>
             </div>
 
             <!-- Why Choose Us -->
-            <h2>💡 Why Choose ExamGuard?</h2>
-            <p class="section-text">Many schools in Nigeria are already using ExamGuard and seeing great results. We're not just selling software – we're a partner in your school's success. We understand the challenges schools face, and we've built our system to solve them.</p>
+            <div class="bg-blue-900 text-white p-6 rounded-lg">
+                <h3 class="font-bold mb-4 flex items-center text-lg">
+                    <span class="text-2xl mr-2">⭐</span>
+                    What Makes Us Different
+                </h3>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-start">
+                        <span class="text-amber-400 mr-3 font-bold">✓</span>
+                        <div>
+                            <p class="font-semibold">One-Time Payment</p>
+                            <p class="text-blue-100 text-xs">N150,000 - No hidden charges</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-amber-400 mr-3 font-bold">✓</span>
+                        <div>
+                            <p class="font-semibold">Free Maintenance</p>
+                            <p class="text-blue-100 text-xs">We handle all technical issues</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-amber-400 mr-3 font-bold">✓</span>
+                        <div>
+                            <p class="font-semibold">Regular Check-ups</p>
+                            <p class="text-blue-100 text-xs">School visits for system optimization</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-amber-400 mr-3 font-bold">✓</span>
+                        <div>
+                            <p class="font-semibold">Easy to Use</p>
+                            <p class="text-blue-100 text-xs">Simple interface, no special training</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-amber-400 mr-3 font-bold">✓</span>
+                        <div>
+                            <p class="font-semibold">24/7 Support</p>
+                            <p class="text-blue-100 text-xs">Always available to help</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-amber-400 mr-3 font-bold">✓</span>
+                        <div>
+                            <p class="font-semibold">Professional Team</p>
+                            <p class="text-blue-100 text-xs">Dedicated to your success</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="page bg-white shadow-2xl mt-6 relative">
+            <div class="watermark">EXAMGUARD</div>
+
+            <!-- Page 2 Header -->
+            <div class="flex items-center justify-between mb-8 pb-4 border-b-2 border-amber-400">
+                <div class="text-lg font-bold text-blue-900">ExamGuard Proposal - Page 2</div>
+                <div class="text-sm text-gray-600">Continued...</div>
+            </div>
+
+            <!-- How ExamGuard Helps -->
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-blue-900 mb-4 flex items-center">
+                    <span class="text-2xl mr-2">🚀</span>
+                    How ExamGuard Helps Your School
+                </h2>
+                
+                <div class="space-y-3">
+                    <div class="flex items-start p-3 bg-gray-50 rounded-lg hover:bg-amber-50 transition">
+                        <span class="text-green-500 font-bold mr-3">✓</span>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">Saves Time</p>
+                            <p class="text-gray-600 text-xs">Instead of manual record-keeping, everything is automated</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition">
+                        <span class="text-green-500 font-bold mr-3">✓</span>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">Reduces Stress</p>
+                            <p class="text-gray-600 text-xs">Teachers spend less time on paperwork and more time teaching</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-3 bg-gray-50 rounded-lg hover:bg-purple-50 transition">
+                        <span class="text-green-500 font-bold mr-3">✓</span>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">Better Communication</p>
+                            <p class="text-gray-600 text-xs">Parents stay connected with what's happening in school</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-3 bg-gray-50 rounded-lg hover:bg-green-50 transition">
+                        <span class="text-green-500 font-bold mr-3">✓</span>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">Accurate Records</p>
+                            <p class="text-gray-600 text-xs">All student information is stored safely and organized</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-3 bg-gray-50 rounded-lg hover:bg-red-50 transition">
+                        <span class="text-green-500 font-bold mr-3">✓</span>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">Professional Image</p>
+                            <p class="text-gray-600 text-xs">Your school looks modern and well-organized</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-3 bg-gray-50 rounded-lg hover:bg-yellow-50 transition">
+                        <span class="text-green-500 font-bold mr-3">✓</span>
+                        <div>
+                            <p class="font-semibold text-gray-900 text-sm">Improves Performance</p>
+                            <p class="text-gray-600 text-xs">Everyone can track progress easily and identify areas to improve</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package Details -->
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-blue-900 mb-4 flex items-center">
+                    <span class="text-2xl mr-2">📦</span>
+                    The Complete Package
+                </h2>
+                
+                <div class="bg-gradient-to-br from-amber-50 to-amber-100 border-2 border-amber-400 p-6 rounded-lg">
+                    <div class="text-center mb-6">
+                        <p class="text-gray-600 text-sm">Investment for Excellence:</p>
+                        <p class="text-3xl font-bold text-blue-900">N150,000</p>
+                        <p class="text-amber-600 font-semibold text-sm">(One-Time Payment - Lifetime Support)</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="flex items-center text-sm text-gray-800">
+                            <span class="text-amber-500 mr-2">→</span>Professional school website
+                        </div>
+                        <div class="flex items-center text-sm text-gray-800">
+                            <span class="text-amber-500 mr-2">→</span>Complete e-portal with dashboards
+                        </div>
+                        <div class="flex items-center text-sm text-gray-800">
+                            <span class="text-amber-500 mr-2">→</span>Results management system
+                        </div>
+                        <div class="flex items-center text-sm text-gray-800">
+                            <span class="text-amber-500 mr-2">→</span>Online exam (CBT) platform
+                        </div>
+                        <div class="flex items-center text-sm text-gray-800">
+                            <span class="text-amber-500 mr-2">→</span>Free setup and staff training
+                        </div>
+                        <div class="flex items-center text-sm text-gray-800">
+                            <span class="text-amber-500 mr-2">→</span>Free maintenance and support
+                        </div>
+                        <div class="flex items-center text-sm text-gray-800">
+                            <span class="text-amber-500 mr-2">→</span>Regular maintenance visits
+                        </div>
+                        <div class="flex items-center text-sm text-gray-800">
+                            <span class="text-amber-500 mr-2">→</span>Technical support 24/7
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Next Steps -->
-            <div class="next-steps">
-                <h3>Next Steps</h3>
-                <p style="margin-bottom: 15px;">We'd love to show you how ExamGuard works. We can:</p>
-                <ol>
-                    <li>Visit your school for a live demonstration</li>
-                    <li>Answer any questions you have</li>
-                    <li>Discuss how we can customize it for your school's needs</li>
-                    <li>Start the process at your convenience</li>
+            <div class="bg-gradient-to-r from-blue-900 to-blue-800 text-white p-6 rounded-lg mb-8">
+                <h3 class="font-bold mb-4 text-lg flex items-center">
+                    <span class="text-2xl mr-2">📞</span>
+                    Next Steps - Let's Get Started
+                </h3>
+                <p class="text-blue-100 text-sm mb-3">We'd love to show you how ExamGuard works. We can:</p>
+                <ol class="text-sm space-y-2 text-blue-100">
+                    <li class="flex items-start">
+                        <span class="font-bold mr-3">1.</span>
+                        <span>Visit your school for a live demonstration</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="font-bold mr-3">2.</span>
+                        <span>Answer any questions you have about the system</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="font-bold mr-3">3.</span>
+                        <span>Discuss customization options for your school's unique needs</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="font-bold mr-3">4.</span>
+                        <span>Start the implementation process at your convenience</span>
+                    </li>
                 </ol>
             </div>
 
-            <!-- Contact -->
-            <div class="contact-box">
-                <h3>📞 Get In Touch With Us</h3>
-                <div class="contact-item">
-                    <strong>Phone:</strong> +2349155127634
+            <!-- Contact & Closing -->
+            <div class="grid grid-cols-2 gap-8 mb-8">
+                <div>
+                    <p class="text-gray-800 text-sm leading-relaxed">We believe that every school deserves access to quality management technology at an affordable price. <strong>ExamGuard is here to make that happen.</strong></p>
+                    <p class="text-gray-800 text-sm leading-relaxed mt-3">We look forward to partnering with your institution and helping you provide the best experience for your students, teachers, and parents.</p>
                 </div>
-                <div class="contact-item">
-                    <strong>Email:</strong> support@examguard.com.ng
+                <div class="bg-amber-50 p-4 rounded-lg border-l-4 border-amber-500">
+                    <p class="font-bold text-blue-900 text-sm mb-3">📍 Contact Information</p>
+                    <div class="text-sm text-gray-700 space-y-2">
+                        <p><strong>Phone:</strong><br>+2349155127634</p>
+                        <p><strong>Email:</strong><br>support@examguard.com.ng</p>
+                        <p><strong>Website:</strong><br>examguard.com.ng</p>
+                    </div>
                 </div>
-                <div class="contact-item">
-                    <strong>Website:</strong> examguard.com.ng
-                </div>
-            </div>
-
-            <!-- Closing -->
-            <div class="closing">
-                <p>We believe that every school deserves access to quality management technology at an affordable price. ExamGuard is here to make that happen.</p>
-                <p style="margin-top: 15px;">We look forward to partnering with your institution and helping you provide the best experience for your students, teachers, and parents.</p>
             </div>
 
             <!-- Signature -->
-            <div class="signature">
-                <p style="margin: 30px 0 10px 0;">Warm regards,</p>
-                <div class="signature-block">ExamGuard Team</div>
-                <p class="tagline">Making School Management Simple</p>
+            <div class="mt-12">
+                <p class="text-gray-800 mb-8">Warm regards,</p>
+                <div class="signature-line"></div>
+                <p class="text-gray-900 font-bold mt-4">ExamGuard Team</p>
+                <p class="text-gray-600 text-sm italic">Making School Management Simple</p>
             </div>
 
-            <!-- Postscript -->
-            <div class="postscript">
-                <strong>P.S.</strong> – If you'd like a quick tour of the system, just give us a call or send us an email. We're ready to show you what ExamGuard can do for your school!
+            <!-- PostScript -->
+            <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+                <p class="text-gray-800 text-sm"><strong>P.S.</strong> If you'd like a quick tour of the system, just give us a call or send us an email. We're ready to show you what ExamGuard can do for your school!</p>
             </div>
         </div>
     </div>
+
+    <script>
+        function generatePDF() {
+            const element = document.getElementById('pdf-content');
+            const options = {
+                margin: 0,
+                filename: 'ExamGuard_School_Proposal.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(options).from(element).save();
+        }
+
+        // Alternative: Print to PDF
+        function printPDF() {
+            window.print();
+        }
+    </script>
 </body>
 </html>
