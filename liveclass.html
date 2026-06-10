@@ -696,6 +696,100 @@
       line-height: 1.5;
     }
 
+    /* ===== SETTINGS MODAL ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 28px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .modal-header h2 {
+      color: var(--primary);
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .modal-close:hover {
+      color: var(--accent);
+    }
+
+    .settings-group {
+      margin-bottom: 20px;
+    }
+
+    .settings-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .settings-group input,
+    .settings-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .settings-group input:focus,
+    .settings-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-200);
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       .live-stream-main {
@@ -789,6 +883,10 @@
 
       .sidebar-card {
         max-height: 250px;
+      }
+
+      .modal-content {
+        width: 95%;
       }
     }
 
@@ -891,12 +989,12 @@
       <!-- ===== MAIN LIVE STREAM SECTION ===== -->
       <div class="live-stream-main">
         <!-- VIDEO CONTAINER -->
-        <div class="video-container">
+        <div class="video-container" id="videoContainer">
           <div class="live-badge">
             <i class="fas fa-circle"></i>
             LIVE
           </div>
-          <div class="video-placeholder">
+          <div class="video-placeholder" id="videoPlaceholder">
             <div class="video-icon">
               <i class="fab fa-telegram"></i>
             </div>
@@ -905,6 +1003,11 @@
               <div class="video-status-text">Click "Join Stream" to start watching</div>
             </div>
           </div>
+          <iframe 
+            id="telegramStream" 
+            style="display: none; width: 100%; height: 100%; border: none;"
+            allow="autoplay; encrypted-media">
+          </iframe>
           <div class="video-controls">
             <button class="video-control-btn" title="Mute Audio" onclick="toggleAudio()">
               <i class="fas fa-microphone"></i>
@@ -931,7 +1034,27 @@
             </div>
             <div class="sidebar-card-body">
               <div class="participants-list" id="participantsList">
-                <!-- Participants will be populated here -->
+                <div class="participant-item">
+                  <div class="participant-avatar">DR</div>
+                  <div class="participant-info">
+                    <div class="participant-name">Dr. Adekunle</div>
+                    <div class="participant-status online">Instructor</div>
+                  </div>
+                </div>
+                <div class="participant-item">
+                  <div class="participant-avatar">JD</div>
+                  <div class="participant-info">
+                    <div class="participant-name">John Doe</div>
+                    <div class="participant-status online">Student</div>
+                  </div>
+                </div>
+                <div class="participant-item">
+                  <div class="participant-avatar">SJ</div>
+                  <div class="participant-info">
+                    <div class="participant-name">Sarah Johnson</div>
+                    <div class="participant-status online">Student</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -998,232 +1121,209 @@
           </div>
           <div class="detail-card">
             <div class="detail-label">Instructor</div>
-            <div class="detail-value" id="instructorName">Prof. Olayinka Adebayo</div>
+            <div class="detail-value">Dr. Adekunle Adebare</div>
             <div class="detail-description">Department of Mathematics</div>
           </div>
           <div class="detail-card">
+            <div class="detail-label">Class Code</div>
+            <div class="detail-value">MTH401</div>
+            <div class="detail-description">Course ID</div>
+          </div>
+          <div class="detail-card">
             <div class="detail-label">Schedule</div>
-            <div class="detail-value" id="classTime">Today, 2:00 PM - 3:30 PM</div>
-            <div class="detail-description">Every Tuesday & Thursday</div>
-          </div>
-          <div class="detail-card">
-            <div class="detail-label">Room Code</div>
-            <div class="detail-value" id="roomCode">MATH-2024-A1</div>
-            <div class="detail-description">Share this code with others to join</div>
-          </div>
-          <div class="detail-card">
-            <div class="detail-label">Class Size</div>
-            <div class="detail-value" id="classSize">45 Students</div>
-            <div class="detail-description">Current participants: 38</div>
-          </div>
-          <div class="detail-card">
-            <div class="detail-label">Recording Status</div>
-            <div class="detail-value"><i class="fas fa-circle" style="color: var(--danger); margin-right: 6px;"></i>Recording</div>
-            <div class="detail-description">This session is being recorded</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ===== ADDITIONAL RESOURCES ===== -->
-      <div class="class-details-section">
-        <h2 class="section-title">
-          <i class="fas fa-file-pdf"></i>
-          Class Resources
-        </h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
-          <div style="padding: 16px; background: var(--gray-50); border-radius: 10px; border-left: 3px solid var(--accent); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='var(--gray-50)'">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-              <i class="fas fa-file-pdf" style="font-size: 24px; color: var(--danger);"></i>
-              <div>
-                <div style="font-weight: 600; color: var(--primary); font-size: 14px;">Lecture Notes</div>
-                <div style="font-size: 12px; color: var(--gray-600);">Calculus_Chapter5.pdf</div>
-              </div>
-            </div>
-            <div style="font-size: 11px; color: var(--gray-500);">2.4 MB • Downloaded 24 times</div>
-          </div>
-
-          <div style="padding: 16px; background: var(--gray-50); border-radius: 10px; border-left: 3px solid var(--success); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='var(--gray-50)'">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-              <i class="fas fa-video" style="font-size: 24px; color: var(--accent);"></i>
-              <div>
-                <div style="font-weight: 600; color: var(--primary); font-size: 14px;">Recording Link</div>
-                <div style="font-size: 12px; color: var(--gray-600);">Session_Recording_2024.mp4</div>
-              </div>
-            </div>
-            <div style="font-size: 11px; color: var(--gray-500);">Available after class ends</div>
-          </div>
-
-          <div style="padding: 16px; background: var(--gray-50); border-radius: 10px; border-left: 3px solid var(--warning); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='var(--gray-50)'">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-              <i class="fas fa-file-alt" style="font-size: 24px; color: var(--warning);"></i>
-              <div>
-                <div style="font-weight: 600; color: var(--primary); font-size: 14px;">Assignment</div>
-                <div style="font-size: 12px; color: var(--gray-600);">Problem_Set_Week5.pdf</div>
-              </div>
-            </div>
-            <div style="font-size: 11px; color: var(--gray-500);">Due: Friday, 11:59 PM</div>
+            <div class="detail-value">Mon, Wed, Fri</div>
+            <div class="detail-description">2:00 PM - 3:30 PM</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SCRIPTS -->
-  <script>
-    // Load user info
-    function loadUserInfo() {
-      const userName = localStorage.getItem('userName') || 'User';
-      const userInitial = userName.charAt(0).toUpperCase();
-      document.getElementById('userAvatar').textContent = userInitial;
-      document.getElementById('userName').textContent = userName;
-    }
-
-    // Load participants
-    function loadParticipants() {
-      const participants = [
-        { name: 'Prof. Olayinka', status: 'Instructor' },
-        { name: 'Chioma Okeke', status: 'online' },
-        { name: 'Tunde Adeleke', status: 'online' },
-        { name: 'Zainab Hassan', status: 'online' },
-        { name: 'Blessing Okonkwo', status: 'online' },
-        { name: 'Samuel Okafor', status: 'online' },
-        { name: 'Ada Nkosi', status: 'online' },
-        { name: 'Chukwu Eze', status: 'online' },
-        { name: 'Fatima Ibrahim', status: 'online' },
-        { name: 'Kayode Ogunwale', status: 'online' },
-        { name: 'Mary Johnson', status: 'online' },
-        { name: 'David Oluwaseun', status: 'online' }
-      ];
-
-      const participantsList = document.getElementById('participantsList');
-      participantsList.innerHTML = participants.map((p, i) => `
-        <div class="participant-item">
-          <div class="participant-avatar" style="background: linear-gradient(135deg, hsl(${i * 30}, 70%, 60%) 0%, hsl(${i * 30}, 70%, 50%) 100%);">
-            ${p.name.charAt(0)}
-          </div>
-          <div class="participant-info">
-            <div class="participant-name">${p.name}</div>
-            <div class="participant-status ${p.status === 'online' ? 'online' : ''}">${p.status === 'online' ? 'Online' : p.status}</div>
-          </div>
+  <!-- SETTINGS MODAL -->
+  <div class="modal" id="settingsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Stream Settings</h2>
+        <button class="modal-close" onclick="closeSettings()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div style="padding: 0 0 20px 0;">
+        <div class="settings-group">
+          <label for="serverUrl">Server URL</label>
+          <input type="text" id="serverUrl" value="rtmps://dc4-1.rtmp.t.me/s/" readonly>
         </div>
-      `).join('');
-    }
+        <div class="settings-group">
+          <label for="streamKey">Stream Key</label>
+          <input type="password" id="streamKey" placeholder="Enter your stream key">
+        </div>
+        <div class="settings-group">
+          <label for="videoQuality">Video Quality</label>
+          <select id="videoQuality">
+            <option value="720p">720p (Recommended)</option>
+            <option value="480p">480p</option>
+            <option value="1080p">1080p (High Bandwidth)</option>
+            <option value="360p">360p (Low Bandwidth)</option>
+          </select>
+        </div>
+        <div class="settings-group">
+          <label for="audioLevel">Audio Level</label>
+          <input type="range" id="audioLevel" min="0" max="100" value="80">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeSettings()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+      </div>
+    </div>
+  </div>
 
-    // Open Telegram stream
+  <script>
+    // ===== TELEGRAM STREAMING FUNCTIONS =====
     function openTelegramStream() {
-      // Replace with your actual Telegram streaming URL or channel
-      const telegramStreamUrl = 'https://t.me/your_channel/stream'; // Change this to your Telegram channel
-      window.open(telegramStreamUrl, '_blank');
+      // Replace with your actual Telegram stream key from your streaming settings
+      const STREAM_KEY = "3907562047:cHYcceTRWdUcOgNtm_Oscw";
       
-      // Show notification
-      showNotification('Opening Telegram stream...', 'info');
+      const videoPlaceholder = document.getElementById('videoPlaceholder');
+      const telegramStream = document.getElementById('telegramStream');
+      
+      // Hide placeholder and show stream
+      videoPlaceholder.style.display = 'none';
+      telegramStream.style.display = 'block';
+      
+      // Set the embedded Telegram stream URL
+      // Format: https://t.me/embed/{CHANNEL_ID}/{MESSAGE_ID}
+      // Or use direct channel link: https://t.me/s/{CHANNEL_USERNAME}
+      telegramStream.src = `https://t.me/embed/${STREAM_KEY}/1`;
+      
+      console.log('Telegram stream opened');
     }
 
-    // Video controls
+    function leaveClass() {
+      const videoPlaceholder = document.getElementById('videoPlaceholder');
+      const telegramStream = document.getElementById('telegramStream');
+      
+      videoPlaceholder.style.display = 'flex';
+      telegramStream.style.display = 'none';
+      telegramStream.src = '';
+      
+      alert('You have left the class');
+    }
+
+    // ===== VIDEO CONTROL FUNCTIONS =====
     function toggleAudio() {
       const btn = event.target.closest('.video-control-btn');
-      btn.classList.toggle('active');
-      showNotification(btn.classList.contains('active') ? 'Microphone disabled' : 'Microphone enabled', 'info');
+      btn.classList.toggle('disabled');
+      
+      if (btn.classList.contains('disabled')) {
+        btn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+        btn.title = 'Unmute Audio';
+      } else {
+        btn.innerHTML = '<i class="fas fa-microphone"></i>';
+        btn.title = 'Mute Audio';
+      }
     }
 
     function toggleVideo() {
       const btn = event.target.closest('.video-control-btn');
       btn.classList.toggle('disabled');
-      showNotification(btn.classList.contains('disabled') ? 'Camera disabled' : 'Camera enabled', 'info');
+      
+      if (btn.classList.contains('disabled')) {
+        btn.innerHTML = '<i class="fas fa-video-slash"></i>';
+        btn.title = 'Enable Video';
+      } else {
+        btn.innerHTML = '<i class="fas fa-video"></i>';
+        btn.title = 'Disable Video';
+      }
     }
 
     function shareScreen() {
-      showNotification('Screen sharing started', 'success');
+      alert('Screen sharing feature - Configure in your streaming app (OBS, Streamlabs, etc.)');
     }
 
+    // ===== SETTINGS MODAL FUNCTIONS =====
     function openSettings() {
-      showNotification('Settings panel opened', 'info');
+      const modal = document.getElementById('settingsModal');
+      modal.classList.add('active');
     }
 
-    // Send message
+    function closeSettings() {
+      const modal = document.getElementById('settingsModal');
+      modal.classList.remove('active');
+    }
+
+    function saveSettings() {
+      const serverUrl = document.getElementById('serverUrl').value;
+      const streamKey = document.getElementById('streamKey').value;
+      const videoQuality = document.getElementById('videoQuality').value;
+      const audioLevel = document.getElementById('audioLevel').value;
+      
+      if (!streamKey) {
+        alert('Please enter your Stream Key');
+        return;
+      }
+      
+      // Save settings (you can send to your server here)
+      console.log('Settings saved:', {
+        serverUrl,
+        streamKey,
+        videoQuality,
+        audioLevel
+      });
+      
+      alert('Stream settings saved successfully!');
+      closeSettings();
+    }
+
+    // ===== CHAT FUNCTIONS =====
     function sendMessage() {
       const input = document.getElementById('chatInput');
       const message = input.value.trim();
       
-      if (message) {
-        const messagesContainer = document.getElementById('chatMessages');
-        const messageEl = document.createElement('div');
-        messageEl.className = 'chat-message sent';
-        messageEl.textContent = message;
-        messagesContainer.appendChild(messageEl);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        input.value = '';
-      }
-    }
-
-    // Leave class
-    function leaveClass() {
-      if (confirm('Are you sure you want to leave this class?')) {
-        window.location.href = '../landing-dash';
-      }
-    }
-
-    // Notifications
-    function showNotification(message, type = 'info') {
-      const notification = document.createElement('div');
-      notification.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        padding: 16px 24px;
-        background: ${type === 'success' ? 'var(--success)' : type === 'danger' ? 'var(--danger)' : 'var(--accent)'};
-        color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 1000;
-        animation: slideIn 0.3s ease-out;
-        font-weight: 600;
-        font-size: 14px;
-      `;
-      notification.textContent = message;
-      document.body.appendChild(notification);
+      if (!message) return;
       
-      setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease-out';
-        setTimeout(() => notification.remove(), 300);
-      }, 3000);
+      const chatMessages = document.getElementById('chatMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'chat-message sent';
+      messageDiv.textContent = message;
+      
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      input.value = '';
     }
 
+    // ===== UTILITY FUNCTIONS =====
     function toggleNotifications() {
-      showNotification('You have 3 new notifications', 'info');
+      alert('Notifications toggled');
     }
 
     function toggleHelp() {
-      showNotification('Help center opened', 'info');
+      alert('Help: Configure your Telegram streaming settings and click "Join Stream" to start the live broadcast.');
     }
 
-    // Initialize
-    window.addEventListener('DOMContentLoaded', () => {
-      loadUserInfo();
-      loadParticipants();
+    // ===== INITIALIZATION =====
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set user avatar initial
+      const userName = 'Richard Tim';
+      const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+      document.getElementById('userAvatar').textContent = initials;
+      document.getElementById('userName').textContent = userName;
       
-      // Auto-update time remaining
-      setInterval(() => {
-        const remaining = Math.max(0, parseInt(document.getElementById('timeRemaining').textContent) - 1);
-        if (remaining === 0) {
-          document.getElementById('timeRemaining').textContent = 'Class Ended';
-        } else {
-          document.getElementById('timeRemaining').textContent = remaining + 'm';
+      // Allow Enter key to send chat message
+      document.getElementById('chatInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          sendMessage();
         }
-      }, 60000);
+      });
     });
 
-    // Allow Enter key to send messages
-    document.addEventListener('DOMContentLoaded', () => {
-      const chatInput = document.getElementById('chatInput');
-      if (chatInput) {
-        chatInput.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-            sendMessage();
-          }
-        });
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('settingsModal');
+      if (event.target === modal) {
+        closeSettings();
       }
-    });
+    }
   </script>
 </body>
 </html>
