@@ -1,185 +1,1229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Interactive Classroom Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <link rel="icon" type="image/png" href="logo.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <title>Live Class - OAU ExamGuard</title>
+  <meta name="description" content="Join live classes and streaming sessions on OAU ExamGuard. Interactive learning with tutors and classmates.">
+  <meta name="keywords" content="live class, streaming, online class, education">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0f172a;
+      --primary-light: #1e293b;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-900: #111827;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f9fafb 0%, #f0f4ff 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+      color: var(--primary-light);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 70px;
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--primary);
+    }
+
+    .navbar-brand img {
+      height: 36px;
+      width: auto;
+    }
+
+    .navbar-brand span {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .navbar-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .navbar-actions button {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--gray-600);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-actions button:hover {
+      color: var(--accent);
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-left: 12px;
+      border-left: 1px solid var(--gray-200);
+      cursor: pointer;
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .user-info {
+      display: none;
+      font-size: 13px;
+    }
+
+    .user-info p:first-child {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .user-info p:last-child {
+      color: var(--gray-500);
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .user-info {
+        display: block;
+      }
+    }
+
+    /* ===== MAIN CONTAINER ===== */
+    .main-wrapper {
+      margin-top: 70px;
+      min-height: calc(100vh - 70px);
+      padding: 32px 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--accent-light);
+    }
+
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .page-title i {
+      color: var(--accent);
+      font-size: 32px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+
+    .btn-secondary:hover {
+      background: #f0f4ff;
+      transform: translateY(-2px);
+    }
+
+    /* ===== LIVE STREAM CONTAINER ===== */
+    .live-stream-main {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .video-container {
+      background: var(--primary);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      position: relative;
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    .video-icon {
+      font-size: 64px;
+      color: var(--accent);
+      z-index: 2;
+    }
+
+    .video-status {
+      text-align: center;
+      z-index: 2;
+      color: white;
+    }
+
+    .video-status-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .video-status-text {
+      font-size: 13px;
+      color: #d1d5db;
+    }
+
+    .live-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--danger);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 10;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 49%, 100% {
+        opacity: 1;
+      }
+      50%, 99% {
+        opacity: 0.7;
+      }
+    }
+
+    .live-badge i {
+      font-size: 10px;
+    }
+
+    .video-controls {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .video-control-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .video-control-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: scale(1.1);
+    }
+
+    .video-control-btn.active {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .video-control-btn.disabled {
+      background: var(--danger);
+      border-color: var(--danger);
+      opacity: 0.5;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar-card {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .sidebar-card-header {
+      padding: 16px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-card-header i {
+      font-size: 18px;
+    }
+
+    .sidebar-card-body {
+      padding: 16px;
+    }
+
+    /* ===== PARTICIPANTS LIST ===== */
+    .participants-list {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .participant-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .participant-item:hover {
+      background: var(--gray-50);
+      border-color: var(--gray-200);
+    }
+
+    .participant-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .participant-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .participant-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .participant-status {
+      font-size: 11px;
+      color: var(--gray-500);
+    }
+
+    .participant-status.online::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+      margin-right: 4px;
+    }
+
+    .no-participants {
+      text-align: center;
+      padding: 20px;
+      color: var(--gray-500);
+      font-size: 13px;
+    }
+
+    /* ===== CLASS INFO ===== */
+    .class-info-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: var(--gray-50);
+      border-radius: 8px;
+      font-size: 13px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .info-label {
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    .info-value {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* ===== TABS ===== */
+    .tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--gray-200);
+      padding: 0 16px;
+    }
+
+    .tab {
+      padding: 12px 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--gray-600);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .tab:hover {
+      color: var(--accent);
+    }
+
+    .tab.active {
+      color: var(--accent);
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    /* ===== CHAT SECTION ===== */
+    .chat-messages {
+      height: 200px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chat-message {
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .chat-message.sent {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      color: white;
+      align-self: flex-end;
+      max-width: 80%;
+    }
+
+    .chat-message.received {
+      background: var(--gray-100);
+      color: var(--primary);
+      align-self: flex-start;
+      max-width: 80%;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .chat-input input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .chat-input button {
+      padding: 10px 16px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .chat-input button:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+
+    /* ===== CLASS DETAILS SECTION ===== */
+    .class-details-section {
+      background: white;
+      border-radius: 14px;
+      padding: 28px;
+      border: 1px solid var(--gray-200);
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title i {
+      color: var(--accent);
+      font-size: 20px;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .detail-card {
+      padding: 16px;
+      background: var(--gray-50);
+      border-radius: 10px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .detail-label {
+      font-size: 11px;
+      color: var(--gray-600);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .detail-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .detail-description {
+      font-size: 13px;
+      color: var(--gray-600);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .live-stream-main {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .sidebar-card {
+        max-height: 300px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0 1rem;
+      }
+
+      .navbar-brand span {
+        display: none;
+      }
+
+      .main-wrapper {
+        padding: 20px 16px;
+      }
+
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .page-title {
+        font-size: 22px;
+      }
+
+      .sidebar {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .video-container {
+        aspect-ratio: auto;
+        min-height: 300px;
+      }
+
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-actions {
+        width: 100%;
+      }
+
+      .header-actions .btn {
+        flex: 1;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title {
+        font-size: 18px;
+      }
+
+      .header-actions {
+        flex-direction: column;
+      }
+
+      .header-actions .btn {
+        width: 100%;
+      }
+
+      .tabs {
+        padding: 0 12px;
+      }
+
+      .video-controls {
+        bottom: 12px;
+        gap: 8px;
+      }
+
+      .video-control-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+      }
+
+      .sidebar-card {
+        max-height: 250px;
+      }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .video-container,
+    .class-details-section {
+      animation: slideIn 0.6s ease-out;
+    }
+
+    .sidebar-card {
+      animation: slideIn 0.6s ease-out;
+    }
+
+    .sidebar-card:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gray-400);
+    }
+  </style>
 </head>
-<body class="bg-gray-950 text-gray-100 font-sans h-screen flex flex-col overflow-hidden">
-
-    <header class="bg-gray-900 border-b border-gray-800 h-16 flex items-center justify-between px-6 z-10 shrink-0">
-        <div class="flex items-center space-x-4">
-            <span class="flex h-3 w-3 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-            </span>
-            <h1 class="text-base font-semibold tracking-wide">CS-302: Advanced UI Layouts & Frameworks</h1>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="#" class="navbar-brand">
+      <img src="../logo.png" alt="OAU ExamGuard">
+      <span>ExamGuard</span>
+    </a>
+    <div class="navbar-actions">
+      <button onclick="toggleNotifications()" title="Notifications">
+        <i class="fas fa-bell"></i>
+      </button>
+      <button onclick="toggleHelp()" title="Help">
+        <i class="fas fa-question-circle"></i>
+      </button>
+      <div class="user-profile">
+        <div class="user-avatar" id="userAvatar">?</div>
+        <div class="user-info">
+          <p id="userName">Loading...</p>
+          <p id="userRole">Student</p>
         </div>
-        
-        <div class="hidden sm:flex items-center space-x-6 text-xs text-gray-400 bg-gray-950 px-4 py-2 rounded-full border border-gray-800">
-            <div>Instructor: <span class="text-white font-medium">Prof. Sarah Jenkins</span></div>
-            <div class="h-4 w-px bg-gray-800"></div>
-            <div class="flex items-center space-x-1.5">
-                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
-                <span class="font-mono text-gray-200">01:24:05</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CONTAINER ===== -->
+  <div class="main-wrapper">
+    <div class="container">
+      <!-- BREADCRUMB -->
+      <div class="breadcrumb">
+        <a href="../landing-dash">Dashboard</a>
+        <span>/</span>
+        <a href="#">Classes</a>
+        <span>/</span>
+        <span>Live Class</span>
+      </div>
+
+      <!-- PAGE HEADER -->
+      <div class="page-header">
+        <h1 class="page-title">
+          <i class="fas fa-video"></i>
+          Live Class Session
+        </h1>
+        <div class="header-actions">
+          <button class="btn btn-secondary" onclick="leaveClass()">
+            <i class="fas fa-sign-out-alt"></i> Leave Class
+          </button>
+          <button class="btn btn-primary" onclick="openTelegramStream()">
+            <i class="fab fa-telegram"></i> Join Stream
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== MAIN LIVE STREAM SECTION ===== -->
+      <div class="live-stream-main">
+        <!-- VIDEO CONTAINER -->
+        <div class="video-container">
+          <div class="live-badge">
+            <i class="fas fa-circle"></i>
+            LIVE
+          </div>
+          <div class="video-placeholder">
+            <div class="video-icon">
+              <i class="fab fa-telegram"></i>
             </div>
-        </div>
-
-        <div class="flex items-center space-x-3">
-            <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs font-semibold transition-colors focus:ring-4 focus:ring-red-900">
-                Leave Class
+            <div class="video-status">
+              <div class="video-status-title">Live Stream via Telegram</div>
+              <div class="video-status-text">Click "Join Stream" to start watching</div>
+            </div>
+          </div>
+          <div class="video-controls">
+            <button class="video-control-btn" title="Mute Audio" onclick="toggleAudio()">
+              <i class="fas fa-microphone"></i>
             </button>
-        </div>
-    </header>
-
-    <main class="flex-1 flex overflow-hidden w-full">
-        
-        <div class="flex-1 flex flex-col p-4 space-y-4 overflow-y-auto min-w-0">
-            
-            <div class="flex-1 bg-gray-900 rounded-xl border border-gray-800 relative flex items-center justify-center min-h-[350px] overflow-hidden group shadow-inner">
-                <div class="text-center space-y-3 p-6 select-none">
-                    <svg class="w-16 h-16 text-gray-700 mx-auto group-hover:text-gray-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    <p class="text-gray-400 font-medium text-sm">Instructor is presenting: <span class="text-blue-500 font-mono">Lecture_Slides_v4.pdf</span></p>
-                </div>
-                
-                <div class="absolute bottom-4 right-4 w-44 h-28 bg-gray-950 border border-gray-700 rounded-lg overflow-hidden shadow-2xl flex items-center justify-center">
-                    <span class="text-[10px] text-gray-300 font-medium absolute bottom-1.5 left-1.5 bg-black/70 px-2 py-0.5 rounded">Prof. Jenkins</span>
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-bold text-white shadow-md">SJ</div>
-                </div>
-
-                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-gray-950/90 backdrop-blur px-5 py-2.5 rounded-xl border border-gray-800 flex items-center space-x-3 shadow-2xl transition-opacity">
-                    <button type="button" class="p-2 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-                    </button>
-                    <button type="button" class="p-2 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    </button>
-                    <div class="h-5 w-px bg-gray-800"></div>
-                    <button type="button" class="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                    </button>
-                    <button type="button" class="p-2 bg-gray-800 hover:bg-gray-700 text-yellow-400 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0V12m-3-.5a1.5 1.5 0 113 0M10 14V5.5a1.5 1.5 0 113 0V12m-3-.5a1.5 1.5 0 113 0M13 12V3.5a1.5 1.5 0 113 0V12m-3-.5a1.5 1.5 0 113 0M16 14v-4.5a1.5 1.5 0 113 0V14a5 5 0 01-10 0z"/></svg>
-                    </button>
-                </div>
-            </div>
-
-            <div class="h-28 grid grid-cols-2 sm:grid-cols-4 gap-4 shrink-0">
-                <div class="bg-gray-900 border border-gray-800 rounded-xl relative flex items-center justify-center overflow-hidden">
-                    <span class="absolute bottom-2 left-2 bg-black/60 text-[10px] px-2 py-0.5 rounded text-gray-300 font-medium">Alex Rivera</span>
-                    <div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-xs font-bold">AR</div>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-xl relative flex items-center justify-center overflow-hidden">
-                    <span class="absolute bottom-2 left-2 bg-black/60 text-[10px] px-2 py-0.5 rounded text-gray-300 font-medium">Emily Chen</span>
-                    <div class="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center text-xs font-bold">EC</div>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-xl relative flex items-center justify-center overflow-hidden">
-                    <span class="absolute bottom-2 left-2 bg-black/60 text-[10px] px-2 py-0.5 rounded text-gray-300 font-medium">Marcus Vance</span>
-                    <div class="w-10 h-10 rounded-full bg-amber-600 flex items-center justify-center text-xs font-bold">MV</div>
-                </div>
-                <div class="bg-gray-900 border border-blue-600 rounded-xl relative flex items-center justify-center overflow-hidden ring-1 ring-blue-600">
-                    <span class="absolute bottom-2 left-2 bg-blue-600 text-[10px] px-2 py-0.5 rounded text-white font-semibold shadow">You</span>
-                    <div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-xs font-bold">ME</div>
-                </div>
-            </div>
+            <button class="video-control-btn" title="Toggle Video" onclick="toggleVideo()">
+              <i class="fas fa-video"></i>
+            </button>
+            <button class="video-control-btn" title="Screen Share" onclick="shareScreen()">
+              <i class="fas fa-share-square"></i>
+            </button>
+            <button class="video-control-btn" title="Settings" onclick="openSettings()">
+              <i class="fas fa-cog"></i>
+            </button>
+          </div>
         </div>
 
-        <div class="w-80 bg-gray-900 border-l border-gray-800 flex flex-col h-full shrink-0">
-            
-            <div class="border-b border-gray-800">
-                <ul class="flex flex-wrap text-xs font-medium text-center text-gray-400" id="classroom-tabs" data-tabs-toggle="#classroom-tab-content" role="tablist">
-                    <li class="flex-1 border-r border-gray-800" role="presentation">
-                        <button class="w-full py-3.5 px-1 border-b-2 font-bold tracking-wide transition-all uppercase aria-selected:text-blue-500 aria-selected:border-blue-500 border-transparent" id="chat-tab" data-tabs-target="#chat-content" type="button" role="tab" aria-controls="chat-content" aria-selected="true">Chat</button>
-                    </li>
-                    <li class="flex-1 border-r border-gray-800" role="presentation">
-                        <button class="w-full py-3.5 px-1 border-b-2 font-bold tracking-wide transition-all uppercase aria-selected:text-blue-500 aria-selected:border-blue-500 border-transparent" id="qa-tab" data-tabs-target="#qa-content" type="button" role="tab" aria-controls="qa-content" aria-selected="false">Q&A</button>
-                    </li>
-                    <li class="flex-1" role="presentation">
-                        <button class="w-full py-3.5 px-1 border-b-2 font-bold tracking-wide transition-all uppercase aria-selected:text-blue-500 aria-selected:border-blue-500 border-transparent" id="people-tab" data-tabs-target="#people-content" type="button" role="tab" aria-controls="people-content" aria-selected="false">People</button>
-                    </li>
-                </ul>
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+          <!-- PARTICIPANTS CARD -->
+          <div class="sidebar-card">
+            <div class="sidebar-card-header">
+              <i class="fas fa-users"></i>
+              <span>Participants (<span id="participantCount">12</span>)</span>
             </div>
-            
-            <div id="classroom-tab-content" class="flex-1 overflow-hidden min-h-0">
-                
-                <div class="hidden p-4 flex flex-col h-full space-y-4" id="chat-content" role="tabpanel" aria-labelledby="chat-tab">
-                    <div class="flex-1 overflow-y-auto space-y-3 pr-1 text-xs scrolling-touch">
-                        <div class="flex items-start gap-2.5">
-                            <div class="w-7 h-7 rounded-full shrink-0 bg-purple-600 flex items-center justify-center font-bold text-[10px]">AR</div>
-                            <div class="flex flex-col w-full max-w-[210px] leading-1.5 p-3 bg-gray-800 rounded-e-xl rounded-es-xl border border-gray-700/50">
-                                <div class="flex items-center space-x-2 pb-1">
-                                    <span class="font-semibold text-gray-200">Alex Rivera</span>
-                                    <span class="text-[9px] text-gray-500">10:42 AM</span>
-                                </div>
-                                <p class="font-normal text-gray-300 leading-relaxed">Will today's demonstration codebase be published onto the course repository?</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-2.5">
-                            <div class="w-7 h-7 rounded-full shrink-0 bg-teal-600 flex items-center justify-center font-bold text-[10px]">EC</div>
-                            <div class="flex flex-col w-full max-w-[210px] leading-1.5 p-3 bg-gray-800 rounded-e-xl rounded-es-xl border border-gray-700/50">
-                                <div class="flex items-center space-x-2 pb-1">
-                                    <span class="font-semibold text-gray-200">Emily Chen</span>
-                                    <span class="text-[9px] text-gray-500">10:43 AM</span>
-                                </div>
-                                <p class="font-normal text-gray-300 leading-relaxed">Yes Alex! Professor Jenkins confirmed it will go live right after the synthesis summary session.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="pt-2 border-t border-gray-800 shrink-0">
-                        <form class="flex items-center space-x-2" onsubmit="event.preventDefault();">
-                            <input type="text" placeholder="Send text to group..." class="bg-gray-950 border border-gray-800 text-gray-200 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-600">
-                            <button type="submit" class="p-2.5 bg-blue-600 rounded-lg hover:bg-blue-700 text-white transition-colors focus:ring-2 focus:ring-blue-500">
-                                <svg class="w-4 h-4 transform rotate-90" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                
-                <div class="hidden p-4 flex flex-col h-full space-y-4" id="qa-content" role="tabpanel" aria-labelledby="qa-tab">
-                    <div class="flex-1 overflow-y-auto space-y-3 text-xs pr-1">
-                        <div class="bg-gray-800 p-3 rounded-lg border border-gray-700 space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-blue-400">Marcus Vance</span>
-                                <span class="text-[10px] bg-gray-950 text-gray-400 border border-gray-800 px-2 py-0.5 rounded-full font-mono">▲ 4 Upvotes</span>
-                            </div>
-                            <p class="text-gray-300 leading-relaxed">Could you elaborate further on performance limits when syncing data utilizing multi-component tabs inside a shared layout view wrapper?</p>
-                        </div>
-                    </div>
-                    
-                    <button class="w-full text-xs py-2.5 bg-gray-800 border border-gray-700 rounded-lg hover:bg-gray-700 text-gray-200 font-semibold transition-all shrink-0 focus:ring-2 focus:ring-gray-600">
-                        Create Question Box
-                    </button>
-                </div>
-
-                <div class="hidden p-4 overflow-y-auto h-full space-y-3 text-xs" id="people-content" role="tabpanel" aria-labelledby="people-tab">
-                    <div class="flex items-center justify-between border-b border-gray-800/60 pb-2">
-                        <div class="flex items-center space-x-2.5">
-                            <div class="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center font-bold text-[10px]">SJ</div>
-                            <span class="font-medium text-gray-200">Prof. Jenkins (Host)</span>
-                        </div>
-                        <div class="flex items-center space-x-2 text-gray-500">
-                            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-2.5">
-                            <div class="w-7 h-7 rounded-full bg-purple-600 flex items-center justify-center font-bold text-[10px]">AR</div>
-                            <span class="text-gray-300">Alex Rivera</span>
-                        </div>
-                        <div class="flex items-center space-x-2 text-gray-600">
-                            <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="sidebar-card-body">
+              <div class="participants-list" id="participantsList">
+                <!-- Participants will be populated here -->
+              </div>
             </div>
+          </div>
+
+          <!-- CLASS INFO CARD -->
+          <div class="sidebar-card">
+            <div class="sidebar-card-header">
+              <i class="fas fa-info-circle"></i>
+              <span>Class Info</span>
+            </div>
+            <div class="sidebar-card-body">
+              <div class="class-info-grid">
+                <div class="info-item">
+                  <span class="info-label">Duration</span>
+                  <span class="info-value" id="classDuration">1h 30m</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Time Remaining</span>
+                  <span class="info-value" id="timeRemaining">45m</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Status</span>
+                  <span class="info-value" style="color: var(--success);"><i class="fas fa-circle"></i> Active</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHAT CARD -->
+          <div class="sidebar-card">
+            <div class="sidebar-card-header">
+              <i class="fas fa-comments"></i>
+              <span>Live Chat</span>
+            </div>
+            <div class="sidebar-card-body">
+              <div class="chat-messages" id="chatMessages">
+                <div class="chat-message received">
+                  <strong>Instructor:</strong> Welcome everyone! Let's begin the session.
+                </div>
+                <div class="chat-message received">
+                  <strong>John:</strong> Thanks for the class!
+                </div>
+              </div>
+              <div class="chat-input">
+                <input type="text" placeholder="Type a message..." id="chatInput">
+                <button onclick="sendMessage()">Send</button>
+              </div>
+            </div>
+          </div>
         </div>
-    </main>
+      </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+      <!-- ===== CLASS DETAILS SECTION ===== -->
+      <div class="class-details-section">
+        <h2 class="section-title">
+          <i class="fas fa-book"></i>
+          Class Details
+        </h2>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-label">Class Title</div>
+            <div class="detail-value" id="classTitle">Advanced Mathematics</div>
+            <div class="detail-description">Topics: Calculus, Differential Equations</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-label">Instructor</div>
+            <div class="detail-value" id="instructorName">Prof. Olayinka Adebayo</div>
+            <div class="detail-description">Department of Mathematics</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-label">Schedule</div>
+            <div class="detail-value" id="classTime">Today, 2:00 PM - 3:30 PM</div>
+            <div class="detail-description">Every Tuesday & Thursday</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-label">Room Code</div>
+            <div class="detail-value" id="roomCode">MATH-2024-A1</div>
+            <div class="detail-description">Share this code with others to join</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-label">Class Size</div>
+            <div class="detail-value" id="classSize">45 Students</div>
+            <div class="detail-description">Current participants: 38</div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-label">Recording Status</div>
+            <div class="detail-value"><i class="fas fa-circle" style="color: var(--danger); margin-right: 6px;"></i>Recording</div>
+            <div class="detail-description">This session is being recorded</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ADDITIONAL RESOURCES ===== -->
+      <div class="class-details-section">
+        <h2 class="section-title">
+          <i class="fas fa-file-pdf"></i>
+          Class Resources
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+          <div style="padding: 16px; background: var(--gray-50); border-radius: 10px; border-left: 3px solid var(--accent); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='var(--gray-50)'">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <i class="fas fa-file-pdf" style="font-size: 24px; color: var(--danger);"></i>
+              <div>
+                <div style="font-weight: 600; color: var(--primary); font-size: 14px;">Lecture Notes</div>
+                <div style="font-size: 12px; color: var(--gray-600);">Calculus_Chapter5.pdf</div>
+              </div>
+            </div>
+            <div style="font-size: 11px; color: var(--gray-500);">2.4 MB • Downloaded 24 times</div>
+          </div>
+
+          <div style="padding: 16px; background: var(--gray-50); border-radius: 10px; border-left: 3px solid var(--success); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='var(--gray-50)'">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <i class="fas fa-video" style="font-size: 24px; color: var(--accent);"></i>
+              <div>
+                <div style="font-weight: 600; color: var(--primary); font-size: 14px;">Recording Link</div>
+                <div style="font-size: 12px; color: var(--gray-600);">Session_Recording_2024.mp4</div>
+              </div>
+            </div>
+            <div style="font-size: 11px; color: var(--gray-500);">Available after class ends</div>
+          </div>
+
+          <div style="padding: 16px; background: var(--gray-50); border-radius: 10px; border-left: 3px solid var(--warning); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='var(--gray-50)'">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <i class="fas fa-file-alt" style="font-size: 24px; color: var(--warning);"></i>
+              <div>
+                <div style="font-weight: 600; color: var(--primary); font-size: 14px;">Assignment</div>
+                <div style="font-size: 12px; color: var(--gray-600);">Problem_Set_Week5.pdf</div>
+              </div>
+            </div>
+            <div style="font-size: 11px; color: var(--gray-500);">Due: Friday, 11:59 PM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Load user info
+    function loadUserInfo() {
+      const userName = localStorage.getItem('userName') || 'User';
+      const userInitial = userName.charAt(0).toUpperCase();
+      document.getElementById('userAvatar').textContent = userInitial;
+      document.getElementById('userName').textContent = userName;
+    }
+
+    // Load participants
+    function loadParticipants() {
+      const participants = [
+        { name: 'Prof. Olayinka', status: 'Instructor' },
+        { name: 'Chioma Okeke', status: 'online' },
+        { name: 'Tunde Adeleke', status: 'online' },
+        { name: 'Zainab Hassan', status: 'online' },
+        { name: 'Blessing Okonkwo', status: 'online' },
+        { name: 'Samuel Okafor', status: 'online' },
+        { name: 'Ada Nkosi', status: 'online' },
+        { name: 'Chukwu Eze', status: 'online' },
+        { name: 'Fatima Ibrahim', status: 'online' },
+        { name: 'Kayode Ogunwale', status: 'online' },
+        { name: 'Mary Johnson', status: 'online' },
+        { name: 'David Oluwaseun', status: 'online' }
+      ];
+
+      const participantsList = document.getElementById('participantsList');
+      participantsList.innerHTML = participants.map((p, i) => `
+        <div class="participant-item">
+          <div class="participant-avatar" style="background: linear-gradient(135deg, hsl(${i * 30}, 70%, 60%) 0%, hsl(${i * 30}, 70%, 50%) 100%);">
+            ${p.name.charAt(0)}
+          </div>
+          <div class="participant-info">
+            <div class="participant-name">${p.name}</div>
+            <div class="participant-status ${p.status === 'online' ? 'online' : ''}">${p.status === 'online' ? 'Online' : p.status}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Open Telegram stream
+    function openTelegramStream() {
+      // Replace with your actual Telegram streaming URL or channel
+      const telegramStreamUrl = 'https://t.me/your_channel/stream'; // Change this to your Telegram channel
+      window.open(telegramStreamUrl, '_blank');
+      
+      // Show notification
+      showNotification('Opening Telegram stream...', 'info');
+    }
+
+    // Video controls
+    function toggleAudio() {
+      const btn = event.target.closest('.video-control-btn');
+      btn.classList.toggle('active');
+      showNotification(btn.classList.contains('active') ? 'Microphone disabled' : 'Microphone enabled', 'info');
+    }
+
+    function toggleVideo() {
+      const btn = event.target.closest('.video-control-btn');
+      btn.classList.toggle('disabled');
+      showNotification(btn.classList.contains('disabled') ? 'Camera disabled' : 'Camera enabled', 'info');
+    }
+
+    function shareScreen() {
+      showNotification('Screen sharing started', 'success');
+    }
+
+    function openSettings() {
+      showNotification('Settings panel opened', 'info');
+    }
+
+    // Send message
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
+      
+      if (message) {
+        const messagesContainer = document.getElementById('chatMessages');
+        const messageEl = document.createElement('div');
+        messageEl.className = 'chat-message sent';
+        messageEl.textContent = message;
+        messagesContainer.appendChild(messageEl);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        input.value = '';
+      }
+    }
+
+    // Leave class
+    function leaveClass() {
+      if (confirm('Are you sure you want to leave this class?')) {
+        window.location.href = '../landing-dash';
+      }
+    }
+
+    // Notifications
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 16px 24px;
+        background: ${type === 'success' ? 'var(--success)' : type === 'danger' ? 'var(--danger)' : 'var(--accent)'};
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 1000;
+        animation: slideIn 0.3s ease-out;
+        font-weight: 600;
+        font-size: 14px;
+      `;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+
+    function toggleNotifications() {
+      showNotification('You have 3 new notifications', 'info');
+    }
+
+    function toggleHelp() {
+      showNotification('Help center opened', 'info');
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      loadUserInfo();
+      loadParticipants();
+      
+      // Auto-update time remaining
+      setInterval(() => {
+        const remaining = Math.max(0, parseInt(document.getElementById('timeRemaining').textContent) - 1);
+        if (remaining === 0) {
+          document.getElementById('timeRemaining').textContent = 'Class Ended';
+        } else {
+          document.getElementById('timeRemaining').textContent = remaining + 'm';
+        }
+      }, 60000);
+    });
+
+    // Allow Enter key to send messages
+    document.addEventListener('DOMContentLoaded', () => {
+      const chatInput = document.getElementById('chatInput');
+      if (chatInput) {
+        chatInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            sendMessage();
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
