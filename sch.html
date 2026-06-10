@@ -13,7 +13,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: { "50": "#fef8ee", "100": "#fef0d5", "200": "#fde0aa", "300": "#fbc573", "400": "#f9a23b", "500": "#ffb400", "600": "#e69500", "700": "#cc7b00", "800": "#995d00", "900": "#061728" }
+                        primary: { "50": "#fef8ee", "100": "#fef0d5", "200": "#fde0aa", "300": "#fbc573", "400": "#f9a23b", "500": "#ffb400", "600": "#e69500", "700": "#cc7b00", "800": "#995d00", "900": "#663d00" }
                     }
                 }
             }
@@ -23,7 +23,7 @@
         /* Printable A4 Canvas setup */
         .page-canvas {
             width: 210mm;
-            min-height: 297mm;
+            min-height: 300mm;
         }
         @media print {
             body { background: white; }
@@ -50,10 +50,10 @@
                 </div>
             </div>
             <div class="flex space-x-2">
-                <button onclick="window.print()" type="button" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-sm px-4 py-2.5 focus:outline-none focus:ring-4 focus:ring-gray-100 flex items-center gap-2 transition">
+                <button onclick="window.print()" type="button" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-sm px-4 py-2.5 focus:outline-none">
                     🖨️ Print to PDF
                 </button>
-                <button onclick="downloadPDF()" type="button" class="text-primary-900 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none flex items-center gap-2 shadow-md hover:shadow-lg transition">
+                <button onclick="downloadPDF()" type="button" class="text-primary-900 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-white">
                     📥 Download PDF
                 </button>
             </div>
@@ -113,7 +113,7 @@
                 <!-- Flowbite Modern Callout Block -->
                 <div class="p-5 mb-6 text-gray-800 border border-gray-200 rounded-lg bg-gradient-to-br from-gray-50 to-primary-50/30 shadow-sm">
                     <h4 class="text-xs font-extrabold text-primary-900 uppercase tracking-wider mb-2">PROPOSAL FOR SCHOOL MANAGEMENT SYSTEM IMPLEMENTATION</h4>
-                    <p class="text-xs leading-relaxed">We are happy to present this proposal for <strong class="text-primary-900">ExamGuard School Management System</strong> at your school. ExamGuard is a leading provider of school technology solutions used by quite a number of schools across Nigeria. We help schools work easier and smarter by automating daily tasks and improving communication between teachers, students, and parents.</p>
+                    <p class="text-xs leading-relaxed">We are happy to present this proposal for <strong class="text-primary-900">ExamGuard School Management System</strong> at your school. ExamGuard is more than just a school automation management company; it is an innovative platform introducing a unified educational ecosystem to the pre-university sector.</p>
                 </div>
 
                 <!-- Section: What is ExamGuard -->
@@ -121,7 +121,7 @@
                     <span>📋</span> What is ExamGuard?
                 </h2>
                 <p class="text-xs text-gray-600 leading-relaxed mb-6">
-                    ExamGuard is a complete school management system that helps your school run smoothly. It handles student records, grades, attendance, exam results, and communication between the school and parents. Our system is user-friendly and trusted by many schools in Nigeria with excellent feedback and results.
+                    ExamGuard is a complete school management system that helps your school run smoothly. It handles student records, grades, attendance, exam results, and communication between the school, teachers, students, and parents. Our system is user-friendly and trusted by many schools in Nigeria with excellent feedback and results.
                 </p>
 
                 <!-- Section: Features Grid -->
@@ -141,12 +141,12 @@
                         <p class="text-[11px] text-gray-500 leading-normal">Take attendance, record grades, upload lesson materials, and talk to students and parents easily.</p>
                     </div>
                     <div class="p-3 bg-white border border-gray-200 rounded-lg shadow-sm border-l-4 border-l-primary-500">
-                        <h3 class="font-bold text-primary-900 text-xs mb-1 flex items-center gap-1.5">👨‍Grad Student Area</h3>
+                        <h3 class="font-bold text-primary-900 text-xs mb-1 flex items-center gap-1.5">👨‍🎓 Student Area</h3>
                         <p class="text-[11px] text-gray-500 leading-normal">Check grades, view results, download school certificates, and submit homework online.</p>
                     </div>
                     <div class="p-3 bg-white border border-gray-200 rounded-lg shadow-sm border-l-4 border-l-primary-500">
                         <h3 class="font-bold text-primary-900 text-xs mb-1 flex items-center gap-1.5">👨‍👩‍👧 Parent Portal</h3>
-                        <p class="text-[11px] text-gray-500 leading-normal">Parents can check their children's grades and progress anytime. Get updates about school news and activities.</p>
+                        <p class="text-[11px] text-gray-500 leading-normal">Check your child's grades and progress anytime. Get updates about school news and activities.</p>
                     </div>
                     <div class="p-3 bg-white border border-gray-200 rounded-lg shadow-sm border-l-4 border-l-primary-500">
                         <h3 class="font-bold text-primary-900 text-xs mb-1 flex items-center gap-1.5">📝 Results System</h3>
@@ -155,6 +155,49 @@
                     <div class="p-3 bg-white border border-gray-200 rounded-lg shadow-sm border-l-4 border-l-primary-500">
                         <h3 class="font-bold text-primary-900 text-xs mb-1 flex items-center gap-1.5">💻 Online Exams</h3>
                         <p class="text-[11px] text-gray-500 leading-normal">Conduct computer-based tests online with automatic grading and instant results.</p>
+                    </div>
+                </div>
+
+                <!-- NEW SECTION: Results Verification System -->
+                <h2 class="flex items-center gap-2 text-sm font-bold text-primary-900 border-b-2 border-primary-500 pb-1.5 mb-3">
+                    <span>✅</span> School Results Verification System
+                </h2>
+                <div class="p-4 mb-6 bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200 rounded-lg shadow-sm">
+                    <p class="text-xs text-gray-700 leading-relaxed mb-3">
+                        One of our flagship offerings is the <strong class="text-primary-900">School Results Verification System</strong>. This secure gateway enables academic institutions, higher education facilities, and corporate organizations to seamlessly verify the authenticity of student credentials. 
+                    </p>
+                    <p class="text-xs text-gray-700 leading-relaxed mb-3">
+                        By securely inputting student details and using an institutional scratch card, evaluators can instantly confirm that the grades and academic performances displayed were originally issued by your accredited institution. This adds credibility and prevents fraud.
+                    </p>
+                    <div class="bg-white p-3 rounded border-l-4 border-primary-500">
+                        <p class="text-xs text-gray-700"><strong class="text-primary-900">How it benefits your school:</strong></p>
+                        <ul class="text-[11px] text-gray-600 mt-2 space-y-1 ml-4">
+                            <li>✓ ExamGuard provides verification scratch cards to your school for FREE</li>
+                            <li>✓ Your school can resell these cards to students at any price you choose</li>
+                            <li>✓ Creates an independent revenue stream for your institution</li>
+                            <li>✓ Students get authentic credential verification</li>
+                            <li>✓ Employers and universities trust verified results</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NEW SECTION: Mutually Beneficial Model -->
+                <h2 class="flex items-center gap-2 text-sm font-bold text-primary-900 border-b-2 border-primary-500 pb-1.5 mb-3">
+                    <span>🤝</span> A Mutually Beneficial Model
+                </h2>
+                <div class="p-4 mb-6 bg-gradient-to-br from-green-50 to-green-100/50 border border-green-200 rounded-lg shadow-sm">
+                    <p class="text-xs text-gray-700 leading-relaxed">
+                        To support school operations, ExamGuard provides these verification scratch cards to institutions entirely <strong class="font-bold">free of charge</strong>. Schools then retain the flexibility to resell these cards to students at a rate they deem appropriate, creating a sustainable and independent revenue stream for the institution.
+                    </p>
+                    <div class="mt-3 grid grid-cols-2 gap-2">
+                        <div class="bg-white p-2 rounded border-l-2 border-green-500">
+                            <p class="text-[10px] font-bold text-primary-900">School Benefits</p>
+                            <p class="text-[11px] text-gray-600 mt-1">Extra income without additional costs</p>
+                        </div>
+                        <div class="bg-white p-2 rounded border-l-2 border-green-500">
+                            <p class="text-[10px] font-bold text-primary-900">Student Benefits</p>
+                            <p class="text-[11px] text-gray-600 mt-1">Authentic credential verification</p>
+                        </div>
                     </div>
                 </div>
 
@@ -252,8 +295,8 @@
                     <div class="flex items-start space-x-2 p-3 bg-gray-50 border-l-4 border-emerald-500 rounded-r-lg">
                         <span class="text-emerald-500 font-bold text-sm">✓</span>
                         <div>
-                            <h4 class="font-bold text-primary-900 text-xs">Easy Money Collection</h4>
-                            <p class="text-[11px] text-gray-500 mt-0.5">Automated billing helps collect fees faster and improves cash flow.</p>
+                            <h4 class="font-bold text-primary-900 text-xs">Additional Revenue Stream</h4>
+                            <p class="text-[11px] text-gray-500 mt-0.5">Resell verification scratch cards to students at your chosen price.</p>
                         </div>
                     </div>
                 </div>
@@ -281,6 +324,8 @@
                         <div class="flex items-center space-x-2"><span class="text-primary-500 font-bold">✓</span><span>Help available 24/7/365 operational hours</span></div>
                         <div class="flex items-center space-x-2"><span class="text-primary-500 font-bold">✓</span><span>Enterprise security layer & automated cloud backups</span></div>
                         <div class="flex items-center space-x-2"><span class="text-primary-500 font-bold">✓</span><span>School certificate and academic transcript system</span></div>
+                        <div class="flex items-center space-x-2"><span class="text-primary-500 font-bold">✓</span><span>Free verification scratch cards for resale</span></div>
+                        <div class="flex items-center space-x-2"><span class="text-primary-500 font-bold">✓</span><span>School Results Verification System access</span></div>
                     </div>
                 </div>
 
@@ -288,8 +333,8 @@
                 <div class="grid grid-cols-[1.4fr_1fr] gap-6 items-start mb-6">
                     <div class="text-xs text-gray-600 space-y-2.5 leading-relaxed">
                         <p class="font-bold text-primary-900 text-sm">We Are Your Partner</p>
-                        <p>ExamGuard is more than just software. We work with your school to make sure you get the best results. Quite a number of schools in Nigeria already use ExamGuard and they are very happy with it. We understand what schools need and we provide solutions that really work.</p>
-                        <p>When you choose ExamGuard, you get a dedicated team that deeply cares about your school's structural success and will help you every step of the way.</p>
+                        <p>ExamGuard is more than just software. We work with your school to make sure you get the best results. Many schools in Nigeria already use ExamGuard and they are very satisfied with the service. We understand what schools need and we provide solutions that really work.</p>
+                        <p>When you choose ExamGuard, you get a dedicated team that cares about your school's success and will help you every step of the way. Plus, our Results Verification System creates an additional revenue opportunity for your school.</p>
                     </div>
                     <!-- Flowbite Card Box style for contact -->
                     <div class="p-4 bg-amber-50/40 border border-amber-200 rounded-lg space-y-2 text-xs">
@@ -320,7 +365,7 @@
             const element = document.getElementById('pdf-content');
             const options = {
                 margin: [0, 0, 0, 0],
-                filename: 'ExamGuard_School_Proposal.pdf',
+                filename: 'School_Proposal.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, useCORS: true, allowTaint: true },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
