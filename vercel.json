@@ -6,7 +6,7 @@
     { "source": "/candidate-cgpa-calculator", "destination": "/cpga.html" },
     { "source": "/blog-notes-category", "destination": "/category.html" },
         { "source": "/about-us-faq", "destination": "/aBout-us.html" },
-    { "source": "/blog", "destination": "/oau-blog.html" },
+    { "source": "/registration", "destination": "/registration.html" },
     { "source": "/login", "destination": "/login.html" },
     { "source": "/result-summary", "destination": "/report.html" },
     { "source": "/student-registration", "destination": "/registration.html" },
