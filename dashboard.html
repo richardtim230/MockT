@@ -239,9 +239,9 @@
         <!-- Pay Now Card -->
         <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-lg mb-6">
           <h2 class="text-xl font-semibold mb-2">Tutorial Fee</h2>
-          <p class="text-3xl font-bold mb-1">₦6,000</p>
+          <p class="text-3xl font-bold mb-1">₦3,000</p>
           <p class="text-sm opacity-90 mb-4">To unlock dashboard access, message admin to pay.</p>
-          <a href="https://wa.me/2349155127634?text=Hello%20Admin,%20I%20want%20to%20pay%20my%20tutorial%20fee%20of%20N6000%20on%20D-RICH%20platform"
+          <a href="https://wa.me/2349155127634?text=Hello%20Admin,%20I%20want%20to%20pay%20my%20tutorial%20fee%20of%20N3000%20on%20D-RICH%20platform"
             class="bg-white text-green-600 px-5 py-2 rounded font-medium hover:bg-gray-50 transition flex items-center justify-center"
             target="_blank" rel="noopener">
             <svg width="22" height="22" fill="none" class="mr-2" viewBox="0 0 32 32"><path fill="#25D366" d="M16 3.2A12.8 12.8 0 003.2 16c0 2.257.624 4.442 1.81 6.349l-1.91 6.696 6.858-1.799A12.749 12[...]"></svg>
@@ -343,8 +343,8 @@
   <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.js"></script>
   <script>
     // =========== CONFIG ============
-    const API_BASE = "https://examguard-jmvj.onrender.com/api/student";
-    const WHATSAPP_URL = "https://wa.me/2349155127634?text=Hello%20Admin,%20I%20want%20to%20pay%20my%20tutorial%20fee%20of%20N6000%20on%20D-RICH%20platform";
+    const API_BASE = "https://examguide.onrender.com/api/student";
+    const WHATSAPP_URL = "https://wa.me/2349155127634?text=Hello%20Admin,%20I%20want%20to%20pay%20my%20tutorial%20fee%20of%20N3000%20on%20D-RICH%20platform";
 
     // =========== SIDEBAR ===========
     const sidebar = document.getElementById('sidebar');
@@ -517,7 +517,7 @@
         if (userPaymentStatus === "paid" && user.updatedAt) {
           historyTbody.innerHTML = `<tr>
             <td class="px-6 py-4 whitespace-nowrap">Tutorial Fee</td>
-            <td class="px-6 py-4 whitespace-nowrap">₦6,000</td>
+            <td class="px-6 py-4 whitespace-nowrap">₦3,000</td>
             <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Paid</span></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${(new Date(user.updatedAt)).toLocaleDateString()}</td>
           </tr>`;
