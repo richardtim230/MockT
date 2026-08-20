@@ -2,174 +2,216 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Student Registration Wizard - D-RICH TUTORIAL COLLEGE</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Flowbite CSS (for modals & UI consistency) -->
-  <link href="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.css" rel="stylesheet">
+  <title>Student Registration - D-RICH TUTORIAL COLLEGE</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Inter', sans-serif;}
-    .glass { background: rgba(255,255,255,0.7);}
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    
     .spinner {
-      border: 4px solid #e5e7eb;
-      border-top: 4px solid #2563eb;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #2563eb;
       border-radius: 50%;
-      width: 32px; height: 32px;
-      animation: spin 1s linear infinite;
-      margin: auto;
+      width: 36px;
+      height: 36px;
+      animation: spin 0.8s linear infinite;
     }
     @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
-    .avatar-preview {
-      width: 96px; height: 96px; object-fit: cover;
-      border-radius: 0.75rem;
-      border: 2px solid #0ea5e9;
-      margin: 0.5rem auto;
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex items-center justify-center">
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-4 sm:p-6 text-slate-800 antialiased">
 
-<div class="w-full max-w-xl glass rounded-lg shadow-lg p-8 m-4">
-  <h2 class="text-2xl md:text-3xl font-bold text-center text-blue-900 mb-8">Student Registration</h2>
-  <!-- Progress Steps -->
-  <ol class="flex items-center justify-center mb-6 text-sm font-medium text-center text-gray-700 sm:text-base">
-    <li class="mr-2" id="step-indicator-1">1. Basic Info</li>
-    <li class="mr-2" id="step-indicator-2">2. Program</li>
-    <li class="mr-2" id="step-indicator-3">3. Passport</li>
-    <li id="step-indicator-4">4. Consent</li>
-  </ol>
+<div class="w-full max-w-xl bg-white border border-slate-200/80 rounded-2xl shadow-xl overflow-hidden my-4 sm:my-8">
+  
+  <!-- Header Banner -->
+  <div class="bg-blue-900 text-white px-6 py-6 text-center relative">
+    <h1 class="text-xl sm:text-2xl font-bold tracking-tight">D-RICH TUTORIAL COLLEGE</h1>
+    <p class="text-blue-200 text-xs sm:text-sm mt-1 font-medium">Student Registration Portal</p>
+  </div>
 
-  <!-- Step-Wizard Form -->
-  <form id="wizardForm" autocomplete="off">
-    <!-- Step 1 -->
-    <div class="step" id="step-1">
-      <div>
-        <label for="fullName" class="block font-semibold mb-1">Full Name <span class="text-red-600">*</span></label>
-        <input type="text" id="fullName" name="fullName" required class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-300" autocomplete="off">
-        <span class="text-xs text-red-500 hidden" id="error-fullName">Full Name is required.</span>
-      </div>
-      <div class="mt-4">
-        <label for="email" class="block font-semibold mb-1">Email <span class="text-red-600">*</span></label>
-        <input type="email" id="email" name="email" required class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-300">
-        <span class="text-xs text-red-500 hidden" id="error-email">Valid email required.</span>
-      </div>
-      <div class="mt-4">
-        <label for="phone" class="block font-semibold mb-1">Phone Number <span class="text-red-600">*</span></label>
-        <input type="tel" id="phone" name="phone" required class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-300" pattern="^\d{10,15}$" placeholder="Numbers only">
-        <span class="text-xs text-red-500 hidden" id="error-phone">Valid phone number required.</span>
-      </div>
-      <div class="mt-4 flex space-x-4">
-        <div class="flex-1">
-          <label for="dob" class="block font-semibold mb-1">Date of Birth</label>
-          <input type="date" id="dob" name="dob" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-300">
+  <div class="p-5 sm:p-8">
+    <!-- Responsive Step Progress Bar -->
+    <div class="mb-8">
+      <div class="grid grid-cols-4 gap-2 text-center">
+        <div id="step-indicator-1" class="step-badge flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold mb-1 transition-all bg-blue-900 text-white ring-4 ring-blue-100">1</div>
+          <span class="text-[11px] sm:text-xs font-semibold text-blue-900">Info</span>
         </div>
-        <div class="flex-1">
-          <label for="gender" class="block font-semibold mb-1">Gender</label>
-          <select id="gender" name="gender" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-300">
-            <option value="">Choose</option>
-            <option>Male</option>
-            <option>Female</option>
-            <option>Other</option>
+        <div id="step-indicator-2" class="step-badge flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold mb-1 transition-all bg-slate-100 text-slate-500">2</div>
+          <span class="text-[11px] sm:text-xs font-medium text-slate-400">Program</span>
+        </div>
+        <div id="step-indicator-3" class="step-badge flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold mb-1 transition-all bg-slate-100 text-slate-500">3</div>
+          <span class="text-[11px] sm:text-xs font-medium text-slate-400">Passport</span>
+        </div>
+        <div id="step-indicator-4" class="step-badge flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold mb-1 transition-all bg-slate-100 text-slate-500">4</div>
+          <span class="text-[11px] sm:text-xs font-medium text-slate-400">Consent</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step-Wizard Form -->
+    <form id="wizardForm" autocomplete="off" novalidate>
+      
+      <!-- Step 1: Personal Details -->
+      <div class="step space-y-4" id="step-1">
+        <div>
+          <label for="fullName" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Full Name <span class="text-red-500">*</span></label>
+          <input type="text" id="fullName" name="fullName" placeholder="e.g., Jane Doe" required 
+                 class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition">
+          <span class="text-xs text-red-500 mt-1 hidden" id="error-fullName">Full Name is required.</span>
+        </div>
+
+        <div>
+          <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+          <input type="email" id="email" name="email" placeholder="name@example.com" required 
+                 class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition">
+          <span class="text-xs text-red-500 mt-1 hidden" id="error-email">Valid email address required.</span>
+        </div>
+
+        <div>
+          <label for="phone" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Phone Number <span class="text-red-500">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="e.g., 08012345678" required pattern="^\d{10,15}$" 
+                 class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition">
+          <span class="text-xs text-red-500 mt-1 hidden" id="error-phone">Valid phone number required (10–15 digits).</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="dob" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Date of Birth</label>
+            <input type="date" id="dob" name="dob" 
+                   class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition">
+          </div>
+          <div>
+            <label for="gender" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Gender</label>
+            <select id="gender" name="gender" 
+                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Password <span class="text-red-500">*</span></label>
+          <div class="relative">
+            <input type="password" id="password" name="password" required autocomplete="new-password" placeholder="••••••••"
+                   class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition pr-10">
+            <button type="button" tabindex="-1" id="togglePassword" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </button>
+          </div>
+          <span class="text-xs text-red-500 mt-1 hidden" id="error-password">Min. 8 characters, containing at least 1 letter and 1 number.</span>
+        </div>
+      </div>
+
+      <!-- Step 2: Academic Program -->
+      <div class="step hidden space-y-4" id="step-2">
+        <div>
+          <label for="program" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Program Applying For <span class="text-red-500">*</span></label>
+          <select id="program" name="program" required 
+                  class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition">
+            <option value="" disabled selected>Select an academic program</option>
+            <option value="WAEC/NECO">WAEC / NECO</option>
+            <option value="JAMB">JAMB</option>
+            <option value="POST UTME">POST UTME</option>
           </select>
+          <span class="text-xs text-red-500 mt-1 hidden" id="error-program">Please select a program to continue.</span>
         </div>
       </div>
-      <!-- Password field -->
-      <div class="mt-4">
-        <label for="password" class="block font-semibold mb-1">Password <span class="text-red-600">*</span></label>
-        <div class="relative flex items-center">
-          <input type="password" id="password" name="password"
-                  required
-                  class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-300 pr-16"
-                  autocomplete="new-password">
-          <button type="button" tabindex="-1"
-                  class="absolute right-2 flex items-center text-gray-400 hover:text-blue-700"
-                  id="togglePassword">
-            <svg id="eyeIcon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                 viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </button>
+
+      <!-- Step 3: Passport Upload -->
+      <div class="step hidden space-y-4" id="step-3">
+        <div>
+          <label for="passport" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">Passport Photograph <span class="text-red-500">*</span></label>
+          <input type="file" id="passport" name="passport" accept="image/jpeg,image/png,image/webp" required 
+                 class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-slate-300 rounded-lg cursor-pointer bg-slate-50">
+          
+          <div class="flex items-center justify-between text-xs text-slate-500 mt-1.5">
+            <span>Supported: JPG, PNG, WEBP</span>
+            <span class="font-medium text-slate-700">Max size: 500 KB</span>
+          </div>
+
+          <span class="text-xs text-red-500 mt-1 block hidden" id="error-passport">Please upload a valid image under 500KB.</span>
+          
+          <!-- Image Preview Block -->
+          <div id="passport-preview" class="mt-4 flex flex-col items-center justify-center p-4 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50">
+            <p class="text-xs text-slate-400">No passport selected</p>
+          </div>
         </div>
-        <span class="text-xs text-red-500 hidden" id="error-password">
-          Password must be at least 8 characters, including a number and a letter.
-        </span>
       </div>
-    </div>
 
-    <!-- Step 2 -->
-    <div class="step hidden" id="step-2">
-      <div>
-        <label for="program" class="block font-semibold mb-1">Program Applying For <span class="text-red-600">*</span></label>
-        <select id="program" name="program" required class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-300">
-          <option value="" disabled selected>Select a program</option>
-          <option value="WAEC/NECO">WAEC/NECO</option>
-          <option value="JAMB">JAMB</option>
-          <option value="POST UTME">POST UTME</option>
-        </select>
-        <span class="text-xs text-red-500 hidden" id="error-program">Please select a program.</span>
+      <!-- Step 4: Terms & Consent -->
+      <div class="step hidden space-y-4" id="step-4">
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+          <label class="flex items-start space-x-3 cursor-pointer">
+            <input type="checkbox" id="terms" required class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded">
+            <span class="text-xs text-slate-600 leading-relaxed">
+              I certify that all details supplied are accurate. I agree to the <a href="#" class="text-blue-700 underline font-semibold">Terms & Conditions</a> and acknowledge the college's privacy policy.
+            </span>
+          </label>
+          <span class="text-xs text-red-500 mt-2 block hidden" id="error-terms">You must agree to the terms to complete registration.</span>
+        </div>
       </div>
-    </div>
 
-    <!-- Step 3 -->
-    <div class="step hidden" id="step-3">
-      <div>
-        <label for="passport" class="block font-semibold mb-1">Passport Photograph <span class="text-red-600">*</span></label>
-        <input type="file" id="passport" name="passport" accept="image/*" required class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-300">
-        <span class="text-xs text-red-500 hidden" id="error-passport">Please upload a clear image.</span>
-        <div id="passport-preview" class="mt-4 flex flex-col items-center"></div>
+      <!-- Navigation Actions -->
+      <div class="mt-8 flex items-center justify-between gap-3 pt-4 border-t border-slate-100">
+        <button type="button" id="backBtn" disabled 
+                class="w-1/2 sm:w-auto px-5 py-2.5 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition">
+          Back
+        </button>
+        <button type="button" id="nextBtn" 
+                class="w-1/2 sm:w-auto px-6 py-2.5 text-xs font-semibold text-white bg-blue-900 hover:bg-blue-800 rounded-lg shadow-md transition">
+          Next Step
+        </button>
+        <button type="submit" id="submitBtn" 
+                class="w-1/2 sm:w-auto px-6 py-2.5 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-md transition hidden">
+          Complete Registration
+        </button>
       </div>
-    </div>
+    </form>
 
-    <!-- Step 4 -->
-    <div class="step hidden" id="step-4">
-      <div>
-        <label class="flex items-center">
-          <input type="checkbox" id="terms" required class="mr-2">
-          <span>I agree to the <a href="#" class="text-blue-600 underline">Terms & Conditions</a> and confirm my privacy.</span>
-        </label>
-        <span class="text-xs text-red-500 hidden" id="error-terms">You must agree before submitting.</span>
-        <p class="text-xs mt-3 text-gray-500">Your data is kept private and used only for registration purposes.</p>
-      </div>
+    <!-- Secondary Login Link -->
+    <div class="mt-6 text-center pt-4 border-t border-slate-100">
+      <button type="button" id="loginBtn" class="text-xs font-semibold text-blue-800 hover:text-blue-900 transition">
+        Already registered? <span class="underline">Sign in to your account</span>
+      </button>
     </div>
+  </div>
+</div>
 
-    <!-- Navigation Buttons -->
-    <div class="mt-8 flex justify-between">
-      <button type="button" id="backBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-6 py-2 rounded transition" disabled>Back</button>
-      <button type="button" id="nextBtn" class="bg-blue-900 hover:bg-blue-800 text-white font-bold px-6 py-2 rounded transition">Next</button>
-      <button type="submit" id="submitBtn" class="bg-green-700 hover:bg-green-600 text-white font-bold px-6 py-2 rounded transition hidden">Submit</button>
-    </div>
-  </form>
-  <!-- Login redirect button -->
-  <div class="mt-6 flex justify-center">
-    <button type="button" id="loginBtn"
-      class="border-2 border-blue-700 text-blue-700 rounded px-6 py-2 font-semibold hover:bg-blue-50 transition">
-      Already have an account? Login
+<!-- Response & Processing Modal -->
+<div id="modal-feedback" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center transform transition-all">
+    <div id="modal-spinner" class="mb-4 spinner mx-auto"></div>
+    <div id="modal-message" class="text-sm font-medium text-slate-700 leading-relaxed"></div>
+    <button type="button" id="modal-close" class="mt-5 w-full bg-blue-900 hover:bg-blue-800 text-white text-xs font-semibold py-2.5 rounded-lg transition">
+      Close
     </button>
   </div>
 </div>
 
-<!-- Modal Feedback -->
-<div id="modal-feedback" class="hidden fixed inset-0 bg-black bg-opacity-30 z-50 flex items-center justify-center">
-  <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-8 text-center">
-    <div id="modal-spinner" class="mb-4 spinner"></div>
-    <div id="modal-message" class="text-lg font-semibold text-gray-700"></div>
-    <button type="button" id="modal-close" class="mt-6 bg-blue-700 hover:bg-blue-600 text-white px-6 py-2 rounded transition">Close</button>
-  </div>
-</div>
-
-<!-- Script: wizard, validation, password toggle, modal/redirect, passport preview, backend submit -->
 <script>
 const API_URL = "https://examguide.onrender.com/api/student/register";
+const MAX_FILE_SIZE = 500 * 1024; // 500 KB limit
+
 const form = document.getElementById('wizardForm');
 const nextBtn = document.getElementById('nextBtn');
 const backBtn = document.getElementById('backBtn');
 const submitBtn = document.getElementById('submitBtn');
 const loginBtn = document.getElementById('loginBtn');
+
 const steps = Array.from(document.querySelectorAll('.step'));
 const stepIndicators = [
   document.getElementById('step-indicator-1'),
@@ -179,158 +221,189 @@ const stepIndicators = [
 ];
 let currentStep = 0;
 
-// Show/hide password toggle
-document.getElementById('togglePassword').onclick = function() {
+// Password visibility toggle
+document.getElementById('togglePassword').addEventListener('click', function() {
   const pass = document.getElementById('password');
   const eye = document.getElementById('eyeIcon');
   if (pass.type === 'password') {
     pass.type = 'text';
-    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 1[...]`;
+    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4.5-9-7a9.013 9.013 0 013.075-5.775M15 12a3 3 0 01-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>`;
   } else {
     pass.type = 'password';
-    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>`;
+    eye.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>`;
   }
-};
+});
 
-// Passport Image Preview Crop Simulation
+// Image File Selection with 500KB Max Validation
 document.getElementById('passport').addEventListener('change', function(e) {
   const previewDiv = document.getElementById('passport-preview');
-  previewDiv.innerHTML = '';
+  const errPass = document.getElementById('error-passport');
   const file = e.target.files[0];
-  if (file && file.type.startsWith('image/')) {
+
+  previewDiv.innerHTML = '';
+  errPass.classList.add('hidden');
+
+  if (!file) {
+    previewDiv.innerHTML = `<p class="text-xs text-slate-400">No passport selected</p>`;
+    return;
+  }
+
+  // Reject files over 500KB
+  if (file.size > MAX_FILE_SIZE) {
+    e.target.value = ''; // Reset file input
+    errPass.textContent = `File size exceeds 500KB limit (${(file.size / 1024).toFixed(1)}KB). Please choose a smaller image.`;
+    errPass.classList.remove('hidden');
+    previewDiv.innerHTML = `<p class="text-xs text-red-500 font-medium">Image rejected (Over 500KB)</p>`;
+    return;
+  }
+
+  if (file.type.startsWith('image/')) {
     const reader = new FileReader();
     reader.onload = function(evt) {
-      previewDiv.innerHTML = `<img src="${evt.target.result}" alt="Passport Preview" class="avatar-preview" /><br>
-      <button type="button" class="mt-2 bg-red-500 text-white px-2 py-1 rounded" onclick="document.getElementById('passport').value='';document.getElementById('passport-preview').innerHTML='';">Remove</button>
-      <p class="text-xs text-gray-500 mt-2">For best results use a square clear passport photo.</p>`;
+      previewDiv.innerHTML = `
+        <img src="${evt.target.result}" alt="Passport Preview" class="w-24 h-24 object-cover rounded-xl border-2 border-blue-600 shadow-sm" />
+        <span class="text-[11px] text-emerald-600 font-medium mt-2">✓ Photo selected (${(file.size / 1024).toFixed(1)} KB)</span>
+        <button type="button" class="mt-2 text-xs text-red-600 hover:underline font-medium" onclick="resetPassport()">Remove photo</button>
+      `;
     };
     reader.readAsDataURL(file);
   }
 });
 
-// Step navigation
+function resetPassport() {
+  document.getElementById('passport').value = '';
+  document.getElementById('passport-preview').innerHTML = `<p class="text-xs text-slate-400">No passport selected</p>`;
+  document.getElementById('error-passport').classList.add('hidden');
+}
+
+// Step Navigator
 function showStep(index) {
   steps.forEach((stepDiv, i) => {
     stepDiv.classList.toggle('hidden', i !== index);
-    // Step indicator highlight:
-    stepIndicators[i].classList.toggle('font-bold', i === index);
-    stepIndicators[i].classList.toggle('text-blue-600', i === index);
+    
+    // UI badge updates
+    const badge = stepIndicators[i].querySelector('div');
+    const label = stepIndicators[i].querySelector('span');
+
+    if (i === index) {
+      badge.className = "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold mb-1 transition-all bg-blue-900 text-white ring-4 ring-blue-100";
+      label.className = "text-[11px] sm:text-xs font-semibold text-blue-900";
+    } else if (i < index) {
+      badge.className = "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold mb-1 transition-all bg-emerald-600 text-white";
+      label.className = "text-[11px] sm:text-xs font-medium text-emerald-600";
+    } else {
+      badge.className = "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold mb-1 transition-all bg-slate-100 text-slate-500";
+      label.className = "text-[11px] sm:text-xs font-medium text-slate-400";
+    }
   });
+
   backBtn.disabled = index === 0;
-  nextBtn.classList.toggle('hidden', index === steps.length-1);
-  submitBtn.classList.toggle('hidden', index !== steps.length-1);
+  nextBtn.classList.toggle('hidden', index === steps.length - 1);
+  submitBtn.classList.toggle('hidden', index !== steps.length - 1);
   currentStep = index;
 }
-showStep(currentStep);
 
-nextBtn.onclick = function() {
-  if (validateStep(currentStep)) {
-    showStep(currentStep+1);
-  }
-};
-backBtn.onclick = function() {
-  showStep(currentStep-1);
-};
+nextBtn.onclick = () => { if (validateStep(currentStep)) showStep(currentStep + 1); };
+backBtn.onclick = () => showStep(currentStep - 1);
+loginBtn.onclick = () => window.location.href = "login";
 
-loginBtn.onclick = function() {
-  window.location.href = "login";
-};
-
-// Simple validations per step
+// Form Validation Logic
 function validateStep(step) {
   let valid = true;
+
   if (step === 0) {
-    // Full Name
     const name = form.fullName.value.trim();
-    const err = document.getElementById('error-fullName');
-    if (!name) { err.classList.remove('hidden'); valid=false; }
-    else { err.classList.add('hidden'); }
-    // Email
-    const mail = form.email.value;
+    const errName = document.getElementById('error-fullName');
+    if (!name) { errName.classList.remove('hidden'); valid = false; }
+    else { errName.classList.add('hidden'); }
+
+    const mail = form.email.value.trim();
     const errEmail = document.getElementById('error-email');
-    if (!mail.match(/^[\w-.]+@[\w-]+\.[a-zA-Z]{2,}$/)) { errEmail.classList.remove('hidden'); valid=false; }
+    if (!mail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) { errEmail.classList.remove('hidden'); valid = false; }
     else { errEmail.classList.add('hidden'); }
-    // Phone
-    const phone = form.phone.value;
+
+    const phone = form.phone.value.trim();
     const errPhone = document.getElementById('error-phone');
-    if (!phone.match(/^\d{10,15}$/)) { errPhone.classList.remove('hidden'); valid=false; }
+    if (!phone.match(/^\d{10,15}$/)) { errPhone.classList.remove('hidden'); valid = false; }
     else { errPhone.classList.add('hidden'); }
-    // Password
+
     const pass = form.password.value;
     const errPass = document.getElementById('error-password');
-    if (!pass.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+    if (!pass.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) { errPass.classList.remove('hidden'); valid = false; }
+    else { errPass.classList.add('hidden'); }
+
+  } else if (step === 1) {
+    const program = form.program.value;
+    const errProgram = document.getElementById('error-program');
+    if (!program) { errProgram.classList.remove('hidden'); valid = false; }
+    else { errProgram.classList.add('hidden'); }
+
+  } else if (step === 2) {
+    const passImg = form.passport.files[0];
+    const errPass = document.getElementById('error-passport');
+    
+    if (!passImg) {
+      errPass.textContent = "Please upload a passport photograph.";
+      errPass.classList.remove('hidden');
+      valid = false;
+    } else if (passImg.size > MAX_FILE_SIZE) {
+      errPass.textContent = "Image size must be less than 500KB.";
       errPass.classList.remove('hidden');
       valid = false;
     } else {
       errPass.classList.add('hidden');
     }
-  } else if (step === 1) {
-    // Program
-    const program = form.program.value;
-    const errProgram = document.getElementById('error-program');
-    if (!program) { errProgram.classList.remove('hidden'); valid=false;}
-    else { errProgram.classList.add('hidden');}
-  } else if (step === 2) {
-    // Passport
-    const passimg = form.passport.files[0];
-    const errPass = document.getElementById('error-passport');
-    if (!passimg || !passimg.type.startsWith('image/')) { errPass.classList.remove('hidden'); valid=false;}
-    else { errPass.classList.add('hidden');}
+
   } else if (step === 3) {
-    // Terms
     const terms = form.terms.checked;
     const errTerms = document.getElementById('error-terms');
-    if (!terms) { errTerms.classList.remove('hidden'); valid=false;}
-    else { errTerms.classList.add('hidden');}
+    if (!terms) { errTerms.classList.remove('hidden'); valid = false; }
+    else { errTerms.classList.add('hidden'); }
   }
+
   return valid;
 }
 
-// Feedback Modal logic
-function showModal(msg, loading=true) {
+// Modal Notification System
+function showModal(msg, loading = true) {
   document.getElementById('modal-message').innerHTML = msg;
   document.getElementById('modal-feedback').classList.remove('hidden');
   document.getElementById('modal-spinner').style.display = loading ? 'block' : 'none';
   document.getElementById('modal-close').style.display = loading ? 'none' : 'inline-block';
 }
+
 function hideModal() {
   document.getElementById('modal-feedback').classList.add('hidden');
 }
 
-// --- CHANGE: Modal close btn handles differently success/failure ---
 let registrationWasSuccessful = false;
 document.getElementById('modal-close').onclick = function() {
   hideModal();
   if (registrationWasSuccessful) {
     window.location.href = "login";
-  } else {
-    showStep(0);
-    // Do NOT reset the form in failure; keep data as it is.
-    // But if user uploaded failed passport image, also keep the selection/prefill (handled by browser)
-    // Also: Modal/step validation UI resets are handled on step-1 showing.
   }
 };
 
-// --- MAIN CHANGE: submit backend logic ---
+// Handle Form Submission
 form.onsubmit = async function(e) {
   e.preventDefault();
   if (!validateStep(3)) return;
+
   showModal('Submitting your registration. Please wait...', true);
 
-  // Prepare FormData for multipart/form-data request
   const formData = new FormData();
   formData.append("fullName", form.fullName.value.trim());
   formData.append("email", form.email.value.trim());
   formData.append("phone", form.phone.value.trim());
   formData.append("dob", form.dob.value || "");
   formData.append("gender", form.gender.value || "");
-  // could add address, referral, guardianName, guardianPhone as blank for now
   formData.append("address", "");
   formData.append("program", form.program.value);
   formData.append("password", form.password.value);
   formData.append("referral", "");
   formData.append("guardianName", "");
   formData.append("guardianPhone", "");
+
   if (form.passport.files.length > 0) {
     formData.append("passport", form.passport.files[0]);
   }
@@ -342,38 +415,32 @@ form.onsubmit = async function(e) {
     });
 
     let result;
-    try {
-      result = await res.json();
-    } catch (err) {
-      result = {};
-    }
+    try { result = await res.json(); } catch (err) { result = {}; }
 
     if (res.ok && result.message && result.message.toLowerCase().includes("success")) {
       registrationWasSuccessful = true;
-      showModal('<span class="text-green-600">✔️ Registration successful!</span><br>Redirecting to login page...', false);
+      showModal('<span class="text-emerald-600 font-semibold">✔️ Registration Successful!</span><br><span class="text-xs text-slate-500 mt-1 block">Redirecting to login portal...</span>', false);
       form.reset();
-      document.getElementById('passport-preview').innerHTML = '';
-      showStep(0);
+      resetPassport();
       setTimeout(() => {
         hideModal();
         window.location.href = "login";
       }, 2000);
     } else {
       registrationWasSuccessful = false;
-      let msg = result && result.message
-        ? `<span class="text-red-600">❌ ${result.message}</span>`
-        : "<span class='text-red-600'>❌ Registration failed. Try again.</span>";
+      let msg = result && result.message 
+        ? `<span class="text-red-600 font-semibold">❌ ${result.message}</span>`
+        : "<span class='text-red-600 font-semibold'>❌ Registration failed. Please try again.</span>";
       showModal(msg, false);
-      // Do NOT redirect to login; after OK, return to step 1 and allow user to retry, keeping form data
-      // (see modal-close handling above)
     }
   } catch (err) {
     registrationWasSuccessful = false;
-    showModal("<span class='text-red-600'>❌ Network error. Please try again later.</span>", false);
-    // Do NOT redirect to login
+    showModal("<span class='text-red-600 font-semibold'>❌ Network error. Please check your connection and retry.</span>", false);
   }
 };
+
+// Initial setup
+showStep(0);
 </script>
-<script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.js"></script>
 </body>
 </html>
