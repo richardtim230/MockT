@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.950" />
   <title>Petals of Hope - Plant Hope and Change Lives</title>
   
   <!-- Tailwind CSS CDN -->
@@ -88,8 +88,8 @@
     </div>
   </aside>
 
-  <!-- Navigation Header -->
-  <header class="w-full bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-gray-100">
+  <!-- Navigation Header (Fixed Top Bar) -->
+  <header class="w-full bg-white/95 backdrop-blur-md fixed top-0 left-0 right-0 z-40 border-b border-gray-100 shadow-sm">
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- Brand Logo -->
@@ -125,7 +125,8 @@
     </div>
   </header>
 
-  <main class="w-full flex-grow">
+  <!-- Main Content with top padding to account for fixed header -->
+  <main class="w-full flex-grow pt-20">
 
     <!-- Hero Section -->
     <section id="about" class="w-full hero-gradient pt-12 pb-20 overflow-hidden">
@@ -346,7 +347,7 @@
       </div>
     </section>
 
-    <!-- How You Can Help Section -->
+    <!-- How You Can Help Section (Strict 2x2 Grid Layout) -->
     <section id="help" class="w-full py-16 bg-white">
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -359,15 +360,16 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- 2x2 Grid -->
+        <div class="grid grid-cols-2 gap-4 sm:gap-6">
           
-          <div class="bg-emerald-50/70 p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
+          <div class="bg-emerald-50/70 p-5 sm:p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
             <div>
-              <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-xl mb-4">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-lg sm:text-xl mb-3 sm:mb-4">
                 <i class="fa-solid fa-hand-holding-heart"></i>
               </div>
-              <h3 class="font-serif font-bold text-base text-brand-dark mb-2">Donate</h3>
-              <p class="text-xs text-gray-600 leading-relaxed mb-6">
+              <h3 class="font-serif font-bold text-sm sm:text-base text-brand-dark mb-1.5">Donate</h3>
+              <p class="text-xs text-gray-600 leading-relaxed mb-4 sm:mb-6">
                 Your donations bring hope to someone today.
               </p>
             </div>
@@ -376,13 +378,13 @@
             </a>
           </div>
 
-          <div class="bg-amber-50/70 p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
+          <div class="bg-amber-50/70 p-5 sm:p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
             <div>
-              <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl mb-4">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg sm:text-xl mb-3 sm:mb-4">
                 <i class="fa-solid fa-people-group"></i>
               </div>
-              <h3 class="font-serif font-bold text-base text-brand-dark mb-2">Volunteer</h3>
-              <p class="text-xs text-gray-600 leading-relaxed mb-6">
+              <h3 class="font-serif font-bold text-sm sm:text-base text-brand-dark mb-1.5">Volunteer</h3>
+              <p class="text-xs text-gray-600 leading-relaxed mb-4 sm:mb-6">
                 Give your time and skills to make an impact.
               </p>
             </div>
@@ -391,13 +393,13 @@
             </a>
           </div>
 
-          <div class="bg-purple-50/70 p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
+          <div class="bg-purple-50/70 p-5 sm:p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
             <div>
-              <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl mb-4">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg sm:text-xl mb-3 sm:mb-4">
                 <i class="fa-solid fa-bullhorn"></i>
               </div>
-              <h3 class="font-serif font-bold text-base text-brand-dark mb-2">Share</h3>
-              <p class="text-xs text-gray-600 leading-relaxed mb-6">
+              <h3 class="font-serif font-bold text-sm sm:text-base text-brand-dark mb-1.5">Share</h3>
+              <p class="text-xs text-gray-600 leading-relaxed mb-4 sm:mb-6">
                 Spread the word and inspire others to join us.
               </p>
             </div>
@@ -406,13 +408,13 @@
             </a>
           </div>
 
-          <div class="bg-rose-50/70 p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
+          <div class="bg-rose-50/70 p-5 sm:p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
             <div>
-              <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-xl mb-4">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-lg sm:text-xl mb-3 sm:mb-4">
                 <i class="fa-solid fa-handshake"></i>
               </div>
-              <h3 class="font-serif font-bold text-base text-brand-dark mb-2">Partner</h3>
-              <p class="text-xs text-gray-600 leading-relaxed mb-6">
+              <h3 class="font-serif font-bold text-sm sm:text-base text-brand-dark mb-1.5">Partner</h3>
+              <p class="text-xs text-gray-600 leading-relaxed mb-4 sm:mb-6">
                 Collaborate with us to create lasting change.
               </p>
             </div>
@@ -472,13 +474,14 @@
 
   </main>
 
-  <!-- Footer -->
+  <!-- Footer (Structured 2-Column Responsive Layout on Mobile) -->
   <footer id="contact" class="w-full bg-brand-dark text-white pt-16 pb-8 border-t border-emerald-950">
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-emerald-900/60">
+      <div class="grid grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 pb-12 border-b border-emerald-900/60">
         
-        <div class="lg:col-span-4 space-y-4">
+        <!-- Brand Block -->
+        <div class="col-span-2 lg:col-span-4 space-y-4">
           <a href="#" class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-amber-400/20 flex items-center justify-center text-amber-400 text-xl">
               <i class="fa-solid fa-seedling"></i>
@@ -499,7 +502,8 @@
           </div>
         </div>
 
-        <div class="lg:col-span-3 space-y-3">
+        <!-- Quick Links -->
+        <div class="col-span-1 lg:col-span-3 space-y-3">
           <h4 class="font-serif font-bold text-sm text-amber-400">Quick Links</h4>
           <ul class="space-y-2 text-xs text-emerald-100/80">
             <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
@@ -510,7 +514,8 @@
           </ul>
         </div>
 
-        <div class="lg:col-span-2 space-y-3">
+        <!-- Support Links -->
+        <div class="col-span-1 lg:col-span-2 space-y-3">
           <h4 class="font-serif font-bold text-sm text-amber-400">Support</h4>
           <ul class="space-y-2 text-xs text-emerald-100/80">
             <li><a href="#donate" class="hover:text-white transition-colors">Donate</a></li>
@@ -520,7 +525,8 @@
           </ul>
         </div>
 
-        <div class="lg:col-span-3 space-y-3">
+        <!-- Contact Information -->
+        <div class="col-span-2 sm:col-span-1 lg:col-span-3 space-y-3">
           <h4 class="font-serif font-bold text-sm text-amber-400">Contact Us</h4>
           <ul class="space-y-2.5 text-xs text-emerald-100/80">
             <li class="flex items-center gap-2.5">
