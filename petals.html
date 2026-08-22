@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.950" />
   <title>Petals of Hope Foundation - Bringing Hope to the Hopeless</title>
   
   <!-- Tailwind CSS CDN -->
@@ -55,6 +55,18 @@
     .teal-magenta-gradient {
       background: linear-gradient(135deg, #1A7B88 0%, #B81D5D 100%);
     }
+
+    /* Scroll Reveal Animations */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(45px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-item.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body class="bg-brand-cream text-gray-800 font-sans antialiased w-full min-h-screen flex flex-col justify-between relative">
@@ -98,9 +110,9 @@
     </div>
   </aside>
 
-  <!-- Header Section -->
-  <header class="w-full bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-brand-teal-light shadow-sm">
-    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-22 py-3 flex items-center justify-between">
+  <!-- FIXED Top Bar Header Section -->
+  <header class="w-full bg-white/95 backdrop-blur-md fixed top-0 left-0 right-0 z-40 border-b border-brand-teal-light shadow-sm">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 py-3 flex items-center justify-between">
       
       <!-- Brand Logo -->
       <a href="#" class="flex items-center gap-3 group">
@@ -139,7 +151,8 @@
     </div>
   </header>
 
-  <main class="w-full flex-grow">
+  <!-- Main Content Area with padding offset for fixed header -->
+  <main class="w-full flex-grow pt-20">
 
     <!-- Hero Section -->
     <section id="about" class="w-full brand-hero-bg pt-12 pb-20 border-b border-brand-teal-light relative overflow-hidden">
@@ -147,7 +160,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           <!-- Text Content -->
-          <div class="lg:col-span-6 space-y-6 text-left">
+          <div class="lg:col-span-6 space-y-6 text-left reveal-item">
             <div class="inline-flex items-center gap-2 bg-brand-magenta-light border border-brand-magenta/30 text-brand-magenta px-4 py-1.5 rounded-full text-xs font-bold tracking-wide">
               <i class="fa-solid fa-fire text-brand-magenta"></i>
               <span>SOUL SHIFT; SPIRIT AFLAME</span>
@@ -184,7 +197,7 @@
           </div>
 
           <!-- Hero Frame -->
-          <div class="lg:col-span-6 relative flex justify-center">
+          <div class="lg:col-span-6 relative flex justify-center reveal-item" data-delay="150">
             <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
               <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=900&auto=format&fit=crop" alt="Petals of Hope Outreach Event" class="w-full h-[380px] sm:h-[460px] object-cover" />
               <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-2xl border border-brand-teal-light flex items-center justify-between">
@@ -205,7 +218,7 @@
 
     <!-- Impact Stats Bar -->
     <section class="w-full -mt-10 relative z-20 px-4 sm:px-6 lg:px-8">
-      <div class="w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-brand-teal-light">
+      <div class="w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-brand-teal-light reveal-item">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y sm:divide-y-0 lg:divide-x divide-brand-teal-light">
           
           <div class="flex items-center gap-4 pt-4 sm:pt-0">
@@ -252,11 +265,75 @@
       </div>
     </section>
 
+    <!-- Outreach Focus Cards (2x2 GRID SYSTEM) -->
+    <section id="work" class="w-full py-20 bg-white border-b border-brand-teal-light">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-md mx-auto mb-12 reveal-item">
+          <span class="text-xs font-bold uppercase tracking-widest text-brand-teal bg-brand-teal-light px-3 py-1 rounded-full border border-brand-teal/20">
+            What We Do
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-teal-dark mt-3">Our Pillars of Impact</h2>
+          <div class="flex items-center justify-center gap-2 mt-2">
+            <div class="h-0.5 w-10 bg-brand-gold"></div>
+            <i class="fa-solid fa-dove text-brand-magenta text-xs"></i>
+            <div class="h-0.5 w-10 bg-brand-gold"></div>
+          </div>
+        </div>
+
+        <!-- Strict 2x2 Grid Layout for 4 Items -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          
+          <div class="reveal-item bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-all duration-300 border border-brand-teal-light shadow-sm" data-delay="100">
+            <div class="w-16 h-16 rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">School Outreaches</h3>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Organizing quizzes, games, and motivational sessions to empower students in schools.
+            </p>
+          </div>
+
+          <div class="reveal-item bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-all duration-300 border border-brand-teal-light shadow-sm" data-delay="200">
+            <div class="w-16 h-16 rounded-full bg-brand-magenta-light text-brand-magenta flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">Esther Challenge</h3>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Fostering academic excellence, word wonders, and leadership among young minds.
+            </p>
+          </div>
+
+          <div class="reveal-item bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-all duration-300 border border-brand-teal-light shadow-sm" data-delay="300">
+            <div class="w-16 h-16 rounded-full bg-brand-gold-light text-brand-gold flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-fire"></i>
+            </div>
+            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">Spirit Aflame</h3>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Nurturing character, spiritual revival, and psychological support for youths.
+            </p>
+          </div>
+
+          <div class="reveal-item bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-all duration-300 border border-brand-teal-light shadow-sm" data-delay="400">
+            <div class="w-16 h-16 rounded-full bg-brand-teal-light text-brand-teal-dark flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-hand-holding-heart"></i>
+            </div>
+            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">Community Aid</h3>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Providing food, supplies, and care packages to vulnerable families and orphans.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
     <!-- Photo Gallery Section -->
     <section id="gallery" class="w-full py-20 bg-white border-b border-brand-teal-light">
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="text-center max-w-2xl mx-auto mb-10 reveal-item">
           <span class="text-xs font-bold uppercase tracking-widest text-brand-magenta bg-brand-magenta-light px-3 py-1 rounded-full border border-brand-magenta/20">
             Capturing Impact
           </span>
@@ -272,7 +349,7 @@
         </div>
 
         <!-- Filter Buttons -->
-        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 reveal-item">
           <button class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-semibold bg-brand-teal text-white shadow-sm hover:opacity-90 transition-all" data-filter="all">All Photos</button>
           <button class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-semibold bg-brand-teal-light text-brand-teal-dark hover:bg-brand-teal hover:text-white transition-all" data-filter="school">School Outreach</button>
           <button class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-semibold bg-brand-teal-light text-brand-teal-dark hover:bg-brand-teal hover:text-white transition-all" data-filter="quiz">Quiz & Games</button>
@@ -282,7 +359,7 @@
         <!-- Photo Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
           
-          <div class="gallery-item school group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+          <div class="gallery-item school reveal-item group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all" data-delay="100">
             <div class="relative overflow-hidden h-60">
               <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&auto=format&fit=crop" alt="School Outreach Courage and Crown" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
@@ -296,7 +373,7 @@
             </div>
           </div>
 
-          <div class="gallery-item quiz group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+          <div class="gallery-item quiz reveal-item group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all" data-delay="200">
             <div class="relative overflow-hidden h-60">
               <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop" alt="Esther Challenge Quiz Competition" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
@@ -310,7 +387,7 @@
             </div>
           </div>
 
-          <div class="gallery-item community group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+          <div class="gallery-item community reveal-item group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all" data-delay="300">
             <div class="relative overflow-hidden h-60">
               <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&auto=format&fit=crop" alt="Community Support" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
@@ -324,7 +401,7 @@
             </div>
           </div>
 
-          <div class="gallery-item school group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+          <div class="gallery-item school reveal-item group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all" data-delay="100">
             <div class="relative overflow-hidden h-60">
               <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&auto=format&fit=crop" alt="Student Mentorship Session" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
@@ -338,7 +415,7 @@
             </div>
           </div>
 
-          <div class="gallery-item quiz group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+          <div class="gallery-item quiz reveal-item group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all" data-delay="200">
             <div class="relative overflow-hidden h-60">
               <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&auto=format&fit=crop" alt="Interactive Student Games" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
@@ -352,7 +429,7 @@
             </div>
           </div>
 
-          <div class="gallery-item community group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+          <div class="gallery-item community reveal-item group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all" data-delay="300">
             <div class="relative overflow-hidden h-60">
               <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=600&auto=format&fit=crop" alt="Hope Outreach Distribution" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
@@ -375,7 +452,7 @@
     <section id="videos" class="w-full py-20 bg-brand-teal-light/50">
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="text-center max-w-2xl mx-auto mb-12 reveal-item">
           <span class="text-xs font-bold uppercase tracking-widest text-brand-teal bg-white px-3 py-1 rounded-full border border-brand-teal/20">
             Video & Media
           </span>
@@ -388,7 +465,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           <!-- Main Video Player Card -->
-          <div class="lg:col-span-7 bg-white p-4 rounded-3xl border border-brand-teal-light shadow-lg">
+          <div class="lg:col-span-7 bg-white p-4 rounded-3xl border border-brand-teal-light shadow-lg reveal-item" data-delay="100">
             <div class="relative rounded-2xl overflow-hidden aspect-video group cursor-pointer bg-brand-teal-deep video-trigger" data-video-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" data-video-title="Courage & Crown School Outreach - Full Recap">
               <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&auto=format&fit=crop" alt="Outreach Video Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" />
               <div class="absolute inset-0 bg-brand-teal-deep/30 flex items-center justify-center">
@@ -409,7 +486,7 @@
           <!-- Video Playlist Grid -->
           <div class="lg:col-span-5 space-y-4">
             
-            <div class="p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer video-trigger" data-video-src="https://www.youtube.com/embed/L_LUpnjgPso?autoplay=1" data-video-title="Esther Challenge Quiz Highlights">
+            <div class="reveal-item p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer video-trigger" data-delay="150" data-video-src="https://www.youtube.com/embed/L_LUpnjgPso?autoplay=1" data-video-title="Esther Challenge Quiz Highlights">
               <div class="relative w-28 h-20 rounded-xl overflow-hidden shrink-0 bg-gray-100">
                 <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
                 <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
@@ -423,7 +500,7 @@
               </div>
             </div>
 
-            <div class="p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer video-trigger" data-video-src="https://www.youtube.com/embed/3JZ_D3ELwOQ?autoplay=1" data-video-title="Beneficiary Story: Hope Restored">
+            <div class="reveal-item p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer video-trigger" data-delay="250" data-video-src="https://www.youtube.com/embed/3JZ_D3ELwOQ?autoplay=1" data-video-title="Beneficiary Story: Hope Restored">
               <div class="relative w-28 h-20 rounded-xl overflow-hidden shrink-0 bg-gray-100">
                 <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
                 <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
@@ -437,7 +514,7 @@
               </div>
             </div>
 
-            <div class="p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer video-trigger" data-video-src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1" data-video-title="Soul Shift & Spirit Aflame Session">
+            <div class="reveal-item p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer video-trigger" data-delay="350" data-video-src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1" data-video-title="Soul Shift & Spirit Aflame Session">
               <div class="relative w-28 h-20 rounded-xl overflow-hidden shrink-0 bg-gray-100">
                 <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
                 <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
@@ -458,70 +535,10 @@
       </div>
     </section>
 
-    <!-- Outreach Focus Cards -->
-    <section id="work" class="w-full py-20 bg-white">
-      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-md mx-auto mb-12">
-          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-teal-dark">Our Pillars of Impact</h2>
-          <div class="flex items-center justify-center gap-2 mt-2">
-            <div class="h-0.5 w-10 bg-brand-gold"></div>
-            <i class="fa-solid fa-dove text-brand-magenta text-xs"></i>
-            <div class="h-0.5 w-10 bg-brand-gold"></div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-          <div class="bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-brand-teal-light">
-            <div class="w-16 h-16 rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6">
-              <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">School Outreaches</h3>
-            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              Organizing quizzes, games, and motivational sessions to empower students in schools.
-            </p>
-          </div>
-
-          <div class="bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-brand-teal-light">
-            <div class="w-16 h-16 rounded-full bg-brand-magenta-light text-brand-magenta flex items-center justify-center text-2xl mb-6">
-              <i class="fa-solid fa-trophy"></i>
-            </div>
-            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">Esther Challenge</h3>
-            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              Fostering academic excellence, word wonders, and leadership among young minds.
-            </p>
-          </div>
-
-          <div class="bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-brand-teal-light">
-            <div class="w-16 h-16 rounded-full bg-brand-gold-light text-brand-gold flex items-center justify-center text-2xl mb-6">
-              <i class="fa-solid fa-fire"></i>
-            </div>
-            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">Spirit Aflame</h3>
-            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              Nurturing character, spiritual revival, and psychological support for youths.
-            </p>
-          </div>
-
-          <div class="bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-brand-teal-light">
-            <div class="w-16 h-16 rounded-full bg-brand-teal-light text-brand-teal-dark flex items-center justify-center text-2xl mb-6">
-              <i class="fa-solid fa-hand-holding-heart"></i>
-            </div>
-            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">Community Aid</h3>
-            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              Providing food, supplies, and care packages to vulnerable families and orphans.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
     <!-- Featured Campaign Banner -->
     <section id="campaigns" class="w-full py-10 bg-white">
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-gradient-to-r from-brand-teal-deep to-brand-teal rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12 text-white">
+        <div class="reveal-item bg-gradient-to-r from-brand-teal-deep to-brand-teal rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12 text-white">
           
           <div class="lg:col-span-6 relative min-h-[300px] lg:min-h-[420px]">
             <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&auto=format&fit=crop" alt="Courage and Crown Flyer Banner" class="w-full h-full object-cover" />
@@ -572,7 +589,7 @@
 
     <!-- Beneficiary Quote Banner -->
     <section class="w-full py-12 px-4 sm:px-6 lg:px-8">
-      <div class="w-full max-w-7xl mx-auto teal-magenta-gradient rounded-3xl overflow-hidden relative p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+      <div class="reveal-item w-full max-w-7xl mx-auto teal-magenta-gradient rounded-3xl overflow-hidden relative p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
         
         <div class="max-w-2xl z-10 space-y-4">
           <div class="text-brand-gold text-5xl font-serif">“</div>
@@ -601,7 +618,7 @@
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-brand-teal/30">
         
-        <div class="lg:col-span-5 space-y-4">
+        <div class="lg:col-span-5 space-y-4 reveal-item">
           <a href="#" class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-brand-magenta-light flex items-center justify-center text-brand-magenta text-xl">
               <i class="fa-solid fa-dove"></i>
@@ -622,7 +639,7 @@
           </div>
         </div>
 
-        <div class="lg:col-span-3 space-y-3">
+        <div class="lg:col-span-3 space-y-3 reveal-item" data-delay="150">
           <h4 class="font-serif font-bold text-sm text-brand-gold">Quick Navigation</h4>
           <ul class="space-y-2 text-xs text-gray-300">
             <li><a href="#about" class="hover:text-brand-gold transition-colors">About Us</a></li>
@@ -633,7 +650,7 @@
           </ul>
         </div>
 
-        <div class="lg:col-span-4 space-y-3">
+        <div class="lg:col-span-4 space-y-3 reveal-item" data-delay="300">
           <h4 class="font-serif font-bold text-sm text-brand-gold">Contact & Enquiries</h4>
           <ul class="space-y-2.5 text-xs text-gray-300">
             <li class="flex items-center gap-2.5">
@@ -768,6 +785,28 @@
 
   <!-- Interactive Scripts -->
   <script>
+    // 0. Scroll-Triggered Reveal Effect (Items slide & load in progressively as you scroll)
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -60px 0px',
+      threshold: 0.1
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = el.getAttribute('data-delay') || 0;
+          setTimeout(() => {
+            el.classList.add('revealed');
+          }, delay);
+          observer.unobserve(el);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-item').forEach(el => revealObserver.observe(el));
+
     // 1. Mobile Sidebar Navigation Drawer
     const mobileSidebar = document.getElementById('mobile-sidebar');
     const openBtn = document.getElementById('open-sidebar');
@@ -793,7 +832,12 @@
         btn.classList.add('bg-brand-teal', 'text-white');
 
         galleryItems.forEach(item => {
-          item.style.display = (filter === 'all' || item.classList.contains(filter)) ? 'block' : 'none';
+          if (filter === 'all' || item.classList.contains(filter)) {
+            item.style.display = 'block';
+            item.classList.add('revealed');
+          } else {
+            item.style.display = 'none';
+          }
         });
       });
     });
