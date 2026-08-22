@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=0.950" />
-  <title>Petals of Hope - Plant Hope and Change Lives</title>
+  <title>Petals of Hope Foundation - Bringing Hope to the Hopeless</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- FontAwesome for Icons -->
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
-  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
   
   <script>
     tailwind.config = {
@@ -22,13 +22,16 @@
         extend: {
           colors: {
             brand: {
-              dark: '#082f23',
-              primary: '#0e4a38',
-              accent: '#107c57',
-              light: '#f4fbf7',
-              cream: '#fbf8f1',
-              cardBg: '#faf6ee',
-              yellow: '#eab308'
+              teal: '#1A7B88',
+              'teal-dark': '#0E525D',
+              'teal-deep': '#0A3B43',
+              'teal-light': '#EBF5F7',
+              magenta: '#B81D5D',
+              'magenta-dark': '#8F1246',
+              'magenta-light': '#FDF0F5',
+              gold: '#D4AF37',
+              'gold-light': '#FEF9E7',
+              cream: '#FAF8F5'
             }
           },
           fontFamily: {
@@ -46,78 +49,89 @@
       overflow-x: hidden;
       scroll-behavior: smooth;
     }
-    .hero-gradient {
-      background: linear-gradient(180deg, #f2f9f4 0%, #ffffff 100%);
+    .brand-hero-bg {
+      background: linear-gradient(135deg, #FDF0F5 0%, #EBF5F7 50%, #FAF8F5 100%);
+    }
+    .teal-magenta-gradient {
+      background: linear-gradient(135deg, #1A7B88 0%, #B81D5D 100%);
     }
   </style>
 </head>
-<body class="bg-white text-gray-800 font-sans antialiased w-full min-h-screen flex flex-col justify-between">
+<body class="bg-brand-cream text-gray-800 font-sans antialiased w-full min-h-screen flex flex-col justify-between">
 
   <!-- Mobile Offcanvas Sidebar Navigation -->
   <aside id="mobile-sidebar" class="fixed inset-0 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out lg:hidden" aria-label="Mobile Navigation">
-    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" id="sidebar-backdrop"></div>
+    <div class="fixed inset-0 bg-brand-teal-deep/60 backdrop-blur-sm" id="sidebar-backdrop"></div>
     <div class="relative w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-6 z-10 overflow-y-auto">
       <div>
         <div class="flex items-center justify-between pb-6 border-b border-gray-100">
-          <a href="#" class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center text-amber-500 text-lg">
-              <i class="fa-solid fa-seedling"></i>
+          <a href="#" class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand-magenta-light flex items-center justify-center text-brand-magenta text-xl border border-brand-magenta/20">
+              <i class="fa-solid fa-dove"></i>
             </div>
             <div class="flex flex-col">
-              <span class="font-serif font-bold text-lg text-brand-dark leading-none">Petals</span>
-              <span class="text-[10px] font-sans font-medium text-gray-500 tracking-wider">of Hope</span>
+              <span class="font-serif font-bold text-lg text-brand-teal-dark leading-tight">Petals Of Hope</span>
+              <span class="text-[9px] italic font-serif text-brand-magenta tracking-tight">...bringing hope to the hopeless</span>
             </div>
           </a>
-          <button id="close-sidebar" class="p-2 text-gray-500 hover:text-brand-dark focus:outline-none">
+          <button id="close-sidebar" class="p-2 text-gray-500 hover:text-brand-magenta focus:outline-none">
             <i class="fa-solid fa-xmark text-xl"></i>
           </button>
         </div>
-        <nav class="mt-6 flex flex-col gap-3 font-medium text-sm text-gray-700">
-          <a href="#about" class="px-4 py-2.5 rounded-lg hover:bg-emerald-50 hover:text-brand-primary transition-colors">About Us</a>
-          <a href="#work" class="px-4 py-2.5 rounded-lg hover:bg-emerald-50 hover:text-brand-primary transition-colors">Our Work</a>
-          <a href="#campaigns" class="px-4 py-2.5 rounded-lg hover:bg-emerald-50 hover:text-brand-primary transition-colors">Campaigns</a>
-          <a href="#help" class="px-4 py-2.5 rounded-lg hover:bg-emerald-50 hover:text-brand-primary transition-colors">Get Involved</a>
-          <a href="#contact" class="px-4 py-2.5 rounded-lg hover:bg-emerald-50 hover:text-brand-primary transition-colors">Contact</a>
+        
+        <nav class="mt-6 flex flex-col gap-2 font-medium text-sm text-gray-700">
+          <a href="#about" class="px-4 py-2.5 rounded-lg hover:bg-brand-teal-light hover:text-brand-teal transition-colors">About Us</a>
+          <a href="#work" class="px-4 py-2.5 rounded-lg hover:bg-brand-teal-light hover:text-brand-teal transition-colors">Our Focus</a>
+          <a href="#gallery" class="px-4 py-2.5 rounded-lg hover:bg-brand-magenta-light hover:text-brand-magenta transition-colors">Event Photos</a>
+          <a href="#videos" class="px-4 py-2.5 rounded-lg hover:bg-brand-magenta-light hover:text-brand-magenta transition-colors">Videos & Media</a>
+          <a href="#campaigns" class="px-4 py-2.5 rounded-lg hover:bg-brand-teal-light hover:text-brand-teal transition-colors">Outreach</a>
+          <a href="#contact" class="px-4 py-2.5 rounded-lg hover:bg-brand-teal-light hover:text-brand-teal transition-colors">Contact</a>
         </nav>
       </div>
-      <div class="pt-6 border-t border-gray-100">
-        <a href="#donate" class="w-full py-3 bg-brand-primary text-white font-medium rounded-full flex items-center justify-center gap-2 hover:bg-brand-dark transition-all shadow-md text-sm">
-          Donate <i class="fa-solid fa-heart text-xs"></i>
+
+      <div class="pt-6 border-t border-gray-100 space-y-3">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-brand-teal block text-center">SOUL SHIFT; SPIRIT AFLAME</span>
+        <a href="#donate" class="w-full py-3 bg-brand-magenta text-white font-semibold rounded-full flex items-center justify-center gap-2 hover:bg-brand-magenta-dark transition-all shadow-md text-sm">
+          Donate Now <i class="fa-solid fa-heart text-xs"></i>
         </a>
       </div>
     </div>
   </aside>
 
-  <!-- Navigation Header (Fixed Top Bar) -->
-  <header class="w-full bg-white/95 backdrop-blur-md fixed top-0 left-0 right-0 z-40 border-b border-gray-100 shadow-sm">
-    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+  <!-- Header Section -->
+  <header class="w-full bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-brand-teal-light shadow-sm">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-22 py-3 flex items-center justify-between">
       
       <!-- Brand Logo -->
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-amber-100/80 flex items-center justify-center text-amber-500 text-xl shrink-0">
-          <i class="fa-solid fa-seedling"></i>
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-full bg-brand-magenta-light flex items-center justify-center text-brand-magenta text-2xl border border-brand-magenta/20 shadow-sm group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-dove"></i>
         </div>
         <div class="flex flex-col">
-          <span class="font-serif font-bold text-xl sm:text-2xl text-brand-dark leading-none">Petals</span>
-          <span class="text-xs font-sans font-medium text-gray-500 tracking-wider">of Hope</span>
+          <div class="flex items-center gap-1.5">
+            <span class="font-serif font-bold text-xl sm:text-2xl text-brand-teal-dark tracking-tight leading-none">Petals Of Hope</span>
+            <span class="hidden sm:inline-block w-2 h-2 rounded-full bg-brand-magenta"></span>
+          </div>
+          <span class="text-xs italic font-serif text-brand-magenta font-semibold tracking-normal">...bringing hope to the hopeless</span>
         </div>
       </a>
 
       <!-- Desktop Links -->
-      <nav class="hidden lg:flex items-center gap-8 font-medium text-gray-700 text-sm">
-        <a href="#about" class="hover:text-brand-primary transition-colors">About Us</a>
-        <a href="#work" class="hover:text-brand-primary transition-colors">Our Work</a>
-        <a href="#campaigns" class="hover:text-brand-primary transition-colors">Campaigns</a>
-        <a href="#help" class="hover:text-brand-primary transition-colors">Get Involved</a>
-        <a href="#contact" class="hover:text-brand-primary transition-colors">Contact</a>
+      <nav class="hidden lg:flex items-center gap-7 font-medium text-gray-700 text-sm">
+        <a href="#about" class="hover:text-brand-teal transition-colors">About Us</a>
+        <a href="#work" class="hover:text-brand-teal transition-colors">Our Focus</a>
+        <a href="#gallery" class="hover:text-brand-magenta transition-colors font-semibold text-brand-teal">Event Gallery</a>
+        <a href="#videos" class="hover:text-brand-magenta transition-colors">Videos</a>
+        <a href="#campaigns" class="hover:text-brand-teal transition-colors">Outreach</a>
+        <a href="#contact" class="hover:text-brand-teal transition-colors">Contact</a>
       </nav>
 
-      <!-- Desktop CTA & Hamburger -->
+      <!-- Desktop Actions -->
       <div class="flex items-center gap-4">
-        <a href="#donate" class="hidden sm:inline-flex items-center gap-2 bg-brand-primary text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-dark transition-all shadow-sm">
-          Donate <i class="fa-solid fa-heart text-xs"></i>
+        <a href="#donate" class="hidden sm:inline-flex items-center gap-2 bg-brand-magenta text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-magenta-dark transition-all shadow-md">
+          Support Cause <i class="fa-solid fa-heart text-xs text-brand-gold-light"></i>
         </a>
-        <button id="open-sidebar" class="p-2 text-brand-dark lg:hidden focus:outline-none text-2xl" aria-label="Open navigation drawer">
+        <button id="open-sidebar" class="p-2 text-brand-teal-dark lg:hidden focus:outline-none text-2xl" aria-label="Open navigation drawer">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
@@ -125,55 +139,63 @@
     </div>
   </header>
 
-  <!-- Main Content with top padding to account for fixed header -->
-  <main class="w-full flex-grow pt-20">
+  <main class="w-full flex-grow">
 
     <!-- Hero Section -->
-    <section id="about" class="w-full hero-gradient pt-12 pb-20 overflow-hidden">
+    <section id="about" class="w-full brand-hero-bg pt-12 pb-20 border-b border-brand-teal-light relative overflow-hidden">
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           <!-- Text Content -->
           <div class="lg:col-span-6 space-y-6 text-left">
-            <div class="inline-flex items-center gap-2 bg-emerald-100/80 text-emerald-900 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide">
-              <span>Hope</span> • <span>Care</span> • <span>Impact</span>
+            <div class="inline-flex items-center gap-2 bg-brand-magenta-light border border-brand-magenta/30 text-brand-magenta px-4 py-1.5 rounded-full text-xs font-bold tracking-wide">
+              <i class="fa-solid fa-fire text-brand-magenta"></i>
+              <span>SOUL SHIFT; SPIRIT AFLAME</span>
             </div>
 
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-brand-dark leading-[1.15]">
-              Together, we plant hope and change lives.
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-brand-teal-dark leading-[1.15]">
+              Bringing hope to the <span class="text-brand-magenta underline decoration-brand-gold/60">hopeless</span>.
             </h1>
 
             <p class="text-gray-600 text-base sm:text-lg max-w-xl leading-relaxed">
-              Petals of Hope is dedicated to supporting vulnerable children, families, and communities with love, resources, and opportunities they deserve.
+              Petals of Hope Foundation is dedicated to empowering vulnerable lives, driving spiritual growth, and transforming communities through school outreaches, humanitarian support, and love.
             </p>
 
             <div class="flex flex-wrap items-center gap-4 pt-2">
-              <a href="#donate" class="inline-flex items-center gap-2 bg-brand-primary text-white px-7 py-3.5 rounded-full font-semibold hover:bg-brand-dark transition-all shadow-md text-sm">
-                <i class="fa-solid fa-heart text-xs"></i> Donate Now
+              <a href="#donate" class="inline-flex items-center gap-2 bg-brand-teal text-white px-7 py-3.5 rounded-full font-semibold hover:bg-brand-teal-dark transition-all shadow-md text-sm">
+                <i class="fa-solid fa-hand-holding-heart text-brand-gold"></i> Partner With Us
               </a>
-              <a href="#work" class="inline-flex items-center gap-2 bg-white border border-gray-300 text-gray-800 px-7 py-3.5 rounded-full font-semibold hover:bg-gray-50 transition-all text-sm">
-                See Our Impact <i class="fa-solid fa-arrow-right text-xs"></i>
+              <a href="#gallery" class="inline-flex items-center gap-2 bg-white border border-brand-teal/30 text-brand-teal-dark px-7 py-3.5 rounded-full font-semibold hover:bg-brand-teal-light transition-all text-sm">
+                Explore Event Photos <i class="fa-solid fa-image text-brand-magenta"></i>
               </a>
             </div>
 
-            <!-- Social Proof Stack -->
-            <div class="flex items-center gap-4 pt-4">
+            <!-- Social Proof -->
+            <div class="flex items-center gap-4 pt-4 border-t border-brand-teal/10">
               <div class="flex -space-x-3">
-                <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop" alt="User Avatar" />
-                <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop" alt="User Avatar" />
-                <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop" alt="User Avatar" />
-                <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop" alt="User Avatar" />
+                <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop" alt="Volunteer" />
+                <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop" alt="Volunteer" />
+                <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop" alt="Volunteer" />
               </div>
-              <p class="text-xs text-gray-600 max-w-[200px] leading-snug font-medium">
-                Join hundreds of kind hearts making a real difference.
+              <p class="text-xs text-brand-teal-dark font-medium leading-snug">
+                Empowering students, youth, and communities across Nigeria.
               </p>
             </div>
           </div>
 
-          <!-- Hero Image Frame -->
+          <!-- Hero Frame -->
           <div class="lg:col-span-6 relative flex justify-center">
-            <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl">
-              <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&auto=format&fit=crop" alt="Volunteers giving support box to children" class="w-full h-[360px] sm:h-[460px] object-cover" />
+            <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+              <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=900&auto=format&fit=crop" alt="Petals of Hope Outreach Event" class="w-full h-[380px] sm:h-[460px] object-cover" />
+              <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-2xl border border-brand-teal-light flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-bold text-brand-magenta uppercase tracking-wider">Upcoming Program</div>
+                  <div class="text-sm font-serif font-bold text-brand-teal-dark">School Outreach: Courage and Crown</div>
+                </div>
+                <a href="#campaigns" class="px-4 py-2 bg-brand-teal text-white text-xs font-semibold rounded-full hover:bg-brand-teal-dark transition-colors">
+                  Details
+                </a>
+              </div>
             </div>
           </div>
 
@@ -183,46 +205,46 @@
 
     <!-- Impact Stats Bar -->
     <section class="w-full -mt-10 relative z-20 px-4 sm:px-6 lg:px-8">
-      <div class="w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y sm:divide-y-0 lg:divide-x divide-gray-100">
+      <div class="w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-brand-teal-light">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y sm:divide-y-0 lg:divide-x divide-brand-teal-light">
           
           <div class="flex items-center gap-4 pt-4 sm:pt-0">
-            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-users"></i>
+            <div class="w-12 h-12 rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-xl shrink-0">
+              <i class="fa-solid fa-graduation-cap"></i>
             </div>
             <div>
-              <div class="text-2xl sm:text-3xl font-bold font-serif text-brand-dark">2,500+</div>
-              <div class="text-xs text-gray-500 font-medium">Lives Impacted</div>
+              <div class="text-2xl sm:text-3xl font-bold font-serif text-brand-teal-dark">12+</div>
+              <div class="text-xs text-gray-500 font-medium">School Outreaches</div>
             </div>
           </div>
 
           <div class="flex items-center gap-4 pt-4 sm:pt-0 lg:pl-6">
-            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-hand-holding-heart"></i>
+            <div class="w-12 h-12 rounded-full bg-brand-magenta-light text-brand-magenta flex items-center justify-center text-xl shrink-0">
+              <i class="fa-solid fa-hands-holding-child"></i>
             </div>
             <div>
-              <div class="text-2xl sm:text-3xl font-bold font-serif text-brand-dark">85+</div>
-              <div class="text-xs text-gray-500 font-medium">Communities Reached</div>
+              <div class="text-2xl sm:text-3xl font-bold font-serif text-brand-teal-dark">3,000+</div>
+              <div class="text-xs text-gray-500 font-medium">Students Reached</div>
             </div>
           </div>
 
           <div class="flex items-center gap-4 pt-4 sm:pt-0 lg:pl-6">
-            <div class="w-12 h-12 rounded-full bg-teal-100 text-teal-800 flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-box-archive"></i>
+            <div class="w-12 h-12 rounded-full bg-brand-gold-light text-brand-gold flex items-center justify-center text-xl shrink-0">
+              <i class="fa-solid fa-trophy"></i>
             </div>
             <div>
-              <div class="text-2xl sm:text-3xl font-bold font-serif text-brand-dark">120+</div>
-              <div class="text-xs text-gray-500 font-medium">Projects Completed</div>
+              <div class="text-2xl sm:text-3xl font-bold font-serif text-brand-teal-dark">50+</div>
+              <div class="text-xs text-gray-500 font-medium">Quiz Competitions</div>
             </div>
           </div>
 
           <div class="flex items-center gap-4 pt-4 sm:pt-0 lg:pl-6">
-            <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-people-roof"></i>
+            <div class="w-12 h-12 rounded-full bg-brand-teal-light text-brand-teal-dark flex items-center justify-center text-xl shrink-0">
+              <i class="fa-solid fa-heart-circle-check"></i>
             </div>
             <div>
-              <div class="text-2xl sm:text-3xl font-bold font-serif text-brand-dark">50+</div>
-              <div class="text-xs text-gray-500 font-medium">Volunteers</div>
+              <div class="text-2xl sm:text-3xl font-bold font-serif text-brand-teal-dark">100%</div>
+              <div class="text-xs text-gray-500 font-medium">Hope Restored</div>
             </div>
           </div>
 
@@ -230,58 +252,270 @@
       </div>
     </section>
 
-    <!-- What We Do Section -->
+    <!-- Photo Gallery Section -->
+    <section id="gallery" class="w-full py-20 bg-white border-b border-brand-teal-light">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="text-xs font-bold uppercase tracking-widest text-brand-magenta bg-brand-magenta-light px-3 py-1 rounded-full border border-brand-magenta/20">
+            Capturing Impact
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-teal-dark mt-3">Event Photo Gallery</h2>
+          <p class="text-xs sm:text-sm text-gray-600 mt-2">
+            Moments from our school outreaches, quiz competitions, games, and community interventions.
+          </p>
+          <div class="flex items-center justify-center gap-2 mt-4">
+            <div class="h-0.5 w-12 bg-brand-teal"></div>
+            <i class="fa-solid fa-dove text-brand-magenta text-xs"></i>
+            <div class="h-0.5 w-12 bg-brand-magenta"></div>
+          </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
+          <button class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-semibold bg-brand-teal text-white shadow-sm hover:opacity-90 transition-all" data-filter="all">All Photos</button>
+          <button class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-semibold bg-brand-teal-light text-brand-teal-dark hover:bg-brand-teal hover:text-white transition-all" data-filter="school">School Outreach</button>
+          <button class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-semibold bg-brand-teal-light text-brand-teal-dark hover:bg-brand-teal hover:text-white transition-all" data-filter="quiz">Quiz & Games</button>
+          <button class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-semibold bg-brand-teal-light text-brand-teal-dark hover:bg-brand-teal hover:text-white transition-all" data-filter="community">Community Care</button>
+        </div>
+
+        <!-- Photo Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+          
+          <!-- Image Item 1 -->
+          <div class="gallery-item school group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+            <div class="relative overflow-hidden h-60">
+              <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&auto=format&fit=crop" alt="School Outreach Courage and Crown" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="text-xs text-white font-medium"><i class="fa-solid fa-location-dot text-brand-gold mr-1"></i> Right Star Int. School, Ede</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="text-xs text-brand-magenta font-semibold mb-1">School Outreach</div>
+              <h3 class="font-serif font-bold text-base text-brand-teal-dark">Courage & Crown Outreach</h3>
+              <p class="text-xs text-gray-500 mt-1">Inspiring students with games, word wonders, and quiz challenges.</p>
+            </div>
+          </div>
+
+          <!-- Image Item 2 -->
+          <div class="gallery-item quiz group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+            <div class="relative overflow-hidden h-60">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop" alt="Esther Challenge Quiz Competition" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="text-xs text-white font-medium"><i class="fa-solid fa-trophy text-brand-gold mr-1"></i> Esther Challenge Finals</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="text-xs text-brand-magenta font-semibold mb-1">Quiz & Games</div>
+              <h3 class="font-serif font-bold text-base text-brand-teal-dark">Esther Challenge Quiz</h3>
+              <p class="text-xs text-gray-500 mt-1">Rewarding academic and spiritual excellence among participating students.</p>
+            </div>
+          </div>
+
+          <!-- Image Item 3 -->
+          <div class="gallery-item community group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+            <div class="relative overflow-hidden h-60">
+              <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&auto=format&fit=crop" alt="Community Support" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="text-xs text-white font-medium"><i class="fa-solid fa-heart text-brand-magenta mr-1"></i> Community Care</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="text-xs text-brand-magenta font-semibold mb-1">Community Care</div>
+              <h3 class="font-serif font-bold text-base text-brand-teal-dark">Love in Action Drive</h3>
+              <p class="text-xs text-gray-500 mt-1">Distributing educational kits and essentials to vulnerable children.</p>
+            </div>
+          </div>
+
+          <!-- Image Item 4 -->
+          <div class="gallery-item school group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+            <div class="relative overflow-hidden h-60">
+              <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&auto=format&fit=crop" alt="Student Mentorship Session" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="text-xs text-white font-medium"><i class="fa-solid fa-book-open text-brand-gold mr-1"></i> Mentorship Hub</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="text-xs text-brand-magenta font-semibold mb-1">School Outreach</div>
+              <h3 class="font-serif font-bold text-base text-brand-teal-dark">Student Mentorship Hub</h3>
+              <p class="text-xs text-gray-500 mt-1">Empowering youth with moral guidance and educational support.</p>
+            </div>
+          </div>
+
+          <!-- Image Item 5 -->
+          <div class="gallery-item quiz group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+            <div class="relative overflow-hidden h-60">
+              <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&auto=format&fit=crop" alt="Interactive Student Games" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="text-xs text-white font-medium"><i class="fa-solid fa-gamepad text-brand-gold mr-1"></i> Outdoor Games</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="text-xs text-brand-magenta font-semibold mb-1">Quiz & Games</div>
+              <h3 class="font-serif font-bold text-base text-brand-teal-dark">Word Wonders & Games</h3>
+              <p class="text-xs text-gray-500 mt-1">Interactive team building and recreational challenges for students.</p>
+            </div>
+          </div>
+
+          <!-- Image Item 6 -->
+          <div class="gallery-item community group bg-brand-cream rounded-2xl overflow-hidden border border-brand-teal-light shadow-sm hover:shadow-lg transition-all">
+            <div class="relative overflow-hidden h-60">
+              <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=600&auto=format&fit=crop" alt="Hope Outreach Distribution" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="text-xs text-white font-medium"><i class="fa-solid fa-handshake text-brand-gold mr-1"></i> Hope Distribution</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="text-xs text-brand-magenta font-semibold mb-1">Community Care</div>
+              <h3 class="font-serif font-bold text-base text-brand-teal-dark">Spirit Aflame Session</h3>
+              <p class="text-xs text-gray-500 mt-1">Spiritual revival and emotional counseling for families.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Video Showcase Section -->
+    <section id="videos" class="w-full py-20 bg-brand-teal-light/50">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-bold uppercase tracking-widest text-brand-teal bg-white px-3 py-1 rounded-full border border-brand-teal/20">
+            Video & Media
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-teal-dark mt-3">Watch Our Stories & Highlights</h2>
+          <p class="text-xs sm:text-sm text-gray-600 mt-2">
+            Experience the energy, joy, and transformations during our live outreaches and programs.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Main Video Player Card -->
+          <div class="lg:col-span-7 bg-white p-4 rounded-3xl border border-brand-teal-light shadow-lg">
+            <div class="relative rounded-2xl overflow-hidden aspect-video group cursor-pointer bg-brand-teal-deep" id="main-video-trigger">
+              <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&auto=format&fit=crop" alt="Outreach Video Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" />
+              <div class="absolute inset-0 bg-brand-teal-deep/30 flex items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-brand-magenta text-white flex items-center justify-center text-2xl shadow-xl group-hover:scale-110 transition-transform">
+                  <i class="fa-solid fa-play ml-1"></i>
+                </div>
+              </div>
+              <div class="absolute bottom-4 left-4 right-4 text-white flex justify-between items-center bg-black/40 backdrop-blur-md p-3 rounded-xl">
+                <div>
+                  <div class="text-xs font-semibold text-brand-gold">FEATURED HIGHLIGHT</div>
+                  <div class="text-sm font-bold">Courage & Crown School Outreach - Full Recap</div>
+                </div>
+                <span class="text-xs bg-brand-magenta px-2.5 py-1 rounded-md font-mono">03:45</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Playlist Grid -->
+          <div class="lg:col-span-5 space-y-4">
+            
+            <div class="p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer">
+              <div class="relative w-28 h-20 rounded-xl overflow-hidden shrink-0 bg-gray-100">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
+                <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                  <i class="fa-solid fa-play text-white text-xs"></i>
+                </div>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-brand-magenta uppercase">Competition</span>
+                <h4 class="font-serif font-bold text-sm text-brand-teal-dark leading-snug">Esther Challenge Quiz Highlights</h4>
+                <p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock mr-1"></i> 02:15 mins</p>
+              </div>
+            </div>
+
+            <div class="p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer">
+              <div class="relative w-28 h-20 rounded-xl overflow-hidden shrink-0 bg-gray-100">
+                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
+                <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                  <i class="fa-solid fa-play text-white text-xs"></i>
+                </div>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-brand-teal uppercase">Testimonial</span>
+                <h4 class="font-serif font-bold text-sm text-brand-teal-dark leading-snug">Beneficiary Story: Hope Restored</h4>
+                <p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock mr-1"></i> 04:10 mins</p>
+              </div>
+            </div>
+
+            <div class="p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer">
+              <div class="relative w-28 h-20 rounded-xl overflow-hidden shrink-0 bg-gray-100">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
+                <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                  <i class="fa-solid fa-play text-white text-xs"></i>
+                </div>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-brand-magenta uppercase">Outreach</span>
+                <h4 class="font-serif font-bold text-sm text-brand-teal-dark leading-snug">Soul Shift & Spirit Aflame Session</h4>
+                <p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock mr-1"></i> 05:30 mins</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Outreach Focus Cards -->
     <section id="work" class="w-full py-20 bg-white">
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="text-center max-w-md mx-auto mb-12">
-          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-dark">What We Do</h2>
+          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-teal-dark">Our Pillars of Impact</h2>
           <div class="flex items-center justify-center gap-2 mt-2">
-            <div class="h-0.5 w-10 bg-amber-400"></div>
-            <i class="fa-solid fa-leaf text-amber-500 text-xs"></i>
-            <div class="h-0.5 w-10 bg-amber-400"></div>
+            <div class="h-0.5 w-10 bg-brand-gold"></div>
+            <i class="fa-solid fa-dove text-brand-magenta text-xs"></i>
+            <div class="h-0.5 w-10 bg-brand-gold"></div>
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           
-          <div class="bg-brand-cardBg p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-amber-50">
-            <div class="w-16 h-16 rounded-full bg-emerald-100/80 text-emerald-700 flex items-center justify-center text-2xl mb-6">
-              <i class="fa-solid fa-hands-holding-circle"></i>
-            </div>
-            <h3 class="font-serif font-bold text-lg text-brand-dark mb-3">Support the Vulnerable</h3>
-            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              We provide food, clothing, shelter, and education to those in need.
-            </p>
-          </div>
-
-          <div class="bg-brand-cardBg p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-amber-50">
-            <div class="w-16 h-16 rounded-full bg-amber-100/80 text-amber-600 flex items-center justify-center text-2xl mb-6">
+          <div class="bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-brand-teal-light">
+            <div class="w-16 h-16 rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6">
               <i class="fa-solid fa-graduation-cap"></i>
             </div>
-            <h3 class="font-serif font-bold text-lg text-brand-dark mb-3">Empower Communities</h3>
+            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">School Outreaches</h3>
             <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              We create opportunities that help individuals and communities thrive.
+              Organizing quizzes, games, and motivational sessions to empower students in schools.
             </p>
           </div>
 
-          <div class="bg-brand-cardBg p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-amber-50">
-            <div class="w-16 h-16 rounded-full bg-teal-100/80 text-teal-700 flex items-center justify-center text-2xl mb-6">
-              <i class="fa-solid fa-handshake-angle"></i>
+          <div class="bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-brand-teal-light">
+            <div class="w-16 h-16 rounded-full bg-brand-magenta-light text-brand-magenta flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-trophy"></i>
             </div>
-            <h3 class="font-serif font-bold text-lg text-brand-dark mb-3">Care for Children</h3>
+            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">Esther Challenge</h3>
             <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              We support orphanages and ensure every child feels valued and loved.
+              Fostering academic excellence, word wonders, and leadership among young minds.
             </p>
           </div>
 
-          <div class="bg-brand-cardBg p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-amber-50">
-            <div class="w-16 h-16 rounded-full bg-indigo-100/80 text-indigo-600 flex items-center justify-center text-2xl mb-6">
-              <i class="fa-solid fa-seedling"></i>
+          <div class="bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-brand-teal-light">
+            <div class="w-16 h-16 rounded-full bg-brand-gold-light text-brand-gold flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-fire"></i>
             </div>
-            <h3 class="font-serif font-bold text-lg text-brand-dark mb-3">Build a Better Tomorrow</h3>
+            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">Spirit Aflame</h3>
             <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
-              We work towards sustainable change for a brighter future.
+              Nurturing character, spiritual revival, and psychological support for youths.
+            </p>
+          </div>
+
+          <div class="bg-brand-cream p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300 border border-brand-teal-light">
+            <div class="w-16 h-16 rounded-full bg-brand-teal-light text-brand-teal-dark flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-hand-holding-heart"></i>
+            </div>
+            <h3 class="font-serif font-bold text-lg text-brand-teal-dark mb-3">Community Aid</h3>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Providing food, supplies, and care packages to vulnerable families and orphans.
             </p>
           </div>
 
@@ -290,54 +524,49 @@
       </div>
     </section>
 
-    <!-- Featured Campaign Section -->
+    <!-- Featured Campaign Banner -->
     <section id="campaigns" class="w-full py-10 bg-white">
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-brand-cardBg rounded-3xl overflow-hidden border border-amber-100/80 shadow-sm grid grid-cols-1 lg:grid-cols-12">
+        <div class="bg-gradient-to-r from-brand-teal-deep to-brand-teal rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12 text-white">
           
           <div class="lg:col-span-6 relative min-h-[300px] lg:min-h-[420px]">
-            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&auto=format&fit=crop" alt="Smiling children" class="w-full h-full object-cover" />
-            <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl text-xs font-bold text-brand-dark shadow-sm">
-              Hope Changes Everything.
+            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&auto=format&fit=crop" alt="Courage and Crown Flyer Banner" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-brand-teal-deep/30"></div>
+            <div class="absolute top-4 left-4 bg-brand-magenta text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+              Upcoming Event
             </div>
           </div>
 
           <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
             <div>
-              <span class="inline-block bg-emerald-100/80 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full mb-4">
-                Featured Campaign
-              </span>
-              <h3 class="text-2xl sm:text-3xl font-serif font-bold text-brand-dark mb-3">
-                Give Hope. Change a Life.
+              <div class="text-xs font-bold text-brand-gold uppercase tracking-wider mb-2">School Outreach Special</div>
+              <h3 class="text-2xl sm:text-4xl font-serif font-bold text-white mb-3">
+                Courage and Crown: For Such a Time as This
               </h3>
-              <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-6">
-                Help us provide essential resources, education, and care to children and families in need.
+              <p class="text-emerald-100/90 text-xs sm:text-sm leading-relaxed mb-6">
+                Featuring Quiz Competitions (Esther Challenge), Interactive Games, Word Wonders, and scholarship rewards.
               </p>
 
-              <div class="space-y-2 mb-6">
-                <div class="flex justify-between items-center text-sm font-semibold">
-                  <span class="text-brand-dark">₦950,000 <span class="text-xs text-gray-500 font-normal">raised</span></span>
-                  <span class="text-gray-500 text-xs">Goal: ₦1,500,000</span>
+              <div class="space-y-3 bg-white/10 p-4 rounded-2xl backdrop-blur-md mb-6 border border-white/10 text-xs sm:text-sm">
+                <div class="flex items-center gap-3">
+                  <i class="fa-solid fa-calendar-day text-brand-gold"></i>
+                  <span>Monday, 25th May 2026 • 1:00 PM</span>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                  <div class="bg-emerald-600 h-full rounded-full w-[63%]"></div>
+                <div class="flex items-center gap-3">
+                  <i class="fa-solid fa-location-dot text-brand-gold"></i>
+                  <span>Right Star International School, Ede</span>
                 </div>
-                <div class="text-right text-xs font-bold text-emerald-800">63%</div>
+                <div class="flex items-center gap-3">
+                  <i class="fa-solid fa-phone text-brand-gold"></i>
+                  <span>Enquiries/Sponsorship: 07032287989 or 08131903652</span>
+                </div>
               </div>
             </div>
 
-            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-amber-200/50">
-              <div class="flex items-center gap-3">
-                <div class="flex -space-x-2">
-                  <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80" alt="Supporter" />
-                  <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80" alt="Supporter" />
-                  <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80" alt="Supporter" />
-                </div>
-                <span class="text-xs font-semibold text-gray-600">+230 supporters</span>
-              </div>
-
-              <a href="#donate" class="inline-flex items-center gap-2 bg-brand-primary text-white px-6 py-2.5 rounded-full text-xs font-semibold hover:bg-brand-dark transition-all">
-                Support This Cause <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/20">
+              <span class="text-xs font-medium text-emerald-200">Join us in bringing hope to these students.</span>
+              <a href="#donate" class="inline-flex items-center gap-2 bg-brand-magenta text-white px-7 py-3 rounded-full text-xs font-semibold hover:bg-brand-magenta-dark transition-all shadow-md">
+                Sponsor Outreach <i class="fa-solid fa-arrow-right text-[10px]"></i>
               </a>
             </div>
 
@@ -347,213 +576,99 @@
       </div>
     </section>
 
-    <!-- How You Can Help Section (Strict 2x2 Grid Layout) -->
-    <section id="help" class="w-full py-16 bg-white">
-      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-md mx-auto mb-12">
-          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-dark">How You Can Help</h2>
-          <div class="flex items-center justify-center gap-2 mt-2">
-            <div class="h-0.5 w-10 bg-amber-400"></div>
-            <i class="fa-solid fa-leaf text-amber-500 text-xs"></i>
-            <div class="h-0.5 w-10 bg-amber-400"></div>
-          </div>
-        </div>
-
-        <!-- 2x2 Grid -->
-        <div class="grid grid-cols-2 gap-4 sm:gap-6">
-          
-          <div class="bg-emerald-50/70 p-5 sm:p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
-            <div>
-              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-lg sm:text-xl mb-3 sm:mb-4">
-                <i class="fa-solid fa-hand-holding-heart"></i>
-              </div>
-              <h3 class="font-serif font-bold text-sm sm:text-base text-brand-dark mb-1.5">Donate</h3>
-              <p class="text-xs text-gray-600 leading-relaxed mb-4 sm:mb-6">
-                Your donations bring hope to someone today.
-              </p>
-            </div>
-            <a href="#donate" class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-emerald-800 hover:bg-emerald-800 hover:text-white transition-colors shadow-sm">
-              <i class="fa-solid fa-arrow-right text-xs"></i>
-            </a>
-          </div>
-
-          <div class="bg-amber-50/70 p-5 sm:p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
-            <div>
-              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg sm:text-xl mb-3 sm:mb-4">
-                <i class="fa-solid fa-people-group"></i>
-              </div>
-              <h3 class="font-serif font-bold text-sm sm:text-base text-brand-dark mb-1.5">Volunteer</h3>
-              <p class="text-xs text-gray-600 leading-relaxed mb-4 sm:mb-6">
-                Give your time and skills to make an impact.
-              </p>
-            </div>
-            <a href="#volunteer" class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-amber-700 hover:bg-amber-600 hover:text-white transition-colors shadow-sm">
-              <i class="fa-solid fa-arrow-right text-xs"></i>
-            </a>
-          </div>
-
-          <div class="bg-purple-50/70 p-5 sm:p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
-            <div>
-              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg sm:text-xl mb-3 sm:mb-4">
-                <i class="fa-solid fa-bullhorn"></i>
-              </div>
-              <h3 class="font-serif font-bold text-sm sm:text-base text-brand-dark mb-1.5">Share</h3>
-              <p class="text-xs text-gray-600 leading-relaxed mb-4 sm:mb-6">
-                Spread the word and inspire others to join us.
-              </p>
-            </div>
-            <a href="#share" class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-purple-700 hover:bg-purple-600 hover:text-white transition-colors shadow-sm">
-              <i class="fa-solid fa-arrow-right text-xs"></i>
-            </a>
-          </div>
-
-          <div class="bg-rose-50/70 p-5 sm:p-6 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all">
-            <div>
-              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-lg sm:text-xl mb-3 sm:mb-4">
-                <i class="fa-solid fa-handshake"></i>
-              </div>
-              <h3 class="font-serif font-bold text-sm sm:text-base text-brand-dark mb-1.5">Partner</h3>
-              <p class="text-xs text-gray-600 leading-relaxed mb-4 sm:mb-6">
-                Collaborate with us to create lasting change.
-              </p>
-            </div>
-            <a href="#partner" class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-rose-700 hover:bg-rose-600 hover:text-white transition-colors shadow-sm">
-              <i class="fa-solid fa-arrow-right text-xs"></i>
-            </a>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
     <!-- Beneficiary Quote Banner -->
-    <section class="w-full py-6 px-4 sm:px-6 lg:px-8">
-      <div class="w-full max-w-7xl mx-auto bg-brand-dark rounded-3xl overflow-hidden relative p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8">
+    <section class="w-full py-12 px-4 sm:px-6 lg:px-8">
+      <div class="w-full max-w-7xl mx-auto teal-magenta-gradient rounded-3xl overflow-hidden relative p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
         
         <div class="max-w-2xl z-10 space-y-4">
-          <div class="text-amber-400 text-4xl font-serif">“</div>
-          <p class="text-xl sm:text-2xl font-serif italic leading-relaxed text-emerald-50">
-            Because of people like you, my dreams are not just dreams anymore.
+          <div class="text-brand-gold text-5xl font-serif">“</div>
+          <p class="text-xl sm:text-2xl font-serif italic leading-relaxed text-white">
+            Petals of Hope didn't just give us materials—they reignited our courage and reminded us that our dreams are possible.
           </p>
-          <div class="text-xs tracking-wider uppercase text-emerald-300 font-semibold">— A beneficiary</div>
-        </div>
 
-        <div class="w-32 h-32 sm:w-44 sm:h-44 rounded-full overflow-hidden border-4 border-emerald-800 shrink-0 z-10">
-          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop" alt="Beneficiary child" class="w-full h-full object-cover" />
-        </div>
-
-        <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-emerald-800/30 rounded-full blur-2xl"></div>
-      </div>
-    </section>
-
-    <!-- Newsletter Bar -->
-    <section class="w-full py-10 px-4 sm:px-6 lg:px-8">
-      <div class="w-full max-w-7xl mx-auto bg-brand-cardBg border border-amber-100/80 rounded-3xl p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-6">
-        
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-100/80 text-emerald-800 flex items-center justify-center text-xl shrink-0">
-            <i class="fa-solid fa-envelope-open-text"></i>
-          </div>
-          <div>
-            <h3 class="font-serif font-bold text-lg text-brand-dark">Stay Connected</h3>
-            <p class="text-xs text-gray-600">Subscribe to our newsletter for updates on our projects and impact stories.</p>
+          <div class="text-xs tracking-widest uppercase text-brand-gold font-bold">
+            — Student Participant, Courage & Crown Outreach
           </div>
         </div>
 
-        <form onsubmit="event.preventDefault();" class="w-full lg:w-auto flex flex-col sm:flex-row items-center gap-3">
-          <input type="email" placeholder="Enter your email" class="w-full sm:w-72 px-5 py-3 rounded-full text-xs bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-primary" required />
-          <button type="submit" class="w-full sm:w-auto bg-brand-primary text-white px-7 py-3 rounded-full text-xs font-semibold hover:bg-brand-dark transition-all">
-            Subscribe
-          </button>
-        </form>
+        <div class="w-32 h-32 sm:w-44 sm:h-44 rounded-full overflow-hidden border-4 border-white/30 shrink-0 z-10 shadow-lg">
+          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop" alt="Beneficiary student" class="w-full h-full object-cover" />
+        </div>
 
+        <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-white/10 rounded-full blur-2xl"></div>
       </div>
     </section>
 
   </main>
 
-  <!-- Footer (Structured 2-Column Responsive Layout on Mobile) -->
-  <footer id="contact" class="w-full bg-brand-dark text-white pt-16 pb-8 border-t border-emerald-950">
+  <!-- Footer -->
+  <footer id="contact" class="w-full bg-brand-teal-deep text-white pt-16 pb-8 border-t border-brand-teal-dark">
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="grid grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 pb-12 border-b border-emerald-900/60">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-brand-teal/30">
         
-        <!-- Brand Block -->
-        <div class="col-span-2 lg:col-span-4 space-y-4">
+        <div class="lg:col-span-5 space-y-4">
           <a href="#" class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-amber-400/20 flex items-center justify-center text-amber-400 text-xl">
-              <i class="fa-solid fa-seedling"></i>
+            <div class="w-10 h-10 rounded-full bg-brand-magenta-light flex items-center justify-center text-brand-magenta text-xl">
+              <i class="fa-solid fa-dove"></i>
             </div>
             <div class="flex flex-col">
-              <span class="font-serif font-bold text-2xl text-white leading-none">Petals</span>
-              <span class="text-xs font-sans font-medium text-emerald-300 tracking-wider">of Hope</span>
+              <span class="font-serif font-bold text-2xl text-white leading-none">Petals Of Hope</span>
+              <span class="text-xs italic font-serif text-brand-gold tracking-tight">...bringing hope to the hopeless</span>
             </div>
           </a>
-          <p class="text-xs text-emerald-100/70 max-w-sm leading-relaxed">
-            Planting hope. Changing lives.<br />Building stronger communities.
+          <p class="text-xs text-gray-300 max-w-sm leading-relaxed">
+            <strong class="text-brand-gold">SOUL SHIFT; SPIRIT AFLAME.</strong><br />
+            Dedicated to empowering children, students, and families through love, outreach, and academic excellence.
           </p>
           <div class="flex items-center gap-3 pt-2">
-            <a href="#" class="w-8 h-8 rounded-full bg-emerald-900/80 hover:bg-emerald-700 flex items-center justify-center text-xs transition-colors" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#" class="w-8 h-8 rounded-full bg-emerald-900/80 hover:bg-emerald-700 flex items-center justify-center text-xs transition-colors" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" class="w-8 h-8 rounded-full bg-emerald-900/80 hover:bg-emerald-700 flex items-center justify-center text-xs transition-colors" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="#" class="w-8 h-8 rounded-full bg-emerald-900/80 hover:bg-emerald-700 flex items-center justify-center text-xs transition-colors" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-magenta flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-magenta flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-magenta flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
           </div>
         </div>
 
-        <!-- Quick Links -->
-        <div class="col-span-1 lg:col-span-3 space-y-3">
-          <h4 class="font-serif font-bold text-sm text-amber-400">Quick Links</h4>
-          <ul class="space-y-2 text-xs text-emerald-100/80">
-            <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
-            <li><a href="#work" class="hover:text-white transition-colors">Our Work</a></li>
-            <li><a href="#campaigns" class="hover:text-white transition-colors">Campaigns</a></li>
-            <li><a href="#help" class="hover:text-white transition-colors">Get Involved</a></li>
-            <li><a href="#contact" class="hover:text-white transition-colors">Contact Us</a></li>
+        <div class="lg:col-span-3 space-y-3">
+          <h4 class="font-serif font-bold text-sm text-brand-gold">Quick Navigation</h4>
+          <ul class="space-y-2 text-xs text-gray-300">
+            <li><a href="#about" class="hover:text-brand-gold transition-colors">About Us</a></li>
+            <li><a href="#gallery" class="hover:text-brand-gold transition-colors">Event Photo Gallery</a></li>
+            <li><a href="#videos" class="hover:text-brand-gold transition-colors">Video Highlights</a></li>
+            <li><a href="#campaigns" class="hover:text-brand-gold transition-colors">Courage & Crown Outreach</a></li>
+            <li><a href="#contact" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
           </ul>
         </div>
 
-        <!-- Support Links -->
-        <div class="col-span-1 lg:col-span-2 space-y-3">
-          <h4 class="font-serif font-bold text-sm text-amber-400">Support</h4>
-          <ul class="space-y-2 text-xs text-emerald-100/80">
-            <li><a href="#donate" class="hover:text-white transition-colors">Donate</a></li>
-            <li><a href="#volunteer" class="hover:text-white transition-colors">Volunteer</a></li>
-            <li><a href="#partner" class="hover:text-white transition-colors">Partner With Us</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">FAQs</a></li>
-          </ul>
-        </div>
-
-        <!-- Contact Information -->
-        <div class="col-span-2 sm:col-span-1 lg:col-span-3 space-y-3">
-          <h4 class="font-serif font-bold text-sm text-amber-400">Contact Us</h4>
-          <ul class="space-y-2.5 text-xs text-emerald-100/80">
+        <div class="lg:col-span-4 space-y-3">
+          <h4 class="font-serif font-bold text-sm text-brand-gold">Contact & Enquiries</h4>
+          <ul class="space-y-2.5 text-xs text-gray-300">
             <li class="flex items-center gap-2.5">
-              <i class="fa-solid fa-phone text-amber-400"></i>
-              <span>+234 801 234 5678</span>
+              <i class="fa-solid fa-phone text-brand-gold"></i>
+              <span>07032287989 / 08131903652</span>
             </li>
             <li class="flex items-center gap-2.5">
-              <i class="fa-solid fa-envelope text-amber-400"></i>
-              <span>hello@petalsofhope.org</span>
+              <i class="fa-solid fa-envelope text-brand-gold"></i>
+              <span>info@petalsofhope.org</span>
             </li>
             <li class="flex items-center gap-2.5">
-              <i class="fa-solid fa-location-dot text-amber-400"></i>
-              <span>Nigeria</span>
+              <i class="fa-solid fa-location-dot text-brand-gold"></i>
+              <span>Ede, Osun State, Nigeria</span>
             </li>
           </ul>
         </div>
 
       </div>
 
-      <div class="pt-8 text-center text-[11px] text-emerald-200/60">
-        © 2025 Petals of Hope Foundation. All rights reserved.
+      <div class="pt-8 text-center text-[11px] text-gray-400">
+        © 2026 Petals of Hope Foundation. All rights reserved.
       </div>
 
     </div>
   </footer>
 
+  <!-- Script for Mobile Drawer & Gallery Filter -->
   <script>
+    // Sidebar Drawer Toggle
     const mobileSidebar = document.getElementById('mobile-sidebar');
     const openBtn = document.getElementById('open-sidebar');
     const closeBtn = document.getElementById('close-sidebar');
@@ -570,6 +685,32 @@
     openBtn?.addEventListener('click', openDrawer);
     closeBtn?.addEventListener('click', closeDrawer);
     backdrop?.addEventListener('click', closeDrawer);
+
+    // Gallery Filter Logic
+    const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-brand-teal', 'text-white');
+          b.classList.add('bg-brand-teal-light', 'text-brand-teal-dark');
+        });
+        
+        btn.classList.remove('bg-brand-teal-light', 'text-brand-teal-dark');
+        btn.classList.add('bg-brand-teal', 'text-white');
+
+        galleryItems.forEach(item => {
+          if (filter === 'all' || item.classList.contains(filter)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>
