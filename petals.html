@@ -58,9 +58,37 @@
       opacity: 1;
       transform: translateY(0);
     }
+    /* Event Slide Animations */
+    .event-slide {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .event-slide.active {
+      display: grid;
+      opacity: 1;
+    }
   </style>
 </head>
 <body class="bg-brand-cream text-gray-800 font-sans antialiased w-full min-h-screen flex flex-col justify-between relative">
+  
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/2349155127634?text=Hello%20Petals%20of%20Hope%20Foundation%2C%20I%20would%20like%20to%20make%20an%20enquiry%20or%20partner%20with%20you." 
+     target="_blank" 
+     rel="noopener noreferrer"
+     class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 sm:p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+     aria-label="Contact us on WhatsApp">
+    <span class="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-400"></span>
+    </span>
+    <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl"></i>
+    <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-500 ease-in-out text-xs font-bold pl-0 group-hover:pl-2">
+      Chat with Us
+    </span>
+  </a>
+
+  <!-- Mobile Navigation Sidebar -->
   <aside id="mobile-sidebar" class="fixed inset-0 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out lg:hidden" aria-label="Mobile Navigation">
     <div class="fixed inset-0 bg-brand-teal-deep/60 backdrop-blur-sm" id="sidebar-backdrop"></div>
     <div class="relative w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-6 z-10 overflow-y-auto">
@@ -82,8 +110,8 @@
           <a href="#work" class="px-4 py-2.5 rounded-lg hover:bg-brand-teal-light hover:text-brand-teal transition-colors">Our Focus</a>
           <a href="#gallery" class="px-4 py-2.5 rounded-lg hover:bg-brand-magenta-light hover:text-brand-magenta transition-colors">Event Photos</a>
           <a href="#videos" class="px-4 py-2.5 rounded-lg hover:bg-brand-magenta-light hover:text-brand-magenta transition-colors">Videos & Media</a>
-          <a href="#campaigns" class="px-4 py-2.5 rounded-lg hover:bg-brand-teal-light hover:text-brand-teal transition-colors">Outreach</a>
-          <a href="#contact" class="px-4 py-2.5 rounded-lg hover:bg-brand-teal-light hover:text-brand-teal transition-colors">Contact</a>
+          <a href="#campaigns" class="px-4 py-2.5 rounded-lg hover:bg-brand-teal-light hover:text-brand-teal transition-colors">Events & Outreach</a>
+          <a href="#contact" class="px-4 py-2.5 rounded-lg hover:bg-brand-teal-light hover:text-brand-teal transition-colors">Contact Us</a>
         </nav>
       </div>
       <div class="pt-6 border-t border-gray-100 space-y-3">
@@ -95,6 +123,7 @@
     </div>
   </aside>
 
+  <!-- Header -->
   <header class="w-full bg-white/95 backdrop-blur-md fixed top-0 left-0 right-0 z-40 border-b border-brand-teal-light shadow-sm">
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3 group">
@@ -112,7 +141,7 @@
         <a href="#work" class="hover:text-brand-teal transition-colors">Our Focus</a>
         <a href="#gallery" class="hover:text-brand-magenta transition-colors font-semibold text-brand-teal">Event Gallery</a>
         <a href="#videos" class="hover:text-brand-magenta transition-colors">Videos</a>
-        <a href="#campaigns" class="hover:text-brand-teal transition-colors">Outreach</a>
+        <a href="#campaigns" class="hover:text-brand-teal transition-colors">Events</a>
         <a href="#contact" class="hover:text-brand-teal transition-colors">Contact</a>
       </nav>
       <div class="flex items-center gap-4">
@@ -128,6 +157,8 @@
 
   <main class="w-full flex-grow pt-20">
     <div id="homepage-content" class="w-full">
+      
+      <!-- Hero Section -->
       <section id="about" class="w-full brand-hero-bg pt-12 pb-20 border-b border-brand-teal-light relative overflow-hidden">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -179,6 +210,7 @@
         </div>
       </section>
 
+      <!-- Impact Metrics -->
       <section class="w-full -mt-10 relative z-20 px-4 sm:px-6 lg:px-8">
         <div class="w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-brand-teal-light reveal-item">
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 divide-y sm:divide-y-0 lg:divide-x divide-brand-teal-light">
@@ -222,6 +254,7 @@
         </div>
       </section>
 
+      <!-- Work Section -->
       <section id="work" class="w-full py-20 bg-white border-b border-brand-teal-light">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center max-w-md mx-auto mb-12 reveal-item">
@@ -276,6 +309,7 @@
         </div>
       </section>
 
+      <!-- Event Photo Gallery Section -->
       <section id="gallery" class="w-full py-20 bg-white border-b border-brand-teal-light">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center max-w-2xl mx-auto mb-10 reveal-item">
@@ -388,6 +422,7 @@
         </div>
       </section>
 
+      <!-- Video & Media Section (Enlarged Preview Dimensions) -->
       <section id="videos" class="w-full py-20 bg-brand-teal-light/50">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center max-w-2xl mx-auto mb-12 reveal-item">
@@ -400,64 +435,72 @@
             </p>
           </div>
 
+          <!-- Enlarged Video Grid: 8 Cols for Featured Player, 4 Cols for List -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div class="lg:col-span-7 bg-white p-4 rounded-3xl border border-brand-teal-light shadow-lg reveal-item" data-delay="100">
-              <div class="relative rounded-2xl overflow-hidden aspect-video group cursor-pointer bg-brand-teal-deep video-trigger" data-video-src="https://drich.examguard.com.ng/VID-20260822-WA0017.mp4?autoplay=1" data-video-title="Courage & Crown School Outreach - Full Recap">
-                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&auto=format&fit=crop" alt="Outreach Video Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" />
-                <div class="absolute inset-0 bg-brand-teal-deep/30 flex items-center justify-center">
-                  <div class="w-16 h-16 rounded-full bg-brand-magenta text-white flex items-center justify-center text-2xl shadow-xl group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-play ml-1"></i>
+            <div class="lg:col-span-8 bg-white p-5 sm:p-6 rounded-3xl border border-brand-teal-light shadow-xl reveal-item" data-delay="100">
+              <!-- Height increased with min-height classes -->
+              <div class="relative rounded-2xl overflow-hidden h-[340px] sm:h-[460px] lg:h-[500px] group cursor-pointer bg-brand-teal-deep video-trigger shadow-md" data-video-src="https://drich.examguard.com.ng/VID-20260822-WA0017.mp4?autoplay=1" data-video-title="Courage & Crown School Outreach - Full Recap">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&auto=format&fit=crop" alt="Outreach Video Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90" />
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-teal-deep/90 via-black/20 to-transparent flex items-center justify-center">
+                  <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-brand-magenta/90 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-2xl group-hover:scale-110 group-hover:bg-brand-magenta transition-all duration-300">
+                    <i class="fa-solid fa-play ml-1.5"></i>
                   </div>
                 </div>
-                <div class="absolute bottom-4 left-4 right-4 text-white flex justify-between items-center bg-black/40 backdrop-blur-md p-3 rounded-xl">
+                <div class="absolute bottom-5 left-5 right-5 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-black/60 backdrop-blur-md p-4 rounded-2xl border border-white/10">
                   <div>
-                    <div class="text-xs font-semibold text-brand-gold">FEATURED HIGHLIGHT</div>
-                    <div class="text-sm font-bold">Courage & Crown School Outreach - Full Recap</div>
+                    <div class="text-xs font-bold text-brand-gold uppercase tracking-wider mb-0.5"><i class="fa-solid fa-star text-xs mr-1"></i> Featured Highlight</div>
+                    <div class="text-base sm:text-lg font-serif font-bold text-white">Courage & Crown School Outreach - Full Recap</div>
                   </div>
-                  <span class="text-xs bg-brand-magenta px-2.5 py-1 rounded-md font-mono">03:45</span>
+                  <span class="text-xs bg-brand-magenta text-white px-3 py-1.5 rounded-lg font-mono font-bold self-start sm:self-auto shrink-0">03:45</span>
                 </div>
               </div>
             </div>
 
-            <div class="lg:col-span-5 space-y-4">
-              <div class="reveal-item p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer video-trigger" data-delay="150" data-video-src="https://www.youtube.com/embed/L_LUpnjgPso?autoplay=1" data-video-title="Esther Challenge Quiz Highlights">
-                <div class="relative w-28 h-20 rounded-xl overflow-hidden shrink-0 bg-gray-100">
-                  <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
-                  <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <i class="fa-solid fa-play text-white text-xs"></i>
+            <div class="lg:col-span-4 space-y-4">
+              <div class="reveal-item p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer shadow-sm hover:shadow-md video-trigger" data-delay="150" data-video-src="https://www.youtube.com/embed/L_LUpnjgPso?autoplay=1" data-video-title="Esther Challenge Quiz Highlights">
+                <div class="relative w-32 h-24 rounded-xl overflow-hidden shrink-0 bg-gray-100">
+                  <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
+                  <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-full bg-brand-magenta text-white flex items-center justify-center text-xs">
+                      <i class="fa-solid fa-play ml-0.5"></i>
+                    </div>
                   </div>
                 </div>
                 <div>
-                  <span class="text-[10px] font-bold text-brand-magenta uppercase">Competition</span>
-                  <h4 class="font-serif font-bold text-sm text-brand-teal-dark leading-snug">Esther Challenge Quiz Highlights</h4>
+                  <span class="text-[10px] font-bold text-brand-magenta uppercase tracking-wider">Competition</span>
+                  <h4 class="font-serif font-bold text-sm text-brand-teal-dark leading-snug mt-0.5">Esther Challenge Quiz Highlights</h4>
                   <p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock mr-1"></i> 02:15 mins</p>
                 </div>
               </div>
 
-              <div class="reveal-item p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer video-trigger" data-delay="250" data-video-src="https://www.youtube.com/embed/3JZ_D3ELwOQ?autoplay=1" data-video-title="Beneficiary Story: Hope Restored">
-                <div class="relative w-28 h-20 rounded-xl overflow-hidden shrink-0 bg-gray-100">
-                  <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
-                  <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <i class="fa-solid fa-play text-white text-xs"></i>
+              <div class="reveal-item p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer shadow-sm hover:shadow-md video-trigger" data-delay="250" data-video-src="https://www.youtube.com/embed/3JZ_D3ELwOQ?autoplay=1" data-video-title="Beneficiary Story: Hope Restored">
+                <div class="relative w-32 h-24 rounded-xl overflow-hidden shrink-0 bg-gray-100">
+                  <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
+                  <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-full bg-brand-teal text-white flex items-center justify-center text-xs">
+                      <i class="fa-solid fa-play ml-0.5"></i>
+                    </div>
                   </div>
                 </div>
                 <div>
-                  <span class="text-[10px] font-bold text-brand-teal uppercase">Testimonial</span>
-                  <h4 class="font-serif font-bold text-sm text-brand-teal-dark leading-snug">Beneficiary Story: Hope Restored</h4>
+                  <span class="text-[10px] font-bold text-brand-teal uppercase tracking-wider">Testimonial</span>
+                  <h4 class="font-serif font-bold text-sm text-brand-teal-dark leading-snug mt-0.5">Beneficiary Story: Hope Restored</h4>
                   <p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock mr-1"></i> 04:10 mins</p>
                 </div>
               </div>
 
-              <div class="reveal-item p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer video-trigger" data-delay="350" data-video-src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1" data-video-title="Soul Shift & Spirit Aflame Session">
-                <div class="relative w-28 h-20 rounded-xl overflow-hidden shrink-0 bg-gray-100">
-                  <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=300&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
-                  <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <i class="fa-solid fa-play text-white text-xs"></i>
+              <div class="reveal-item p-4 bg-white rounded-2xl border border-brand-teal-light flex items-center gap-4 hover:border-brand-magenta transition-all cursor-pointer shadow-sm hover:shadow-md video-trigger" data-delay="350" data-video-src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1" data-video-title="Soul Shift & Spirit Aflame Session">
+                <div class="relative w-32 h-24 rounded-xl overflow-hidden shrink-0 bg-gray-100">
+                  <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Video Thumbnail" />
+                  <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-full bg-brand-magenta text-white flex items-center justify-center text-xs">
+                      <i class="fa-solid fa-play ml-0.5"></i>
+                    </div>
                   </div>
                 </div>
                 <div>
-                  <span class="text-[10px] font-bold text-brand-magenta uppercase">Outreach</span>
-                  <h4 class="font-serif font-bold text-sm text-brand-teal-dark leading-snug">Soul Shift & Spirit Aflame Session</h4>
+                  <span class="text-[10px] font-bold text-brand-magenta uppercase tracking-wider">Outreach</span>
+                  <h4 class="font-serif font-bold text-sm text-brand-teal-dark leading-snug mt-0.5">Soul Shift & Spirit Aflame Session</h4>
                   <p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock mr-1"></i> 05:30 mins</p>
                 </div>
               </div>
@@ -466,51 +509,170 @@
         </div>
       </section>
 
-      <section id="campaigns" class="w-full py-10 bg-white">
+      <!-- Events Carousel Section (3 Events with Next/Previous Controls) -->
+      <section id="campaigns" class="w-full py-16 bg-white border-b border-brand-teal-light">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="reveal-item bg-gradient-to-r from-brand-teal-deep to-brand-teal rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12 text-white">
-            <div class="lg:col-span-6 relative min-h-[300px] lg:min-h-[420px]">
-              <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&auto=format&fit=crop" alt="Courage and Crown Flyer Banner" class="w-full h-full object-cover" />
-              <div class="absolute inset-0 bg-brand-teal-deep/30"></div>
-              <div class="absolute top-4 left-4 bg-brand-magenta text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
-                Upcoming Event
-              </div>
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4 reveal-item">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-brand-magenta bg-brand-magenta-light px-3 py-1 rounded-full border border-brand-magenta/20">
+                Outreach & Programs
+              </span>
+              <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-teal-dark mt-3">Upcoming & Featured Events</h2>
             </div>
-            <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
-              <div>
-                <div class="text-xs font-bold text-brand-gold uppercase tracking-wider mb-2">School Outreach Special</div>
-                <h3 class="text-2xl sm:text-4xl font-serif font-bold text-white mb-3">
-                  Courage and Crown: For Such a Time as This
-                </h3>
-                <p class="text-emerald-100/90 text-xs sm:text-sm leading-relaxed mb-6">
-                  Featuring Quiz Competitions (Esther Challenge), Interactive Games, Word Wonders, and scholarship rewards.
-                </p>
-                <div class="space-y-3 bg-white/10 p-4 rounded-2xl backdrop-blur-md mb-6 border border-white/10 text-xs sm:text-sm">
-                  <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-calendar-day text-brand-gold"></i>
-                    <span>Monday, 25th May 2026 • 1:00 PM</span>
-                  </div>
-                  <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-location-dot text-brand-gold"></i>
-                    <span>Right Star International School, Ede</span>
-                  </div>
-                  <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-phone text-brand-gold"></i>
-                    <span>Enquiries/Sponsorship: 07032287989 or 08131903652</span>
-                  </div>
+            
+            <!-- Navigation Next / Previous Buttons -->
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-gray-500 font-medium mr-2" id="event-slide-counter">Event 1 of 3</span>
+              <button id="prev-event-btn" class="w-11 h-11 rounded-full border-2 border-brand-teal/30 hover:border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white transition-all flex items-center justify-center shadow-sm active:scale-95">
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <button id="next-event-btn" class="w-11 h-11 rounded-full bg-brand-teal text-white hover:bg-brand-teal-dark transition-all flex items-center justify-center shadow-md active:scale-95">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Slides Container -->
+          <div id="events-slider-container" class="relative">
+            
+            <!-- Slide 1 -->
+            <div class="event-slide active reveal-item bg-gradient-to-r from-brand-teal-deep to-brand-teal rounded-3xl overflow-hidden shadow-xl grid-cols-1 lg:grid-cols-12 text-white">
+              <div class="lg:col-span-6 relative min-h-[300px] lg:min-h-[440px]">
+                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&auto=format&fit=crop" alt="Courage and Crown Flyer Banner" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-brand-teal-deep/30"></div>
+                <div class="absolute top-4 left-4 bg-brand-magenta text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-md">
+                  Event #1 • School Outreach
                 </div>
               </div>
-              <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/20">
-                <span class="text-xs font-medium text-emerald-200">Join us in bringing hope to these students.</span>
-                <button class="open-donate-modal inline-flex items-center gap-2 bg-brand-magenta text-white px-7 py-3 rounded-full text-xs font-semibold hover:bg-brand-magenta-dark transition-all shadow-md">
-                  Sponsor Outreach <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                </button>
+              <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
+                <div>
+                  <div class="text-xs font-bold text-brand-gold uppercase tracking-wider mb-2">School Outreach Special</div>
+                  <h3 class="text-2xl sm:text-4xl font-serif font-bold text-white mb-3">
+                    Courage and Crown: For Such a Time as This
+                  </h3>
+                  <p class="text-emerald-100/90 text-xs sm:text-sm leading-relaxed mb-6">
+                    Featuring Quiz Competitions (Esther Challenge), Interactive Games, Word Wonders, and scholarship rewards for talented students.
+                  </p>
+                  <div class="space-y-3 bg-white/10 p-4 rounded-2xl backdrop-blur-md mb-6 border border-white/10 text-xs sm:text-sm">
+                    <div class="flex items-center gap-3">
+                      <i class="fa-solid fa-calendar-day text-brand-gold"></i>
+                      <span>Monday, 25th May 2026 • 1:00 PM</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <i class="fa-solid fa-location-dot text-brand-gold"></i>
+                      <span>Right Star International School, Ede, Osun State</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <i class="fa-solid fa-phone text-brand-gold"></i>
+                      <span>Enquiries/Sponsorship: 07032287989 or 08131903652</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/20">
+                  <span class="text-xs font-medium text-emerald-200">Join us in bringing hope to these students.</span>
+                  <button class="open-donate-modal inline-flex items-center gap-2 bg-brand-magenta text-white px-7 py-3 rounded-full text-xs font-semibold hover:bg-brand-magenta-dark transition-all shadow-md">
+                    Sponsor Outreach <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                  </button>
+                </div>
               </div>
             </div>
+
+            <!-- Slide 2 (New Event) -->
+            <div class="event-slide reveal-item bg-gradient-to-r from-brand-magenta-dark to-brand-magenta rounded-3xl overflow-hidden shadow-xl grid-cols-1 lg:grid-cols-12 text-white">
+              <div class="lg:col-span-6 relative min-h-[300px] lg:min-h-[440px]">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop" alt="Esther Challenge Quiz Finals" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-black/20"></div>
+                <div class="absolute top-4 left-4 bg-brand-gold text-brand-teal-dark px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-md">
+                  Event #2 • Academic Challenge
+                </div>
+              </div>
+              <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
+                <div>
+                  <div class="text-xs font-bold text-brand-gold-light uppercase tracking-wider mb-2">Annual Quiz Championship</div>
+                  <h3 class="text-2xl sm:text-4xl font-serif font-bold text-white mb-3">
+                    Esther Challenge 2026: Word Wonders & Quiz Finals
+                  </h3>
+                  <p class="text-rose-100/90 text-xs sm:text-sm leading-relaxed mb-6">
+                    A grand academic and biblical knowledge contest celebrating young scholars with cash awards, school supplies, and leadership recognition.
+                  </p>
+                  <div class="space-y-3 bg-white/10 p-4 rounded-2xl backdrop-blur-md mb-6 border border-white/10 text-xs sm:text-sm">
+                    <div class="flex items-center gap-3">
+                      <i class="fa-solid fa-calendar-day text-brand-gold-light"></i>
+                      <span>Saturday, 18th July 2026 • 10:00 AM</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <i class="fa-solid fa-location-dot text-brand-gold-light"></i>
+                      <span>Ede Town Hall Auditorium, Osun State</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <i class="fa-solid fa-trophy text-brand-gold-light"></i>
+                      <span>Prizes: Educational Grants, Books & Awards</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/20">
+                  <span class="text-xs font-medium text-rose-200">Support our scholarship fund for young minds.</span>
+                  <button class="open-donate-modal inline-flex items-center gap-2 bg-white text-brand-magenta font-bold px-7 py-3 rounded-full text-xs hover:bg-brand-gold-light transition-all shadow-md">
+                    Sponsor Quiz Awards <i class="fa-solid fa-trophy text-[10px]"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 (New Event) -->
+            <div class="event-slide reveal-item bg-gradient-to-r from-brand-teal-dark via-brand-teal-deep to-emerald-900 rounded-3xl overflow-hidden shadow-xl grid-cols-1 lg:grid-cols-12 text-white">
+              <div class="lg:col-span-6 relative min-h-[300px] lg:min-h-[440px]">
+                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&auto=format&fit=crop" alt="Community Welfare Drive" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-black/30"></div>
+                <div class="absolute top-4 left-4 bg-brand-teal-light text-brand-teal-dark px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-md">
+                  Event #3 • Humanitarian Aid
+                </div>
+              </div>
+              <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
+                <div>
+                  <div class="text-xs font-bold text-brand-gold uppercase tracking-wider mb-2">Community Welfare & Back-to-School</div>
+                  <h3 class="text-2xl sm:text-4xl font-serif font-bold text-white mb-3">
+                    Love in Action: Community Support & Book Drive
+                  </h3>
+                  <p class="text-teal-100/90 text-xs sm:text-sm leading-relaxed mb-6">
+                    Providing free exercise books, school bags, shoes, and nutritional care packages to over 500 vulnerable children and struggling families.
+                  </p>
+                  <div class="space-y-3 bg-white/10 p-4 rounded-2xl backdrop-blur-md mb-6 border border-white/10 text-xs sm:text-sm">
+                    <div class="flex items-center gap-3">
+                      <i class="fa-solid fa-calendar-day text-brand-gold"></i>
+                      <span>Saturday, 12th September 2026 • 9:00 AM</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <i class="fa-solid fa-location-dot text-brand-gold"></i>
+                      <span>Community Primary School Field, Ede, Osun State</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <i class="fa-solid fa-hand-holding-heart text-brand-gold"></i>
+                      <span>Goal: 500+ Back-to-School Supplies Kits</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/20">
+                  <span class="text-xs font-medium text-teal-200">Help put a smile on a child's face this term.</span>
+                  <button class="open-donate-modal inline-flex items-center gap-2 bg-brand-gold text-brand-teal-dark font-bold px-7 py-3 rounded-full text-xs hover:bg-yellow-400 transition-all shadow-md">
+                    Donate School Supplies <i class="fa-solid fa-gift text-[10px]"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Slide Dots Indicator -->
+          <div class="flex items-center justify-center gap-2 mt-6" id="event-dots-container">
+            <button class="w-3 h-3 rounded-full bg-brand-teal transition-all event-dot" data-index="0"></button>
+            <button class="w-3 h-3 rounded-full bg-gray-300 transition-all event-dot" data-index="1"></button>
+            <button class="w-3 h-3 rounded-full bg-gray-300 transition-all event-dot" data-index="2"></button>
           </div>
         </div>
       </section>
 
+      <!-- Testimonial Quote -->
       <section class="w-full py-12 px-4 sm:px-6 lg:px-8">
         <div class="reveal-item w-full max-w-7xl mx-auto teal-magenta-gradient rounded-3xl overflow-hidden relative p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
           <div class="max-w-2xl z-10 space-y-4">
@@ -528,8 +690,119 @@
           <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-white/10 rounded-full blur-2xl"></div>
         </div>
       </section>
+
+      <!-- Contact Us Section -->
+      <section id="contact" class="w-full py-20 bg-brand-teal-light/40 border-t border-brand-teal-light">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-14 reveal-item">
+            <span class="text-xs font-bold uppercase tracking-widest text-brand-teal bg-white px-3 py-1 rounded-full border border-brand-teal/20">
+              Get In Touch
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-teal-dark mt-3">We’d Love to Hear from You</h2>
+            <p class="text-xs sm:text-sm text-gray-600 mt-2">
+              Have questions, want to partner with us, or sponsor an outreach? Send us a message and our team will respond shortly.
+            </p>
+            <div class="flex items-center justify-center gap-2 mt-4">
+              <div class="h-0.5 w-12 bg-brand-teal"></div>
+              <img src="logos.png" alt="Logo" class="w-4 h-4 rounded-full object-cover" />
+              <div class="h-0.5 w-12 bg-brand-magenta"></div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <!-- Contact Info Sidebar -->
+            <div class="lg:col-span-5 space-y-6 reveal-item">
+              <div class="bg-white p-8 rounded-3xl border border-brand-teal-light shadow-sm space-y-6">
+                <h3 class="font-serif font-bold text-xl text-brand-teal-dark">Reach Out Directly</h3>
+                <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  Whether you wish to volunteer, request a school outreach in your area, or send donations, reach out through any of our channels.
+                </p>
+
+                <div class="space-y-5 pt-2">
+                  <div class="flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-2xl bg-brand-teal-light text-brand-teal flex items-center justify-center text-lg shrink-0">
+                      <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold uppercase text-gray-400">Call / WhatsApp</div>
+                      <a href="tel:07032287989" class="text-sm font-semibold text-brand-teal-dark hover:text-brand-magenta transition-colors block">07032287989</a>
+                      <a href="tel:08131903652" class="text-sm font-semibold text-brand-teal-dark hover:text-brand-magenta transition-colors block">08131903652</a>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-2xl bg-brand-magenta-light text-brand-magenta flex items-center justify-center text-lg shrink-0">
+                      <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold uppercase text-gray-400">Email Address</div>
+                      <a href="mailto:info@petalsofhope.org" class="text-sm font-semibold text-brand-teal-dark hover:text-brand-magenta transition-colors">info@petalsofhope.org</a>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-2xl bg-brand-gold-light text-brand-gold flex items-center justify-center text-lg shrink-0">
+                      <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold uppercase text-gray-400">Location</div>
+                      <div class="text-sm font-semibold text-brand-teal-dark">Ede, Osun State, Nigeria</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100 flex items-center gap-3">
+                  <span class="text-xs font-bold text-gray-500">Connect with us:</span>
+                  <a href="#" class="w-9 h-9 rounded-full bg-brand-teal-light text-brand-teal hover:bg-brand-teal hover:text-white flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                  <a href="#" class="w-9 h-9 rounded-full bg-brand-magenta-light text-brand-magenta hover:bg-brand-magenta hover:text-white flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                  <a href="https://wa.me/2349155127634" target="_blank" class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 hover:bg-emerald-500 hover:text-white flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="lg:col-span-7 reveal-item" data-delay="150">
+              <form id="contact-form" class="bg-white p-8 sm:p-10 rounded-3xl border border-brand-teal-light shadow-md space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Full Name <span class="text-brand-magenta">*</span></label>
+                    <input type="text" required placeholder="John Doe" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal bg-brand-cream/50" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Email Address <span class="text-brand-magenta">*</span></label>
+                    <input type="email" required placeholder="john@example.com" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal bg-brand-cream/50" />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Phone Number</label>
+                    <input type="tel" placeholder="+234..." class="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal bg-brand-cream/50" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Subject</label>
+                    <input type="text" placeholder="Partnership, Enquiry, Volunteering" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal bg-brand-cream/50" />
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Your Message <span class="text-brand-magenta">*</span></label>
+                  <textarea required rows="4" placeholder="How can we assist you or how would you like to partner with Petals of Hope?" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal bg-brand-cream/50"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-4 bg-brand-teal hover:bg-brand-teal-dark text-white font-bold text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 group">
+                  <span>Send Message</span>
+                  <i class="fa-solid fa-paper-plane text-xs text-brand-gold group-hover:translate-x-1 transition-transform"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
 
+    <!-- Gallery Detail Inner View (Dynamic Page) -->
     <section id="gallery-detail-section" class="hidden w-full py-12 bg-white">
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-100">
@@ -556,7 +829,8 @@
     </section>
   </main>
 
-  <footer id="contact" class="w-full bg-brand-teal-deep text-white pt-16 pb-8 border-t border-brand-teal-dark">
+  <!-- Footer -->
+  <footer class="w-full bg-brand-teal-deep text-white pt-16 pb-8 border-t border-brand-teal-dark">
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-brand-teal/30">
         <div class="lg:col-span-5 space-y-4 reveal-item">
@@ -574,7 +848,7 @@
           <div class="flex items-center gap-3 pt-2">
             <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-magenta flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-magenta flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-magenta flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://wa.me/2349155127634" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-emerald-500 flex items-center justify-center text-xs transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
           </div>
         </div>
 
@@ -584,7 +858,7 @@
             <li><a href="#about" class="hover:text-brand-gold transition-colors">About Us</a></li>
             <li><a href="#gallery" class="hover:text-brand-gold transition-colors">Event Photo Gallery</a></li>
             <li><a href="#videos" class="hover:text-brand-gold transition-colors">Video Highlights</a></li>
-            <li><a href="#campaigns" class="hover:text-brand-gold transition-colors">Courage & Crown Outreach</a></li>
+            <li><a href="#campaigns" class="hover:text-brand-gold transition-colors">Events & Programs</a></li>
             <li><a href="#contact" class="hover:text-brand-gold transition-colors">Contact Us</a></li>
           </ul>
         </div>
@@ -614,6 +888,7 @@
     </div>
   </footer>
 
+  <!-- Video Modal -->
   <div id="video-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden" role="dialog" aria-modal="true">
     <div class="relative w-full max-w-4xl bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10">
       <div class="flex items-center justify-between p-4 bg-brand-teal-deep text-white border-b border-white/10">
@@ -631,6 +906,7 @@
     </div>
   </div>
 
+  <!-- Donation Modal -->
   <div id="donation-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-teal-deep/80 backdrop-blur-md hidden" role="dialog" aria-modal="true">
     <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-brand-teal-light my-8">
       <div class="bg-gradient-to-r from-brand-teal-dark to-brand-magenta p-6 text-white relative">
@@ -694,7 +970,9 @@
     </div>
   </div>
 
+  <!-- JavaScript Logic -->
   <script>
+    // Intersection Observer for scroll animations
     const observerOptions = {
       root: null,
       rootMargin: '0px 0px -60px 0px',
@@ -716,6 +994,7 @@
 
     document.querySelectorAll('.reveal-item').forEach(el => revealObserver.observe(el));
 
+    // Mobile Sidebar controls
     const mobileSidebar = document.getElementById('mobile-sidebar');
     const openBtn = document.getElementById('open-sidebar');
     const closeBtn = document.getElementById('close-sidebar');
@@ -725,6 +1004,57 @@
     closeBtn?.addEventListener('click', () => mobileSidebar.classList.add('-translate-x-full'));
     backdrop?.addEventListener('click', () => mobileSidebar.classList.add('-translate-x-full'));
 
+    // Events Carousel / Slider Controller
+    const eventSlides = document.querySelectorAll('.event-slide');
+    const eventDots = document.querySelectorAll('.event-dot');
+    const prevEventBtn = document.getElementById('prev-event-btn');
+    const nextEventBtn = document.getElementById('next-event-btn');
+    const slideCounter = document.getElementById('event-slide-counter');
+    let currentEventIndex = 0;
+
+    function updateEventsSlider(index) {
+      eventSlides.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.add('active');
+          slide.classList.add('revealed');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      eventDots.forEach((dot, i) => {
+        if (i === index) {
+          dot.classList.remove('bg-gray-300');
+          dot.classList.add('bg-brand-teal', 'w-6');
+        } else {
+          dot.classList.remove('bg-brand-teal', 'w-6');
+          dot.classList.add('bg-gray-300', 'w-3');
+        }
+      });
+
+      if (slideCounter) {
+        slideCounter.textContent = `Event ${index + 1} of ${eventSlides.length}`;
+      }
+    }
+
+    nextEventBtn?.addEventListener('click', () => {
+      currentEventIndex = (currentEventIndex + 1) % eventSlides.length;
+      updateEventsSlider(currentEventIndex);
+    });
+
+    prevEventBtn?.addEventListener('click', () => {
+      currentEventIndex = (currentEventIndex - 1 + eventSlides.length) % eventSlides.length;
+      updateEventsSlider(currentEventIndex);
+    });
+
+    eventDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        currentEventIndex = parseInt(dot.getAttribute('data-index'));
+        updateEventsSlider(currentEventIndex);
+      });
+    });
+
+    // Gallery Filter Logic
     const filterBtns = document.querySelectorAll('.gallery-filter-btn');
     const galleryItems = document.querySelectorAll('.gallery-item');
 
@@ -749,6 +1079,7 @@
       });
     });
 
+    // Gallery Detail Modal Data
     const galleryData = [
       {
         title: "Courage & Crown Outreach Gallery",
@@ -871,6 +1202,7 @@
       }
     });
 
+    // Video Modal Logic
     const videoModal = document.getElementById('video-modal');
     const videoIframe = document.getElementById('video-iframe');
     const videoTitle = document.getElementById('video-modal-title');
@@ -901,6 +1233,7 @@
       if (e.target === videoModal) hideVideoModal();
     });
 
+    // Donation Modal Logic
     const donationModal = document.getElementById('donation-modal');
     const closeDonationModal = document.getElementById('close-donation-modal');
     const openDonateBtns = document.querySelectorAll('.open-donate-modal');
@@ -926,6 +1259,7 @@
       if (e.target === donationModal) hideDonationModal();
     });
 
+    // Amount selector
     const amountBtns = document.querySelectorAll('.amount-btn');
     const customAmountInput = document.getElementById('custom-amount');
 
@@ -948,6 +1282,7 @@
       });
     });
 
+    // Frequency Selector
     const freqBtns = document.querySelectorAll('.freq-btn');
     freqBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -960,9 +1295,17 @@
       });
     });
 
+    // Contact Form Handler
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for contacting Petals of Hope Foundation! Your message has been received and our team will get back to you shortly.');
+      e.target.reset();
+    });
+
+    // Donation Form Handler
     document.getElementById('donation-form')?.addEventListener('submit', (e) => {
       e.preventDefault();
-      alert('Thank you for partnering with Petals of Hope Foundation! Directing to payment portal...');
+      alert('Thank you for partnering with Petals of Hope Foundation! Directing to secure payment portal...');
       hideDonationModal();
     });
   </script>
