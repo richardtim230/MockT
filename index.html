@@ -1,112 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D-RICH TUTORIAL COLLEGE - Online WAEC, JAMB, NECO, POST-UTME Lessons</title>
-    <!-- SEO Meta Tags -->
+    
     <meta name="description" content="D-RICH TUTORIAL COLLEGE: Nigeria’s leading online tutorial platform for WAEC, JAMB, NECO, and POST-UTME. Live classes, CBT exams, video library & affordable fees. Join successful students nationwide!">
     <meta name="keywords" content="Tutorial, WAEC, NECO, JAMB, POST UTME, online classes, lessons, CBT exams, Nigeria, affordable, student dashboard, exam preparation, live classes, education, elearning">
     <meta name="author" content="D-RICH TUTORIAL COLLEGE">
     <meta name="robots" content="index, follow">
-    <!-- Canonical URL -->
+    
     <link rel="canonical" href="https://drichmockt.com/">
-    <!-- Open Graph Meta for Social Preview -->
+    
     <meta property="og:type" content="website">
     <meta property="og:title" content="D-RICH TUTORIAL COLLEGE - Online WAEC, JAMB, NECO, POST-UTME Lessons">
     <meta property="og:description" content="Join D-RICH College for online WAEC, JAMB, NECO & POST UTME lessons. Live prep, CBT exams, best tutors, and affordable fees.">
     <meta property="og:url" content="https://drich.examguard.com.ng/">
     <meta property="og:image" content="https://drich.examguard.com.ng/FB_IMG_17646426128530515.jpg">
     <meta property="og:image:alt" content="D-RICH Tutorial College Logo and Students">
-    <!-- Twitter Card for Social Preview -->
+    
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@DrichTutorials">
     <meta name="twitter:title" content="D-RICH TUTORIAL COLLEGE - Online WAEC, JAMB, NECO, POST-UTME Lessons">
     <meta name="twitter:description" content="Nigeria’s leading online tutorial platform for exams. Enroll for WAEC, JAMB, NECO, POST-UTME.">
     <meta name="twitter:image" content="https://drich.examguard.com.ng/FB_IMG_17646426128530515.jpg">
-    <!-- Favicon -->
+    
     <link rel="icon" href="https://drichmockt.com/assets/favicon.ico" type="image/x-icon">
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Flowbite CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.css" rel="stylesheet">
-    <!-- Google Fonts for professional typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
         }
+    </script>
+    <style>
         .glass {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-        html {
-            scroll-behavior: smooth;
-        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 antialiased">
 
-    <!-- Navbar -->
-    <nav class="fixed w-full z-50 glass shadow-sm border-b border-blue-900/30">
-      <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
-        <div class="flex items-center gap-2 font-bold text-xl text-yellow-600">
-          <img src="image%3A130416" class="h-8" alt="logo">
-          <span class="text-blue-900">D-RICH TUTORIALS</span>
+    <nav class="fixed w-full z-50 glass shadow-sm border-b border-blue-900/10">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
+            <a href="#home" class="flex items-center gap-2 font-bold text-xl text-yellow-600">
+                <img src="image%3A130416" class="h-8 w-auto" alt="D-RICH Logo">
+                <span class="text-blue-900 hidden sm:block">D-RICH TUTORIALS</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-4 items-center">
+                <a href="student-registration" class="bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Register</a>
+                <a href="login" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Sign In</a>
+                <a href="#price" class="bg-white hover:bg-blue-50 text-blue-700 border border-blue-700 text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Price</a>
+            </div>
+            
+            <button data-collapse-toggle="mobile-menu" type="button" class="md:hidden p-2 text-blue-900 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-200" aria-controls="mobile-menu" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
         </div>
-        <div class="hidden md:flex space-x-4 items-center" id="navbar-menu">
-          <a href="student-registration" class="bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Register</a>
-          <a href="login" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Sign In</a>
-          <a href="#price" class="bg-white hover:bg-blue-50 text-blue-700 border border-blue-700 text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Price</a>
+        
+        <div class="hidden md:hidden bg-white border-t border-gray-100" id="mobile-menu">
+            <div class="px-4 py-4 space-y-3 flex flex-col">
+                <a href="student-registration" class="bg-blue-700 text-center text-white text-sm font-semibold px-5 py-3 rounded-lg shadow-sm">Register</a>
+                <a href="login" class="bg-yellow-500 text-center text-white text-sm font-semibold px-5 py-3 rounded-lg shadow-sm">Sign In</a>
+                <a href="#price" class="bg-white text-center text-blue-700 border border-blue-700 text-sm font-semibold px-5 py-3 rounded-lg shadow-sm">Price</a>
+            </div>
         </div>
-        <button id="hamburger-btn" type="button" class="md:hidden p-2 text-yellow-700" aria-label="Open menu">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
-      <div class="md:hidden" id="mobile-menu" hidden>
-        <div class="px-4 pb-3 space-y-3 flex flex-col" id="mobile-menu-list">
-          <a href="student-registration" class="bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Register</a>
-          <a href="login" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Sign In</a>
-          <a href="#price" class="bg-white hover:bg-blue-50 text-blue-700 border border-blue-700 text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 shadow-sm">Price</a>
-        </div>
-      </div>
     </nav>
  
-    <!-- Hero Section with Carousel -->
-    <section id="home" class="pt-20">
-        <div id="default-carousel" class="relative w-full" data-carousel="slide">
-            <div class="relative h-64 overflow-hidden md:h-96">
+    <section id="home" class="pt-16">
+        <div id="hero-carousel" class="relative w-full" data-carousel="slide">
+            <div class="relative h-[400px] md:h-[600px] overflow-hidden">
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="WAEC-and-Neco-595x340.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="Online Learning">
-                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent bg-opacity-60 flex items-center justify-start px-12 md:px-24">
-                        <div class="text-left text-white max-w-xl">
-                            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">Through Online Education</h1>
-                            <p class="text-lg md:text-xl mt-4">SS3/WAEC/NECO, JAMB, and POST UTME.</p>
-                            <a href="#enroll" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">Get Started</a>
+                    <img src="WAEC-and-Neco-595x340.png" class="absolute block w-full h-full object-cover top-0 left-0" alt="Online Learning">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-900/40 flex items-center justify-start px-6 md:px-24">
+                        <div class="text-left text-white max-w-2xl">
+                            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">Excellence Through Online Education</h1>
+                            <p class="text-lg md:text-xl text-blue-100 mb-8">SS3/WAEC/NECO, JAMB, and POST UTME.</p>
+                            <a href="#courses" class="inline-block bg-white text-blue-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">Get Started</a>
                         </div>
                     </div>
                 </div>
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="background.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="Students Learning">
-                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent bg-opacity-60 flex items-center justify-start px-12 md:px-24">
-                        <div class="text-left text-white max-w-xl">
-                            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">Achieve Excellence in SS3/WAEC/NECO</h1>
-                            <p class="text-lg md:text-xl mt-4">Comprehensive preparation for senior secondary success.</p>
-                            <a href="#courses" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">Learn More</a>
+                    <img src="background.jpg" class="absolute block w-full h-full object-cover top-0 left-0" alt="Students Learning">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-900/40 flex items-center justify-start px-6 md:px-24">
+                        <div class="text-left text-white max-w-2xl">
+                            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">Achieve Excellence in SS3/WAEC/NECO</h1>
+                            <p class="text-lg md:text-xl text-blue-100 mb-8">Comprehensive preparation for senior secondary success.</p>
+                            <a href="#courses" class="inline-block bg-yellow-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition duration-300">Learn More</a>
                         </div>
                     </div>
                 </div>
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="oaugate-1140x570.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="Exam Preparation">
-                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent bg-opacity-60 flex items-center justify-start px-12 md:px-24">
-                        <div class="text-left text-white max-w-xl">
-                            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">Conquer JAMB & POST UTME</h1>
-                            <p class="text-lg md:text-xl mt-4">Strategic guidance for university admissions.</p>
-                            <a href="#courses" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">Enroll Today</a>
+                    <img src="oaugate-1140x570.jpg" class="absolute block w-full h-full object-cover top-0 left-0" alt="Exam Preparation">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-900/40 flex items-center justify-start px-6 md:px-24">
+                        <div class="text-left text-white max-w-2xl">
+                            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">Conquer JAMB & POST UTME</h1>
+                            <p class="text-lg md:text-xl text-blue-100 mb-8">Strategic guidance for university admissions.</p>
+                            <a href="#courses" class="inline-block bg-white text-blue-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">Enroll Today</a>
                         </div>
                     </div>
                 </div>
@@ -117,508 +126,444 @@
                 <button type="button" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
             </div>
             <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 19l-7-7 7-7"></path></svg>
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 focus:ring-4 focus:ring-white">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                     <span class="sr-only">Previous</span>
                 </span>
             </button>
             <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 5l7 7-7 7"></path></svg>
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 focus:ring-4 focus:ring-white">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     <span class="sr-only">Next</span>
                 </span>
             </button>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="bg-gradient-to-t from-blue-100 to-white py-16">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Platform Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="bg-white rounded-lg p-6 shadow flex flex-col items-center">
-  <svg viewBox="0 0 64 64" fill="none" class="w-16 h-16 mb-4" xmlns="http://www.w3.org/2000/svg">
-    <!-- Mortarboard cap base -->
-    <polygon points="32,8 60,24 32,40 4,24" fill="#2563EB" stroke="#1E40AF" stroke-width="2"/>
-    <!-- Tassel line -->
-    <line x1="32" y1="40" x2="32" y2="56" stroke="#FBBF24" stroke-width="2"/>
-    <!-- Tassel circle -->
-    <circle cx="32" cy="56" r="3" fill="#FBBF24" stroke="#1E40AF" stroke-width="1"/>
-    <!-- Shadow effect for depth -->
-    <ellipse cx="32" cy="44" rx="13" ry="4" fill="#2563EB" fill-opacity="0.15"/>
-  </svg>
-  <h4 class="text-lg font-semibold mb-2 text-blue-700">Interactive Live Classes</h4>
-  <p class="text-gray-600 text-sm text-center">Real-time sessions with chat, polls, and screen sharing.</p>
-</div>
-                <div class="bg-white rounded-lg p-6 shadow flex flex-col items-center">
-                    <img src="https://img.icons8.com/ios-filled/100/laptop.png" alt="" class="w-16 h-16 mb-4">
-                    <h4 class="text-lg font-semibold mb-2 text-blue-700">Video Library</h4>
-                    <p class="text-gray-600 text-sm text-center">Access recorded lessons and tutorial playlists 24/7.</p>
+    <section id="features" class="bg-gradient-to-t from-blue-50 to-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900">Platform Features</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col items-center">
+                    <svg viewBox="0 0 64 64" fill="none" class="w-16 h-16 mb-6" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="32,8 60,24 32,40 4,24" fill="#2563EB" stroke="#1E40AF" stroke-width="2"/>
+                        <line x1="32" y1="40" x2="32" y2="56" stroke="#FBBF24" stroke-width="2"/>
+                        <circle cx="32" cy="56" r="3" fill="#FBBF24" stroke="#1E40AF" stroke-width="1"/>
+                        <ellipse cx="32" cy="44" rx="13" ry="4" fill="#2563EB" fill-opacity="0.15"/>
+                    </svg>
+                    <h4 class="text-lg font-bold mb-3 text-blue-900">Interactive Live Classes</h4>
+                    <p class="text-gray-600 text-sm text-center leading-relaxed">Real-time sessions with chat, polls, and screen sharing.</p>
                 </div>
-                <div class="bg-white rounded-lg p-6 shadow flex flex-col items-center">
-                    <img src="https://img.icons8.com/ios-filled/100/test-passed.png" alt="" class="w-16 h-16 mb-4">
-                    <h4 class="text-lg font-semibold mb-2 text-blue-700">Practice Tests & Analytics</h4>
-                    <p class="text-gray-600 text-sm text-center">Mock tests with instant scoring and personalized feedback reports.</p>
+                <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col items-center">
+                    <img src="https://img.icons8.com/ios-filled/100/2563EB/laptop.png" alt="Video Library Icon" class="w-16 h-16 mb-6">
+                    <h4 class="text-lg font-bold mb-3 text-blue-900">Video Library</h4>
+                    <p class="text-gray-600 text-sm text-center leading-relaxed">Access recorded lessons and tutorial playlists 24/7.</p>
                 </div>
-                <div class="bg-white rounded-lg p-6 shadow flex flex-col items-center">
-                    <img src="https://img.icons8.com/ios-filled/100/conference-call.png" alt="" class="w-16 h-16 mb-4">
-                    <h4 class="text-lg font-semibold mb-2 text-blue-700">Peer & Tutor Forums</h4>
-                    <p class="text-gray-600 text-sm text-center">Discussion boards for peer learning and tutor support around the clock.</p>
+                <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col items-center">
+                    <img src="https://img.icons8.com/ios-filled/100/2563EB/test-passed.png" alt="Test Icon" class="w-16 h-16 mb-6">
+                    <h4 class="text-lg font-bold mb-3 text-blue-900">Practice Tests & Analytics</h4>
+                    <p class="text-gray-600 text-sm text-center leading-relaxed">Mock tests with instant scoring and personalized feedback.</p>
+                </div>
+                <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col items-center">
+                    <img src="https://img.icons8.com/ios-filled/100/2563EB/conference-call.png" alt="Forum Icon" class="w-16 h-16 mb-6">
+                    <h4 class="text-lg font-bold mb-3 text-blue-900">Peer & Tutor Forums</h4>
+                    <p class="text-gray-600 text-sm text-center leading-relaxed">Discussion boards for peer learning and around-the-clock support.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Enhanced Courses Section with Updated Preview Modals & Removed Tutor Info -->
     <section id="courses" class="py-20 bg-white">
-      <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Courses</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Course 1: SS3/WAEC/NECO -->
-          <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
-            <img src="WAEC-and-Neco-595x340.png" alt="SS3/WAEC/NECO" class="w-full h-48 object-cover rounded-md mb-4">
-            <h3 class="text-2xl font-semibold mb-2">SS3/WAEC/NECO</h3>
-            <!-- No Meet Your Tutors or YouTube -->
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Curriculum Overview:</h4>
-              <ul class="list-disc list-inside text-gray-600 text-sm">
-                <li>Mathematics (Pure, Applied)</li>
-                <li>English Language & Literature</li>
-                <li>Sciences: Physics, Chemistry, Biology</li>
-                <li>Social Sciences: Economics, Government</li>
-                <li>Arts & Vocational Subjects</li>
-                <li>Exam strategies & time management</li>
-              </ul>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Teaching Methodology:</h4>
-              <p class="text-gray-600 text-sm">
-                Live lectures, interactive quizzes, on-demand videos, and detailed assignment reviews.
-              </p>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Resources Included:</h4>
-              <ul class="list-disc list-inside text-gray-600 text-sm">
-                <li>Study guides, solved examples</li>
-                <li>Past questions & marking schemes</li>
-                <li>Active forum support</li>
-              </ul>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Schedule & Duration:</h4>
-              <p class="text-gray-600 text-sm">4 Months • 3–5 sessions/week • Flexible learning options.</p>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Learning Objectives:</h4>
-              <ul class="list-disc list-inside text-gray-600 text-sm">
-                <li>Master key exam topics</li>
-                <li>Gain confidence & accuracy</li>
-                <li>Excel in WAEC/NECO</li>
-              </ul>
-            </div>
-            <div class="mt-2 mb-4">
-              <h4 class="font-semibold text-blue-700">Lecture Screenshots:</h4>
-              <a href="#" onclick="document.getElementById('preview-modal-1').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Preview</a>
-            </div>
-            <div class="flex-grow"></div>
-            <div class="flex justify-between mt-4">
-              <button onclick="document.getElementById('preview-modal-1').classList.remove('hidden')" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
-              <a href="student-registration" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
-            </div>
-          </div>
-          <!-- Course 2: JAMB -->
-          <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
-            <img src="image%3A130419" alt="JAMB" class="w-full h-48 object-cover rounded-md mb-4">
-            <h3 class="text-2xl font-semibold mb-2">JAMB</h3>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Curriculum Overview:</h4>
-              <ul class="list-disc list-inside text-gray-600 text-sm">
-                <li>English, Maths, and your choice subjects</li>
-                <li>Practice CBT techniques</li>
-                <li>Past JAMB secrets & top scorers’ tips</li>
-              </ul>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Teaching Methodology:</h4>
-              <p class="text-gray-600 text-sm">Intensive live sessions, interactive mock tests, and real world CBT drills.</p>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Resources Included:</h4>
-              <ul class="list-disc list-inside text-gray-600 text-sm">
-                <li>CBT mock test software</li>
-                <li>Subject handbooks</li>
-                <li>Question discussion groups</li>
-              </ul>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Schedule & Duration:</h4>
-              <p class="text-gray-600 text-sm">4 Months • Evening/Saturday options.</p>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Learning Objectives:</h4>
-              <ul class="list-disc list-inside text-gray-600 text-sm">
-                <li>Score 250+ in JAMB</li>
-                <li>Specialize CBT practice</li>
-                <li>Build smart exam timing skills</li>
-              </ul>
-            </div>
-            <div class="mt-2 mb-4">
-              <h4 class="font-semibold text-blue-700">Lecture Screenshots:</h4>
-              <a href="#" onclick="document.getElementById('preview-modal-2').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Preview</a>
-            </div>
-            <div class="flex-grow"></div>
-            <div class="flex justify-between mt-4">
-              <button onclick="document.getElementById('preview-modal-2').classList.remove('hidden')" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
-              <a href="student-registration" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
-            </div>
-          </div>
-          <!-- Course 3: POST UTME -->
-          <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col">
-            <img src="oaugate-1140x570.jpg" alt="POST UTME" class="w-full h-48 object-cover rounded-md mb-4">
-            <h3 class="text-2xl font-semibold mb-2">POST UTME</h3>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Curriculum Overview:</h4>
-              <ul class="list-disc list-inside text-gray-600 text-sm">
-                <li>University-specific question drills</li>
-                <li>Advanced English, Maths, Current Affairs</li>
-                <li>Aptitude/Interview prep</li>
-              </ul>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Teaching Methodology:</h4>
-              <p class="text-gray-600 text-sm">Targeted live coaching, on-demand video, and mock test drills.</p>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Resources Included:</h4>
-              <ul class="list-disc list-inside text-gray-600 text-sm">
-                <li>Past POST UTME papers</li>
-                <li>Mock tests</li>
-                <li>1:1 advising sessions</li>
-              </ul>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Schedule & Duration:</h4>
-              <p class="text-gray-600 text-sm">4 Months • Live tests & revision.</p>
-            </div>
-            <div class="mb-2">
-              <h4 class="font-semibold text-blue-700">Learning Objectives:</h4>
-              <ul class="list-disc list-inside text-gray-600 text-sm">
-                <li>Pass POST UTME confidently</li>
-                <li>Interview & problem-solving mastery</li>
-                <li>Personalized progress tracking</li>
-              </ul>
-            </div>
-            <div class="mt-2 mb-4">
-              <h4 class="font-semibold text-blue-700">Lecture Screenshots:</h4>
-              <a href="#" onclick="document.getElementById('preview-modal-3').classList.remove('hidden');event.preventDefault();" class="underline text-blue-700 hover:text-yellow-600">Preview</a>
-            </div>
-            <div class="flex-grow"></div>
-            <div class="flex justify-between mt-4">
-              <button onclick="document.getElementById('preview-modal-3').classList.remove('hidden')" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300">Preview</button>
-              <a href="student-registration" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Enroll Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900">Our Courses</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="bg-white rounded-xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
+                    <img src="WAEC-and-Neco-595x340.png" alt="SS3/WAEC/NECO" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">SS3/WAEC/NECO</h3>
+                        <div class="space-y-4 mb-6 flex-grow">
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-1">Curriculum Overview:</h4>
+                                <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
+                                    <li>Mathematics (Pure, Applied)</li>
+                                    <li>English Language & Literature</li>
+                                    <li>Sciences: Physics, Chemistry, Biology</li>
+                                    <li>Social Sciences: Economics, Government</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-1">Methodology & Resources:</h4>
+                                <p class="text-gray-600 text-sm">Live lectures, study guides, past questions, and active forum support.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-1">Schedule & Duration:</h4>
+                                <p class="text-gray-600 text-sm">4 Months • 3–5 sessions/week.</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-auto border-t border-gray-100 pt-4">
+                            <button data-modal-target="preview-modal-1" data-modal-toggle="preview-modal-1" class="text-blue-700 font-semibold hover:text-blue-900 transition flex items-center gap-1">
+                                Preview Screenshots
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </button>
+                            <a href="student-registration" class="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition shadow-sm">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Modals: Image sliders instead of YouTube previews -->
-    <div id="preview-modal-1" class="hidden fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center">
-      <div class="bg-white rounded-lg w-full max-w-2xl p-8 relative">
-        <div class="flex justify-between items-center border-b pb-2">
-          <h4 class="font-bold text-lg">SS3/WAEC/NECO Lecture Screenshots</h4>
-          <button onclick="document.getElementById('preview-modal-1').classList.add('hidden')" class="text-gray-600 hover:text-red-500 text-2xl">&times;</button>
-        </div>
-        <div class="my-6">
-            <!-- Image Slider -->
-            <div id="ss3-slider" class="relative w-full" data-carousel="static">
-              <div class="relative h-64 overflow-hidden rounded-lg">
-                <div class="duration-700 ease-in-out" data-carousel-item>
-                  <img src="FB_IMG_17646428661773290.jpg" alt="Lecture Screenshot 1" class="block w-full h-64 object-contain">
+                <div class="bg-white rounded-xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
+                    <img src="image%3A130419" alt="JAMB Preparation" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">JAMB</h3>
+                        <div class="space-y-4 mb-6 flex-grow">
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-1">Curriculum Overview:</h4>
+                                <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
+                                    <li>English, Maths, & elective subjects</li>
+                                    <li>Intensive CBT practice techniques</li>
+                                    <li>Past JAMB secrets & scoring tips</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-1">Methodology & Resources:</h4>
+                                <p class="text-gray-600 text-sm">CBT mock software, subject handbooks, and question discussion groups.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-1">Schedule & Duration:</h4>
+                                <p class="text-gray-600 text-sm">4 Months • Evening/Saturday options.</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-auto border-t border-gray-100 pt-4">
+                            <button data-modal-target="preview-modal-2" data-modal-toggle="preview-modal-2" class="text-blue-700 font-semibold hover:text-blue-900 transition flex items-center gap-1">
+                                Preview Screenshots
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </button>
+                            <a href="student-registration" class="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition shadow-sm">Enroll Now</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                  <img src="FB_IMG_17646431554214283.jpg" alt="Lecture Screenshot 2" class="block w-full h-64 object-contain">
+
+                <div class="bg-white rounded-xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
+                    <img src="oaugate-1140x570.jpg" alt="POST UTME" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">POST UTME</h3>
+                        <div class="space-y-4 mb-6 flex-grow">
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-1">Curriculum Overview:</h4>
+                                <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
+                                    <li>University-specific question drills</li>
+                                    <li>Advanced English, Maths, Current Affairs</li>
+                                    <li>Aptitude & Interview preparation</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-1">Methodology & Resources:</h4>
+                                <p class="text-gray-600 text-sm">Past POST UTME papers, targeted mock tests, and 1:1 advising sessions.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-1">Schedule & Duration:</h4>
+                                <p class="text-gray-600 text-sm">4 Months • Live tests & final revision.</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-auto border-t border-gray-100 pt-4">
+                            <button data-modal-target="preview-modal-3" data-modal-toggle="preview-modal-3" class="text-blue-700 font-semibold hover:text-blue-900 transition flex items-center gap-1">
+                                Preview Screenshots
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </button>
+                            <a href="student-registration" class="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition shadow-sm">Enroll Now</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                  <img src="FB_IMG_17646428798853038.jpg" alt="Lecture Screenshot 3" class="block w-full h-64 object-contain">
-                </div>
-              </div>
-              <div class="absolute z-30 flex space-x-3 left-1/2 bottom-4 -translate-x-1/2">
-                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-              </div>
-              <button type="button" class="absolute top-1/2 left-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-prev>
-                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-              </button>
-              <button type="button" class="absolute top-1/2 right-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-next>
-                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-              </button>
+
             </div>
         </div>
-      </div>
-    </div>
-    <div id="preview-modal-2" class="hidden fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center">
-      <div class="bg-white rounded-lg w-full max-w-2xl p-8 relative">
-        <div class="flex justify-between items-center border-b pb-2">
-          <h4 class="font-bold text-lg">JAMB Lecture Screenshots</h4>
-          <button onclick="document.getElementById('preview-modal-2').classList.add('hidden')" class="text-gray-600 hover:text-red-500 text-2xl">&times;</button>
-        </div>
-        <div class="my-6">
-            <!-- Image Slider -->
-            <div id="jamb-slider" class="relative w-full" data-carousel="static">
-              <div class="relative h-64 overflow-hidden rounded-lg">
-                <div class="duration-700 ease-in-out" data-carousel-item>
-                  <img src="FB_IMG_17646430472891660.jpg" alt="JAMB Screenshot 1" class="block w-full h-64 object-contain">
-                </div>
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                  <img src="FB_IMG_17646426023447721.jpg" alt="JAMB Screenshot 2" class="block w-full h-64 object-contain">
-                </div>
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                  <img src="FB_IMG_17646428798853038.jpg" alt="JAMB Screenshot 3" class="block w-full h-64 object-contain">
-                </div>
-              </div>
-              <div class="absolute z-30 flex space-x-3 left-1/2 bottom-4 -translate-x-1/2">
-                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-              </div>
-              <button type="button" class="absolute top-1/2 left-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-prev>
-                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-              </button>
-              <button type="button" class="absolute top-1/2 right-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-next>
-                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-              </button>
-            </div>
-        </div>
-      </div>
-    </div>
-    <div id="preview-modal-3" class="hidden fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center">
-      <div class="bg-white rounded-lg w-full max-w-2xl p-8 relative">
-        <div class="flex justify-between items-center border-b pb-2">
-          <h4 class="font-bold text-lg">POST UTME Lecture Screenshots</h4>
-          <button onclick="document.getElementById('preview-modal-3').classList.add('hidden')" class="text-gray-600 hover:text-red-500 text-2xl">&times;</button>
-        </div>
-        <div class="my-6">
-            <!-- Image Slider -->
-            <div id="utme-slider" class="relative w-full" data-carousel="static">
-              <div class="relative h-64 overflow-hidden rounded-lg">
-                <div class="duration-700 ease-in-out" data-carousel-item>
-                  <img src="FB_IMG_17646430276683020.jpg" alt="UTME Screenshot 1" class="block w-full h-64 object-contain">
-                </div>
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                  <img src="FB_IMG_17646429984580958.jpg" alt="UTME Screenshot 2" class="block w-full h-64 object-contain">
-                </div>
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                  <img src="FB_IMG_17646429875797712.jpg" alt="UTME Screenshot 3" class="block w-full h-64 object-contain">
-                </div>
-              </div>
-              <div class="absolute z-30 flex space-x-3 left-1/2 bottom-4 -translate-x-1/2">
-                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                <button type="button" class="w-3 h-3 rounded-full bg-blue-200 hover:bg-blue-400" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-              </div>
-              <button type="button" class="absolute top-1/2 left-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-prev>
-                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-              </button>
-              <button type="button" class="absolute top-1/2 right-2 z-30 -translate-y-1/2 flex items-center justify-center h-10 w-10 bg-white/40 rounded-full" data-carousel-next>
-                <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-              </button>
-            </div>
-        </div>
-      </div>
-    </div>
     </section>
 
-    <!-- Progress Tracker Section (Rich Feature) -->
-    <section id="progress" class="bg-gray-100 py-20">
-      <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Personal Progress Tracker</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div class="bg-white rounded-lg shadow p-6">
-            <h4 class="font-semibold mb-2 text-blue-700 text-xl">Track Your Scores</h4>
-            <p class="mb-4 text-gray-600">Automatically save mock test and quiz results in your profile.</p>
-            <img src="FB_IMG_17646429984580958.jpg" class="mx-auto w-20">
-          </div>
-          <div class="bg-white rounded-lg shadow p-6">
-            <h4 class="font-semibold mb-2 text-blue-700 text-xl">Set Study Goals</h4>
-            <p class="mb-4 text-gray-600">Plan targets for daily, weekly, and monthly study hours within your dashboard.</p>
-            <img src="FB_IMG_17646430276683020.jpg" class="mx-auto w-20">
-          </div>
-          <div class="bg-white rounded-lg shadow p-6">
-            <h4 class="font-semibold mb-2 text-blue-700 text-xl">Get Achievement Badges</h4>
-            <p class="mb-4 text-gray-600">Earn badges when you finish topics, pass mock tests, and more!</p>
-            <img src="https://img.icons8.com/color/96/prize.png" class="mx-auto w-20">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Vision and Mission Section -->
-    <section id="vision-mission" class="py-20 bg-gray-100">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-lg shadow-md">
-                    <h3 class="text-2xl font-bold mb-4 text-blue-700">Our Vision</h3>
-                    <p class="text-gray-600">To be the leading online tutorial college in Nigeria, empowering students to achieve academic excellence and secure their future through innovative and accurate learning methods.</p>
+    <div id="preview-modal-1" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm bg-gray-900/50">
+        <div class="relative p-4 w-full max-w-3xl max-h-full">
+            <div class="relative bg-white rounded-xl shadow">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                    <h3 class="text-xl font-bold text-gray-900">SS3/WAEC/NECO Live Session</h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="preview-modal-1">
+                        <svg class="w-3 h-3" aria-hidden="true" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
                 </div>
-                <div class="bg-white p-8 rounded-lg shadow-md">
-                    <h3 class="text-2xl font-bold mb-4 text-blue-700">Our Mission</h3>
-                    <p class="text-gray-600">To provide high-quality, affordable online tutoring in key examination categories, fostering a learning environment that promotes critical thinking, confidence, and lifelong success.</p>
+                <div class="p-4 md:p-5 space-y-4">
+                    <div id="ss3-slider" class="relative w-full" data-carousel="static">
+                        <div class="relative h-64 md:h-96 overflow-hidden rounded-lg bg-gray-100">
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="FB_IMG_17646428661773290.jpg" class="absolute block w-full h-full object-contain" alt="Screenshot 1">
+                            </div>
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="FB_IMG_17646431554214283.jpg" class="absolute block w-full h-full object-contain" alt="Screenshot 2">
+                            </div>
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="FB_IMG_17646428798853038.jpg" class="absolute block w-full h-full object-contain" alt="Screenshot 3">
+                            </div>
+                        </div>
+                        <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/50 group-hover:bg-white/70 shadow"><svg class="w-4 h-4 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></span>
+                        </button>
+                        <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/50 group-hover:bg-white/70 shadow"><svg class="w-4 h-4 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="preview-modal-2" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm bg-gray-900/50">
+        <div class="relative p-4 w-full max-w-3xl max-h-full">
+            <div class="relative bg-white rounded-xl shadow">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                    <h3 class="text-xl font-bold text-gray-900">JAMB Prep Session</h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="preview-modal-2">
+                        <svg class="w-3 h-3" aria-hidden="true" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <div class="p-4 md:p-5 space-y-4">
+                    <div id="jamb-slider" class="relative w-full" data-carousel="static">
+                        <div class="relative h-64 md:h-96 overflow-hidden rounded-lg bg-gray-100">
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="FB_IMG_17646430472891660.jpg" class="absolute block w-full h-full object-contain" alt="Screenshot 1">
+                            </div>
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="FB_IMG_17646426023447721.jpg" class="absolute block w-full h-full object-contain" alt="Screenshot 2">
+                            </div>
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="FB_IMG_17646428798853038.jpg" class="absolute block w-full h-full object-contain" alt="Screenshot 3">
+                            </div>
+                        </div>
+                        <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/50 group-hover:bg-white/70 shadow"><svg class="w-4 h-4 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></span>
+                        </button>
+                        <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/50 group-hover:bg-white/70 shadow"><svg class="w-4 h-4 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="preview-modal-3" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm bg-gray-900/50">
+        <div class="relative p-4 w-full max-w-3xl max-h-full">
+            <div class="relative bg-white rounded-xl shadow">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                    <h3 class="text-xl font-bold text-gray-900">POST UTME Drill</h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="preview-modal-3">
+                        <svg class="w-3 h-3" aria-hidden="true" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <div class="p-4 md:p-5 space-y-4">
+                    <div id="utme-slider" class="relative w-full" data-carousel="static">
+                        <div class="relative h-64 md:h-96 overflow-hidden rounded-lg bg-gray-100">
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="FB_IMG_17646430276683020.jpg" class="absolute block w-full h-full object-contain" alt="Screenshot 1">
+                            </div>
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="FB_IMG_17646429984580958.jpg" class="absolute block w-full h-full object-contain" alt="Screenshot 2">
+                            </div>
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="FB_IMG_17646429875797712.jpg" class="absolute block w-full h-full object-contain" alt="Screenshot 3">
+                            </div>
+                        </div>
+                        <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/50 group-hover:bg-white/70 shadow"><svg class="w-4 h-4 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></span>
+                        </button>
+                        <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/50 group-hover:bg-white/70 shadow"><svg class="w-4 h-4 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="progress" class="bg-gray-50 py-20 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-900">Personal Progress Tracker</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 hover:-translate-y-1 transition duration-300">
+                    <h4 class="font-bold mb-3 text-blue-700 text-xl">Track Your Scores</h4>
+                    <p class="mb-6 text-gray-600 text-sm">Automatically save mock test and quiz results in your profile.</p>
+                    <img src="FB_IMG_17646429984580958.jpg" class="mx-auto w-24 rounded-lg shadow-sm" alt="Tracker">
+                </div>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 hover:-translate-y-1 transition duration-300">
+                    <h4 class="font-bold mb-3 text-blue-700 text-xl">Set Study Goals</h4>
+                    <p class="mb-6 text-gray-600 text-sm">Plan targets for daily, weekly, and monthly study hours inside your dashboard.</p>
+                    <img src="FB_IMG_17646430276683020.jpg" class="mx-auto w-24 rounded-lg shadow-sm" alt="Goals">
+                </div>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 hover:-translate-y-1 transition duration-300">
+                    <h4 class="font-bold mb-3 text-blue-700 text-xl">Get Achievements</h4>
+                    <p class="mb-6 text-gray-600 text-sm">Earn badges when you finish topics, pass mock tests, and top the leaderboard!</p>
+                    <img src="https://img.icons8.com/color/96/prize.png" class="mx-auto w-24" alt="Badges">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Us Section With SVGs -->
+    <section id="vision-mission" class="py-20 bg-blue-900 text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-blue-800 p-10 rounded-2xl shadow-lg border border-blue-700/50">
+                    <h3 class="text-2xl font-bold mb-4 text-yellow-400">Our Vision</h3>
+                    <p class="text-blue-100 leading-relaxed">To be the leading online tutorial college in Nigeria, empowering students to achieve academic excellence and secure their future through innovative and accurate learning methods.</p>
+                </div>
+                <div class="bg-blue-800 p-10 rounded-2xl shadow-lg border border-blue-700/50">
+                    <h3 class="text-2xl font-bold mb-4 text-yellow-400">Our Mission</h3>
+                    <p class="text-blue-100 leading-relaxed">To provide high-quality, affordable online tutoring in key examination categories, fostering a learning environment that promotes critical thinking, confidence, and lifelong success.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="about" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Why Choose D-RICH TUTORIAL COLLEGE?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900">Why Choose D-RICH TUTORIAL COLLEGE?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div class="text-center p-6">
-                    <!-- Custom SVG - Expert Tutors -->
-                    <svg class="mx-auto mb-4 w-20 h-20" fill="none" viewBox="0 0 80 80">
+                    <svg class="mx-auto mb-6 w-24 h-24" fill="none" viewBox="0 0 80 80">
                       <circle cx="40" cy="40" r="36" stroke="#2563EB" stroke-width="4" fill="#FFFBEB"/>
                       <path d="M40 34a10 10 0 100-20 10 10 0 000 20z" fill="#FBBF24"/>
                       <rect x="25" y="50" width="30" height="15" rx="7" fill="#2563EB"/>
                       <rect x="32" y="50" width="16" height="4" rx="2" fill="#1E3A8A"/>
                     </svg>
-                    <h3 class="text-xl font-semibold mb-2">Expert Tutors</h3>
-                    <p class="text-gray-600">Qualified educators with years of experience in exam preparation.</p>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">Expert Tutors</h3>
+                    <p class="text-gray-600">Qualified educators with years of experience in exam preparation and grading.</p>
                 </div>
                 <div class="text-center p-6">
-                    <!-- Custom SVG - Flexible Learning -->
-                    <svg class="mx-auto mb-4 w-20 h-20" fill="none" viewBox="0 0 80 80">
+                    <svg class="mx-auto mb-6 w-24 h-24" fill="none" viewBox="0 0 80 80">
                       <rect x="12" y="18" width="56" height="40" rx="6" fill="#FBBF24" stroke="#2563EB" stroke-width="4"/>
                       <circle cx="40" cy="38" r="10" fill="#2563EB"/>
                       <rect x="28" y="50" width="24" height="4" rx="2" fill="#1E3A8A"/>
                     </svg>
-                    <h3 class="text-xl font-semibold mb-2">Flexible Learning</h3>
-                    <p class="text-gray-600">Learn at your own pace with 24/7 access to resources.</p>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">Flexible Learning</h3>
+                    <p class="text-gray-600">Learn at your own pace with 24/7 access to our custom digital learning portal.</p>
                 </div>
                 <div class="text-center p-6">
-                    <!-- Custom SVG - Proven Success -->
-                    <svg class="mx-auto mb-4 w-20 h-20" fill="none" viewBox="0 0 80 80">
+                    <svg class="mx-auto mb-6 w-24 h-24" fill="none" viewBox="0 0 80 80">
                         <circle cx="40" cy="40" r="36" stroke="#2563EB" stroke-width="4" fill="#FBBF24"/>
                         <path d="M32 45l8 8 16-16" stroke="#2563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                         <circle cx="40" cy="38" r="10" fill="#FFFBEB"/>
                     </svg>
-                    <h3 class="text-xl font-semibold mb-2">Proven Success</h3>
-                    <p class="text-gray-600">High pass rates and student testimonials speak for our quality.</p>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">Proven Success</h3>
+                    <p class="text-gray-600">High pass rates, top JAMB scores, and student testimonials speak for our quality.</p>
                 </div>
             </div>
-            <section id="price" class="py-20 bg-gradient-to-t from-blue-50 to-white">
-      <div class="container mx-auto px-6 max-w-2xl">
-        <h2 class="text-4xl font-bold text-center mb-8 text-blue-800">Tutorial Fees</h2>
-        <div class="bg-white shadow rounded-lg p-8 flex flex-col items-center">
-          <div class="text-3xl font-bold text-green-700 mb-2">₦6,000/Monthly</div>
-          <div class="text-gray-800 mb-4 text-center">
-            <span class="text-sm">First payment unlocks:</span><br>
-            <ul class="list-disc list-inside text-gray-600 my-2 text-left">
-              <li>Active classes</li>
-              <li>CBT & Mock Exams</li>
-              <li>Course materials</li>
-              <li>Student Dashboard</li>
-              <li>WhatsApp Group Access</li>
-            </ul>
-          </div>
-          <a href="registration.html" class="mt-4 bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-800 transition duration-150 shadow">Get Started</a>
-        </div>
-        <div class="mt-8 text-center text-sm text-gray-500">Need help? <a href="mailto:drichtutors@gmail.com" class="text-blue-700 underline">Contact us</a></div>
-      </div>
-    </section>
-            <!-- Testimonials Carousel -->
-            <div class="mt-16">
-                <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">What Our Students Say</h3>
-                <div id="testimonial-carousel" class="relative w-full" data-carousel="slide">
-                    <div class="relative h-56 overflow-hidden rounded-lg md:h-64">
-                        <div class="hidden duration-700 ease-in-out p-8 bg-gray-100 rounded-lg text-center" data-carousel-item>
-                            <p class="text-lg text-gray-600">"D-RICH helped me score 280 in JAMB! Highly recommended."</p>
-                            <p class="font-semibold mt-4 text-blue-700">- Emmanuel</p>
+            
+            <div class="mt-24">
+                <h3 class="text-2xl md:text-3xl font-bold text-center mb-10 text-gray-900">What Our Students Say</h3>
+                <div id="testimonial-carousel" class="relative w-full max-w-4xl mx-auto" data-carousel="slide">
+                    <div class="relative h-48 overflow-hidden rounded-2xl shadow-sm bg-gray-50 border border-gray-100">
+                        <div class="hidden duration-700 ease-in-out flex flex-col justify-center items-center h-full p-8 text-center" data-carousel-item>
+                            <p class="text-lg md:text-xl text-gray-700 italic">"D-RICH helped me score 280 in JAMB! Highly recommended."</p>
+                            <p class="font-bold mt-4 text-blue-700">- Emmanuel</p>
                         </div>
-                        <div class="hidden duration-700 ease-in-out p-8 bg-gray-100 rounded-lg text-center" data-carousel-item>
-                            <p class="text-lg text-gray-600">"Excellent tutors for WAEC prep. I passed with distinctions."</p>
-                            <p class="font-semibold mt-4 text-blue-700">- Favour</p>
+                        <div class="hidden duration-700 ease-in-out flex flex-col justify-center items-center h-full p-8 text-center" data-carousel-item>
+                            <p class="text-lg md:text-xl text-gray-700 italic">"Excellent tutors for WAEC prep. I passed with distinctions."</p>
+                            <p class="font-bold mt-4 text-blue-700">- Favour</p>
                         </div>
-                        <div class="hidden duration-700 ease-in-out p-8 bg-gray-100 rounded-lg text-center" data-carousel-item>
-                            <p class="text-lg text-gray-600">"Post UTME course was spot on. Got admitted to my dream uni."</p>
-                            <p class="font-semibold mt-4 text-blue-700">- Mallam Adamu</p>
+                        <div class="hidden duration-700 ease-in-out flex flex-col justify-center items-center h-full p-8 text-center" data-carousel-item>
+                            <p class="text-lg md:text-xl text-gray-700 italic">"Post UTME course was spot on. Got admitted to my dream uni."</p>
+                            <p class="font-bold mt-4 text-blue-700">- Mallam Adamu</p>
                         </div>
-                    </div>
-                    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3">
-                        <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                        <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                        <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
                     </div>
                     <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 19l-7-7 7-7"></path></svg>
-                            <span class="sr-only">Previous</span>
-                        </span>
+                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md text-gray-600 hover:text-blue-700 group-focus:ring-4 group-focus:ring-blue-100"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></span>
                     </button>
                     <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 5l7 7-7 7"></path></svg>
-                            <span class="sr-only">Next</span>
-                        </span>
+                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md text-gray-600 hover:text-blue-700 group-focus:ring-4 group-focus:ring-blue-100"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section id="enroll" class="py-20 bg-blue-700 text-white text-center">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
-            <p class="text-xl mb-8">Join thousands of successful students today!</p>
-            <a href="mailto:drichtutors@gmail.com" class="bg-white text-blue-700 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">Contact Us to Enroll</a>
+    <section id="price" class="py-24 bg-gradient-to-t from-gray-50 to-white">
+        <div class="max-w-2xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-blue-900">Tutorial Fees</h2>
+            <div class="bg-white shadow-xl rounded-2xl p-10 flex flex-col items-center border border-gray-100 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-blue-700"></div>
+                <div class="text-4xl font-extrabold text-green-600 mb-2">₦6,000<span class="text-lg text-gray-500 font-medium">/Month</span></div>
+                <div class="w-full border-t border-gray-100 my-6"></div>
+                <div class="text-gray-800 mb-8 w-full">
+                    <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 text-center">First payment unlocks:</p>
+                    <ul class="space-y-3 text-gray-600 flex flex-col items-center">
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Interactive Active Classes</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> CBT & Mock Exams Engine</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Premium Course Materials</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Personalized Student Dashboard</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> 24/7 WhatsApp Group Access</li>
+                    </ul>
+                </div>
+                <a href="registration.html" class="w-full text-center bg-blue-700 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-blue-800 transition duration-200 shadow-lg hover:shadow-xl">Start Learning Now</a>
+            </div>
+            <div class="mt-8 text-center text-sm text-gray-500">Need help? <a href="mailto:drichtutors@gmail.com" class="text-blue-700 font-semibold hover:underline">Contact support</a></div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact" class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-2xl font-bold mb-4">D-RICH TUTORIAL COLLEGE</h3>
-                    <p class="text-gray-400">Empowering students through online education.</p>
+    <section id="enroll" class="py-24 bg-yellow-500 text-white text-center">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-6 drop-shadow-md">Ready to Start Your Journey?</h2>
+            <p class="text-xl md:text-2xl mb-10 font-medium">Join thousands of successful students nationwide today!</p>
+            <a href="mailto:drichtutors@gmail.com" class="inline-block bg-white text-yellow-600 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 hover:scale-105 transition duration-300 shadow-xl">Contact Us to Enroll</a>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-gray-900 text-gray-300 py-16 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+                <div class="md:col-span-2">
+                    <h3 class="text-2xl font-bold mb-4 text-white flex items-center gap-2">
+                        <img src="image%3A130416" class="h-8 w-auto brightness-0 invert" alt="Logo">
+                        D-RICH TUTORIALS
+                    </h3>
+                    <p class="text-gray-400 max-w-sm leading-relaxed">Empowering students through innovative online education and rigorous CBT training frameworks.</p>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#home" class="hover:text-blue-400 transition duration-300">Home</a></li>
-                        <li><a href="#courses" class="hover:text-blue-400 transition duration-300">Courses</a></li>
-                        <li><a href="#vision-mission" class="hover:text-blue-400 transition duration-300">Vision & Mission</a></li>
-                        <li><a href="#about" class="hover:text-blue-400 transition duration-300">About Us</a></li>
+                    <h3 class="text-lg font-bold mb-4 text-white uppercase tracking-wider">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="hover:text-yellow-400 transition">Home</a></li>
+                        <li><a href="#courses" class="hover:text-yellow-400 transition">Courses</a></li>
+                        <li><a href="#vision-mission" class="hover:text-yellow-400 transition">Vision & Mission</a></li>
+                        <li><a href="#about" class="hover:text-yellow-400 transition">About Us</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
-                    <p class="text-gray-400">Phone: +2349155127634</p>
-                    <p class="text-gray-400">Email: drichtutors@gmail.com</p>
-                    <p class="text-gray-400">Location: Obafemi Awolowo University, Ile Ife</p>
+                    <h3 class="text-lg font-bold mb-4 text-white uppercase tracking-wider">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-gray-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            +2349155127634
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-gray-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            drichtutors@gmail.com
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-gray-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Obafemi Awolowo University, Ile Ife
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="text-center mt-8 text-gray-400">
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-500">
                 <p>&copy; 2025 D-RICH TUTORIAL COLLEGE. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Flowbite JS -->
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.3/dist/flowbite.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-          // Navbar mobile toggle
-          document.getElementById('hamburger-btn').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.hidden = !menu.hidden;
-          });
-      });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 </html>
