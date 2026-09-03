@@ -287,7 +287,7 @@
     }
 
     // ==============================================
-    // DOCX GENERATION FUNCTION
+    // FIXED DOCX GENERATION FUNCTION (DXA UNITS)
     // ==============================================
     async function exportToDocx() {
       const exportBtn = document.getElementById('export-docx-btn');
@@ -298,79 +298,86 @@
       try {
         const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, BorderStyle, PageBreak } = docx;
 
-        // Build 30 slots (filled with data or empty strings)
+        // Fill up to 30 total records
         const fullList = [...insectRecords];
         while (fullList.length < maxCapacity) {
           fullList.push({ commonName: '', scientificName: '', order: '', date: '', location: '', collector: '' });
         }
 
+        // Standard DXA twips measurements:
+        // A4 Width = 11906 DXA twips. Margins = 576 DXA (0.4 in) each side.
+        // Printable Width = ~10754 DXA. Each Column = 5300 DXA (~3.68 inches).
+        const COLUMN_WIDTH_DXA = 5300;
+        const TOTAL_TABLE_WIDTH_DXA = 10600;
+
         const borderStyle = { style: BorderStyle.SINGLE, size: 6, color: "000000" };
         const cellBorders = { top: borderStyle, bottom: borderStyle, left: borderStyle, right: borderStyle };
-        const cellMargins = { top: 120, bottom: 120, left: 150, right: 150 };
+        const cellMargins = { top: 100, bottom: 100, left: 140, right: 140 };
 
-        // --- PAGE 1: DATA LABELS TABLE (15 rows x 2 cols) ---
+        // --- PAGE 1: DATA LABELS TABLE ---
         const dataRows = [];
         for (let i = 0; i < fullList.length; i += 2) {
           const item1 = fullList[i];
           const item2 = fullList[i + 1];
 
           const createDataCell = (item) => new TableCell({
-            width: { size: 50, type: WidthType.PERCENTAGE },
+            width: { size: COLUMN_WIDTH_DXA, type: WidthType.DXA },
             margins: cellMargins,
             borders: cellBorders,
             children: [
               new Paragraph({
                 children: [
-                  new TextRun({ text: "Common Name: ", bold: true, font: "Times New Roman", size: 24 }),
-                  new TextRun({ text: item.commonName || "", font: "Times New Roman", size: 24 })
+                  new TextRun({ text: "Common Name: ", bold: true, font: "Times New Roman", size: 22 }),
+                  new TextRun({ text: item.commonName || "", font: "Times New Roman", size: 22 })
                 ]
               }),
               new Paragraph({
                 children: [
-                  new TextRun({ text: "Scientific Name: ", bold: true, font: "Times New Roman", size: 24 }),
-                  new TextRun({ text: item.scientificName || "", italics: true, font: "Times New Roman", size: 24 })
+                  new TextRun({ text: "Scientific Name: ", bold: true, font: "Times New Roman", size: 22 }),
+                  new TextRun({ text: item.scientificName || "", italics: true, font: "Times New Roman", size: 22 })
                 ]
               }),
               new Paragraph({
                 children: [
-                  new TextRun({ text: "Date of Collection: ", bold: true, font: "Times New Roman", size: 24 }),
-                  new TextRun({ text: item.date || "", font: "Times New Roman", size: 24 })
+                  new TextRun({ text: "Date of Collection: ", bold: true, font: "Times New Roman", size: 22 }),
+                  new TextRun({ text: item.date || "", font: "Times New Roman", size: 22 })
                 ]
               }),
               new Paragraph({
                 children: [
-                  new TextRun({ text: "Location: ", bold: true, font: "Times New Roman", size: 24 }),
-                  new TextRun({ text: item.location || "", font: "Times New Roman", size: 24 })
+                  new TextRun({ text: "Location: ", bold: true, font: "Times New Roman", size: 22 }),
+                  new TextRun({ text: item.location || "", font: "Times New Roman", size: 22 })
                 ]
               }),
               new Paragraph({
                 children: [
-                  new TextRun({ text: "Collected By: ", bold: true, font: "Times New Roman", size: 24 }),
-                  new TextRun({ text: item.collector || "", font: "Times New Roman", size: 24 })
+                  new TextRun({ text: "Collected By: ", bold: true, font: "Times New Roman", size: 22 }),
+                  new TextRun({ text: item.collector || "", font: "Times New Roman", size: 22 })
                 ]
               }),
             ]
           });
 
           dataRows.push(new TableRow({
+            cantSplit: true,
             children: [createDataCell(item1), createDataCell(item2)]
           }));
         }
 
-        // --- PAGE 2: ORDER LABELS TABLE (15 rows x 2 cols) ---
+        // --- PAGE 2: ORDER LABELS TABLE ---
         const orderRows = [];
         for (let i = 0; i < fullList.length; i += 2) {
           const item1 = fullList[i];
           const item2 = fullList[i + 1];
 
           const createOrderCell = (item) => new TableCell({
-            width: { size: 50, type: WidthType.PERCENTAGE },
-            margins: cellMargins,
+            width: { size: COLUMN_WIDTH_DXA, type: WidthType.DXA },
+            margins: { top: 160, bottom: 160, left: 140, right: 140 },
             borders: cellBorders,
             children: [
               new Paragraph({
                 children: [
-                  new TextRun({ text: "Order: ", bold: true, font: "Times New Roman", size: 28 }), // 14pt (28 half-points)
+                  new TextRun({ text: "Order: ", bold: true, font: "Times New Roman", size: 28 }),
                   new TextRun({ text: item.order || "", font: "Times New Roman", size: 28 })
                 ]
               })
@@ -378,26 +385,29 @@
           });
 
           orderRows.push(new TableRow({
+            cantSplit: true,
             children: [createOrderCell(item1), createOrderCell(item2)]
           }));
         }
 
-        // --- CONSTRUCT DOCUMENT ---
+        // --- CONSTRUCT DOCUMENT WITH FIXED DXA GRID ---
         const doc = new Document({
           sections: [{
             properties: {
               page: {
-                margin: { top: 500, bottom: 500, left: 500, right: 500 } // Narrow margins for 2-column layout
+                margin: { top: 576, bottom: 576, left: 576, right: 576 } // 0.4 inch margins
               }
             },
             children: [
               new Table({
-                width: { size: 100, type: WidthType.PERCENTAGE },
+                width: { size: TOTAL_TABLE_WIDTH_DXA, type: WidthType.DXA },
+                columnWidths: [COLUMN_WIDTH_DXA, COLUMN_WIDTH_DXA],
                 rows: dataRows
               }),
               new Paragraph({ children: [new PageBreak()] }),
               new Table({
-                width: { size: 100, type: WidthType.PERCENTAGE },
+                width: { size: TOTAL_TABLE_WIDTH_DXA, type: WidthType.DXA },
+                columnWidths: [COLUMN_WIDTH_DXA, COLUMN_WIDTH_DXA],
                 rows: orderRows
               })
             ]
