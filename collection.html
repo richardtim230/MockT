@@ -6,55 +6,24 @@
   <title>Insect Collection Data Manager</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    .output-tag {
-      font-family: 'Times New Roman', Times, serif !important;
-      font-size: 12pt !important;
-      line-height: 1.3;
-    }
-
-    .order-tag {
-      font-family: 'Times New Roman', Times, serif !important;
-      font-size: 14pt !important;
-      line-height: 1.4;
-    }
-
-    @media print {
-      body {
-        background-color: #ffffff !important;
-        color: #000000 !important;
-      }
-      .no-print {
-        display: none !important;
-      }
-      .print-only {
-        display: block !important;
-      }
-      .page-break {
-        page-break-before: always;
-        break-before: page;
-      }
-      @page {
-        size: A4 portrait;
-        margin: 8mm;
-      }
-    }
-  </style>
+  <!-- docx library & FileSaver for client-side Word document generation -->
+  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
 <body class="bg-slate-100 min-h-screen text-slate-800 font-sans">
 
-  <div class="no-print max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+  <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
     
     <header class="bg-white rounded-2xl p-6 shadow-sm mb-6 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
         <h1 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
           <i class="fa-solid fa-bug text-emerald-600"></i> Insect Collection Entry
         </h1>
-        <p class="text-sm text-slate-500 mt-1">Input specimen details and generate A4 printable labels (Data & Orders).</p>
+        <p class="text-sm text-slate-500 mt-1">Input specimen details and export an editable Microsoft Word document (.docx).</p>
       </div>
       <div class="flex items-center gap-3">
-        <button id="print-btn" onclick="window.print()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center gap-2 shadow-sm">
-          <i class="fa-solid fa-print"></i> Print A4 Pages
+        <button id="export-btn" onclick="exportToDocx()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center gap-2 shadow-sm">
+          <i class="fa-solid fa-file-word"></i> Export .DOCX File
         </button>
       </div>
     </header>
@@ -132,22 +101,10 @@
         </div>
 
         <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
-          <span>Target A4 sheet capacity: 30 boxed records per page.</span>
+          <span>Target A4 sheet capacity: 30 boxed records per document section.</span>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <div class="hidden print-only bg-white">
-    <!-- PAGE 1: SPECIMEN DATA LABELS -->
-    <div id="print-grid" class="grid grid-cols-2 gap-2">
-    </div>
-
-    <!-- PAGE 2: ORDERS LIST PAGE -->
-    <div class="page-break pt-4">
-      <div id="orders-grid" class="grid grid-cols-2 gap-2">
-      </div>
     </div>
   </div>
 
@@ -158,15 +115,13 @@
     const insectForm = document.getElementById('insect-form');
     const tableBody = document.getElementById('table-body');
     const counterBadge = document.getElementById('counter-badge');
-    const printGrid = document.getElementById('print-grid');
-    const ordersGrid = document.getElementById('orders-grid');
     const addBtn = document.getElementById('add-btn');
 
     insectForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
       if (insectRecords.length >= maxCapacity) {
-        alert('Maximum capacity of 30 insect records reached for an A4 sheet page!');
+        alert('Maximum capacity of 30 insect records reached for a single document layout!');
         return;
       }
 
@@ -232,51 +187,123 @@
           tableBody.appendChild(row);
         });
       }
+    }
 
-      // PAGE 1: DATA LABELS
-      printGrid.innerHTML = '';
-      insectRecords.forEach((item) => {
-        const box = document.createElement('div');
-        box.className = "border border-black p-2 output-tag box-border";
-        box.innerHTML = `
-          <div><strong>Common Name:</strong> ${item.commonName}</div>
-          <div><strong>Scientific Name:</strong> <em>${item.scientificName}</em></div>
-          <div><strong>Date of Collection:</strong> ${item.date}</div>
-          <div><strong>Location:</strong> ${item.location}</div>
-          <div><strong>Collected By:</strong> ${item.collector}</div>
-        `;
-        printGrid.appendChild(box);
-      });
-
-      const emptySlots = maxCapacity - insectRecords.length;
-      for (let i = 0; i < emptySlots; i++) {
-        const emptyBox = document.createElement('div');
-        emptyBox.className = "border border-black p-2 output-tag box-border";
-        emptyBox.innerHTML = `
-          <div><strong>Common Name:</strong> </div>
-          <div><strong>Scientific Name:</strong> </div>
-          <div><strong>Date of Collection:</strong> </div>
-          <div><strong>Location:</strong> </div>
-          <div><strong>Collected By:</strong> </div>
-        `;
-        printGrid.appendChild(emptyBox);
+    function exportToDocx() {
+      if (typeof docx === 'undefined') {
+        alert('The DOCX library is still loading. Please try again in a moment.');
+        return;
       }
 
-      // PAGE 2: ORDERS PAGE (14pt Times New Roman)
-      ordersGrid.innerHTML = '';
-      insectRecords.forEach((item) => {
-        const orderBox = document.createElement('div');
-        orderBox.className = "border border-black p-2.5 order-tag box-border";
-        orderBox.innerHTML = `<div><strong>Order:</strong> ${item.order}</div>`;
-        ordersGrid.appendChild(orderBox);
+      const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, BorderStyle, PageBreak } = docx;
+
+      const cellBorder = {
+        top: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
+        bottom: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
+        left: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
+        right: { style: BorderStyle.SINGLE, size: 4, color: "000000" },
+      };
+
+      const cellMargins = { top: 120, bottom: 120, left: 150, right: 150 };
+
+      // PAGE 1: SPECIMEN DATA ROWS (2 Columns, 12pt Times New Roman)
+      const dataRows = [];
+      for (let i = 0; i < maxCapacity; i += 2) {
+        const item1 = insectRecords[i] || { commonName: '', scientificName: '', date: '', location: '', collector: '' };
+        const item2 = insectRecords[i + 1] || { commonName: '', scientificName: '', date: '', location: '', collector: '' };
+
+        const createDataCell = (item) => new TableCell({
+          width: { size: 50, type: WidthType.PERCENTAGE },
+          borders: cellBorder,
+          margins: cellMargins,
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({ text: "Common Name: ", bold: true, font: "Times New Roman", size: 24 }),
+                new TextRun({ text: item.commonName || "", font: "Times New Roman", size: 24 })
+              ]
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({ text: "Scientific Name: ", bold: true, font: "Times New Roman", size: 24 }),
+                new TextRun({ text: item.scientificName || "", italics: true, font: "Times New Roman", size: 24 })
+              ]
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({ text: "Date of Collection: ", bold: true, font: "Times New Roman", size: 24 }),
+                new TextRun({ text: item.date || "", font: "Times New Roman", size: 24 })
+              ]
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({ text: "Location: ", bold: true, font: "Times New Roman", size: 24 }),
+                new TextRun({ text: item.location || "", font: "Times New Roman", size: 24 })
+              ]
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({ text: "Collected By: ", bold: true, font: "Times New Roman", size: 24 }),
+                new TextRun({ text: item.collector || "", font: "Times New Roman", size: 24 })
+              ]
+            })
+          ]
+        });
+
+        dataRows.push(new TableRow({ children: [createDataCell(item1), createDataCell(item2)] }));
+      }
+
+      // PAGE 2: ORDERS ROWS (2 Columns, 14pt Times New Roman)
+      const orderRows = [];
+      for (let i = 0; i < maxCapacity; i += 2) {
+        const item1 = insectRecords[i] || { order: '' };
+        const item2 = insectRecords[i + 1] || { order: '' };
+
+        const createOrderCell = (item) => new TableCell({
+          width: { size: 50, type: WidthType.PERCENTAGE },
+          borders: cellBorder,
+          margins: cellMargins,
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({ text: "Order: ", bold: true, font: "Times New Roman", size: 28 }),
+                new TextRun({ text: item.order || "", font: "Times New Roman", size: 28 })
+              ]
+            })
+          ]
+        });
+
+        orderRows.push(new TableRow({ children: [createOrderCell(item1), createOrderCell(item2)] }));
+      }
+
+      const doc = new Document({
+        sections: [
+          {
+            properties: {
+              page: {
+                margin: { top: 720, bottom: 720, left: 720, right: 720 } // ~0.5 inch margins
+              }
+            },
+            children: [
+              new Table({
+                width: { size: 100, type: WidthType.PERCENTAGE },
+                rows: dataRows
+              }),
+              new Paragraph({
+                children: [new PageBreak()]
+              }),
+              new Table({
+                width: { size: 100, type: WidthType.PERCENTAGE },
+                rows: orderRows
+              })
+            ]
+          }
+        ]
       });
 
-      for (let i = 0; i < emptySlots; i++) {
-        const emptyOrderBox = document.createElement('div');
-        emptyOrderBox.className = "border border-black p-2.5 order-tag box-border";
-        emptyOrderBox.innerHTML = `<div><strong>Order:</strong> </div>`;
-        ordersGrid.appendChild(emptyOrderBox);
-      }
+      Packer.toBlob(doc).then(blob => {
+        saveAs(blob, "Insect_Collection_Data.docx");
+      });
     }
 
     renderUI();
